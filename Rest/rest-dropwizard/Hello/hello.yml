@@ -1,0 +1,9 @@
+server:
+  applicationConnectors:
+  - type: http 
+    port: 3332
+  adminConnectors:
+  - type: http
+    port: 3333
+    
+template: Hello, %s!

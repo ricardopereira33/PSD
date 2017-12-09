@@ -1,0 +1,18 @@
+(How to compile and run having no IDE present)
+
+- compile proto file:
+
+protoc --java_out=. protos.proto
+
+- copy java sources to package dir:
+
+cp *java tutorial/
+
+- compile java files:
+
+javac -cp ../protobuf-java-3.4.1.jar tutorial/*java
+
+-run:
+
+java -cp ../protobuf-java-3.4.1.jar:.  [class] [args]
+
