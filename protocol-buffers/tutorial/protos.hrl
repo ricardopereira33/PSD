@@ -7,12 +7,47 @@
 
 -define(protos_gpb_version, "4.0.2").
 
--ifndef('PERSON_PB_H').
--define('PERSON_PB_H', true).
--record('Person',
-        {name                   :: iolist(),        % = 1
-         id                     :: integer(),       % = 2, 32 bits
-         email                  :: iolist() | undefined % = 3
+-ifndef('REQUEST_LOGIN_PB_H').
+-define('REQUEST_LOGIN_PB_H', true).
+-record('Request_Login',
+        {msg                    :: iolist()         % = 1
+        }).
+-endif.
+
+-ifndef('REPLY_LOGIN_PB_H').
+-define('REPLY_LOGIN_PB_H', true).
+-record('Reply_Login',
+        {valid                  :: boolean() | 0 | 1, % = 1
+         msg                    :: iolist()         % = 2
+        }).
+-endif.
+
+-ifndef('ORDER_PB_H').
+-define('ORDER_PB_H', true).
+-record('Order',
+        {type                   :: iolist(),        % = 1
+         company_id             :: iolist(),        % = 2
+         quantity               :: integer(),       % = 3, 32 bits
+         price                  :: float() | integer() | infinity | '-infinity' | nan % = 4
+        }).
+-endif.
+
+-ifndef('CLIENT_PB_H').
+-define('CLIENT_PB_H', true).
+-record('Client',
+        {user                   :: iolist(),        % = 1
+         pass                   :: iolist()         % = 2
+        }).
+-endif.
+
+-ifndef('MSGCS_PB_H').
+-define('MSGCS_PB_H', true).
+-record('MsgCS',
+        {type                   :: iolist(),        % = 1
+         info                   :: #'Client'{} | undefined, % = 2
+         reqL                   :: #'Request_Login'{} | undefined, % = 3
+         repL                   :: #'Reply_Login'{} | undefined, % = 4
+         order                  :: #'Order'{} | undefined % = 5
         }).
 -endif.
 
