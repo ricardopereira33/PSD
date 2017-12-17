@@ -1,4 +1,4 @@
--module(server).
+-module(ser).
 -export([server/0]).
 
 server() ->

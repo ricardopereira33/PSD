@@ -1506,7 +1506,7 @@ fetch_rpc_def(ServiceName, RpcName) ->
     erlang:error({no_such_rpc, ServiceName, RpcName}).
 
 
-get_package_name() -> tutorial.
+get_package_name() -> client.
 
 
 
