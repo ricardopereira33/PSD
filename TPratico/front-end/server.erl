@@ -42,7 +42,9 @@ waitLogin(LoginManager, Sock) ->
                 _ ->
                     io:format("Pack invalid"),
                     waitLogin(LoginManager, Sock)
-            end
+            end;
+        {error, closed} ->
+            io:format("User closed")
     end.
 
 loginManager(M) ->
@@ -79,6 +81,8 @@ user(Sock, Username, LoginManager) ->
                         ["2"] ->
                             io:format("Order2")
                     end
-            end
+            end;
+        {error, closed} ->
+            io:format("User closed")
     end.
 

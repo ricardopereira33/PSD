@@ -9,3 +9,7 @@ server:
 run:
 	java -cp tools/protobuf-java-3.4.1.jar:. client.User
 
+clean:
+	rm client/*.class
+	rm front-end/*.beam
+
