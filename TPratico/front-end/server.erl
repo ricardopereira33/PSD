@@ -2,7 +2,7 @@
 -export([server/1]).
 
 server(Port) ->
-    LoginManager = spawn(fun()-> loginManager(#{}) end),
+    LoginManager = spawn(fun()-> loginManager(#{"ri" => {"33", false}}) end),
     process_flag(trap_exit, true),
     {ok, LSock} = gen_tcp:listen(Port, [binary, {packet, 0}, {active, false}]),
     acceptor(LSock, LoginManager).
@@ -16,15 +16,12 @@ acceptor(LSock, LoginManager) ->
 waitLogin(LoginManager, Sock) ->
     case gen_tcp:recv(Sock,0) of
         {ok, Data} ->
-            io:format("Recebi\n"),
             Map = protos:decode_msg(Data,'MsgCS'),
             case maps:find(type, Map) of
                 {ok,"1"} ->
                     io:format("Type1\n"),
                     Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => true, msg => "User&Pass"}}, 'MsgCS'),
-                    io:format("Msg creat\n~p\n",[protos:decode_msg(Bin,'MsgCS')]),
                     gen_tcp:send(Sock, Bin),
-                    io:format("Sending\n"),
                     waitLogin(LoginManager, Sock);
                 {ok,"2"} ->
                     io:format("Type2\n"),
@@ -32,7 +29,6 @@ waitLogin(LoginManager, Sock) ->
                     {ok, User} = maps:find(user, MapUser),
                     {ok, Pass} = maps:find(pass, MapUser),
                     LoginManager ! {login, User, Pass, self()},
-                    io:format("LoginManager Send\n"),
                     receive
                         {LoginManager, logged} ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => true, msg => "Logged"}}, 'MsgCS'),
@@ -51,26 +47,6 @@ waitLogin(LoginManager, Sock) ->
 
 loginManager(M) ->
     receive
-        {create_account, U, P, From} ->
-            case maps:find(U, M) of
-                error ->
-                    From ! {self(), created},
-                    io:format("account ~p created~n", [U]),
-                    loginManager(maps:put(U, {P, false}, M));
-                _ -> 
-                    From ! {self(), user_exists},
-                    loginManager(M)
-            end;
-        {{close_account, U, P}, From} ->
-            case maps:find(U, M) of
-                {ok,{P, _}} ->
-                    From ! {self(), ok},
-                    io:format("account ~p deleted~n", [U]),
-                    loginManager(maps:remove(U, M));
-                _ -> 
-                    From ! {self(), invalid},
-                    loginManager(M)
-            end;
         {login, U, P, From} ->
             case maps:find(U, M) of
                 {ok,{P, false}} ->
@@ -85,11 +61,7 @@ loginManager(M) ->
             From ! {self(), ok},
             io:format("account ~p logged out~n", [U]),
             {P,_} = maps:get(U, M),
-            loginManager(maps:update(U, {P,false}, M));
-        {online, From} ->
-            Res = [U || {U, {_P, true}} <- maps:to_list(M)],
-            From ! {self(), Res},
-            loginManager(M)
+            loginManager(maps:update(U, {P,false}, M))
     end.
 
 
@@ -103,9 +75,9 @@ user(Sock, Username, LoginManager) ->
                     {ok, Type} = maps:find(type, MapOrder),
                     case string:tokens(Type, "\n\t\r ") of
                         ["1"] ->
-                            gen_tcp:send(Sock, Data);
+                            io:format("Order1");
                         ["2"] ->
-                            gen_tcp:send(Sock, Data)
+                            io:format("Order2")
                     end
             end
     end.
