@@ -11,49 +11,43 @@ import com.google.protobuf.CodedOutputStream;
 
 import java.io.*;
 import java.net.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class User {
 
 	public static void main(String[] args) {
 		try{	
 			Socket s = new Socket("localhost", 3333);
-			CodedInputStream cis = CodedInputStream.newInstance(s.getInputStream());
-			CodedOutputStream cos = CodedOutputStream.newInstance(s.getOutputStream());
+			InputStream is = s.getInputStream();
+			OutputStream os = s.getOutputStream();
+			CodedInputStream cis = CodedInputStream.newInstance(is);
+			CodedOutputStream cos = CodedOutputStream.newInstance(os);
 			MsgCS msg = createMsgCS();
-			byte[] b = msg.toByteArray();
-			int len = b.length;
-
-			System.out.println("Send");
-			cos.writeRawBytes(b);
-			cos.flush();
 			
-			List<Byte> list = new ArrayList<>();
-			while(!cis.isAtEnd()){
-				list.add(cis.readRawByte());	
-			}
-			byte[] ba = list. 
-			MsgCS msg2 = MsgCS.parseFrom(ba);
-			System.out.println("-> "+ msg2.getType());
-
-			msg = createMsgCS2();
-			b = msg.toByteArray();
-			len = b.length;
 			System.out.println("Send");
-			cos.writeRawBytes(b);
-			cos.flush();
-
-			ba = cis.readRawBytes(len);
-			msg2 = MsgCS.parseFrom(ba);
+			msg.writeTo(os);
+			
+			MsgCS msg2 = MsgCS.parseFrom(is);
 			System.out.println("-> "+ msg2.getType());
-
+			
 			System.out.println("Done.");
-			
 			s.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			System.exit(0);
 		}
+	}
+
+	public static byte[] toBytes(Byte[] b){
+		byte[] list = new byte[b.length];
+		int i =0;
+		for(Byte by : b){
+			list[i] = by.byteValue();
+			i++;
+		}
+		return list;
 	}
 
 	public static MsgCS createMsgCS() {
