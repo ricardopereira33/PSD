@@ -29,24 +29,24 @@
 
 %% message types
 -type 'Request_Login'() ::
-      #{msg                     := iolist()         % = 1
+      #{msg                     => iolist()         % = 1
        }.
 -type 'Reply_Login'() ::
-      #{valid                   := boolean() | 0 | 1, % = 1
-        msg                     := iolist()         % = 2
+      #{valid                   => boolean() | 0 | 1, % = 1
+        msg                     => iolist()         % = 2
        }.
 -type 'Order'() ::
-      #{type                    := iolist(),        % = 1
-        company_id              := iolist(),        % = 2
-        quantity                := integer(),       % = 3, 32 bits
-        price                   := float() | integer() | infinity | '-infinity' | nan % = 4
+      #{type                    => iolist(),        % = 1
+        company_id              => iolist(),        % = 2
+        quantity                => integer(),       % = 3, 32 bits
+        price                   => float() | integer() | infinity | '-infinity' | nan % = 4
        }.
 -type 'Client'() ::
-      #{user                    := iolist(),        % = 1
-        pass                    := iolist()         % = 2
+      #{user                    => iolist(),        % = 1
+        pass                    => iolist()         % = 2
        }.
 -type 'MsgCS'() ::
-      #{type                    := iolist(),        % = 1
+      #{type                    => iolist(),        % = 1
         info                    => 'Client'(),      % = 2
         reqL                    => 'Request_Login'(), % = 3
         repL                    => 'Reply_Login'(), % = 4
@@ -80,74 +80,110 @@ e_msg_Request_Login(Msg, TrUserData) ->
     e_msg_Request_Login(Msg, <<>>, TrUserData).
 
 
-e_msg_Request_Login(#{msg := F1}, Bin, TrUserData) ->
-    begin
-      TrF1 = id(F1, TrUserData),
-      e_type_string(TrF1, <<Bin/binary, 10>>)
+e_msg_Request_Login(#{} = M, Bin, TrUserData) ->
+    case M of
+      #{msg := F1} ->
+	  begin
+	    TrF1 = id(F1, TrUserData),
+	    e_type_string(TrF1, <<Bin/binary, 10>>)
+	  end;
+      _ -> Bin
     end.
 
 e_msg_Reply_Login(Msg, TrUserData) ->
     e_msg_Reply_Login(Msg, <<>>, TrUserData).
 
 
-e_msg_Reply_Login(#{valid := F1, msg := F2}, Bin,
-		  TrUserData) ->
-    B1 = begin
-	   TrF1 = id(F1, TrUserData),
-	   e_type_bool(TrF1, <<Bin/binary, 8>>)
+e_msg_Reply_Login(#{} = M, Bin, TrUserData) ->
+    B1 = case M of
+	   #{valid := F1} ->
+	       begin
+		 TrF1 = id(F1, TrUserData),
+		 e_type_bool(TrF1, <<Bin/binary, 8>>)
+	       end;
+	   _ -> Bin
 	 end,
-    begin
-      TrF2 = id(F2, TrUserData),
-      e_type_string(TrF2, <<B1/binary, 18>>)
+    case M of
+      #{msg := F2} ->
+	  begin
+	    TrF2 = id(F2, TrUserData),
+	    e_type_string(TrF2, <<B1/binary, 18>>)
+	  end;
+      _ -> B1
     end.
 
 e_msg_Order(Msg, TrUserData) ->
     e_msg_Order(Msg, <<>>, TrUserData).
 
 
-e_msg_Order(#{type := F1, company_id := F2,
-	      quantity := F3, price := F4},
-	    Bin, TrUserData) ->
-    B1 = begin
-	   TrF1 = id(F1, TrUserData),
-	   e_type_string(TrF1, <<Bin/binary, 10>>)
+e_msg_Order(#{} = M, Bin, TrUserData) ->
+    B1 = case M of
+	   #{type := F1} ->
+	       begin
+		 TrF1 = id(F1, TrUserData),
+		 e_type_string(TrF1, <<Bin/binary, 10>>)
+	       end;
+	   _ -> Bin
 	 end,
-    B2 = begin
-	   TrF2 = id(F2, TrUserData),
-	   e_type_string(TrF2, <<B1/binary, 18>>)
+    B2 = case M of
+	   #{company_id := F2} ->
+	       begin
+		 TrF2 = id(F2, TrUserData),
+		 e_type_string(TrF2, <<B1/binary, 18>>)
+	       end;
+	   _ -> B1
 	 end,
-    B3 = begin
-	   TrF3 = id(F3, TrUserData),
-	   e_type_int32(TrF3, <<B2/binary, 24>>)
+    B3 = case M of
+	   #{quantity := F3} ->
+	       begin
+		 TrF3 = id(F3, TrUserData),
+		 e_type_int32(TrF3, <<B2/binary, 24>>)
+	       end;
+	   _ -> B2
 	 end,
-    begin
-      TrF4 = id(F4, TrUserData),
-      e_type_float(TrF4, <<B3/binary, 37>>)
+    case M of
+      #{price := F4} ->
+	  begin
+	    TrF4 = id(F4, TrUserData),
+	    e_type_float(TrF4, <<B3/binary, 37>>)
+	  end;
+      _ -> B3
     end.
 
 e_msg_Client(Msg, TrUserData) ->
     e_msg_Client(Msg, <<>>, TrUserData).
 
 
-e_msg_Client(#{user := F1, pass := F2}, Bin,
-	     TrUserData) ->
-    B1 = begin
-	   TrF1 = id(F1, TrUserData),
-	   e_type_string(TrF1, <<Bin/binary, 10>>)
+e_msg_Client(#{} = M, Bin, TrUserData) ->
+    B1 = case M of
+	   #{user := F1} ->
+	       begin
+		 TrF1 = id(F1, TrUserData),
+		 e_type_string(TrF1, <<Bin/binary, 10>>)
+	       end;
+	   _ -> Bin
 	 end,
-    begin
-      TrF2 = id(F2, TrUserData),
-      e_type_string(TrF2, <<B1/binary, 18>>)
+    case M of
+      #{pass := F2} ->
+	  begin
+	    TrF2 = id(F2, TrUserData),
+	    e_type_string(TrF2, <<B1/binary, 18>>)
+	  end;
+      _ -> B1
     end.
 
 e_msg_MsgCS(Msg, TrUserData) ->
     e_msg_MsgCS(Msg, <<>>, TrUserData).
 
 
-e_msg_MsgCS(#{type := F1} = M, Bin, TrUserData) ->
-    B1 = begin
-	   TrF1 = id(F1, TrUserData),
-	   e_type_string(TrF1, <<Bin/binary, 10>>)
+e_msg_MsgCS(#{} = M, Bin, TrUserData) ->
+    B1 = case M of
+	   #{type := F1} ->
+	       begin
+		 TrF1 = id(F1, TrUserData),
+		 e_type_string(TrF1, <<Bin/binary, 10>>)
+	       end;
+	   _ -> Bin
 	 end,
     B2 = case M of
 	   #{info := F2} ->
@@ -294,7 +330,10 @@ dfp_read_field_def_Request_Login(<<10, Rest/binary>>,
     d_field_Request_Login_msg(Rest, Z1, Z2, F@_1,
 			      TrUserData);
 dfp_read_field_def_Request_Login(<<>>, 0, 0, F@_1, _) ->
-    #{msg => F@_1};
+    S1 = #{},
+    if F@_1 == '$undef' -> S1;
+       true -> S1#{msg => F@_1}
+    end;
 dfp_read_field_def_Request_Login(Other, Z1, Z2, F@_1,
 				 TrUserData) ->
     dg_read_field_def_Request_Login(Other, Z1, Z2, F@_1,
@@ -329,7 +368,10 @@ dg_read_field_def_Request_Login(<<0:1, X:7,
 	  end
     end;
 dg_read_field_def_Request_Login(<<>>, 0, 0, F@_1, _) ->
-    #{msg => F@_1}.
+    S1 = #{},
+    if F@_1 == '$undef' -> S1;
+       true -> S1#{msg => F@_1}
+    end.
 
 d_field_Request_Login_msg(<<1:1, X:7, Rest/binary>>, N,
 			  Acc, F@_1, TrUserData)
@@ -400,7 +442,13 @@ dfp_read_field_def_Reply_Login(<<18, Rest/binary>>, Z1,
 			    TrUserData);
 dfp_read_field_def_Reply_Login(<<>>, 0, 0, F@_1, F@_2,
 			       _) ->
-    #{valid => F@_1, msg => F@_2};
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{valid => F@_1}
+	 end,
+    if F@_2 == '$undef' -> S2;
+       true -> S2#{msg => F@_2}
+    end;
 dfp_read_field_def_Reply_Login(Other, Z1, Z2, F@_1,
 			       F@_2, TrUserData) ->
     dg_read_field_def_Reply_Login(Other, Z1, Z2, F@_1, F@_2,
@@ -440,7 +488,13 @@ dg_read_field_def_Reply_Login(<<0:1, X:7, Rest/binary>>,
     end;
 dg_read_field_def_Reply_Login(<<>>, 0, 0, F@_1, F@_2,
 			      _) ->
-    #{valid => F@_1, msg => F@_2}.
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{valid => F@_1}
+	 end,
+    if F@_2 == '$undef' -> S2;
+       true -> S2#{msg => F@_2}
+    end.
 
 d_field_Reply_Login_valid(<<1:1, X:7, Rest/binary>>, N,
 			  Acc, F@_1, F@_2, TrUserData)
@@ -531,8 +585,19 @@ dfp_read_field_def_Order(<<37, Rest/binary>>, Z1, Z2,
 			F@_4, TrUserData);
 dfp_read_field_def_Order(<<>>, 0, 0, F@_1, F@_2, F@_3,
 			 F@_4, _) ->
-    #{type => F@_1, company_id => F@_2, quantity => F@_3,
-      price => F@_4};
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{type => F@_1}
+	 end,
+    S3 = if F@_2 == '$undef' -> S2;
+	    true -> S2#{company_id => F@_2}
+	 end,
+    S4 = if F@_3 == '$undef' -> S3;
+	    true -> S3#{quantity => F@_3}
+	 end,
+    if F@_4 == '$undef' -> S4;
+       true -> S4#{price => F@_4}
+    end;
 dfp_read_field_def_Order(Other, Z1, Z2, F@_1, F@_2,
 			 F@_3, F@_4, TrUserData) ->
     dg_read_field_def_Order(Other, Z1, Z2, F@_1, F@_2, F@_3,
@@ -580,8 +645,19 @@ dg_read_field_def_Order(<<0:1, X:7, Rest/binary>>, N,
     end;
 dg_read_field_def_Order(<<>>, 0, 0, F@_1, F@_2, F@_3,
 			F@_4, _) ->
-    #{type => F@_1, company_id => F@_2, quantity => F@_3,
-      price => F@_4}.
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{type => F@_1}
+	 end,
+    S3 = if F@_2 == '$undef' -> S2;
+	    true -> S2#{company_id => F@_2}
+	 end,
+    S4 = if F@_3 == '$undef' -> S3;
+	    true -> S3#{quantity => F@_3}
+	 end,
+    if F@_4 == '$undef' -> S4;
+       true -> S4#{price => F@_4}
+    end.
 
 d_field_Order_type(<<1:1, X:7, Rest/binary>>, N, Acc,
 		   F@_1, F@_2, F@_3, F@_4, TrUserData)
@@ -699,7 +775,13 @@ dfp_read_field_def_Client(<<18, Rest/binary>>, Z1, Z2,
     d_field_Client_pass(Rest, Z1, Z2, F@_1, F@_2,
 			TrUserData);
 dfp_read_field_def_Client(<<>>, 0, 0, F@_1, F@_2, _) ->
-    #{user => F@_1, pass => F@_2};
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{user => F@_1}
+	 end,
+    if F@_2 == '$undef' -> S2;
+       true -> S2#{pass => F@_2}
+    end;
 dfp_read_field_def_Client(Other, Z1, Z2, F@_1, F@_2,
 			  TrUserData) ->
     dg_read_field_def_Client(Other, Z1, Z2, F@_1, F@_2,
@@ -733,7 +815,13 @@ dg_read_field_def_Client(<<0:1, X:7, Rest/binary>>, N,
 	  end
     end;
 dg_read_field_def_Client(<<>>, 0, 0, F@_1, F@_2, _) ->
-    #{user => F@_1, pass => F@_2}.
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{user => F@_1}
+	 end,
+    if F@_2 == '$undef' -> S2;
+       true -> S2#{pass => F@_2}
+    end.
 
 d_field_Client_user(<<1:1, X:7, Rest/binary>>, N, Acc,
 		    F@_1, F@_2, TrUserData)
@@ -830,18 +918,21 @@ dfp_read_field_def_MsgCS(<<42, Rest/binary>>, Z1, Z2,
 			F@_4, F@_5, TrUserData);
 dfp_read_field_def_MsgCS(<<>>, 0, 0, F@_1, F@_2, F@_3,
 			 F@_4, F@_5, _) ->
-    S1 = #{type => F@_1},
-    S2 = if F@_2 == '$undef' -> S1;
-	    true -> S1#{info => F@_2}
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{type => F@_1}
 	 end,
-    S3 = if F@_3 == '$undef' -> S2;
-	    true -> S2#{reqL => F@_3}
+    S3 = if F@_2 == '$undef' -> S2;
+	    true -> S2#{info => F@_2}
 	 end,
-    S4 = if F@_4 == '$undef' -> S3;
-	    true -> S3#{repL => F@_4}
+    S4 = if F@_3 == '$undef' -> S3;
+	    true -> S3#{reqL => F@_3}
 	 end,
-    if F@_5 == '$undef' -> S4;
-       true -> S4#{order => F@_5}
+    S5 = if F@_4 == '$undef' -> S4;
+	    true -> S4#{repL => F@_4}
+	 end,
+    if F@_5 == '$undef' -> S5;
+       true -> S5#{order => F@_5}
     end;
 dfp_read_field_def_MsgCS(Other, Z1, Z2, F@_1, F@_2,
 			 F@_3, F@_4, F@_5, TrUserData) ->
@@ -893,18 +984,21 @@ dg_read_field_def_MsgCS(<<0:1, X:7, Rest/binary>>, N,
     end;
 dg_read_field_def_MsgCS(<<>>, 0, 0, F@_1, F@_2, F@_3,
 			F@_4, F@_5, _) ->
-    S1 = #{type => F@_1},
-    S2 = if F@_2 == '$undef' -> S1;
-	    true -> S1#{info => F@_2}
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{type => F@_1}
 	 end,
-    S3 = if F@_3 == '$undef' -> S2;
-	    true -> S2#{reqL => F@_3}
+    S3 = if F@_2 == '$undef' -> S2;
+	    true -> S2#{info => F@_2}
 	 end,
-    S4 = if F@_4 == '$undef' -> S3;
-	    true -> S3#{repL => F@_4}
+    S4 = if F@_3 == '$undef' -> S3;
+	    true -> S3#{reqL => F@_3}
 	 end,
-    if F@_5 == '$undef' -> S4;
-       true -> S4#{order => F@_5}
+    S5 = if F@_4 == '$undef' -> S4;
+	    true -> S4#{repL => F@_4}
+	 end,
+    if F@_5 == '$undef' -> S5;
+       true -> S5#{order => F@_5}
     end.
 
 d_field_MsgCS_type(<<1:1, X:7, Rest/binary>>, N, Acc,
@@ -1114,58 +1208,105 @@ merge_msgs(Prev, New, MsgName, Opts) ->
       'MsgCS' -> merge_msg_MsgCS(Prev, New, TrUserData)
     end.
 
-merge_msg_Request_Login(#{}, #{msg := NFmsg}, _) ->
-    #{msg => NFmsg}.
+merge_msg_Request_Login(PMsg, NMsg, _) ->
+    S1 = #{},
+    case {PMsg, NMsg} of
+      {_, #{msg := NFmsg}} -> S1#{msg => NFmsg};
+      {#{msg := PFmsg}, _} -> S1#{msg => PFmsg};
+      _ -> S1
+    end.
 
-merge_msg_Reply_Login(#{},
-		      #{valid := NFvalid, msg := NFmsg}, _) ->
-    #{valid => NFvalid, msg => NFmsg}.
-
-merge_msg_Order(#{},
-		#{type := NFtype, company_id := NFcompany_id,
-		  quantity := NFquantity, price := NFprice},
-		_) ->
-    #{type => NFtype, company_id => NFcompany_id,
-      quantity => NFquantity, price => NFprice}.
-
-merge_msg_Client(#{}, #{user := NFuser, pass := NFpass},
-		 _) ->
-    #{user => NFuser, pass => NFpass}.
-
-merge_msg_MsgCS(#{} = PMsg, #{type := NFtype} = NMsg,
-		TrUserData) ->
-    S1 = #{type => NFtype},
+merge_msg_Reply_Login(PMsg, NMsg, _) ->
+    S1 = #{},
     S2 = case {PMsg, NMsg} of
-	   {#{info := PFinfo}, #{info := NFinfo}} ->
-	       S1#{info =>
-		       merge_msg_Client(PFinfo, NFinfo, TrUserData)};
-	   {_, #{info := NFinfo}} -> S1#{info => NFinfo};
-	   {#{info := PFinfo}, _} -> S1#{info => PFinfo};
-	   {_, _} -> S1
+	   {_, #{valid := NFvalid}} -> S1#{valid => NFvalid};
+	   {#{valid := PFvalid}, _} -> S1#{valid => PFvalid};
+	   _ -> S1
+	 end,
+    case {PMsg, NMsg} of
+      {_, #{msg := NFmsg}} -> S2#{msg => NFmsg};
+      {#{msg := PFmsg}, _} -> S2#{msg => PFmsg};
+      _ -> S2
+    end.
+
+merge_msg_Order(PMsg, NMsg, _) ->
+    S1 = #{},
+    S2 = case {PMsg, NMsg} of
+	   {_, #{type := NFtype}} -> S1#{type => NFtype};
+	   {#{type := PFtype}, _} -> S1#{type => PFtype};
+	   _ -> S1
 	 end,
     S3 = case {PMsg, NMsg} of
-	   {#{reqL := PFreqL}, #{reqL := NFreqL}} ->
-	       S2#{reqL =>
-		       merge_msg_Request_Login(PFreqL, NFreqL, TrUserData)};
-	   {_, #{reqL := NFreqL}} -> S2#{reqL => NFreqL};
-	   {#{reqL := PFreqL}, _} -> S2#{reqL => PFreqL};
+	   {_, #{company_id := NFcompany_id}} ->
+	       S2#{company_id => NFcompany_id};
+	   {#{company_id := PFcompany_id}, _} ->
+	       S2#{company_id => PFcompany_id};
+	   _ -> S2
+	 end,
+    S4 = case {PMsg, NMsg} of
+	   {_, #{quantity := NFquantity}} ->
+	       S3#{quantity => NFquantity};
+	   {#{quantity := PFquantity}, _} ->
+	       S3#{quantity => PFquantity};
+	   _ -> S3
+	 end,
+    case {PMsg, NMsg} of
+      {_, #{price := NFprice}} -> S4#{price => NFprice};
+      {#{price := PFprice}, _} -> S4#{price => PFprice};
+      _ -> S4
+    end.
+
+merge_msg_Client(PMsg, NMsg, _) ->
+    S1 = #{},
+    S2 = case {PMsg, NMsg} of
+	   {_, #{user := NFuser}} -> S1#{user => NFuser};
+	   {#{user := PFuser}, _} -> S1#{user => PFuser};
+	   _ -> S1
+	 end,
+    case {PMsg, NMsg} of
+      {_, #{pass := NFpass}} -> S2#{pass => NFpass};
+      {#{pass := PFpass}, _} -> S2#{pass => PFpass};
+      _ -> S2
+    end.
+
+merge_msg_MsgCS(PMsg, NMsg, TrUserData) ->
+    S1 = #{},
+    S2 = case {PMsg, NMsg} of
+	   {_, #{type := NFtype}} -> S1#{type => NFtype};
+	   {#{type := PFtype}, _} -> S1#{type => PFtype};
+	   _ -> S1
+	 end,
+    S3 = case {PMsg, NMsg} of
+	   {#{info := PFinfo}, #{info := NFinfo}} ->
+	       S2#{info =>
+		       merge_msg_Client(PFinfo, NFinfo, TrUserData)};
+	   {_, #{info := NFinfo}} -> S2#{info => NFinfo};
+	   {#{info := PFinfo}, _} -> S2#{info => PFinfo};
 	   {_, _} -> S2
 	 end,
     S4 = case {PMsg, NMsg} of
-	   {#{repL := PFrepL}, #{repL := NFrepL}} ->
-	       S3#{repL =>
-		       merge_msg_Reply_Login(PFrepL, NFrepL, TrUserData)};
-	   {_, #{repL := NFrepL}} -> S3#{repL => NFrepL};
-	   {#{repL := PFrepL}, _} -> S3#{repL => PFrepL};
+	   {#{reqL := PFreqL}, #{reqL := NFreqL}} ->
+	       S3#{reqL =>
+		       merge_msg_Request_Login(PFreqL, NFreqL, TrUserData)};
+	   {_, #{reqL := NFreqL}} -> S3#{reqL => NFreqL};
+	   {#{reqL := PFreqL}, _} -> S3#{reqL => PFreqL};
 	   {_, _} -> S3
+	 end,
+    S5 = case {PMsg, NMsg} of
+	   {#{repL := PFrepL}, #{repL := NFrepL}} ->
+	       S4#{repL =>
+		       merge_msg_Reply_Login(PFrepL, NFrepL, TrUserData)};
+	   {_, #{repL := NFrepL}} -> S4#{repL => NFrepL};
+	   {#{repL := PFrepL}, _} -> S4#{repL => PFrepL};
+	   {_, _} -> S4
 	 end,
     case {PMsg, NMsg} of
       {#{order := PForder}, #{order := NForder}} ->
-	  S4#{order =>
+	  S5#{order =>
 		  merge_msg_Order(PForder, NForder, TrUserData)};
-      {_, #{order := NForder}} -> S4#{order => NForder};
-      {#{order := PForder}, _} -> S4#{order => PForder};
-      {_, _} -> S4
+      {_, #{order := NForder}} -> S5#{order => NForder};
+      {#{order := PForder}, _} -> S5#{order => PForder};
+      {_, _} -> S5
     end.
 
 
@@ -1187,8 +1328,11 @@ verify_msg(Msg, MsgName, Opts) ->
 
 
 -dialyzer({nowarn_function,v_msg_Request_Login/3}).
-v_msg_Request_Login(#{msg := F1} = M, Path, _) ->
-    v_type_string(F1, [msg | Path]),
+v_msg_Request_Login(#{} = M, Path, _) ->
+    case M of
+      #{msg := F1} -> v_type_string(F1, [msg | Path]);
+      _ -> ok
+    end,
     lists:foreach(fun (msg) -> ok;
 		      (OtherKey) ->
 			  mk_type_error({extraneous_key, OtherKey}, M, Path)
@@ -1197,17 +1341,22 @@ v_msg_Request_Login(#{msg := F1} = M, Path, _) ->
     ok;
 v_msg_Request_Login(M, Path, _TrUserData)
     when is_map(M) ->
-    mk_type_error({missing_fields, [msg] -- maps:keys(M),
+    mk_type_error({missing_fields, [] -- maps:keys(M),
 		   'Request_Login'},
 		  M, Path);
 v_msg_Request_Login(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'Request_Login'}, X, Path).
 
 -dialyzer({nowarn_function,v_msg_Reply_Login/3}).
-v_msg_Reply_Login(#{valid := F1, msg := F2} = M, Path,
-		  _) ->
-    v_type_bool(F1, [valid | Path]),
-    v_type_string(F2, [msg | Path]),
+v_msg_Reply_Login(#{} = M, Path, _) ->
+    case M of
+      #{valid := F1} -> v_type_bool(F1, [valid | Path]);
+      _ -> ok
+    end,
+    case M of
+      #{msg := F2} -> v_type_string(F2, [msg | Path]);
+      _ -> ok
+    end,
     lists:foreach(fun (valid) -> ok;
 		      (msg) -> ok;
 		      (OtherKey) ->
@@ -1217,21 +1366,32 @@ v_msg_Reply_Login(#{valid := F1, msg := F2} = M, Path,
     ok;
 v_msg_Reply_Login(M, Path, _TrUserData)
     when is_map(M) ->
-    mk_type_error({missing_fields,
-		   [valid, msg] -- maps:keys(M), 'Reply_Login'},
+    mk_type_error({missing_fields, [] -- maps:keys(M),
+		   'Reply_Login'},
 		  M, Path);
 v_msg_Reply_Login(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'Reply_Login'}, X, Path).
 
 -dialyzer({nowarn_function,v_msg_Order/3}).
-v_msg_Order(#{type := F1, company_id := F2,
-	      quantity := F3, price := F4} =
-		M,
-	    Path, _) ->
-    v_type_string(F1, [type | Path]),
-    v_type_string(F2, [company_id | Path]),
-    v_type_int32(F3, [quantity | Path]),
-    v_type_float(F4, [price | Path]),
+v_msg_Order(#{} = M, Path, _) ->
+    case M of
+      #{type := F1} -> v_type_string(F1, [type | Path]);
+      _ -> ok
+    end,
+    case M of
+      #{company_id := F2} ->
+	  v_type_string(F2, [company_id | Path]);
+      _ -> ok
+    end,
+    case M of
+      #{quantity := F3} ->
+	  v_type_int32(F3, [quantity | Path]);
+      _ -> ok
+    end,
+    case M of
+      #{price := F4} -> v_type_float(F4, [price | Path]);
+      _ -> ok
+    end,
     lists:foreach(fun (type) -> ok;
 		      (company_id) -> ok;
 		      (quantity) -> ok;
@@ -1242,17 +1402,22 @@ v_msg_Order(#{type := F1, company_id := F2,
 		  maps:keys(M)),
     ok;
 v_msg_Order(M, Path, _TrUserData) when is_map(M) ->
-    mk_type_error({missing_fields,
-		   [type, company_id, quantity, price] -- maps:keys(M),
+    mk_type_error({missing_fields, [] -- maps:keys(M),
 		   'Order'},
 		  M, Path);
 v_msg_Order(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'Order'}, X, Path).
 
 -dialyzer({nowarn_function,v_msg_Client/3}).
-v_msg_Client(#{user := F1, pass := F2} = M, Path, _) ->
-    v_type_string(F1, [user | Path]),
-    v_type_string(F2, [pass | Path]),
+v_msg_Client(#{} = M, Path, _) ->
+    case M of
+      #{user := F1} -> v_type_string(F1, [user | Path]);
+      _ -> ok
+    end,
+    case M of
+      #{pass := F2} -> v_type_string(F2, [pass | Path]);
+      _ -> ok
+    end,
     lists:foreach(fun (user) -> ok;
 		      (pass) -> ok;
 		      (OtherKey) ->
@@ -1261,15 +1426,18 @@ v_msg_Client(#{user := F1, pass := F2} = M, Path, _) ->
 		  maps:keys(M)),
     ok;
 v_msg_Client(M, Path, _TrUserData) when is_map(M) ->
-    mk_type_error({missing_fields,
-		   [user, pass] -- maps:keys(M), 'Client'},
+    mk_type_error({missing_fields, [] -- maps:keys(M),
+		   'Client'},
 		  M, Path);
 v_msg_Client(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'Client'}, X, Path).
 
 -dialyzer({nowarn_function,v_msg_MsgCS/3}).
-v_msg_MsgCS(#{type := F1} = M, Path, TrUserData) ->
-    v_type_string(F1, [type | Path]),
+v_msg_MsgCS(#{} = M, Path, TrUserData) ->
+    case M of
+      #{type := F1} -> v_type_string(F1, [type | Path]);
+      _ -> ok
+    end,
     case M of
       #{info := F2} ->
 	  v_msg_Client(F2, [info | Path], TrUserData);
@@ -1301,7 +1469,7 @@ v_msg_MsgCS(#{type := F1} = M, Path, TrUserData) ->
 		  maps:keys(M)),
     ok;
 v_msg_MsgCS(M, Path, _TrUserData) when is_map(M) ->
-    mk_type_error({missing_fields, [type] -- maps:keys(M),
+    mk_type_error({missing_fields, [] -- maps:keys(M),
 		   'MsgCS'},
 		  M, Path);
 v_msg_MsgCS(X, Path, _TrUserData) ->
@@ -1369,29 +1537,29 @@ id(X, _TrUserData) -> X.
 get_msg_defs() ->
     [{{msg, 'Request_Login'},
       [#{name => msg, fnum => 1, rnum => 2, type => string,
-	 occurrence => required, opts => []}]},
+	 occurrence => optional, opts => []}]},
      {{msg, 'Reply_Login'},
       [#{name => valid, fnum => 1, rnum => 2, type => bool,
-	 occurrence => required, opts => []},
+	 occurrence => optional, opts => []},
        #{name => msg, fnum => 2, rnum => 3, type => string,
-	 occurrence => required, opts => []}]},
+	 occurrence => optional, opts => []}]},
      {{msg, 'Order'},
       [#{name => type, fnum => 1, rnum => 2, type => string,
-	 occurrence => required, opts => []},
+	 occurrence => optional, opts => []},
        #{name => company_id, fnum => 2, rnum => 3,
-	 type => string, occurrence => required, opts => []},
+	 type => string, occurrence => optional, opts => []},
        #{name => quantity, fnum => 3, rnum => 4, type => int32,
-	 occurrence => required, opts => []},
+	 occurrence => optional, opts => []},
        #{name => price, fnum => 4, rnum => 5, type => float,
-	 occurrence => required, opts => []}]},
+	 occurrence => optional, opts => []}]},
      {{msg, 'Client'},
       [#{name => user, fnum => 1, rnum => 2, type => string,
-	 occurrence => required, opts => []},
+	 occurrence => optional, opts => []},
        #{name => pass, fnum => 2, rnum => 3, type => string,
-	 occurrence => required, opts => []}]},
+	 occurrence => optional, opts => []}]},
      {{msg, 'MsgCS'},
       [#{name => type, fnum => 1, rnum => 2, type => string,
-	 occurrence => required, opts => []},
+	 occurrence => optional, opts => []},
        #{name => info, fnum => 2, rnum => 3,
 	 type => {msg, 'Client'}, occurrence => optional,
 	 opts => []},
@@ -1436,29 +1604,29 @@ fetch_enum_def(EnumName) ->
 
 find_msg_def('Request_Login') ->
     [#{name => msg, fnum => 1, rnum => 2, type => string,
-       occurrence => required, opts => []}];
+       occurrence => optional, opts => []}];
 find_msg_def('Reply_Login') ->
     [#{name => valid, fnum => 1, rnum => 2, type => bool,
-       occurrence => required, opts => []},
+       occurrence => optional, opts => []},
      #{name => msg, fnum => 2, rnum => 3, type => string,
-       occurrence => required, opts => []}];
+       occurrence => optional, opts => []}];
 find_msg_def('Order') ->
     [#{name => type, fnum => 1, rnum => 2, type => string,
-       occurrence => required, opts => []},
+       occurrence => optional, opts => []},
      #{name => company_id, fnum => 2, rnum => 3,
-       type => string, occurrence => required, opts => []},
+       type => string, occurrence => optional, opts => []},
      #{name => quantity, fnum => 3, rnum => 4, type => int32,
-       occurrence => required, opts => []},
+       occurrence => optional, opts => []},
      #{name => price, fnum => 4, rnum => 5, type => float,
-       occurrence => required, opts => []}];
+       occurrence => optional, opts => []}];
 find_msg_def('Client') ->
     [#{name => user, fnum => 1, rnum => 2, type => string,
-       occurrence => required, opts => []},
+       occurrence => optional, opts => []},
      #{name => pass, fnum => 2, rnum => 3, type => string,
-       occurrence => required, opts => []}];
+       occurrence => optional, opts => []}];
 find_msg_def('MsgCS') ->
     [#{name => type, fnum => 1, rnum => 2, type => string,
-       occurrence => required, opts => []},
+       occurrence => optional, opts => []},
      #{name => info, fnum => 2, rnum => 3,
        type => {msg, 'Client'}, occurrence => optional,
        opts => []},

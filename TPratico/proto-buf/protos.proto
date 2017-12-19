@@ -3,7 +3,7 @@ syntax="proto2";
 package client;
 
 message MsgCS {
-    required string type = 1;
+    optional string type = 1;
     optional Client info = 2;
     optional Request_Login reqL = 3;
     optional Reply_Login repL = 4;
@@ -11,22 +11,22 @@ message MsgCS {
 }
 
 message Client {
-    required string user = 1;
-    required string pass = 2;
+    optional string user = 1;
+    optional string pass = 2;
 }
 
 message Request_Login {
-    required string msg = 1;
+    optional string msg = 1;
 }
 
 message Reply_Login {
-    required bool valid = 1;
-    required string msg = 2;
+    optional bool valid = 1;
+    optional string msg = 2;
 }
 
 message Order {
-    required string type = 1;
-    required string company_id = 2;
-    required int32 quantity = 3;
-    required float price = 4;
+    optional string type = 1;
+    optional string company_id = 2;
+    optional int32 quantity = 3;
+    optional float price = 4;
 }

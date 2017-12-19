@@ -27,10 +27,14 @@ public class User {
 			
 			System.out.println("Send");
 			msg.writeTo(os);
-			
-			MsgCS msg2 = MsgCS.parseFrom(is);
-			System.out.println("-> "+ msg2.getType());
-			
+
+			byte[] by = new byte[256];
+			int n = is.read(by);
+			byte[] by2 = getByteArrayClean(by, n);
+
+			MsgCS msg2 = MsgCS.parseFrom(by2);
+
+			System.out.println("-> "+ msg2.toString());
 			System.out.println("Done.");
 			s.close();
 		}
@@ -40,12 +44,10 @@ public class User {
 		}
 	}
 
-	public static byte[] toBytes(Byte[] b){
-		byte[] list = new byte[b.length];
-		int i =0;
-		for(Byte by : b){
-			list[i] = by.byteValue();
-			i++;
+	public static byte[] getByteArrayClean(byte[] b, int n){
+		byte[] list = new byte[n];
+		for(int i = 0; i<n; i++){
+			list[i] = b[i];
 		}
 		return list;
 	}

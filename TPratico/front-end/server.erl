@@ -22,8 +22,8 @@ waitLogin(LoginManager, Sock) ->
                 {ok,"1"} ->
                     io:format("Type1\n"),
                     Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => true, msg => "User&Pass"}}, 'MsgCS'),
-                    io:format("Msg creat\n"),
-                    gen_tcp:send(Sock,Bin),
+                    io:format("Msg creat\n~p\n",[protos:decode_msg(Bin,'MsgCS')]),
+                    gen_tcp:send(Sock, Bin),
                     io:format("Sending\n"),
                     waitLogin(LoginManager, Sock);
                 {ok,"2"} ->

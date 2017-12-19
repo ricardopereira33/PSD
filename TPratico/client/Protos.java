@@ -19,15 +19,15 @@ public final class Protos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     boolean hasType();
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     java.lang.String getType();
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     com.google.protobuf.ByteString
         getTypeBytes();
@@ -214,13 +214,13 @@ public final class Protos {
     public static final int TYPE_FIELD_NUMBER = 1;
     private volatile java.lang.Object type_;
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     public java.lang.String getType() {
       java.lang.Object ref = type_;
@@ -237,7 +237,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     public com.google.protobuf.ByteString
         getTypeBytes() {
@@ -343,34 +343,6 @@ public final class Protos {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasInfo()) {
-        if (!getInfo().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasReqL()) {
-        if (!getReqL().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasRepL()) {
-        if (!getRepL().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasOrder()) {
-        if (!getOrder().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -775,29 +747,6 @@ public final class Protos {
       }
 
       public final boolean isInitialized() {
-        if (!hasType()) {
-          return false;
-        }
-        if (hasInfo()) {
-          if (!getInfo().isInitialized()) {
-            return false;
-          }
-        }
-        if (hasReqL()) {
-          if (!getReqL().isInitialized()) {
-            return false;
-          }
-        }
-        if (hasRepL()) {
-          if (!getRepL().isInitialized()) {
-            return false;
-          }
-        }
-        if (hasOrder()) {
-          if (!getOrder().isInitialized()) {
-            return false;
-          }
-        }
         return true;
       }
 
@@ -822,13 +771,13 @@ public final class Protos {
 
       private java.lang.Object type_ = "";
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public java.lang.String getType() {
         java.lang.Object ref = type_;
@@ -845,7 +794,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public com.google.protobuf.ByteString
           getTypeBytes() {
@@ -861,7 +810,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public Builder setType(
           java.lang.String value) {
@@ -874,7 +823,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -883,7 +832,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public Builder setTypeBytes(
           com.google.protobuf.ByteString value) {
@@ -1421,29 +1370,29 @@ public final class Protos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string user = 1;</code>
+     * <code>optional string user = 1;</code>
      */
     boolean hasUser();
     /**
-     * <code>required string user = 1;</code>
+     * <code>optional string user = 1;</code>
      */
     java.lang.String getUser();
     /**
-     * <code>required string user = 1;</code>
+     * <code>optional string user = 1;</code>
      */
     com.google.protobuf.ByteString
         getUserBytes();
 
     /**
-     * <code>required string pass = 2;</code>
+     * <code>optional string pass = 2;</code>
      */
     boolean hasPass();
     /**
-     * <code>required string pass = 2;</code>
+     * <code>optional string pass = 2;</code>
      */
     java.lang.String getPass();
     /**
-     * <code>required string pass = 2;</code>
+     * <code>optional string pass = 2;</code>
      */
     com.google.protobuf.ByteString
         getPassBytes();
@@ -1533,13 +1482,13 @@ public final class Protos {
     public static final int USER_FIELD_NUMBER = 1;
     private volatile java.lang.Object user_;
     /**
-     * <code>required string user = 1;</code>
+     * <code>optional string user = 1;</code>
      */
     public boolean hasUser() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string user = 1;</code>
+     * <code>optional string user = 1;</code>
      */
     public java.lang.String getUser() {
       java.lang.Object ref = user_;
@@ -1556,7 +1505,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>required string user = 1;</code>
+     * <code>optional string user = 1;</code>
      */
     public com.google.protobuf.ByteString
         getUserBytes() {
@@ -1575,13 +1524,13 @@ public final class Protos {
     public static final int PASS_FIELD_NUMBER = 2;
     private volatile java.lang.Object pass_;
     /**
-     * <code>required string pass = 2;</code>
+     * <code>optional string pass = 2;</code>
      */
     public boolean hasPass() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required string pass = 2;</code>
+     * <code>optional string pass = 2;</code>
      */
     public java.lang.String getPass() {
       java.lang.Object ref = pass_;
@@ -1598,7 +1547,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>required string pass = 2;</code>
+     * <code>optional string pass = 2;</code>
      */
     public com.google.protobuf.ByteString
         getPassBytes() {
@@ -1620,14 +1569,6 @@ public final class Protos {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasUser()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPass()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1922,12 +1863,6 @@ public final class Protos {
       }
 
       public final boolean isInitialized() {
-        if (!hasUser()) {
-          return false;
-        }
-        if (!hasPass()) {
-          return false;
-        }
         return true;
       }
 
@@ -1952,13 +1887,13 @@ public final class Protos {
 
       private java.lang.Object user_ = "";
       /**
-       * <code>required string user = 1;</code>
+       * <code>optional string user = 1;</code>
        */
       public boolean hasUser() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>optional string user = 1;</code>
        */
       public java.lang.String getUser() {
         java.lang.Object ref = user_;
@@ -1975,7 +1910,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>optional string user = 1;</code>
        */
       public com.google.protobuf.ByteString
           getUserBytes() {
@@ -1991,7 +1926,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>optional string user = 1;</code>
        */
       public Builder setUser(
           java.lang.String value) {
@@ -2004,7 +1939,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>optional string user = 1;</code>
        */
       public Builder clearUser() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -2013,7 +1948,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string user = 1;</code>
+       * <code>optional string user = 1;</code>
        */
       public Builder setUserBytes(
           com.google.protobuf.ByteString value) {
@@ -2028,13 +1963,13 @@ public final class Protos {
 
       private java.lang.Object pass_ = "";
       /**
-       * <code>required string pass = 2;</code>
+       * <code>optional string pass = 2;</code>
        */
       public boolean hasPass() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required string pass = 2;</code>
+       * <code>optional string pass = 2;</code>
        */
       public java.lang.String getPass() {
         java.lang.Object ref = pass_;
@@ -2051,7 +1986,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string pass = 2;</code>
+       * <code>optional string pass = 2;</code>
        */
       public com.google.protobuf.ByteString
           getPassBytes() {
@@ -2067,7 +2002,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string pass = 2;</code>
+       * <code>optional string pass = 2;</code>
        */
       public Builder setPass(
           java.lang.String value) {
@@ -2080,7 +2015,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string pass = 2;</code>
+       * <code>optional string pass = 2;</code>
        */
       public Builder clearPass() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -2089,7 +2024,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string pass = 2;</code>
+       * <code>optional string pass = 2;</code>
        */
       public Builder setPassBytes(
           com.google.protobuf.ByteString value) {
@@ -2155,15 +2090,15 @@ public final class Protos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string msg = 1;</code>
+     * <code>optional string msg = 1;</code>
      */
     boolean hasMsg();
     /**
-     * <code>required string msg = 1;</code>
+     * <code>optional string msg = 1;</code>
      */
     java.lang.String getMsg();
     /**
-     * <code>required string msg = 1;</code>
+     * <code>optional string msg = 1;</code>
      */
     com.google.protobuf.ByteString
         getMsgBytes();
@@ -2246,13 +2181,13 @@ public final class Protos {
     public static final int MSG_FIELD_NUMBER = 1;
     private volatile java.lang.Object msg_;
     /**
-     * <code>required string msg = 1;</code>
+     * <code>optional string msg = 1;</code>
      */
     public boolean hasMsg() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string msg = 1;</code>
+     * <code>optional string msg = 1;</code>
      */
     public java.lang.String getMsg() {
       java.lang.Object ref = msg_;
@@ -2269,7 +2204,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>required string msg = 1;</code>
+     * <code>optional string msg = 1;</code>
      */
     public com.google.protobuf.ByteString
         getMsgBytes() {
@@ -2291,10 +2226,6 @@ public final class Protos {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasMsg()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2563,9 +2494,6 @@ public final class Protos {
       }
 
       public final boolean isInitialized() {
-        if (!hasMsg()) {
-          return false;
-        }
         return true;
       }
 
@@ -2590,13 +2518,13 @@ public final class Protos {
 
       private java.lang.Object msg_ = "";
       /**
-       * <code>required string msg = 1;</code>
+       * <code>optional string msg = 1;</code>
        */
       public boolean hasMsg() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string msg = 1;</code>
+       * <code>optional string msg = 1;</code>
        */
       public java.lang.String getMsg() {
         java.lang.Object ref = msg_;
@@ -2613,7 +2541,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string msg = 1;</code>
+       * <code>optional string msg = 1;</code>
        */
       public com.google.protobuf.ByteString
           getMsgBytes() {
@@ -2629,7 +2557,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string msg = 1;</code>
+       * <code>optional string msg = 1;</code>
        */
       public Builder setMsg(
           java.lang.String value) {
@@ -2642,7 +2570,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string msg = 1;</code>
+       * <code>optional string msg = 1;</code>
        */
       public Builder clearMsg() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -2651,7 +2579,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string msg = 1;</code>
+       * <code>optional string msg = 1;</code>
        */
       public Builder setMsgBytes(
           com.google.protobuf.ByteString value) {
@@ -2717,24 +2645,24 @@ public final class Protos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required bool valid = 1;</code>
+     * <code>optional bool valid = 1;</code>
      */
     boolean hasValid();
     /**
-     * <code>required bool valid = 1;</code>
+     * <code>optional bool valid = 1;</code>
      */
     boolean getValid();
 
     /**
-     * <code>required string msg = 2;</code>
+     * <code>optional string msg = 2;</code>
      */
     boolean hasMsg();
     /**
-     * <code>required string msg = 2;</code>
+     * <code>optional string msg = 2;</code>
      */
     java.lang.String getMsg();
     /**
-     * <code>required string msg = 2;</code>
+     * <code>optional string msg = 2;</code>
      */
     com.google.protobuf.ByteString
         getMsgBytes();
@@ -2823,13 +2751,13 @@ public final class Protos {
     public static final int VALID_FIELD_NUMBER = 1;
     private boolean valid_;
     /**
-     * <code>required bool valid = 1;</code>
+     * <code>optional bool valid = 1;</code>
      */
     public boolean hasValid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required bool valid = 1;</code>
+     * <code>optional bool valid = 1;</code>
      */
     public boolean getValid() {
       return valid_;
@@ -2838,13 +2766,13 @@ public final class Protos {
     public static final int MSG_FIELD_NUMBER = 2;
     private volatile java.lang.Object msg_;
     /**
-     * <code>required string msg = 2;</code>
+     * <code>optional string msg = 2;</code>
      */
     public boolean hasMsg() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required string msg = 2;</code>
+     * <code>optional string msg = 2;</code>
      */
     public java.lang.String getMsg() {
       java.lang.Object ref = msg_;
@@ -2861,7 +2789,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>required string msg = 2;</code>
+     * <code>optional string msg = 2;</code>
      */
     public com.google.protobuf.ByteString
         getMsgBytes() {
@@ -2883,14 +2811,6 @@ public final class Protos {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasValid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMsg()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -3185,12 +3105,6 @@ public final class Protos {
       }
 
       public final boolean isInitialized() {
-        if (!hasValid()) {
-          return false;
-        }
-        if (!hasMsg()) {
-          return false;
-        }
         return true;
       }
 
@@ -3215,19 +3129,19 @@ public final class Protos {
 
       private boolean valid_ ;
       /**
-       * <code>required bool valid = 1;</code>
+       * <code>optional bool valid = 1;</code>
        */
       public boolean hasValid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required bool valid = 1;</code>
+       * <code>optional bool valid = 1;</code>
        */
       public boolean getValid() {
         return valid_;
       }
       /**
-       * <code>required bool valid = 1;</code>
+       * <code>optional bool valid = 1;</code>
        */
       public Builder setValid(boolean value) {
         bitField0_ |= 0x00000001;
@@ -3236,7 +3150,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required bool valid = 1;</code>
+       * <code>optional bool valid = 1;</code>
        */
       public Builder clearValid() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -3247,13 +3161,13 @@ public final class Protos {
 
       private java.lang.Object msg_ = "";
       /**
-       * <code>required string msg = 2;</code>
+       * <code>optional string msg = 2;</code>
        */
       public boolean hasMsg() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required string msg = 2;</code>
+       * <code>optional string msg = 2;</code>
        */
       public java.lang.String getMsg() {
         java.lang.Object ref = msg_;
@@ -3270,7 +3184,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string msg = 2;</code>
+       * <code>optional string msg = 2;</code>
        */
       public com.google.protobuf.ByteString
           getMsgBytes() {
@@ -3286,7 +3200,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string msg = 2;</code>
+       * <code>optional string msg = 2;</code>
        */
       public Builder setMsg(
           java.lang.String value) {
@@ -3299,7 +3213,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string msg = 2;</code>
+       * <code>optional string msg = 2;</code>
        */
       public Builder clearMsg() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -3308,7 +3222,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string msg = 2;</code>
+       * <code>optional string msg = 2;</code>
        */
       public Builder setMsgBytes(
           com.google.protobuf.ByteString value) {
@@ -3374,48 +3288,48 @@ public final class Protos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     boolean hasType();
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     java.lang.String getType();
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     com.google.protobuf.ByteString
         getTypeBytes();
 
     /**
-     * <code>required string company_id = 2;</code>
+     * <code>optional string company_id = 2;</code>
      */
     boolean hasCompanyId();
     /**
-     * <code>required string company_id = 2;</code>
+     * <code>optional string company_id = 2;</code>
      */
     java.lang.String getCompanyId();
     /**
-     * <code>required string company_id = 2;</code>
+     * <code>optional string company_id = 2;</code>
      */
     com.google.protobuf.ByteString
         getCompanyIdBytes();
 
     /**
-     * <code>required int32 quantity = 3;</code>
+     * <code>optional int32 quantity = 3;</code>
      */
     boolean hasQuantity();
     /**
-     * <code>required int32 quantity = 3;</code>
+     * <code>optional int32 quantity = 3;</code>
      */
     int getQuantity();
 
     /**
-     * <code>required float price = 4;</code>
+     * <code>optional float price = 4;</code>
      */
     boolean hasPrice();
     /**
-     * <code>required float price = 4;</code>
+     * <code>optional float price = 4;</code>
      */
     float getPrice();
   }
@@ -3516,13 +3430,13 @@ public final class Protos {
     public static final int TYPE_FIELD_NUMBER = 1;
     private volatile java.lang.Object type_;
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     public java.lang.String getType() {
       java.lang.Object ref = type_;
@@ -3539,7 +3453,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>required string type = 1;</code>
+     * <code>optional string type = 1;</code>
      */
     public com.google.protobuf.ByteString
         getTypeBytes() {
@@ -3558,13 +3472,13 @@ public final class Protos {
     public static final int COMPANY_ID_FIELD_NUMBER = 2;
     private volatile java.lang.Object companyId_;
     /**
-     * <code>required string company_id = 2;</code>
+     * <code>optional string company_id = 2;</code>
      */
     public boolean hasCompanyId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required string company_id = 2;</code>
+     * <code>optional string company_id = 2;</code>
      */
     public java.lang.String getCompanyId() {
       java.lang.Object ref = companyId_;
@@ -3581,7 +3495,7 @@ public final class Protos {
       }
     }
     /**
-     * <code>required string company_id = 2;</code>
+     * <code>optional string company_id = 2;</code>
      */
     public com.google.protobuf.ByteString
         getCompanyIdBytes() {
@@ -3600,13 +3514,13 @@ public final class Protos {
     public static final int QUANTITY_FIELD_NUMBER = 3;
     private int quantity_;
     /**
-     * <code>required int32 quantity = 3;</code>
+     * <code>optional int32 quantity = 3;</code>
      */
     public boolean hasQuantity() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int32 quantity = 3;</code>
+     * <code>optional int32 quantity = 3;</code>
      */
     public int getQuantity() {
       return quantity_;
@@ -3615,13 +3529,13 @@ public final class Protos {
     public static final int PRICE_FIELD_NUMBER = 4;
     private float price_;
     /**
-     * <code>required float price = 4;</code>
+     * <code>optional float price = 4;</code>
      */
     public boolean hasPrice() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required float price = 4;</code>
+     * <code>optional float price = 4;</code>
      */
     public float getPrice() {
       return price_;
@@ -3633,22 +3547,6 @@ public final class Protos {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCompanyId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuantity()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPrice()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -3996,18 +3894,6 @@ public final class Protos {
       }
 
       public final boolean isInitialized() {
-        if (!hasType()) {
-          return false;
-        }
-        if (!hasCompanyId()) {
-          return false;
-        }
-        if (!hasQuantity()) {
-          return false;
-        }
-        if (!hasPrice()) {
-          return false;
-        }
         return true;
       }
 
@@ -4032,13 +3918,13 @@ public final class Protos {
 
       private java.lang.Object type_ = "";
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public java.lang.String getType() {
         java.lang.Object ref = type_;
@@ -4055,7 +3941,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public com.google.protobuf.ByteString
           getTypeBytes() {
@@ -4071,7 +3957,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public Builder setType(
           java.lang.String value) {
@@ -4084,7 +3970,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -4093,7 +3979,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string type = 1;</code>
+       * <code>optional string type = 1;</code>
        */
       public Builder setTypeBytes(
           com.google.protobuf.ByteString value) {
@@ -4108,13 +3994,13 @@ public final class Protos {
 
       private java.lang.Object companyId_ = "";
       /**
-       * <code>required string company_id = 2;</code>
+       * <code>optional string company_id = 2;</code>
        */
       public boolean hasCompanyId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required string company_id = 2;</code>
+       * <code>optional string company_id = 2;</code>
        */
       public java.lang.String getCompanyId() {
         java.lang.Object ref = companyId_;
@@ -4131,7 +4017,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string company_id = 2;</code>
+       * <code>optional string company_id = 2;</code>
        */
       public com.google.protobuf.ByteString
           getCompanyIdBytes() {
@@ -4147,7 +4033,7 @@ public final class Protos {
         }
       }
       /**
-       * <code>required string company_id = 2;</code>
+       * <code>optional string company_id = 2;</code>
        */
       public Builder setCompanyId(
           java.lang.String value) {
@@ -4160,7 +4046,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string company_id = 2;</code>
+       * <code>optional string company_id = 2;</code>
        */
       public Builder clearCompanyId() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -4169,7 +4055,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required string company_id = 2;</code>
+       * <code>optional string company_id = 2;</code>
        */
       public Builder setCompanyIdBytes(
           com.google.protobuf.ByteString value) {
@@ -4184,19 +4070,19 @@ public final class Protos {
 
       private int quantity_ ;
       /**
-       * <code>required int32 quantity = 3;</code>
+       * <code>optional int32 quantity = 3;</code>
        */
       public boolean hasQuantity() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required int32 quantity = 3;</code>
+       * <code>optional int32 quantity = 3;</code>
        */
       public int getQuantity() {
         return quantity_;
       }
       /**
-       * <code>required int32 quantity = 3;</code>
+       * <code>optional int32 quantity = 3;</code>
        */
       public Builder setQuantity(int value) {
         bitField0_ |= 0x00000004;
@@ -4205,7 +4091,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required int32 quantity = 3;</code>
+       * <code>optional int32 quantity = 3;</code>
        */
       public Builder clearQuantity() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -4216,19 +4102,19 @@ public final class Protos {
 
       private float price_ ;
       /**
-       * <code>required float price = 4;</code>
+       * <code>optional float price = 4;</code>
        */
       public boolean hasPrice() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required float price = 4;</code>
+       * <code>optional float price = 4;</code>
        */
       public float getPrice() {
         return price_;
       }
       /**
-       * <code>required float price = 4;</code>
+       * <code>optional float price = 4;</code>
        */
       public Builder setPrice(float value) {
         bitField0_ |= 0x00000008;
@@ -4237,7 +4123,7 @@ public final class Protos {
         return this;
       }
       /**
-       * <code>required float price = 4;</code>
+       * <code>optional float price = 4;</code>
        */
       public Builder clearPrice() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -4329,15 +4215,15 @@ public final class Protos {
   static {
     java.lang.String[] descriptorData = {
       "\n\026proto-buf/protos.proto\022\006client\"\231\001\n\005Msg" +
-      "CS\022\014\n\004type\030\001 \002(\t\022\034\n\004info\030\002 \001(\0132\016.client." +
+      "CS\022\014\n\004type\030\001 \001(\t\022\034\n\004info\030\002 \001(\0132\016.client." +
       "Client\022#\n\004reqL\030\003 \001(\0132\025.client.Request_Lo" +
       "gin\022!\n\004repL\030\004 \001(\0132\023.client.Reply_Login\022\034" +
       "\n\005order\030\005 \001(\0132\r.client.Order\"$\n\006Client\022\014" +
-      "\n\004user\030\001 \002(\t\022\014\n\004pass\030\002 \002(\t\"\034\n\rRequest_Lo" +
-      "gin\022\013\n\003msg\030\001 \002(\t\")\n\013Reply_Login\022\r\n\005valid" +
-      "\030\001 \002(\010\022\013\n\003msg\030\002 \002(\t\"J\n\005Order\022\014\n\004type\030\001 \002" +
-      "(\t\022\022\n\ncompany_id\030\002 \002(\t\022\020\n\010quantity\030\003 \002(\005" +
-      "\022\r\n\005price\030\004 \002(\002"
+      "\n\004user\030\001 \001(\t\022\014\n\004pass\030\002 \001(\t\"\034\n\rRequest_Lo" +
+      "gin\022\013\n\003msg\030\001 \001(\t\")\n\013Reply_Login\022\r\n\005valid" +
+      "\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"J\n\005Order\022\014\n\004type\030\001 \001" +
+      "(\t\022\022\n\ncompany_id\030\002 \001(\t\022\020\n\010quantity\030\003 \001(\005" +
+      "\022\r\n\005price\030\004 \001(\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
