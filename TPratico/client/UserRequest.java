@@ -91,8 +91,10 @@ public class UserRequest {
                     return;
                 case "1":
                     type = "1";
+                    break;
                 case "2":
                     type = "2";
+                    break;
                 default: 
                     System.out.println("Invalid option!");
             }

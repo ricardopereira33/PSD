@@ -77,10 +77,14 @@ user(Sock, Username, LoginManager) ->
                     {ok, Type} = maps:find(type, MapOrder),
                     case string:tokens(Type, "\n\t\r ") of
                         ["1"] ->
-                            io:format("Order1");
+                            io:format("Order1\n");
                         ["2"] ->
-                            io:format("Order2")
-                    end
+                            io:format("Order2\n")
+                    end,
+                    user(Sock, Username, LoginManager);
+                _ ->
+                    io:format("Pack invalid"),
+                    user(Sock, Username, LoginManager)
             end;
         {error, closed} ->
             io:format("User closed")
