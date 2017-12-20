@@ -11,6 +11,8 @@ import java.net.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.zeromq.ZMQ;
+
 public class UserRequest {
     private InputStream is;
     private OutputStream os;

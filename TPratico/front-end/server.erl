@@ -16,6 +16,7 @@ acceptor(LSock, LoginManager) ->
 waitLogin(LoginManager, Sock) ->
     case gen_tcp:recv(Sock,0) of
         {ok, Data} ->
+            io:format("Data: ~p\n",[Data]),
             Map = protos:decode_msg(Data,'MsgCS'),
             case maps:find(type, Map) of
                 {ok,"1"} ->
@@ -68,7 +69,7 @@ loginManager(M) ->
 
 
 user(Sock, Username, LoginManager) ->
-    case gen_tcp:recv(Sock,0) of 
+    case gen_tcp:recv(Sock, 0) of 
         {ok, Data} ->
             Map = protos:decode_msg(Data, 'MsgCS'),
             case maps:find(type, Map) of
