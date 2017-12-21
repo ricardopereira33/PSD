@@ -5,6 +5,8 @@ client:
 server:
 	tools/gpb/bin/protoc-erl -I. -maps -o front-end/ proto-buf/protos.proto
 	erlc -I tools/gpb/include -o front-end/ front-end/protos.erl
+	erlc -I tools/erlzmq/include -o front-end/ front-end/erlzmq.erl
+	erlc -I tools/erlzmq/include -o front-end/ front-end/erlzmq_nif.erl
 
 run:
 	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.User

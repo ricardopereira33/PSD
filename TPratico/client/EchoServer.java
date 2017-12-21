@@ -13,13 +13,14 @@ public class EchoServer {
         ZMQ.Socket socket = context.socket(ZMQ.REP);
         
         socket.bind("tcp://*:" + 3333);
-        
-        while (true) {
-            byte[] b = socket.recv();
-            MsgCS msg = MsgCS.parseFrom(b);
-            System.out.println("Received " + msg.toString());
-        }
-        //socket.close();
-        //context.term();
+    
+        byte[] b = socket.recv();
+        MsgCS msg = MsgCS.parseFrom(b);
+        System.out.println("Received " + msg.toString());
+
+        socket.send(b);
+        System.out.println("Send");
+        socket.close();
+        context.term();
     }
 }
