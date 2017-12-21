@@ -58,38 +58,50 @@ public class CompanyResource {
 
     @GET
     @Path("company/{id}/info")
-    //falta alterar isto, max e min estao relacionados com as transactions e nao com as orders
-    //null exception
     public List<PriceInfo> getInfo(@PathParam("id") String id){
         if(companies.containsKey(id)) {
             Company c = companies.get(id);
-            float startPrice = 0;
-            float endPrice = 0;
-            float maxPrice = 0;
-            float minPrice = 0;
+            float startPrice;
+            float endPrice;
+            float maxPrice;
+            float minPrice;
             PriceInfo dayBeforePI, actualDayPI;
-            List<Order> dayBefore = c.getOrdersFromDayBefore();
-            if(dayBefore == null) dayBeforePI = null;
+            List<Order> dayBeforeOrd = c.getOrdersFromDayBefore();
+            List<Transaction> dayBeforeTrans = c.getTransactionsFromDayBefore();
+            if(dayBeforeOrd == null) {startPrice = 0; endPrice = 0;}
             else{
-                startPrice = dayBefore.get(0).getPrice();
-                endPrice = dayBefore.get(dayBefore.size() - 1).getPrice();
-                for (Order o : dayBefore) {
-                    if(o.getPrice() < minPrice) minPrice = o.getPrice();
-                    if(o.getPrice() > maxPrice) maxPrice = o.getPrice();
-                }
-                dayBeforePI = new PriceInfo(startPrice,endPrice,minPrice,maxPrice);
+                startPrice = dayBeforeOrd.get(0).getPrice();
+                endPrice = dayBeforeOrd.get(dayBeforeOrd.size() - 1).getPrice();
             }
-            List<Order> actualDay = c.getOrdersFromActualDay();
-            if(actualDay == null) actualDayPI = null;
+            if(dayBeforeTrans == null) {minPrice = 0; maxPrice = 0;}
             else{
-                startPrice = actualDay.get(0).getPrice();
-                endPrice = actualDay.get(dayBefore.size() - 1).getPrice();
-                for (Order o : actualDay) {
-                    if(o.getPrice() < minPrice) minPrice = o.getPrice();
-                    if(o.getPrice() > maxPrice) maxPrice = o.getPrice();
+                minPrice = dayBeforeTrans.get(0).getPrice();
+                maxPrice = dayBeforeTrans.get(0).getPrice();
+                for (Transaction t : dayBeforeTrans) {
+                    if(t.getPrice() < minPrice) minPrice = t.getPrice();
+                    if(t.getPrice() > maxPrice) maxPrice = t.getPrice();
                 }
-                actualDayPI = new PriceInfo(startPrice,endPrice,minPrice,maxPrice);
             }
+            dayBeforePI = new PriceInfo(startPrice,endPrice,minPrice,maxPrice);
+
+            List<Order> actualDayOrd = c.getOrdersFromActualDay();
+            List<Transaction> actualDayTrans = c.getTransactionsFromActualDay();
+            if(actualDayOrd == null) {startPrice = 0; endPrice = 0;}
+            else {
+                startPrice = actualDayOrd.get(0).getPrice();
+                endPrice = actualDayOrd.get(actualDayOrd.size() - 1).getPrice();
+            }
+            if(actualDayTrans == null) {minPrice = 0; maxPrice = 0;}
+            else{
+                minPrice = actualDayTrans.get(0).getPrice();
+                maxPrice = actualDayTrans.get(0).getPrice();
+                for (Transaction t : actualDayTrans) {
+                    if(t.getPrice() < minPrice) minPrice = t.getPrice();
+                    if(t.getPrice() > maxPrice) maxPrice = t.getPrice();
+                }
+            }
+            actualDayPI = new PriceInfo(startPrice,endPrice,minPrice,maxPrice);
+
             List<PriceInfo> info = new ArrayList();
             info.add(dayBeforePI);
             info.add(actualDayPI);
