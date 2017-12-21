@@ -11,18 +11,20 @@ import java.net.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.zeromq.ZMQ;
+
 public class User {
 
 	public static void main(String[] args) {
 		try{	
-			Socket s = new Socket("localhost", 3333);
-			InputStream is = s.getInputStream();
-			OutputStream os = s.getOutputStream();
+			ZMQ.Context context = ZMQ.context(1);
+         	ZMQ.Socket socket = context.socket(ZMQ.REQ);
+         	socket.connect("tcp://localhost:3333");
 
-			UserRequest ur = new UserRequest(is, os);
+			UserRequest ur = new UserRequest(socket);
 			ur.exe();
 
-			s.close();
+			socket.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();

@@ -14,14 +14,12 @@ import java.util.ArrayList;
 import org.zeromq.ZMQ;
 
 public class UserRequest {
-    private InputStream is;
-    private OutputStream os;
+    private ZMQ.Socket sock;
     private Messenger msg;
 
-    public UserRequest(InputStream is, OutputStream os){
-        this.is = is;
-        this.os = os;
+    public UserRequest( ZMQ.Socket socket){
         this.msg = new Messenger();
+        this.sock = socket;
     }
 
     public void exe(){
@@ -40,13 +38,9 @@ public class UserRequest {
 
         while(invalid){
             MsgCS request = msg.newReqLogin();
-            request.writeTo(os);
-
-            byte[] by = new byte[256];
-            int n = is.read(by);
-            byte[] by2 = getByteArrayClean(by, n);
-
-            MsgCS reply = MsgCS.parseFrom(by2);
+            sock.send(request.toByteArray());
+            byte[] b = sock.recv();
+            MsgCS reply = MsgCS.parseFrom(b);
 
             if(reply.getRepL().getValid())
                 invalid = false;
@@ -65,13 +59,9 @@ public class UserRequest {
             String pass = br.readLine();
 
             MsgCS client = msg.newClient(user, pass);
-            client.writeTo(os);
-
-            byte[] by = new byte[256];
-            int n = is.read(by);
-            byte[] by2 = getByteArrayClean(by, n);
-
-            MsgCS reply = MsgCS.parseFrom(by2);
+            sock.send(client.toByteArray());
+            byte[] b = sock.recv();
+            MsgCS reply = MsgCS.parseFrom(b);
 
             if(reply.getRepL().getValid())
                 invalid = false;
@@ -115,14 +105,6 @@ public class UserRequest {
         float price = Float.parseFloat(br.readLine());
 
         MsgCS order = msg.newOrder(type, company, quantity, price);
-        order.writeTo(os);
+        sock.send(order.toByteArray());
     }
-
-    public byte[] getByteArrayClean(byte[] b, int n){
-        byte[] list = new byte[n];
-        for(int i = 0; i<n; i++){
-            list[i] = b[i];
-        }
-        return list;
-    }   
 }
