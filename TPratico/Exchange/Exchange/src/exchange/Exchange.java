@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import org.zeromq.ZMQ;
 
 /**
  *
@@ -97,7 +98,11 @@ public class Exchange {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ZMQ.context context = ZMQ.context(1);
+        ZMQ.Socket socket = context.socket(ZMQ.PUB);
+        socket.bind("tcp://*" + args[0]);
+        socket.close();
+        context.term();
     }
     
 }
