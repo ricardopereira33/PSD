@@ -98,9 +98,13 @@ public class Exchange {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ZMQ.context context = ZMQ.context(1);
-        ZMQ.Socket socket = context.socket(ZMQ.PUB);
-        socket.bind("tcp://*" + args[0]);
+        ZMQ.Context context = ZMQ.context(1);
+        ZMQ.Socket socket = context.socket(ZMQ.REP);
+        socket.bind("tcp://*:" + 3333);
+        
+        byte[] b
+        
+        
         socket.close();
         context.term();
     }
