@@ -1,13 +1,13 @@
 package resources;
 
 
-import com.google.common.base.Optional;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Company {
     private String id;
     private String name;

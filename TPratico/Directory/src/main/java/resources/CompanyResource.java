@@ -1,6 +1,8 @@
 package resources;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.org.apache.regexp.internal.RE;
+import org.omg.CORBA.TRANSACTION_MODE;
 import representations.CompanyRep;
 import representations.PriceInfo;
 
@@ -27,38 +29,37 @@ public class CompanyResource {
 
         Company co = new Company("1","Emp","ex1","cenas");
         companies.put("1",co);
-        User u = new User("tres");
-        Order o = new Sell(u,"1",300,(float)20.3);
-        Order o2 = new Buy(u,"1",350,(float)40.2);
+        Order o = new Sell("tres","1",300,(float)20.3);
+        Order o2 = new Buy("tres","1",350,(float)40.2);
         co.addOrder(o);
         co.addOrder(o2);
-
 
     }
 
     @GET
     @Path("companies")
-    public List<CompanyRep> getCompanies(){
+    public Response getCompanies(){
         List<CompanyRep> companiesList = new ArrayList();
         for(Company c : companies.values()){
             companiesList.add(new CompanyRep(c.getId(),c.getName(),c.getExange(),c.getDescription()));
         }
-        return companiesList;
+        if(companiesList.isEmpty()) return Response.status(Response.Status.NOT_FOUND).build();
+        else return Response.ok(companiesList).build();
     }
 
     @GET
     @Path("company/{id}")
-    public CompanyRep getCompany(@PathParam("id") String id){
+    public Response getCompany(@PathParam("id") String id){
         if(companies.containsKey(id)){
             Company c = companies.get(id);
-            return new CompanyRep(c.getId(),c.getName(),c.getExange(),c.getDescription());
+            return Response.ok(new CompanyRep(c.getId(),c.getName(),c.getExange(),c.getDescription())).build();
         }
-        else return null;
+        else return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @GET
     @Path("company/{id}/info")
-    public List<PriceInfo> getInfo(@PathParam("id") String id){
+    public Response getInfo(@PathParam("id") String id){
         if(companies.containsKey(id)) {
             Company c = companies.get(id);
             float startPrice;
@@ -105,39 +106,40 @@ public class CompanyResource {
             List<PriceInfo> info = new ArrayList();
             info.add(dayBeforePI);
             info.add(actualDayPI);
-            return info;
+            return Response.ok(info).build();
         }
-        else return null;
+        else return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @PUT
     @Path("company/{id}")
     public Response putCompany(Company company){
-        for(Company c : companies.values()){
-            if(c.getName().equals(company.getId())) return Response.noContent().build();
-        }
-        String newId = Integer.toString(id);
-        companies.put(newId,company);
-        return Response.ok().build();
+        if(companies.containsKey(company.getId())) return Response.status(Response.Status.CONFLICT).build();
+        companies.put(company.getId(),new Company(company.getId(),company.getName(),company.getExange(),company.getDescription()));
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @PUT
-    @Path("company/{id}/order")
-    public Response putCompanyOrder(Order order){
-        for(Company c : companies.values()){
-            if(c.getName().equals(order.getCompany())) return Response.noContent().build();
-        }
-        companies.get(order.getCompany()).addOrder(order);
-        return Response.ok().build();
+    @Path("company/{id}/order/sell")
+    public Response putCompanyOrderSell(Sell order){
+        if(!(companies.containsKey(order.getCompany()))) return Response.status(Response.Status.NOT_FOUND).build();
+        companies.get(order.getCompany()).addOrder(new Sell(order.getSeller(),order.getCompany(),order.getQuantity(),order.getPrice()));
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+    @PUT
+    @Path("company/{id}/order/buy")
+    public Response putCompanyOrderBuy(Buy order){
+        if(!(companies.containsKey(order.getCompany()))) return Response.status(Response.Status.NOT_FOUND).build();
+        companies.get(order.getCompany()).addOrder(new Buy(order.getBuyer(),order.getCompany(),order.getQuantity(),order.getPrice()));
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @PUT
     @Path("company/{id}/transaction")
     public Response putCompanyTransaction(Transaction transaction){
-        for(Company c : companies.values()){
-            if(c.getName().equals(transaction.getCompany())) return Response.noContent().build();
-        }
+        if(!(companies.containsKey(transaction.getCompany()))) return Response.status(Response.Status.NOT_FOUND).build();
         companies.get(transaction.getCompany()).addTransaction(transaction);
-        return Response.ok().build();
+        return Response.status(Response.Status.CREATED).build();
     }
 }

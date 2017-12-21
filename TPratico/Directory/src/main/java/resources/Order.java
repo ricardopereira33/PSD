@@ -1,6 +1,10 @@
 package resources;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public abstract class Order{
+    @JsonProperty("company_id")
     private String company_id;
     private int quantity;
     private float price;
