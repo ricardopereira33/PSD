@@ -71,13 +71,30 @@ public class Exchange {
         return buy_queue;
     }
 
-
     public void receiveSell(Sell sell_order){
-        String company_id = sell_order.getCompany();
-        List<Sell> sell_queue = getSellsByCompany(company_id);
 
-        sell_queue.add(sell_order);
-        sell_orders.put(company_id, sell_queue);
+        boolean transaction = false;
+        String company_id = sell_order.getCompany();
+        List<Buy> buy_queue = getBuysByCompany(company_id);
+        List<Sell> sell_queue = getSellsByCompany(company_id);
+        List<Transaction> transaction_list = getTransactionsByCompany(company_id);
+
+        for(Buy buy_order : buy_queue)
+            if(buy_order.getPrice() >= sell_order.getPrice()){
+                transaction = true;
+
+                Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
+                transaction_list.add(new_transaction);
+                transactions.put(company_id, transaction_list);
+                break;
+            }
+
+        // havent found any sucessful transaction    
+        if(!transaction){
+            sell_queue.add(sell_order);
+            sell_orders.put(company_id, sell_queue);
+        }
+        else receiveSell(sell_order);    
     }
     
     public void receiveBuy(Buy buy_order){
@@ -103,6 +120,7 @@ public class Exchange {
             buy_queue.add(buy_order);
             buy_orders.put(company_id, buy_queue);
         }
+        else receiveBuy(buy_order);
     }
       
     public Transaction makeTransaction(Buy buy_order, Sell sell_order, List<Buy> buy_queue, List<Sell> sell_queue){
@@ -115,16 +133,17 @@ public class Exchange {
         String transaction_id = String.valueOf(transactions.get(company_id).size());
         
         sell_queue.remove(sell_order);
+        buy_queue.remove(buy_order);
         
         // Theres more to sell
         if(buy_qt < sell_qt){
-            Sell new_sell = new Sell(sell_order.getSeller(), company_id, sell_qt - min_quantity, sell_order.getPrice());
-            sell_queue.add(new_sell);
+            sell_order = new Sell(sell_order.getSeller(), company_id, sell_qt - min_quantity, sell_order.getPrice());
+            sell_queue.add(sell_order);
         } 
         // Theres more to buy    
         else if(sell_qt > buy_qt){
-            Buy new_buy = new Buy(buy_order.getBuyer(), company_id, buy_qt - min_quantity, buy_order.getPrice());
-            buy_queue.add(new_buy);
+            buy_order = new Buy(buy_order.getBuyer(), company_id, buy_qt - min_quantity, buy_order.getPrice());
+            buy_queue.add(buy_order);
         }
 
         System.out.println("Transaction_id: " + transaction_id);
