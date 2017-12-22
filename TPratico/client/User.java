@@ -4,7 +4,7 @@ import client.Protos.MsgCS;
 import client.Protos.Request_Login;
 import client.Protos.Client;
 import client.Protos.Reply_Login;
-import client.Protos.Order;
+import client.Protos.OrderRequest;
 
 import java.io.*;
 import java.net.*;

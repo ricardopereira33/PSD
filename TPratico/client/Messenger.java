@@ -4,7 +4,7 @@ import client.Protos.MsgCS;
 import client.Protos.Request_Login;
 import client.Protos.Client;
 import client.Protos.Reply_Login;
-import client.Protos.Order;
+import client.Protos.OrderRequest;
 
 public class Messenger {
     public Messenger() {}
@@ -44,12 +44,12 @@ public class Messenger {
             .build();
     }
 
-    public MsgCS newOrder(String type, String company, int quantity, float price) {
+    public MsgCS newOrderRequest(String type, String company, int quantity, float price) {
         return
             MsgCS.newBuilder()
             .setType("3")
-            .setOrder(
-                Order.newBuilder()
+            .setOrderRequest(
+                OrderRequest.newBuilder()
                 .setType(type)
                 .setCompanyId(company)
                 .setQuantity(quantity)
