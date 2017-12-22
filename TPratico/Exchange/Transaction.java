@@ -11,15 +11,15 @@ package exchange;
  */
 public class Transaction {
     private String id;
-    private Sell sellOrder;
-    private Buy buyOrder;
+    private String sellOrder;
+    private String buyOrder;
     private float price;
     private int quantity;
     private String company;
 
     public Transaction(){ }
 
-    public Transaction(String id, Sell sellOrder, Buy buyOrder, float price, int quantity, String company){
+    public Transaction(String id, String sellOrder, String buyOrder, float price, int quantity, String company){
         this.id = id;
         this.sellOrder = sellOrder;
         this.buyOrder = buyOrder;
@@ -32,11 +32,11 @@ public class Transaction {
         return id;
     }
 
-    public Sell getSellOrder() {
+    public String getSellOrder() {
         return sellOrder;
     }
 
-    public Buy getBuyOrder() {
+    public String getBuyOrder() {
         return buyOrder;
     }
 

@@ -10,7 +10,10 @@ server:
 
 exchange:
 	tools/protoc/bin/protoc --java_out=. proto-buf/protos.proto
-	javac -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. exchange/*.java
+	javac -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:tools/jar/gson-2.6.2.jar:. exchange/*.java
+
+directory:
+	mvn -f ./Directory/ package
 
 run:
 	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.User
@@ -19,7 +22,11 @@ run-client-example:
 	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.UserExample
 
 run-exchange:
-	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. exchange.Exchange
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:tools/jar/gson-2.6.2.jar:. exchange.Exchange
+
+run-directory:
+	java -jar ./Directory/target/Directory-1.0-SNAPSHOT.jar server 	
+
 
 clean:
 	rm client/*.class

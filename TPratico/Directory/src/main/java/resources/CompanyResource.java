@@ -29,8 +29,8 @@ public class CompanyResource {
 
         Company co = new Company("1","Emp","ex1","cenas");
         companies.put("1",co);
-        Order o = new Sell("tres","1",300,(float)20.3);
-        Order o2 = new Buy("tres","1",350,(float)40.2);
+        Order o = new Sell("1","tres","1",300,(float)20.3);
+        Order o2 = new Buy("2","tres","1",350,(float)40.2);
         co.addOrder(o);
         co.addOrder(o2);
 
@@ -123,7 +123,7 @@ public class CompanyResource {
     @Path("company/{id}/order/sell")
     public Response putCompanyOrderSell(Sell order){
         if(!(companies.containsKey(order.getCompany()))) return Response.status(Response.Status.NOT_FOUND).build();
-        companies.get(order.getCompany()).addOrder(new Sell(order.getSeller(),order.getCompany(),order.getQuantity(),order.getPrice()));
+        companies.get(order.getCompany()).addOrder(new Sell(order.getId(), order.getSeller(),order.getCompany(),order.getQuantity(),order.getPrice()));
         return Response.status(Response.Status.CREATED).build();
     }
 
@@ -131,7 +131,7 @@ public class CompanyResource {
     @Path("company/{id}/order/buy")
     public Response putCompanyOrderBuy(Buy order){
         if(!(companies.containsKey(order.getCompany()))) return Response.status(Response.Status.NOT_FOUND).build();
-        companies.get(order.getCompany()).addOrder(new Buy(order.getBuyer(),order.getCompany(),order.getQuantity(),order.getPrice()));
+        companies.get(order.getCompany()).addOrder(new Buy(order.getId(), order.getBuyer(),order.getCompany(),order.getQuantity(),order.getPrice()));
         return Response.status(Response.Status.CREATED).build();
     }
 

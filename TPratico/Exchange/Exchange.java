@@ -9,7 +9,7 @@ import exchange.Protos.MsgCS;
 import exchange.Protos.Request_Login;
 import exchange.Protos.Client;
 import exchange.Protos.Reply_Login;
-import exchange.Protos.Order;
+import exchange.Protos.OrderRequest;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,7 +71,7 @@ public class Exchange {
         return buy_queue;
     }
 
-    public void receiveSell(Sell sell_order){
+    public void receiveSell(Sell sell_order) throws Exception{
 
         boolean transaction = false;
         String company_id = sell_order.getCompany();
@@ -84,6 +84,7 @@ public class Exchange {
                 transaction = true;
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
+                DirectorySender.sendTransaction(new_transaction); // send to directory
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -97,7 +98,7 @@ public class Exchange {
         else receiveSell(sell_order);    
     }
     
-    public void receiveBuy(Buy buy_order){
+    public void receiveBuy(Buy buy_order) throws Exception{
         
         boolean transaction = false;
         String company_id = buy_order.getCompany();
@@ -108,8 +109,9 @@ public class Exchange {
         for(Sell sell_order: sell_queue)
             if(buy_order.getPrice() >= sell_order.getPrice()){
                 transaction = true;
-                
+
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
+                DirectorySender.sendTransaction(new_transaction); // send to directory
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -130,28 +132,31 @@ public class Exchange {
         float mean_price = (buy_order.getPrice() + sell_order.getPrice())/2;
         int min_quantity = buy_qt < sell_qt ? buy_qt : sell_qt;
         String company_id = buy_order.getCompany();
-        String transaction_id = String.valueOf(transactions.get(company_id).size());
         
         sell_queue.remove(sell_order);
         buy_queue.remove(buy_order);
         
         // Theres more to sell
         if(buy_qt < sell_qt){
-            sell_order = new Sell(sell_order.getSeller(), company_id, sell_qt - min_quantity, sell_order.getPrice());
+            String sell_id = String.valueOf(getSellsByCompany(company_id).size());
+            sell_order = new Sell(sell_id, sell_order.getSeller(), company_id, sell_qt - min_quantity, sell_order.getPrice());
             sell_queue.add(sell_order);
         } 
         // Theres more to buy    
         else if(sell_qt > buy_qt){
-            buy_order = new Buy(buy_order.getBuyer(), company_id, buy_qt - min_quantity, buy_order.getPrice());
+            String buy_id = String.valueOf(getBuysByCompany(company_id).size());
+            buy_order = new Buy(buy_id, buy_order.getBuyer(), company_id, buy_qt - min_quantity, buy_order.getPrice());
             buy_queue.add(buy_order);
-        }
+        }        
+        
+        String transaction_id = String.valueOf(getTransactionsByCompany(company_id).size());
 
         System.out.println("Transaction_id: " + transaction_id);
         System.out.println("Price: " + mean_price);
         System.out.println("Quantity: " + min_quantity);
         System.out.println("Company: " + company_id);
-        
-        return new Transaction(transaction_id, sell_order, buy_order, mean_price, min_quantity, company_id);
+
+        return new Transaction(transaction_id, sell_order.getId(), buy_order.getId(), mean_price, min_quantity, company_id);
     }
 
     public static void main(String[] args) throws Exception{
@@ -166,19 +171,23 @@ public class Exchange {
             MsgCS msg = MsgCS.parseFrom(b);
             System.out.println("Received " + msg.toString());
            
-            Order order = msg.getOrder();
+            OrderRequest order = msg.getOrderRequest();
             String type = order.getType();
             Client client = msg.getInfo();
             
             if(type.equals("1")){
                 // sell
-                Sell sell = new Sell(client.getUser(),order.getCompanyId(),order.getQuantity(),order.getPrice());
+                String sell_id = String.valueOf(exchange.getSellsByCompany(order.getCompanyId()).size());
+                Sell sell = new Sell(sell_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
+                DirectorySender.sendOrderSell(sell); // send to directory
                 exchange.receiveSell(sell);
                 socket.send("Received sell.");
             }
             else if(type.equals("2")){
                 // buy
-                Buy buy = new Buy(client.getUser(),order.getCompanyId(),order.getQuantity(),order.getPrice());
+                String buy_id = String.valueOf(exchange.getBuysByCompany(order.getCompanyId()).size());
+                Buy buy = new Buy(buy_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
+                DirectorySender.sendOrderBuy(buy); // send to directory
                 exchange.receiveBuy(buy);
                 socket.send("Received buy.");
             }

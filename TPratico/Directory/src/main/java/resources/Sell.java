@@ -7,8 +7,8 @@ public class Sell extends Order {
 
     public Sell(){}
 
-    public Sell(String seller, String company_id, int quantity, float price){
-        super(company_id,quantity,price);
+    public Sell(String id, String seller, String company_id, int quantity, float price){
+        super(id, company_id, quantity, price);
         this.seller = seller;
     }
 

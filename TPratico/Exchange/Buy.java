@@ -15,8 +15,8 @@ public class Buy extends Order {
 
     public Buy(){}
 
-    public Buy(String buyer, String company_id, int quantity, float price){
-        super(company_id,quantity,price);
+    public Buy(String id, String buyer, String company_id, int quantity, float price){
+        super(id, company_id, quantity, price);
         this.buyer = buyer;
     }
 
