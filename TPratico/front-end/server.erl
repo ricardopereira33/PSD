@@ -1,6 +1,8 @@
 -module(server).
 -export([server/0]).
 
+%=================
+% Server Configs : initialize erlzmq context, and bind a socket for accept connections.
 server() ->
     LoginManager = spawn(fun()-> loginManager(#{"ri" => {"33", false}}) end),
     process_flag(trap_exit, true),
@@ -11,6 +13,8 @@ server() ->
     waitLogin(LoginManager, Sock).
 
 
+%================================
+% Receive all message and process them. The message are decoded/encoded by ProcolBuffers.
 waitLogin(LoginManager, Sock) ->
     case erlzmq:recv(Sock) of
         {ok, Data} ->
@@ -31,21 +35,38 @@ waitLogin(LoginManager, Sock) ->
                     receive
                         {LoginManager, logged} ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => true, msg => "Logged"}}, 'MsgCS'),
-                            erlzmq:send(Sock,Bin),
-                            user(Sock, User, LoginManager);
+                            erlzmq:send(Sock, Bin),
+                            waitLogin(LoginManager, Sock);
                         {LoginManager, invalid} ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => false, msg => "Invalid"}}, 'MsgCS'),
-                            erlzmq:send(Sock,Bin),
+                            erlzmq:send(Sock, Bin),
                             waitLogin(LoginManager, Sock)
                     end;
+                {ok,"3"} -> 
+                    {ok, MapOrder} = maps:find(order, Map),
+                    {ok, Type} = maps:find(type, MapOrder),
+                    case string:tokens(Type, "\n\t\r ") of
+                        ["1"] ->
+                            io:format("Order1\n");
+                        ["2"] ->
+                            io:format("Order2\n")
+                    end,
+                    Bin = protos:encode_msg(#{type=>"4"}, 'MsgCS'),
+                    erlzmq:send(Sock, Bin),
+                    waitLogin(LoginManager, Sock);
                 _ ->
-                    io:format("Pack invalid"),
+                    io:format("Pack invalid\n"),
                     waitLogin(LoginManager, Sock)
             end;
         {error, closed} ->
-            io:format("User closed")
+            io:format("User closed\n"),
+            waitLogin(LoginManager, Sock);
+        {error, efsm} ->
+            io:format("IDK\n")
     end.
 
+%===========
+% Login Manager : manage all users in system
 loginManager(M) ->
     receive
         {login, U, P, From} ->
@@ -63,29 +84,5 @@ loginManager(M) ->
             io:format("account ~p logged out~n", [U]),
             {P,_} = maps:get(U, M),
             loginManager(maps:update(U, {P,false}, M))
-    end.
-
-
-user(Sock, Username, LoginManager) ->
-    case erlzmq:recv(Sock) of 
-        {ok, Data} ->
-            Map = protos:decode_msg(Data, 'MsgCS'),
-            case maps:find(type, Map) of
-                {ok,"3"} -> 
-                    {ok, MapOrder} = maps:find(order, Map),
-                    {ok, Type} = maps:find(type, MapOrder),
-                    case string:tokens(Type, "\n\t\r ") of
-                        ["1"] ->
-                            io:format("Order1\n");
-                        ["2"] ->
-                            io:format("Order2\n")
-                    end,
-                    user(Sock, Username, LoginManager);
-                _ ->
-                    io:format("Pack invalid"),
-                    user(Sock, Username, LoginManager)
-            end;
-        {error, closed} ->
-            io:format("User closed")
     end.
 

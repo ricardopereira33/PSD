@@ -106,5 +106,9 @@ public class UserRequest {
 
         MsgCS order = msg.newOrder(type, company, quantity, price);
         sock.send(order.toByteArray());
+
+        byte[] b = sock.recv();
+        MsgCS reply = MsgCS.parseFrom(b);
+        System.out.println("ACK: " + reply.getType());
     }
 }
