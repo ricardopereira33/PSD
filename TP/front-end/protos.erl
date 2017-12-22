@@ -39,7 +39,7 @@
       #{user                    => iolist(),        % = 1
         pass                    => iolist()         % = 2
        }.
--type 'Order'() ::
+-type 'OrderRequest'() ::
       #{type                    => iolist(),        % = 1
         company_id              => iolist(),        % = 2
         quantity                => integer(),       % = 3, 32 bits
@@ -50,16 +50,16 @@
         info                    => 'Client'(),      % = 2
         reqL                    => 'Request_Login'(), % = 3
         repL                    => 'Reply_Login'(), % = 4
-        order                   => 'Order'()        % = 5
+        orderRequest            => 'OrderRequest'() % = 5
        }.
--export_type(['Request_Login'/0, 'Reply_Login'/0, 'Client'/0, 'Order'/0, 'MsgCS'/0]).
+-export_type(['Request_Login'/0, 'Reply_Login'/0, 'Client'/0, 'OrderRequest'/0, 'MsgCS'/0]).
 
--spec encode_msg('Request_Login'() | 'Reply_Login'() | 'Client'() | 'Order'() | 'MsgCS'(),'Request_Login' | 'Reply_Login' | 'Client' | 'Order' | 'MsgCS') -> binary().
+-spec encode_msg('Request_Login'() | 'Reply_Login'() | 'Client'() | 'OrderRequest'() | 'MsgCS'(),'Request_Login' | 'Reply_Login' | 'Client' | 'OrderRequest' | 'MsgCS') -> binary().
 encode_msg(Msg, MsgName) ->
     encode_msg(Msg, MsgName, []).
 
 
--spec encode_msg('Request_Login'() | 'Reply_Login'() | 'Client'() | 'Order'() | 'MsgCS'(),'Request_Login' | 'Reply_Login' | 'Client' | 'Order' | 'MsgCS', list()) -> binary().
+-spec encode_msg('Request_Login'() | 'Reply_Login'() | 'Client'() | 'OrderRequest'() | 'MsgCS'(),'Request_Login' | 'Reply_Login' | 'Client' | 'OrderRequest' | 'MsgCS', list()) -> binary().
 encode_msg(Msg, MsgName, Opts) ->
     case proplists:get_bool(verify, Opts) of
       true -> verify_msg(Msg, MsgName, Opts);
@@ -70,7 +70,7 @@ encode_msg(Msg, MsgName, Opts) ->
       'Request_Login' -> e_msg_Request_Login(Msg, TrUserData);
       'Reply_Login' -> e_msg_Reply_Login(Msg, TrUserData);
       'Client' -> e_msg_Client(Msg, TrUserData);
-      'Order' -> e_msg_Order(Msg, TrUserData);
+      'OrderRequest' -> e_msg_OrderRequest(Msg, TrUserData);
       'MsgCS' -> e_msg_MsgCS(Msg, TrUserData)
     end.
 
@@ -134,11 +134,11 @@ e_msg_Client(#{} = M, Bin, TrUserData) ->
       _ -> B1
     end.
 
-e_msg_Order(Msg, TrUserData) ->
-    e_msg_Order(Msg, <<>>, TrUserData).
+e_msg_OrderRequest(Msg, TrUserData) ->
+    e_msg_OrderRequest(Msg, <<>>, TrUserData).
 
 
-e_msg_Order(#{} = M, Bin, TrUserData) ->
+e_msg_OrderRequest(#{} = M, Bin, TrUserData) ->
     B1 = case M of
 	   #{type := F1} ->
 	       begin
@@ -210,11 +210,11 @@ e_msg_MsgCS(#{} = M, Bin, TrUserData) ->
 	   _ -> B3
 	 end,
     case M of
-      #{order := F5} ->
+      #{orderRequest := F5} ->
 	  begin
 	    TrF5 = id(F5, TrUserData),
-	    e_mfield_MsgCS_order(TrF5, <<B4/binary, 42>>,
-				 TrUserData)
+	    e_mfield_MsgCS_orderRequest(TrF5, <<B4/binary, 42>>,
+					TrUserData)
 	  end;
       _ -> B4
     end.
@@ -234,8 +234,8 @@ e_mfield_MsgCS_repL(Msg, Bin, TrUserData) ->
     Bin2 = e_varint(byte_size(SubBin), Bin),
     <<Bin2/binary, SubBin/binary>>.
 
-e_mfield_MsgCS_order(Msg, Bin, TrUserData) ->
-    SubBin = e_msg_Order(Msg, <<>>, TrUserData),
+e_mfield_MsgCS_orderRequest(Msg, Bin, TrUserData) ->
+    SubBin = e_msg_OrderRequest(Msg, <<>>, TrUserData),
     Bin2 = e_varint(byte_size(SubBin), Bin),
     <<Bin2/binary, SubBin/binary>>.
 
@@ -301,13 +301,13 @@ decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
 		       {decoding_failure,
 			{Bin, 'Client', {Class, Reason, StackTrace}}}})
 	  end;
-      'Order' ->
-	  try d_msg_Order(Bin, TrUserData) catch
+      'OrderRequest' ->
+	  try d_msg_OrderRequest(Bin, TrUserData) catch
 	    Class:Reason ->
 		StackTrace = erlang:get_stacktrace(),
 		error({gpb_error,
 		       {decoding_failure,
-			{Bin, 'Order', {Class, Reason, StackTrace}}}})
+			{Bin, 'OrderRequest', {Class, Reason, StackTrace}}}})
 	  end;
       'MsgCS' ->
 	  try d_msg_MsgCS(Bin, TrUserData) catch
@@ -690,30 +690,31 @@ skip_64_Client(<<_:64, Rest/binary>>, Z1, Z2, F@_1,
     dfp_read_field_def_Client(Rest, Z1, Z2, F@_1, F@_2,
 			      TrUserData).
 
-d_msg_Order(Bin, TrUserData) ->
-    dfp_read_field_def_Order(Bin, 0, 0,
-			     id('$undef', TrUserData), id('$undef', TrUserData),
-			     id('$undef', TrUserData), id('$undef', TrUserData),
-			     TrUserData).
+d_msg_OrderRequest(Bin, TrUserData) ->
+    dfp_read_field_def_OrderRequest(Bin, 0, 0,
+				    id('$undef', TrUserData),
+				    id('$undef', TrUserData),
+				    id('$undef', TrUserData),
+				    id('$undef', TrUserData), TrUserData).
 
-dfp_read_field_def_Order(<<10, Rest/binary>>, Z1, Z2,
-			 F@_1, F@_2, F@_3, F@_4, TrUserData) ->
-    d_field_Order_type(Rest, Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-		       TrUserData);
-dfp_read_field_def_Order(<<18, Rest/binary>>, Z1, Z2,
-			 F@_1, F@_2, F@_3, F@_4, TrUserData) ->
-    d_field_Order_company_id(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			     F@_4, TrUserData);
-dfp_read_field_def_Order(<<24, Rest/binary>>, Z1, Z2,
-			 F@_1, F@_2, F@_3, F@_4, TrUserData) ->
-    d_field_Order_quantity(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			   F@_4, TrUserData);
-dfp_read_field_def_Order(<<37, Rest/binary>>, Z1, Z2,
-			 F@_1, F@_2, F@_3, F@_4, TrUserData) ->
-    d_field_Order_price(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			F@_4, TrUserData);
-dfp_read_field_def_Order(<<>>, 0, 0, F@_1, F@_2, F@_3,
-			 F@_4, _) ->
+dfp_read_field_def_OrderRequest(<<10, Rest/binary>>, Z1,
+				Z2, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    d_field_OrderRequest_type(Rest, Z1, Z2, F@_1, F@_2,
+			      F@_3, F@_4, TrUserData);
+dfp_read_field_def_OrderRequest(<<18, Rest/binary>>, Z1,
+				Z2, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    d_field_OrderRequest_company_id(Rest, Z1, Z2, F@_1,
+				    F@_2, F@_3, F@_4, TrUserData);
+dfp_read_field_def_OrderRequest(<<24, Rest/binary>>, Z1,
+				Z2, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    d_field_OrderRequest_quantity(Rest, Z1, Z2, F@_1, F@_2,
+				  F@_3, F@_4, TrUserData);
+dfp_read_field_def_OrderRequest(<<37, Rest/binary>>, Z1,
+				Z2, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    d_field_OrderRequest_price(Rest, Z1, Z2, F@_1, F@_2,
+			       F@_3, F@_4, TrUserData);
+dfp_read_field_def_OrderRequest(<<>>, 0, 0, F@_1, F@_2,
+				F@_3, F@_4, _) ->
     S1 = #{},
     S2 = if F@_1 == '$undef' -> S1;
 	    true -> S1#{type => F@_1}
@@ -727,53 +728,57 @@ dfp_read_field_def_Order(<<>>, 0, 0, F@_1, F@_2, F@_3,
     if F@_4 == '$undef' -> S4;
        true -> S4#{price => F@_4}
     end;
-dfp_read_field_def_Order(Other, Z1, Z2, F@_1, F@_2,
-			 F@_3, F@_4, TrUserData) ->
-    dg_read_field_def_Order(Other, Z1, Z2, F@_1, F@_2, F@_3,
-			    F@_4, TrUserData).
+dfp_read_field_def_OrderRequest(Other, Z1, Z2, F@_1,
+				F@_2, F@_3, F@_4, TrUserData) ->
+    dg_read_field_def_OrderRequest(Other, Z1, Z2, F@_1,
+				   F@_2, F@_3, F@_4, TrUserData).
 
-dg_read_field_def_Order(<<1:1, X:7, Rest/binary>>, N,
-			Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
+dg_read_field_def_OrderRequest(<<1:1, X:7,
+				 Rest/binary>>,
+			       N, Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
     when N < 32 - 7 ->
-    dg_read_field_def_Order(Rest, N + 7, X bsl N + Acc,
-			    F@_1, F@_2, F@_3, F@_4, TrUserData);
-dg_read_field_def_Order(<<0:1, X:7, Rest/binary>>, N,
-			Acc, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    dg_read_field_def_OrderRequest(Rest, N + 7,
+				   X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+				   TrUserData);
+dg_read_field_def_OrderRequest(<<0:1, X:7,
+				 Rest/binary>>,
+			       N, Acc, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
     Key = X bsl N + Acc,
     case Key of
       10 ->
-	  d_field_Order_type(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
-			     TrUserData);
+	  d_field_OrderRequest_type(Rest, 0, 0, F@_1, F@_2, F@_3,
+				    F@_4, TrUserData);
       18 ->
-	  d_field_Order_company_id(Rest, 0, 0, F@_1, F@_2, F@_3,
-				   F@_4, TrUserData);
+	  d_field_OrderRequest_company_id(Rest, 0, 0, F@_1, F@_2,
+					  F@_3, F@_4, TrUserData);
       24 ->
-	  d_field_Order_quantity(Rest, 0, 0, F@_1, F@_2, F@_3,
-				 F@_4, TrUserData);
+	  d_field_OrderRequest_quantity(Rest, 0, 0, F@_1, F@_2,
+					F@_3, F@_4, TrUserData);
       37 ->
-	  d_field_Order_price(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
-			      TrUserData);
+	  d_field_OrderRequest_price(Rest, 0, 0, F@_1, F@_2, F@_3,
+				     F@_4, TrUserData);
       _ ->
 	  case Key band 7 of
 	    0 ->
-		skip_varint_Order(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
-				  TrUserData);
+		skip_varint_OrderRequest(Rest, 0, 0, F@_1, F@_2, F@_3,
+					 F@_4, TrUserData);
 	    1 ->
-		skip_64_Order(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
-			      TrUserData);
+		skip_64_OrderRequest(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
+				     TrUserData);
 	    2 ->
-		skip_length_delimited_Order(Rest, 0, 0, F@_1, F@_2,
-					    F@_3, F@_4, TrUserData);
+		skip_length_delimited_OrderRequest(Rest, 0, 0, F@_1,
+						   F@_2, F@_3, F@_4,
+						   TrUserData);
 	    3 ->
-		skip_group_Order(Rest, Key bsr 3, 0, F@_1, F@_2, F@_3,
-				 F@_4, TrUserData);
+		skip_group_OrderRequest(Rest, Key bsr 3, 0, F@_1, F@_2,
+					F@_3, F@_4, TrUserData);
 	    5 ->
-		skip_32_Order(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
-			      TrUserData)
+		skip_32_OrderRequest(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
+				     TrUserData)
 	  end
     end;
-dg_read_field_def_Order(<<>>, 0, 0, F@_1, F@_2, F@_3,
-			F@_4, _) ->
+dg_read_field_def_OrderRequest(<<>>, 0, 0, F@_1, F@_2,
+			       F@_3, F@_4, _) ->
     S1 = #{},
     S2 = if F@_1 == '$undef' -> S1;
 	    true -> S1#{type => F@_1}
@@ -788,107 +793,117 @@ dg_read_field_def_Order(<<>>, 0, 0, F@_1, F@_2, F@_3,
        true -> S4#{price => F@_4}
     end.
 
-d_field_Order_type(<<1:1, X:7, Rest/binary>>, N, Acc,
-		   F@_1, F@_2, F@_3, F@_4, TrUserData)
+d_field_OrderRequest_type(<<1:1, X:7, Rest/binary>>, N,
+			  Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
     when N < 57 ->
-    d_field_Order_type(Rest, N + 7, X bsl N + Acc, F@_1,
-		       F@_2, F@_3, F@_4, TrUserData);
-d_field_Order_type(<<0:1, X:7, Rest/binary>>, N, Acc, _,
-		   F@_2, F@_3, F@_4, TrUserData) ->
+    d_field_OrderRequest_type(Rest, N + 7, X bsl N + Acc,
+			      F@_1, F@_2, F@_3, F@_4, TrUserData);
+d_field_OrderRequest_type(<<0:1, X:7, Rest/binary>>, N,
+			  Acc, _, F@_2, F@_3, F@_4, TrUserData) ->
     {NewFValue, RestF} = begin
 			   Len = X bsl N + Acc,
 			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
 			   {unicode:characters_to_list(Utf8, unicode), Rest2}
 			 end,
-    dfp_read_field_def_Order(RestF, 0, 0, NewFValue, F@_2,
-			     F@_3, F@_4, TrUserData).
+    dfp_read_field_def_OrderRequest(RestF, 0, 0, NewFValue,
+				    F@_2, F@_3, F@_4, TrUserData).
 
-d_field_Order_company_id(<<1:1, X:7, Rest/binary>>, N,
-			 Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
+d_field_OrderRequest_company_id(<<1:1, X:7,
+				  Rest/binary>>,
+				N, Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
     when N < 57 ->
-    d_field_Order_company_id(Rest, N + 7, X bsl N + Acc,
-			     F@_1, F@_2, F@_3, F@_4, TrUserData);
-d_field_Order_company_id(<<0:1, X:7, Rest/binary>>, N,
-			 Acc, F@_1, _, F@_3, F@_4, TrUserData) ->
+    d_field_OrderRequest_company_id(Rest, N + 7,
+				    X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+				    TrUserData);
+d_field_OrderRequest_company_id(<<0:1, X:7,
+				  Rest/binary>>,
+				N, Acc, F@_1, _, F@_3, F@_4, TrUserData) ->
     {NewFValue, RestF} = begin
 			   Len = X bsl N + Acc,
 			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
 			   {unicode:characters_to_list(Utf8, unicode), Rest2}
 			 end,
-    dfp_read_field_def_Order(RestF, 0, 0, F@_1, NewFValue,
-			     F@_3, F@_4, TrUserData).
+    dfp_read_field_def_OrderRequest(RestF, 0, 0, F@_1,
+				    NewFValue, F@_3, F@_4, TrUserData).
 
-d_field_Order_quantity(<<1:1, X:7, Rest/binary>>, N,
-		       Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
+d_field_OrderRequest_quantity(<<1:1, X:7, Rest/binary>>,
+			      N, Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
     when N < 57 ->
-    d_field_Order_quantity(Rest, N + 7, X bsl N + Acc, F@_1,
-			   F@_2, F@_3, F@_4, TrUserData);
-d_field_Order_quantity(<<0:1, X:7, Rest/binary>>, N,
-		       Acc, F@_1, F@_2, _, F@_4, TrUserData) ->
+    d_field_OrderRequest_quantity(Rest, N + 7,
+				  X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+				  TrUserData);
+d_field_OrderRequest_quantity(<<0:1, X:7, Rest/binary>>,
+			      N, Acc, F@_1, F@_2, _, F@_4, TrUserData) ->
     {NewFValue, RestF} = {begin
 			    <<Res:32/signed-native>> = <<(X bsl N +
 							    Acc):32/unsigned-native>>,
 			    Res
 			  end,
 			  Rest},
-    dfp_read_field_def_Order(RestF, 0, 0, F@_1, F@_2,
-			     NewFValue, F@_4, TrUserData).
+    dfp_read_field_def_OrderRequest(RestF, 0, 0, F@_1, F@_2,
+				    NewFValue, F@_4, TrUserData).
 
-d_field_Order_price(<<0:16, 128, 127, Rest/binary>>, Z1,
-		    Z2, F@_1, F@_2, F@_3, _, TrUserData) ->
-    dfp_read_field_def_Order(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			     infinity, TrUserData);
-d_field_Order_price(<<0:16, 128, 255, Rest/binary>>, Z1,
-		    Z2, F@_1, F@_2, F@_3, _, TrUserData) ->
-    dfp_read_field_def_Order(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			     '-infinity', TrUserData);
-d_field_Order_price(<<_:16, 1:1, _:7, _:1, 127:7,
-		      Rest/binary>>,
-		    Z1, Z2, F@_1, F@_2, F@_3, _, TrUserData) ->
-    dfp_read_field_def_Order(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			     nan, TrUserData);
-d_field_Order_price(<<Value:32/little-float,
-		      Rest/binary>>,
-		    Z1, Z2, F@_1, F@_2, F@_3, _, TrUserData) ->
-    dfp_read_field_def_Order(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			     Value, TrUserData).
+d_field_OrderRequest_price(<<0:16, 128, 127,
+			     Rest/binary>>,
+			   Z1, Z2, F@_1, F@_2, F@_3, _, TrUserData) ->
+    dfp_read_field_def_OrderRequest(Rest, Z1, Z2, F@_1,
+				    F@_2, F@_3, infinity, TrUserData);
+d_field_OrderRequest_price(<<0:16, 128, 255,
+			     Rest/binary>>,
+			   Z1, Z2, F@_1, F@_2, F@_3, _, TrUserData) ->
+    dfp_read_field_def_OrderRequest(Rest, Z1, Z2, F@_1,
+				    F@_2, F@_3, '-infinity', TrUserData);
+d_field_OrderRequest_price(<<_:16, 1:1, _:7, _:1, 127:7,
+			     Rest/binary>>,
+			   Z1, Z2, F@_1, F@_2, F@_3, _, TrUserData) ->
+    dfp_read_field_def_OrderRequest(Rest, Z1, Z2, F@_1,
+				    F@_2, F@_3, nan, TrUserData);
+d_field_OrderRequest_price(<<Value:32/little-float,
+			     Rest/binary>>,
+			   Z1, Z2, F@_1, F@_2, F@_3, _, TrUserData) ->
+    dfp_read_field_def_OrderRequest(Rest, Z1, Z2, F@_1,
+				    F@_2, F@_3, Value, TrUserData).
 
-skip_varint_Order(<<1:1, _:7, Rest/binary>>, Z1, Z2,
-		  F@_1, F@_2, F@_3, F@_4, TrUserData) ->
-    skip_varint_Order(Rest, Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-		      TrUserData);
-skip_varint_Order(<<0:1, _:7, Rest/binary>>, Z1, Z2,
-		  F@_1, F@_2, F@_3, F@_4, TrUserData) ->
-    dfp_read_field_def_Order(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			     F@_4, TrUserData).
+skip_varint_OrderRequest(<<1:1, _:7, Rest/binary>>, Z1,
+			 Z2, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    skip_varint_OrderRequest(Rest, Z1, Z2, F@_1, F@_2, F@_3,
+			     F@_4, TrUserData);
+skip_varint_OrderRequest(<<0:1, _:7, Rest/binary>>, Z1,
+			 Z2, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    dfp_read_field_def_OrderRequest(Rest, Z1, Z2, F@_1,
+				    F@_2, F@_3, F@_4, TrUserData).
 
-skip_length_delimited_Order(<<1:1, X:7, Rest/binary>>,
-			    N, Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
+skip_length_delimited_OrderRequest(<<1:1, X:7,
+				     Rest/binary>>,
+				   N, Acc, F@_1, F@_2, F@_3, F@_4, TrUserData)
     when N < 57 ->
-    skip_length_delimited_Order(Rest, N + 7, X bsl N + Acc,
-				F@_1, F@_2, F@_3, F@_4, TrUserData);
-skip_length_delimited_Order(<<0:1, X:7, Rest/binary>>,
-			    N, Acc, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    skip_length_delimited_OrderRequest(Rest, N + 7,
+				       X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+				       TrUserData);
+skip_length_delimited_OrderRequest(<<0:1, X:7,
+				     Rest/binary>>,
+				   N, Acc, F@_1, F@_2, F@_3, F@_4,
+				   TrUserData) ->
     Length = X bsl N + Acc,
     <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_Order(Rest2, 0, 0, F@_1, F@_2, F@_3,
-			     F@_4, TrUserData).
+    dfp_read_field_def_OrderRequest(Rest2, 0, 0, F@_1, F@_2,
+				    F@_3, F@_4, TrUserData).
 
-skip_group_Order(Bin, FNum, Z2, F@_1, F@_2, F@_3, F@_4,
-		 TrUserData) ->
+skip_group_OrderRequest(Bin, FNum, Z2, F@_1, F@_2, F@_3,
+			F@_4, TrUserData) ->
     {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_Order(Rest, 0, Z2, F@_1, F@_2, F@_3,
-			     F@_4, TrUserData).
+    dfp_read_field_def_OrderRequest(Rest, 0, Z2, F@_1, F@_2,
+				    F@_3, F@_4, TrUserData).
 
-skip_32_Order(<<_:32, Rest/binary>>, Z1, Z2, F@_1, F@_2,
-	      F@_3, F@_4, TrUserData) ->
-    dfp_read_field_def_Order(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			     F@_4, TrUserData).
+skip_32_OrderRequest(<<_:32, Rest/binary>>, Z1, Z2,
+		     F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    dfp_read_field_def_OrderRequest(Rest, Z1, Z2, F@_1,
+				    F@_2, F@_3, F@_4, TrUserData).
 
-skip_64_Order(<<_:64, Rest/binary>>, Z1, Z2, F@_1, F@_2,
-	      F@_3, F@_4, TrUserData) ->
-    dfp_read_field_def_Order(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			     F@_4, TrUserData).
+skip_64_OrderRequest(<<_:64, Rest/binary>>, Z1, Z2,
+		     F@_1, F@_2, F@_3, F@_4, TrUserData) ->
+    dfp_read_field_def_OrderRequest(Rest, Z1, Z2, F@_1,
+				    F@_2, F@_3, F@_4, TrUserData).
 
 d_msg_MsgCS(Bin, TrUserData) ->
     dfp_read_field_def_MsgCS(Bin, 0, 0,
@@ -914,8 +929,8 @@ dfp_read_field_def_MsgCS(<<34, Rest/binary>>, Z1, Z2,
 		       F@_5, TrUserData);
 dfp_read_field_def_MsgCS(<<42, Rest/binary>>, Z1, Z2,
 			 F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
-    d_field_MsgCS_order(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			F@_4, F@_5, TrUserData);
+    d_field_MsgCS_orderRequest(Rest, Z1, Z2, F@_1, F@_2,
+			       F@_3, F@_4, F@_5, TrUserData);
 dfp_read_field_def_MsgCS(<<>>, 0, 0, F@_1, F@_2, F@_3,
 			 F@_4, F@_5, _) ->
     S1 = #{},
@@ -932,7 +947,7 @@ dfp_read_field_def_MsgCS(<<>>, 0, 0, F@_1, F@_2, F@_3,
 	    true -> S4#{repL => F@_4}
 	 end,
     if F@_5 == '$undef' -> S5;
-       true -> S5#{order => F@_5}
+       true -> S5#{orderRequest => F@_5}
     end;
 dfp_read_field_def_MsgCS(Other, Z1, Z2, F@_1, F@_2,
 			 F@_3, F@_4, F@_5, TrUserData) ->
@@ -961,8 +976,8 @@ dg_read_field_def_MsgCS(<<0:1, X:7, Rest/binary>>, N,
 	  d_field_MsgCS_repL(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
 			     F@_5, TrUserData);
       42 ->
-	  d_field_MsgCS_order(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
-			      F@_5, TrUserData);
+	  d_field_MsgCS_orderRequest(Rest, 0, 0, F@_1, F@_2, F@_3,
+				     F@_4, F@_5, TrUserData);
       _ ->
 	  case Key band 7 of
 	    0 ->
@@ -998,7 +1013,7 @@ dg_read_field_def_MsgCS(<<>>, 0, 0, F@_1, F@_2, F@_3,
 	    true -> S4#{repL => F@_4}
 	 end,
     if F@_5 == '$undef' -> S5;
-       true -> S5#{order => F@_5}
+       true -> S5#{orderRequest => F@_5}
     end.
 
 d_field_MsgCS_type(<<1:1, X:7, Rest/binary>>, N, Acc,
@@ -1078,23 +1093,25 @@ d_field_MsgCS_repL(<<0:1, X:7, Rest/binary>>, N, Acc,
 			     end,
 			     F@_5, TrUserData).
 
-d_field_MsgCS_order(<<1:1, X:7, Rest/binary>>, N, Acc,
-		    F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData)
+d_field_MsgCS_orderRequest(<<1:1, X:7, Rest/binary>>, N,
+			   Acc, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData)
     when N < 57 ->
-    d_field_MsgCS_order(Rest, N + 7, X bsl N + Acc, F@_1,
-			F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_MsgCS_order(<<0:1, X:7, Rest/binary>>, N, Acc,
-		    F@_1, F@_2, F@_3, F@_4, Prev, TrUserData) ->
+    d_field_MsgCS_orderRequest(Rest, N + 7, X bsl N + Acc,
+			       F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
+d_field_MsgCS_orderRequest(<<0:1, X:7, Rest/binary>>, N,
+			   Acc, F@_1, F@_2, F@_3, F@_4, Prev, TrUserData) ->
     {NewFValue, RestF} = begin
 			   Len = X bsl N + Acc,
 			   <<Bs:Len/binary, Rest2/binary>> = Rest,
-			   {id(d_msg_Order(Bs, TrUserData), TrUserData), Rest2}
+			   {id(d_msg_OrderRequest(Bs, TrUserData), TrUserData),
+			    Rest2}
 			 end,
     dfp_read_field_def_MsgCS(RestF, 0, 0, F@_1, F@_2, F@_3,
 			     F@_4,
 			     if Prev == '$undef' -> NewFValue;
 				true ->
-				    merge_msg_Order(Prev, NewFValue, TrUserData)
+				    merge_msg_OrderRequest(Prev, NewFValue,
+							   TrUserData)
 			     end,
 			     TrUserData).
 
@@ -1204,7 +1221,8 @@ merge_msgs(Prev, New, MsgName, Opts) ->
       'Reply_Login' ->
 	  merge_msg_Reply_Login(Prev, New, TrUserData);
       'Client' -> merge_msg_Client(Prev, New, TrUserData);
-      'Order' -> merge_msg_Order(Prev, New, TrUserData);
+      'OrderRequest' ->
+	  merge_msg_OrderRequest(Prev, New, TrUserData);
       'MsgCS' -> merge_msg_MsgCS(Prev, New, TrUserData)
     end.
 
@@ -1242,7 +1260,7 @@ merge_msg_Client(PMsg, NMsg, _) ->
       _ -> S2
     end.
 
-merge_msg_Order(PMsg, NMsg, _) ->
+merge_msg_OrderRequest(PMsg, NMsg, _) ->
     S1 = #{},
     S2 = case {PMsg, NMsg} of
 	   {_, #{type := NFtype}} -> S1#{type => NFtype};
@@ -1301,11 +1319,15 @@ merge_msg_MsgCS(PMsg, NMsg, TrUserData) ->
 	   {_, _} -> S4
 	 end,
     case {PMsg, NMsg} of
-      {#{order := PForder}, #{order := NForder}} ->
-	  S5#{order =>
-		  merge_msg_Order(PForder, NForder, TrUserData)};
-      {_, #{order := NForder}} -> S5#{order => NForder};
-      {#{order := PForder}, _} -> S5#{order => PForder};
+      {#{orderRequest := PForderRequest},
+       #{orderRequest := NForderRequest}} ->
+	  S5#{orderRequest =>
+		  merge_msg_OrderRequest(PForderRequest, NForderRequest,
+					 TrUserData)};
+      {_, #{orderRequest := NForderRequest}} ->
+	  S5#{orderRequest => NForderRequest};
+      {#{orderRequest := PForderRequest}, _} ->
+	  S5#{orderRequest => PForderRequest};
       {_, _} -> S5
     end.
 
@@ -1321,7 +1343,8 @@ verify_msg(Msg, MsgName, Opts) ->
       'Reply_Login' ->
 	  v_msg_Reply_Login(Msg, ['Reply_Login'], TrUserData);
       'Client' -> v_msg_Client(Msg, ['Client'], TrUserData);
-      'Order' -> v_msg_Order(Msg, ['Order'], TrUserData);
+      'OrderRequest' ->
+	  v_msg_OrderRequest(Msg, ['OrderRequest'], TrUserData);
       'MsgCS' -> v_msg_MsgCS(Msg, ['MsgCS'], TrUserData);
       _ -> mk_type_error(not_a_known_message, Msg, [])
     end.
@@ -1396,8 +1419,8 @@ v_msg_Client(M, Path, _TrUserData) when is_map(M) ->
 v_msg_Client(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'Client'}, X, Path).
 
--dialyzer({nowarn_function,v_msg_Order/3}).
-v_msg_Order(#{} = M, Path, _) ->
+-dialyzer({nowarn_function,v_msg_OrderRequest/3}).
+v_msg_OrderRequest(#{} = M, Path, _) ->
     case M of
       #{type := F1} -> v_type_string(F1, [type | Path]);
       _ -> ok
@@ -1425,12 +1448,13 @@ v_msg_Order(#{} = M, Path, _) ->
 		  end,
 		  maps:keys(M)),
     ok;
-v_msg_Order(M, Path, _TrUserData) when is_map(M) ->
+v_msg_OrderRequest(M, Path, _TrUserData)
+    when is_map(M) ->
     mk_type_error({missing_fields, [] -- maps:keys(M),
-		   'Order'},
+		   'OrderRequest'},
 		  M, Path);
-v_msg_Order(X, Path, _TrUserData) ->
-    mk_type_error({expected_msg, 'Order'}, X, Path).
+v_msg_OrderRequest(X, Path, _TrUserData) ->
+    mk_type_error({expected_msg, 'OrderRequest'}, X, Path).
 
 -dialyzer({nowarn_function,v_msg_MsgCS/3}).
 v_msg_MsgCS(#{} = M, Path, TrUserData) ->
@@ -1454,15 +1478,16 @@ v_msg_MsgCS(#{} = M, Path, TrUserData) ->
       _ -> ok
     end,
     case M of
-      #{order := F5} ->
-	  v_msg_Order(F5, [order | Path], TrUserData);
+      #{orderRequest := F5} ->
+	  v_msg_OrderRequest(F5, [orderRequest | Path],
+			     TrUserData);
       _ -> ok
     end,
     lists:foreach(fun (type) -> ok;
 		      (info) -> ok;
 		      (reqL) -> ok;
 		      (repL) -> ok;
-		      (order) -> ok;
+		      (orderRequest) -> ok;
 		      (OtherKey) ->
 			  mk_type_error({extraneous_key, OtherKey}, M, Path)
 		  end,
@@ -1548,7 +1573,7 @@ get_msg_defs() ->
 	 occurrence => optional, opts => []},
        #{name => pass, fnum => 2, rnum => 3, type => string,
 	 occurrence => optional, opts => []}]},
-     {{msg, 'Order'},
+     {{msg, 'OrderRequest'},
       [#{name => type, fnum => 1, rnum => 2, type => string,
 	 occurrence => optional, opts => []},
        #{name => company_id, fnum => 2, rnum => 3,
@@ -1569,22 +1594,22 @@ get_msg_defs() ->
        #{name => repL, fnum => 4, rnum => 5,
 	 type => {msg, 'Reply_Login'}, occurrence => optional,
 	 opts => []},
-       #{name => order, fnum => 5, rnum => 6,
-	 type => {msg, 'Order'}, occurrence => optional,
+       #{name => orderRequest, fnum => 5, rnum => 6,
+	 type => {msg, 'OrderRequest'}, occurrence => optional,
 	 opts => []}]}].
 
 
 get_msg_names() ->
-    ['Request_Login', 'Reply_Login', 'Client', 'Order',
-     'MsgCS'].
+    ['Request_Login', 'Reply_Login', 'Client',
+     'OrderRequest', 'MsgCS'].
 
 
 get_group_names() -> [].
 
 
 get_msg_or_group_names() ->
-    ['Request_Login', 'Reply_Login', 'Client', 'Order',
-     'MsgCS'].
+    ['Request_Login', 'Reply_Login', 'Client',
+     'OrderRequest', 'MsgCS'].
 
 
 get_enum_names() -> [].
@@ -1615,7 +1640,7 @@ find_msg_def('Client') ->
        occurrence => optional, opts => []},
      #{name => pass, fnum => 2, rnum => 3, type => string,
        occurrence => optional, opts => []}];
-find_msg_def('Order') ->
+find_msg_def('OrderRequest') ->
     [#{name => type, fnum => 1, rnum => 2, type => string,
        occurrence => optional, opts => []},
      #{name => company_id, fnum => 2, rnum => 3,
@@ -1636,8 +1661,8 @@ find_msg_def('MsgCS') ->
      #{name => repL, fnum => 4, rnum => 5,
        type => {msg, 'Reply_Login'}, occurrence => optional,
        opts => []},
-     #{name => order, fnum => 5, rnum => 6,
-       type => {msg, 'Order'}, occurrence => optional,
+     #{name => orderRequest, fnum => 5, rnum => 6,
+       type => {msg, 'OrderRequest'}, occurrence => optional,
        opts => []}];
 find_msg_def(_) -> error.
 

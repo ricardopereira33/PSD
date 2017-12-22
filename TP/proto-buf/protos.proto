@@ -1,6 +1,6 @@
 syntax="proto2";
 
-package exchange;
+package client;
 
 message MsgCS {
     optional string type = 1;

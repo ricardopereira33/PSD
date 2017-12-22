@@ -43,7 +43,7 @@ waitLogin(LoginManager, Sock) ->
                             waitLogin(LoginManager, Sock)
                     end;
                 {ok,"3"} -> 
-                    {ok, MapOrder} = maps:find(order, Map),
+                    {ok, MapOrder} = maps:find(orderRequest, Map),
                     {ok, Type} = maps:find(type, MapOrder),
                     case string:tokens(Type, "\n\t\r ") of
                         ["1"] ->
