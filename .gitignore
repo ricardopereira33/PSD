@@ -1,5 +1,5 @@
 .DS_Store
 *.class
-/TP/Exchange/Exchange/nbproject/private/
-/TP/Exchange/Exchange/build/
-/TP/Directory/target/
+TP/Exchange/Exchange/nbproject/private/
+TP/Exchange/Exchange/build/
+TP/Directory/target/*
