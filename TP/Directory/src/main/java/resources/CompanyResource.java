@@ -67,15 +67,11 @@ public class CompanyResource {
             float maxPrice;
             float minPrice;
             PriceInfo dayBeforePI, actualDayPI;
-            List<Order> dayBeforeOrd = c.getOrdersFromDayBefore();
             List<Transaction> dayBeforeTrans = c.getTransactionsFromDayBefore();
-            if(dayBeforeOrd == null) {startPrice = 0; endPrice = 0;}
+            if(dayBeforeTrans == null) {minPrice = 0; maxPrice = 0; startPrice = 0; endPrice = 0;}
             else{
-                startPrice = dayBeforeOrd.get(0).getPrice();
-                endPrice = dayBeforeOrd.get(dayBeforeOrd.size() - 1).getPrice();
-            }
-            if(dayBeforeTrans == null) {minPrice = 0; maxPrice = 0;}
-            else{
+                startPrice = dayBeforeTrans.get(0).getPrice();
+                endPrice = dayBeforeTrans.get(dayBeforeTrans.size() - 1).getPrice();
                 minPrice = dayBeforeTrans.get(0).getPrice();
                 maxPrice = dayBeforeTrans.get(0).getPrice();
                 for (Transaction t : dayBeforeTrans) {
@@ -85,15 +81,11 @@ public class CompanyResource {
             }
             dayBeforePI = new PriceInfo(startPrice,endPrice,minPrice,maxPrice);
 
-            List<Order> actualDayOrd = c.getOrdersFromActualDay();
             List<Transaction> actualDayTrans = c.getTransactionsFromActualDay();
-            if(actualDayOrd == null) {startPrice = 0; endPrice = 0;}
-            else {
-                startPrice = actualDayOrd.get(0).getPrice();
-                endPrice = actualDayOrd.get(actualDayOrd.size() - 1).getPrice();
-            }
-            if(actualDayTrans == null) {minPrice = 0; maxPrice = 0;}
+            if(actualDayTrans == null) {minPrice = 0; maxPrice = 0; startPrice = 0; endPrice = 0;}
             else{
+                startPrice = actualDayTrans.get(0).getPrice();
+                endPrice = actualDayTrans.get(actualDayTrans.size() - 1).getPrice();
                 minPrice = actualDayTrans.get(0).getPrice();
                 maxPrice = actualDayTrans.get(0).getPrice();
                 for (Transaction t : actualDayTrans) {
