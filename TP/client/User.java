@@ -21,10 +21,18 @@ public class User {
          	ZMQ.Socket socket = context.socket(ZMQ.REQ);
          	socket.connect("tcp://localhost:3333");
 
-			UserRequest ur = new UserRequest(socket);
+         	ZMQ.Context context2 = ZMQ.context(1);
+         	ZMQ.Socket sub = context2.socket(ZMQ.SUB);
+         	sub.connect("tcp://localhost:" + args[1]);
+
+         	UserSubRead usr = new UserSubRead(sub);
+    		usr.start();
+
+			UserRequest ur = new UserRequest(socket,sub);
 			ur.exe();
 
 			socket.close();
+			sub.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();

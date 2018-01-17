@@ -29,12 +29,14 @@ public class Exchange {
     private Map<String,List<Transaction>> transactions;
     private Map<String,List<Sell>> sell_orders;
     private Map<String,List<Buy>> buy_orders;
+    private ZMQ.Socket pub;
 
-    public Exchange(){
+    public Exchange(ZMQ.Socket pub){
             this.companies = new HashMap();
             this.transactions = new HashMap();
             this.sell_orders = new HashMap();
             this.buy_orders = new HashMap();
+            this.pub = pub;
     }
 
     public Exchange(Map<String,Company> companies){
@@ -85,6 +87,7 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
+                //pub.send(new_transaction.getCompany() + ":" + "DONE") // send to subscribed clients ////falta meter os dados da transacao  
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -112,6 +115,7 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
+                pub.send(new_transaction.getCompany() + ":" + "DONE"); // send to subscribed clients ////falta meter os dados da transacao  
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -161,10 +165,16 @@ public class Exchange {
 
     public static void main(String[] args) throws Exception{
 
-        Exchange exchange = new Exchange();
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket socket = context.socket(ZMQ.REP);
         socket.bind("tcp://*:" + 3333);
+
+        //ligacao direta com o cliente
+        ZMQ.Context context2 = ZMQ.context(1);
+        ZMQ.Socket pub = context2.socket(ZMQ.PUB);
+        pub.connect("tcp://localhost:" + args[1]);
+
+        Exchange exchange = new Exchange(pub);
         
         while(true){
             byte[] b = socket.recv();
@@ -180,6 +190,7 @@ public class Exchange {
                 String sell_id = String.valueOf(exchange.getSellsByCompany(order.getCompanyId()).size());
                 Sell sell = new Sell(sell_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderSell(sell); // send to directory
+                pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
                 exchange.receiveSell(sell);
                 socket.send("Received sell.");
             }
@@ -188,6 +199,7 @@ public class Exchange {
                 String buy_id = String.valueOf(exchange.getBuysByCompany(order.getCompanyId()).size());
                 Buy buy = new Buy(buy_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderBuy(buy); // send to directory
+                pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
                 exchange.receiveBuy(buy);
                 socket.send("Received buy.");
             }

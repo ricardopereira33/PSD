@@ -8,6 +8,8 @@ public class Printer {
         System.out.println("===== New Order =====");
         System.out.println("1.\tSell");
         System.out.println("2.\tBuy");
+        System.out.println("3.\tSubscribe Company");
+        System.out.println("4.\tUnsubscribe Company");
         System.out.println("0.\tExit");
         System.out.print("Option: ");
     }

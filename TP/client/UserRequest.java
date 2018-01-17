@@ -15,11 +15,13 @@ import org.zeromq.ZMQ;
 
 public class UserRequest {
     private ZMQ.Socket sock;
+    private ZMQ.Socket sub;
     private Messenger msg;
 
-    public UserRequest( ZMQ.Socket socket){
+    public UserRequest( ZMQ.Socket socket, ZMQ.Socket sub){
         this.msg = new Messenger();
         this.sock = socket;
+        this.sub = sub;
     }
 
     public void exe(){
@@ -82,15 +84,20 @@ public class UserRequest {
                 case "0": 
                     return;
                 case "1":
-                    type = "1";
+                    sendOrder(br, "1");
                     break;
                 case "2":
-                    type = "2";
+                    sendOrder(br, "2");
+                    break;
+                case "3":
+                    subscribeCompany(br);
+                    break;
+                case "4":
+                    unsubscribeCompany(br);
                     break;
                 default: 
                     System.out.println("Invalid option!");
             }
-            sendOrder(br, type);
             p.clear();
         }
         System.out.println("User out!");
@@ -110,5 +117,22 @@ public class UserRequest {
         byte[] b = sock.recv();
         MsgCS reply = MsgCS.parseFrom(b);
         System.out.println("ACK: " + reply.getType());
+    }
+
+    public void subscribeCompany(BufferedReader br) throws IOException{
+        //testar
+        System.out.print("Company: ");
+        String company = br.readLine();
+        sub.subscribe(company.getBytes());
+        System.out.println("Company Subscribed");
+
+    }
+
+    public void unsubscribeCompany(BufferedReader br) throws IOException{
+        //testar
+        System.out.print("Company: ");
+        String company = br.readLine();
+        sub.unsubscribe(company.getBytes());
+        System.out.println("Company Unsubscribed");
     }
 }
