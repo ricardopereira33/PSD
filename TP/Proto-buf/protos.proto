@@ -1,0 +1,32 @@
+syntax="proto2";
+
+package client;
+
+message MsgCS {
+    optional string type = 1;
+    optional Client info = 2;
+    optional Request_Login reqL = 3;
+    optional Reply_Login repL = 4;
+    optional OrderRequest orderRequest = 5;
+}
+
+message Client {
+    optional string user = 1;
+    optional string pass = 2;
+}
+
+message Request_Login {
+    optional string msg = 1;
+}
+
+message Reply_Login {
+    optional bool valid = 1;
+    optional string msg = 2;
+}
+
+message OrderRequest {
+    optional string type = 1;
+    optional string company_id = 2;
+    optional int32 quantity = 3;
+    optional float price = 4;
+}
