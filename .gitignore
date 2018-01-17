@@ -3,3 +3,4 @@
 TP/Exchange/Exchange/nbproject/private/
 TP/Exchange/Exchange/build/
 TP/Directory/target/*
+*.beam

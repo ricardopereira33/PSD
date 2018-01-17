@@ -13,7 +13,7 @@ exchange:
 	javac -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:Tools/jar/gson-2.6.2.jar:. exchange/*.java
 
 directory:
-	mvn -f ./Directory/ package
+	mvn -f Directory/pom.xml package	
 
 run:
 	java -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:. client.User
@@ -25,7 +25,7 @@ run-exchange:
 	java -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:Tools/jar/gson-2.6.2.jar:. exchange.Exchange
 
 run-directory:
-	java -jar Directory/target/Directory-1.0-SNAPSHOT.jar server 	
+	java -jar Directory/target/Directory-1.0-SNAPSHOT.jar server 
 
 clean:
 	rm Client/*.class
