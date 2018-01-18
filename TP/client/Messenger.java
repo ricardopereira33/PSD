@@ -44,7 +44,7 @@ public class Messenger {
             .build();
     }
 
-    public MsgCS newOrderRequest(String type, String company, int quantity, float price) {
+    public MsgCS newOrderRequest(String user, String type, String company, int quantity, float price) {
         return
             MsgCS.newBuilder()
             .setType("3")
@@ -54,6 +54,10 @@ public class Messenger {
                 .setCompanyId(company)
                 .setQuantity(quantity)
                 .setPrice(price)
+                )
+            .setInfo(
+                Client.newBuilder()
+                .setUser(user)
                 )
             .build();
     }

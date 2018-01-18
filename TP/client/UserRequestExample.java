@@ -15,11 +15,13 @@ import org.zeromq.ZMQ;
 
 public class UserRequestExample {
     private ZMQ.Socket sock;
+    private ZMQ.Socket sub;
     private Messenger msg;
 
-    public UserRequestExample( ZMQ.Socket socket){
+    public UserRequestExample( ZMQ.Socket socket, ZMQ.Socket sub){
         this.msg = new Messenger();
         this.sock = socket;
+        this.sub = sub;
     }
 
     public void exe(ZMQ.Socket socket){
@@ -43,15 +45,21 @@ public class UserRequestExample {
                 case "0": 
                     return;
                 case "1":
-                    type = "1";
+                    sendOrder(br, "1", socket);
                     break;
                 case "2":
-                    type = "2";
+                    sendOrder(br, "2", socket);
+                    break;
+                case "3":
+                    subscribeCompany(br);
+                    break;
+                case "4":
+                    unsubscribeCompany(br);
                     break;
                 default: 
                     System.out.println("Invalid option!");
             }
-            sendOrder(br, type, socket);
+            //sendOrder(br, type, socket);
             //p.clear();
         }
         System.out.println("User out!");
@@ -65,10 +73,27 @@ public class UserRequestExample {
         System.out.print("Price: ");
         float price = Float.parseFloat(br.readLine());
 
-        MsgCS order = msg.newOrderRequest(type, company, quantity, price);
+        MsgCS order = msg.newOrderRequest("POR FAZER",type, company, quantity, price);
         sock.send(order.toByteArray());
 
         byte[] b = socket.recv();
         System.out.println(new String(b));
+    }
+
+    public void subscribeCompany(BufferedReader br) throws IOException{
+        //testar
+        System.out.print("Company: ");
+        String company = br.readLine();
+        sub.subscribe(company.getBytes());
+        System.out.println("Company Subscribed");
+
+    }
+
+    public void unsubscribeCompany(BufferedReader br) throws IOException{
+        //testar
+        System.out.print("Company: ");
+        String company = br.readLine();
+        sub.unsubscribe(company.getBytes());
+        System.out.println("Company Unsubscribed");
     }
 }

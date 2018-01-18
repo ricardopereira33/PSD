@@ -23,10 +23,10 @@ public class User {
 
          	ZMQ.Context context2 = ZMQ.context(1);
          	ZMQ.Socket sub = context2.socket(ZMQ.SUB);
-         	sub.connect("tcp://localhost:" + args[1]);
+         	sub.connect("tcp://localhost:" + args[0]);
 
-         	UserSubRead usr = new UserSubRead(sub);
-    		usr.start();
+         	UserSubscribeThread subscriber = new UserSubscribeThread(sub);
+    		subscriber.start();
 
 			UserRequest ur = new UserRequest(socket,sub);
 			ur.exe();

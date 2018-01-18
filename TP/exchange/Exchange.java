@@ -87,7 +87,7 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
-                //pub.send(new_transaction.getCompany() + ":" + "DONE") // send to subscribed clients ////falta meter os dados da transacao  
+                pub.send(new_transaction.getCompany() + ":" + "DONE"); // send to subscribed clients ////falta meter os dados da transacao  
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -170,9 +170,9 @@ public class Exchange {
         socket.bind("tcp://*:" + 3333);
 
         //ligacao direta com o cliente
-        ZMQ.Context context2 = ZMQ.context(1);
+        ZMQ.Context context2 = ZMQ.context(2);
         ZMQ.Socket pub = context2.socket(ZMQ.PUB);
-        pub.connect("tcp://localhost:" + args[1]);
+        pub.connect("tcp://localhost:" + args[0]);
 
         Exchange exchange = new Exchange(pub);
         

@@ -26,8 +26,8 @@ public class UserRequest {
 
     public void exe(){
         try{    
-            connectToServer();
-            login();
+            //connectToServer();
+            //login();
             processOrders();
         }
         catch(Exception e){
@@ -111,7 +111,7 @@ public class UserRequest {
         System.out.print("Price: ");
         float price = Float.parseFloat(br.readLine());
 
-        MsgCS order = msg.newOrderRequest(type, company, quantity, price);
+        MsgCS order = msg.newOrderRequest("POR FAZER",type, company, quantity, price);
         sock.send(order.toByteArray());
 
         byte[] b = sock.recv();

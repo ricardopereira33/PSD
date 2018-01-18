@@ -21,10 +21,17 @@ public class UserExample {
          	ZMQ.Socket socket = context.socket(ZMQ.REQ);
          	socket.connect("tcp://localhost:3333");
 
-			UserRequestExample ur = new UserRequestExample(socket);
+         	ZMQ.Context context2 = ZMQ.context(1); // acho que aqui temos de meter 2 em vez de 1 como argumento
+         	ZMQ.Socket sub = context2.socket(ZMQ.SUB);
+         	sub.connect("tcp://localhost:" + args[0]);
+
+         	UserSubscribeThread subscriber = new UserSubscribeThread(sub); 
+    		subscriber.start();
+
+			UserRequestExample ur = new UserRequestExample(socket,sub);
 			ur.exe(socket);
 
-			socket.close();
+			//socket.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
