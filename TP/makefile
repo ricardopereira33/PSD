@@ -10,7 +10,7 @@ server:
 
 exchange:
 	Tools/protoc/bin/protoc --java_out=. Proto-buf/protos.proto
-	javac -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:Tools/jar/gson-2.6.2.jar:. exchange/*.java
+	javac -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:Tools/jar/gson-2.6.2.jar:. Exchange/*.java
 
 directory:
 	mvn -f Directory/pom.xml package	
