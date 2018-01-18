@@ -172,7 +172,7 @@ public class Exchange {
         //ligacao direta com o cliente
         ZMQ.Context context2 = ZMQ.context(1);
         ZMQ.Socket pub = context2.socket(ZMQ.PUB);
-        pub.connect("tcp://localhost:" + args[1]);
+        pub.connect("tcp://localhost:" + args[0]);
 
         Exchange exchange = new Exchange(pub);
         
