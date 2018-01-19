@@ -39,11 +39,12 @@ public class Exchange {
             this.pub = pub;
     }
 
-    public Exchange(Map<String,Company> companies){
+    public Exchange(ZMQ.Socket pub, Map<String,Company> companies){
             this.companies = companies;
             this.transactions = new HashMap();
             this.sell_orders = new HashMap();
             this.buy_orders = new HashMap();
+            this.pub = pub;
     }
 
     public List<Transaction> getTransactionsByCompany(String company_id){
@@ -163,21 +164,28 @@ public class Exchange {
         return new Transaction(transaction_id, sell_order.getId(), buy_order.getId(), mean_price, min_quantity, company_id);
     }
 
+
+
     public static void main(String[] args) throws Exception{
 
+        //ZMQ.Context context = ZMQ.context(1);
+        //ZMQ.Socket socket = context.socket(ZMQ.REP);
+        //socket.bind("tcp://*:" + 3333);
+        //ligacao ao front end
         ZMQ.Context context = ZMQ.context(1);
-        ZMQ.Socket socket = context.socket(ZMQ.REP);
-        socket.bind("tcp://*:" + 3333);
+        ZMQ.Socket sub = context.socket(ZMQ.SUB);
+        sub.connect("tcp://localhost:" + args[0]);
 
         //ligacao direta com o cliente
-        ZMQ.Context context2 = ZMQ.context(2);
+        ZMQ.Context context2 = ZMQ.context(1);
         ZMQ.Socket pub = context2.socket(ZMQ.PUB);
-        pub.connect("tcp://localhost:" + args[0]);
+        pub.connect("tcp://localhost:" + args[1]);
 
-        Exchange exchange = new Exchange(pub);
+        Exchange exchange = populateExchange(pub,sub,1);
         
         while(true){
-            byte[] b = socket.recv();
+            //byte[] b = socket.recv();
+            byte[] b = sub.recv();
             MsgCS msg = MsgCS.parseFrom(b);
             System.out.println("Received " + msg.toString());
            
@@ -192,7 +200,7 @@ public class Exchange {
                 DirectorySender.sendOrderSell(sell); // send to directory
                 pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
                 exchange.receiveSell(sell);
-                socket.send("Received sell.");
+                //socket.send("Received sell.");
             }
             else if(type.equals("2")){
                 // buy
@@ -201,12 +209,62 @@ public class Exchange {
                 DirectorySender.sendOrderBuy(buy); // send to directory
                 pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
                 exchange.receiveBuy(buy);
-                socket.send("Received buy.");
+                //socket.send("Received buy.");
             }
         }
     
         //socket.close();
         //context.term();
+    }
+
+    public static Exchange populateExchange(ZMQ.Socket pub, ZMQ.Socket sub, int number){
+
+        Map<String,Company> companies = new HashMap();
+        String exchange_name = "Exchange" + number;
+
+        switch(number){
+            case 1: 
+                Company first = new Company("1","Apple",exchange_name, "Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.");
+                sub.subscribe(toByteArray("Apple"));
+                Company second = new Company("2","Samsung",exchange_name, "Samsung Group is a South Korean multinational conglomerate headquartered in Samsung Town, Seoul.");
+                sub.subscribe(toByteArray("Samsung"));
+                Company third = new Company("3","Xiaomi",exchange_name, "Xiaomi Inc. (stylized as Mi) is a Chinese electronics and software company headquartered in Beijing.");
+                sub.subscribe(toByteArray("Xiaomi"));
+                companies.put("Apple",first); companies.put("Samsung",second); companies.put("Xiaomi",third);
+            case 2:
+                Company fourth = new Company("4","Google",exchange_name, "Google LLC is an American multinational technology company that specializes in Internet-related services and products.");
+                sub.subscribe(toByteArray("Google"));
+                Company fifth = new Company("5","Facebook",exchange_name, "Facebook is an American online social media and social networking service based in Menlo Park, California..");
+                sub.subscribe(toByteArray("Facebook"));
+                Company sixth = new Company("6","Twitter",exchange_name, "Twitter is an online news and social networking service where users post and interact with messages, known as tweets.");
+                sub.subscribe(toByteArray("Twitter"));
+                companies.put("Google",fourth); companies.put("Facebook",fifth); companies.put("Twitter",sixth);
+            case 3:
+                Company seventh = new Company("7","Amazon",exchange_name,"Amazon.com, Inc., doing business as Amazon is an American electronic commerce and cloud computing company based in Seattle, Washington");
+                sub.subscribe(toByteArray("Amazon"));
+                Company eighth = new Company("8","Ebay",exchange_name,"eBay Inc is a multinational e-commerce corporation headquartered in San Jose, California that facilitates consumer-to-consumer and business-to-consumer sales through its website.");
+                sub.subscribe(toByteArray("Ebay"));
+                Company ninth = new Company("9","AliExpress",exchange_name,"Launched in 2010, AliExpress.com is an online retail service made up of small businesses in China and elsewhere offering products to international online buyers.");
+                sub.subscribe(toByteArray("AliExpress"));
+                companies.put("Amazon",seventh); companies.put("Ebay",eighth); companies.put("AliExpress",ninth);
+            default: break;
+        }
+        return new Exchange(pub, companies);
+    }
+
+    public static byte[] toByteArray(String string){
+
+        byte[] byte_head = new byte[2];
+        byte_head[0] = 10;
+        byte_head[1] = (byte) string.length();
+
+        byte[] byte_string = string.getBytes();
+
+        byte[] byte_array = new byte[byte_head.length + byte_string.length];
+        System.arraycopy(byte_head, 0, byte_array, 0, byte_head.length);
+        System.arraycopy(byte_string, 0, byte_array, byte_head.length, byte_string.length);
+
+        return byte_array;
     }
     
 }

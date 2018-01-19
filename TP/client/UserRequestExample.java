@@ -76,8 +76,9 @@ public class UserRequestExample {
         MsgCS order = msg.newOrderRequest("POR FAZER",type, company, quantity, price);
         sock.send(order.toByteArray());
 
-        byte[] b = socket.recv();
-        System.out.println(new String(b));
+        //byte[] b = socket.recv();
+        //System.out.println(new String(b));
+        System.out.println("Order done");
     }
 
     public void subscribeCompany(BufferedReader br) throws IOException{

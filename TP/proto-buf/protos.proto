@@ -1,13 +1,14 @@
 syntax="proto2";
 
-package client;
+package exchange;
 
 message MsgCS {
-    optional string type = 1;
-    optional Client info = 2;
-    optional Request_Login reqL = 3;
-    optional Reply_Login repL = 4;
-    optional OrderRequest orderRequest = 5;
+    optional string company = 1;
+    optional string type = 2;
+    optional Client info = 3;
+    optional Request_Login reqL = 4;
+    optional Reply_Login repL = 5;
+    optional OrderRequest orderRequest = 6;
 }
 
 message Client {
