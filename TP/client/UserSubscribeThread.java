@@ -9,12 +9,12 @@ public class UserSubscribeThread extends Thread{
 	}
 
 	public void run(){
-            //socket.subscribe("".getBytes());
+        //socket.subscribe("".getBytes());
 		while (true) {
-                  byte[] b = socket.recv();
-                  String msg = new String(b);
-                  String s[] = msg.split(":");
-                  System.out.println("\n"+s[1]);
-            }
+            byte[] b = socket.recv();
+            String msg = new String(b);
+            String s[] = msg.split(":");
+            System.out.println("\n"+s[1]);
+        }
 	}
 }
