@@ -1,33 +1,39 @@
 client:
-	Tools/protoc/bin/protoc --java_out=. Proto-buf/protos.proto
-	javac -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar Client/*.java
+	protoc --java_out=. proto-buf/protos.proto
+	javac -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar client/*.java
 
 server:
-	Tools/gpb/bin/protoc-erl -I. -maps -o Front-end/ Proto-buf/protos.proto
-	erlc -I Tools/gpb/include -o Front-end/ Front-end/protos.erl
-	erlc -I Tools/erlzmq/include -o Front-end/ Front-end/erlzmq.erl
-	erlc -I Tools/erlzmq/include -o Front-end/ Front-end/erlzmq_nif.erl
+	tools/gpb/bin/protoc-erl -I. -maps -o front-end/ proto-buf/protos.proto
+	erlc -I tools/gpb/include -o front-end/ front-end/protos.erl
+	erlc -I tools/erlzmq/include -o front-end/ front-end/erlzmq.erl
+	erlc -I tools/erlzmq/include -o front-end/ front-end/erlzmq_nif.erl
 
 exchange:
-	Tools/protoc/bin/protoc --java_out=. Proto-buf/protos.proto
-	javac -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:Tools/jar/gson-2.6.2.jar:. Exchange/*.java
+	protoc --java_out=. proto-buf/protos.proto
+	javac -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:tools/jar/gson-2.6.2.jar:. exchange/*.java
 
 directory:
-	mvn -f Directory/pom.xml package	
+	mvn -f directory/pom.xml package
+
+run-broker-client-exchange:
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. exchange.BrokerClientExchange 2222 1111	
+
+run-broker-frontend-exchange:
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. exchange.BrokerFrontEndExchange 3333 4444	
 
 run:
-	java -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:. client.User
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.User
 
 run-client-example:
-	java -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:. client.UserExample
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.UserExample 1111 3333
 
 run-exchange:
-	java -cp Tools/jar/protobuf-java-3.4.1.jar:Tools/jar/jeromq-0.4.3.jar:Tools/jar/gson-2.6.2.jar:. exchange.Exchange
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:tools/jar/gson-2.6.2.jar:. exchange.Exchange 4444 2222
 
 run-directory:
-	java -jar Directory/target/Directory-1.0-SNAPSHOT.jar server 
+	java -jar directory/target/Directory-1.0-SNAPSHOT.jar server 
 
 clean:
-	rm Client/*.class
-	rm Front-end/*.beam
+	rm client/*.class
+	rm front-end/*.beam
 
