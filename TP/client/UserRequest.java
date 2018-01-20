@@ -19,6 +19,7 @@ public class UserRequest {
     private InputStream ins;
     private OutputStream outs;
     private Messenger msg;
+    private String user;
     
 
     public UserRequest( Socket socket, ZMQ.Socket sub){
@@ -68,8 +69,10 @@ public class UserRequest {
             writeMsg(client);
             MsgCS reply = MsgCS.parseFrom(readMsg());
 
-            if(reply.getRepL().getValid())
+            if(reply.getRepL().getValid()){
+                this.user = user;
                 invalid = false;
+            }
             else System.out.println("Invalid!");
         }
         System.out.println("User logged!");
@@ -114,7 +117,7 @@ public class UserRequest {
         System.out.print("Price: ");
         float price = Float.parseFloat(br.readLine());
 
-        MsgCS order = msg.newOrderRequest("POR FAZER",type, company, quantity, price);
+        MsgCS order = msg.newOrderRequest(this.user, type, company, quantity, price);
         writeMsg(order);
         MsgCS reply = MsgCS.parseFrom(readMsg());
 
