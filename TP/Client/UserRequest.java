@@ -14,16 +14,20 @@ import java.util.ArrayList;
 import org.zeromq.ZMQ;
 
 public class UserRequest {
-    private ZMQ.Socket sock;
+    private Socket sock;
+    private InputStream ins;
+    private OutputStream outs;
     private Messenger msg;
 
-    public UserRequest( ZMQ.Socket socket){
+    public UserRequest(Socket socket){
         this.msg = new Messenger();
         this.sock = socket;
     }
 
     public void exe(){
         try{    
+            this.ins = sock.getInputStream();
+            this.outs = sock.getOutputStream();
             connectToServer();
             login();
             processOrders();
@@ -38,9 +42,8 @@ public class UserRequest {
 
         while(invalid){
             MsgCS request = msg.newReqLogin();
-            sock.send(request.toByteArray());
-            byte[] b = sock.recv();
-            MsgCS reply = MsgCS.parseFrom(b);
+            writeMsg(request);
+            MsgCS reply = MsgCS.parseFrom(readMsg());
 
             if(reply.getRepL().getValid())
                 invalid = false;
@@ -59,9 +62,8 @@ public class UserRequest {
             String pass = br.readLine();
 
             MsgCS client = msg.newClient(user, pass);
-            sock.send(client.toByteArray());
-            byte[] b = sock.recv();
-            MsgCS reply = MsgCS.parseFrom(b);
+            writeMsg(client);
+            MsgCS reply = MsgCS.parseFrom(readMsg());
 
             if(reply.getRepL().getValid())
                 invalid = false;
@@ -105,10 +107,35 @@ public class UserRequest {
         float price = Float.parseFloat(br.readLine());
 
         MsgCS order = msg.newOrderRequest(type, company, quantity, price);
-        sock.send(order.toByteArray());
+        writeMsg(order);
+        MsgCS reply = MsgCS.parseFrom(readMsg());
 
-        byte[] b = sock.recv();
-        MsgCS reply = MsgCS.parseFrom(b);
         System.out.println("ACK: " + reply.getType());
+    }
+
+    public byte[] readMsg(){
+        byte[] res = null;
+        try{
+            byte[] b = new byte[1024];
+            int n = ins.read(b);
+            
+            res = new byte[n];
+            for(int i = 0; i < n; i++){
+                res[i] = b[i];
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public void writeMsg(MsgCS msg){
+        try{
+            outs.write(msg.toByteArray());
+            outs.flush();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

@@ -39,19 +39,19 @@
 -export_type(['FieldDescriptorProto.Type'/0, 'FieldDescriptorProto.Label'/0, 'FileOptions.OptimizeMode'/0, 'FieldOptions.CType'/0, 'FieldOptions.JSType'/0]).
 
 %% message types
--type 'UninterpretedOption.NamePart'() :: #'UninterpretedOption.NamePart'{}.
--type 'UninterpretedOption'() :: #'UninterpretedOption'{}.
--type 'FieldOptions'() :: #'FieldOptions'{}.
--type 'FieldDescriptorProto'() :: #'FieldDescriptorProto'{}.
--type 'EnumValueOptions'() :: #'EnumValueOptions'{}.
 -type 'SourceCodeInfo.Location'() :: #'SourceCodeInfo.Location'{}.
 -type 'SourceCodeInfo'() :: #'SourceCodeInfo'{}.
+-type 'UninterpretedOption.NamePart'() :: #'UninterpretedOption.NamePart'{}.
+-type 'UninterpretedOption'() :: #'UninterpretedOption'{}.
 -type 'FileOptions'() :: #'FileOptions'{}.
+-type 'FieldOptions'() :: #'FieldOptions'{}.
+-type 'FieldDescriptorProto'() :: #'FieldDescriptorProto'{}.
 -type 'ServiceOptions'() :: #'ServiceOptions'{}.
 -type 'MethodOptions'() :: #'MethodOptions'{}.
 -type 'MethodDescriptorProto'() :: #'MethodDescriptorProto'{}.
 -type 'ServiceDescriptorProto'() :: #'ServiceDescriptorProto'{}.
 -type 'EnumOptions'() :: #'EnumOptions'{}.
+-type 'EnumValueOptions'() :: #'EnumValueOptions'{}.
 -type 'EnumValueDescriptorProto'() :: #'EnumValueDescriptorProto'{}.
 -type 'EnumDescriptorProto'() :: #'EnumDescriptorProto'{}.
 -type 'DescriptorProto.ReservedRange'() :: #'DescriptorProto.ReservedRange'{}.
@@ -60,16 +60,16 @@
 -type 'DescriptorProto.ExtensionRange'() :: #'DescriptorProto.ExtensionRange'{}.
 -type 'DescriptorProto'() :: #'DescriptorProto'{}.
 -type 'FileDescriptorProto'() :: #'FileDescriptorProto'{}.
--type 'GeneratedCodeInfo.Annotation'() :: #'GeneratedCodeInfo.Annotation'{}.
 -type 'FileDescriptorSet'() :: #'FileDescriptorSet'{}.
+-type 'GeneratedCodeInfo.Annotation'() :: #'GeneratedCodeInfo.Annotation'{}.
 -type 'GeneratedCodeInfo'() :: #'GeneratedCodeInfo'{}.
--export_type(['UninterpretedOption.NamePart'/0, 'UninterpretedOption'/0, 'FieldOptions'/0, 'FieldDescriptorProto'/0, 'EnumValueOptions'/0, 'SourceCodeInfo.Location'/0, 'SourceCodeInfo'/0, 'FileOptions'/0, 'ServiceOptions'/0, 'MethodOptions'/0, 'MethodDescriptorProto'/0, 'ServiceDescriptorProto'/0, 'EnumOptions'/0, 'EnumValueDescriptorProto'/0, 'EnumDescriptorProto'/0, 'DescriptorProto.ReservedRange'/0, 'MessageOptions'/0, 'OneofDescriptorProto'/0, 'DescriptorProto.ExtensionRange'/0, 'DescriptorProto'/0, 'FileDescriptorProto'/0, 'GeneratedCodeInfo.Annotation'/0, 'FileDescriptorSet'/0, 'GeneratedCodeInfo'/0]).
+-export_type(['SourceCodeInfo.Location'/0, 'SourceCodeInfo'/0, 'UninterpretedOption.NamePart'/0, 'UninterpretedOption'/0, 'FileOptions'/0, 'FieldOptions'/0, 'FieldDescriptorProto'/0, 'ServiceOptions'/0, 'MethodOptions'/0, 'MethodDescriptorProto'/0, 'ServiceDescriptorProto'/0, 'EnumOptions'/0, 'EnumValueOptions'/0, 'EnumValueDescriptorProto'/0, 'EnumDescriptorProto'/0, 'DescriptorProto.ReservedRange'/0, 'MessageOptions'/0, 'OneofDescriptorProto'/0, 'DescriptorProto.ExtensionRange'/0, 'DescriptorProto'/0, 'FileDescriptorProto'/0, 'FileDescriptorSet'/0, 'GeneratedCodeInfo.Annotation'/0, 'GeneratedCodeInfo'/0]).
 
--spec encode_msg(#'UninterpretedOption.NamePart'{} | #'UninterpretedOption'{} | #'FieldOptions'{} | #'FieldDescriptorProto'{} | #'EnumValueOptions'{} | #'SourceCodeInfo.Location'{} | #'SourceCodeInfo'{} | #'FileOptions'{} | #'ServiceOptions'{} | #'MethodOptions'{} | #'MethodDescriptorProto'{} | #'ServiceDescriptorProto'{} | #'EnumOptions'{} | #'EnumValueDescriptorProto'{} | #'EnumDescriptorProto'{} | #'DescriptorProto.ReservedRange'{} | #'MessageOptions'{} | #'OneofDescriptorProto'{} | #'DescriptorProto.ExtensionRange'{} | #'DescriptorProto'{} | #'FileDescriptorProto'{} | #'GeneratedCodeInfo.Annotation'{} | #'FileDescriptorSet'{} | #'GeneratedCodeInfo'{}) -> binary().
+-spec encode_msg(#'SourceCodeInfo.Location'{} | #'SourceCodeInfo'{} | #'UninterpretedOption.NamePart'{} | #'UninterpretedOption'{} | #'FileOptions'{} | #'FieldOptions'{} | #'FieldDescriptorProto'{} | #'ServiceOptions'{} | #'MethodOptions'{} | #'MethodDescriptorProto'{} | #'ServiceDescriptorProto'{} | #'EnumOptions'{} | #'EnumValueOptions'{} | #'EnumValueDescriptorProto'{} | #'EnumDescriptorProto'{} | #'DescriptorProto.ReservedRange'{} | #'MessageOptions'{} | #'OneofDescriptorProto'{} | #'DescriptorProto.ExtensionRange'{} | #'DescriptorProto'{} | #'FileDescriptorProto'{} | #'FileDescriptorSet'{} | #'GeneratedCodeInfo.Annotation'{} | #'GeneratedCodeInfo'{}) -> binary().
 encode_msg(Msg) -> encode_msg(Msg, []).
 
 
--spec encode_msg(#'UninterpretedOption.NamePart'{} | #'UninterpretedOption'{} | #'FieldOptions'{} | #'FieldDescriptorProto'{} | #'EnumValueOptions'{} | #'SourceCodeInfo.Location'{} | #'SourceCodeInfo'{} | #'FileOptions'{} | #'ServiceOptions'{} | #'MethodOptions'{} | #'MethodDescriptorProto'{} | #'ServiceDescriptorProto'{} | #'EnumOptions'{} | #'EnumValueDescriptorProto'{} | #'EnumDescriptorProto'{} | #'DescriptorProto.ReservedRange'{} | #'MessageOptions'{} | #'OneofDescriptorProto'{} | #'DescriptorProto.ExtensionRange'{} | #'DescriptorProto'{} | #'FileDescriptorProto'{} | #'GeneratedCodeInfo.Annotation'{} | #'FileDescriptorSet'{} | #'GeneratedCodeInfo'{}, list()) -> binary().
+-spec encode_msg(#'SourceCodeInfo.Location'{} | #'SourceCodeInfo'{} | #'UninterpretedOption.NamePart'{} | #'UninterpretedOption'{} | #'FileOptions'{} | #'FieldOptions'{} | #'FieldDescriptorProto'{} | #'ServiceOptions'{} | #'MethodOptions'{} | #'MethodDescriptorProto'{} | #'ServiceDescriptorProto'{} | #'EnumOptions'{} | #'EnumValueOptions'{} | #'EnumValueDescriptorProto'{} | #'EnumDescriptorProto'{} | #'DescriptorProto.ReservedRange'{} | #'MessageOptions'{} | #'OneofDescriptorProto'{} | #'DescriptorProto.ExtensionRange'{} | #'DescriptorProto'{} | #'FileDescriptorProto'{} | #'FileDescriptorSet'{} | #'GeneratedCodeInfo.Annotation'{} | #'GeneratedCodeInfo'{}, list()) -> binary().
 encode_msg(Msg, Opts) ->
     case proplists:get_bool(verify, Opts) of
       true -> verify_msg(Msg, Opts);
@@ -77,21 +77,19 @@ encode_msg(Msg, Opts) ->
     end,
     TrUserData = proplists:get_value(user_data, Opts),
     case Msg of
-      #'UninterpretedOption.NamePart'{} ->
-	  'e_msg_UninterpretedOption.NamePart'(Msg, TrUserData);
-      #'UninterpretedOption'{} ->
-	  e_msg_UninterpretedOption(Msg, TrUserData);
-      #'FieldOptions'{} ->
-	  e_msg_FieldOptions(Msg, TrUserData);
-      #'FieldDescriptorProto'{} ->
-	  e_msg_FieldDescriptorProto(Msg, TrUserData);
-      #'EnumValueOptions'{} ->
-	  e_msg_EnumValueOptions(Msg, TrUserData);
       #'SourceCodeInfo.Location'{} ->
 	  'e_msg_SourceCodeInfo.Location'(Msg, TrUserData);
       #'SourceCodeInfo'{} ->
 	  e_msg_SourceCodeInfo(Msg, TrUserData);
+      #'UninterpretedOption.NamePart'{} ->
+	  'e_msg_UninterpretedOption.NamePart'(Msg, TrUserData);
+      #'UninterpretedOption'{} ->
+	  e_msg_UninterpretedOption(Msg, TrUserData);
       #'FileOptions'{} -> e_msg_FileOptions(Msg, TrUserData);
+      #'FieldOptions'{} ->
+	  e_msg_FieldOptions(Msg, TrUserData);
+      #'FieldDescriptorProto'{} ->
+	  e_msg_FieldDescriptorProto(Msg, TrUserData);
       #'ServiceOptions'{} ->
 	  e_msg_ServiceOptions(Msg, TrUserData);
       #'MethodOptions'{} ->
@@ -101,6 +99,8 @@ encode_msg(Msg, Opts) ->
       #'ServiceDescriptorProto'{} ->
 	  e_msg_ServiceDescriptorProto(Msg, TrUserData);
       #'EnumOptions'{} -> e_msg_EnumOptions(Msg, TrUserData);
+      #'EnumValueOptions'{} ->
+	  e_msg_EnumValueOptions(Msg, TrUserData);
       #'EnumValueDescriptorProto'{} ->
 	  e_msg_EnumValueDescriptorProto(Msg, TrUserData);
       #'EnumDescriptorProto'{} ->
@@ -117,15 +117,83 @@ encode_msg(Msg, Opts) ->
 	  e_msg_DescriptorProto(Msg, TrUserData);
       #'FileDescriptorProto'{} ->
 	  e_msg_FileDescriptorProto(Msg, TrUserData);
-      #'GeneratedCodeInfo.Annotation'{} ->
-	  'e_msg_GeneratedCodeInfo.Annotation'(Msg, TrUserData);
       #'FileDescriptorSet'{} ->
 	  e_msg_FileDescriptorSet(Msg, TrUserData);
+      #'GeneratedCodeInfo.Annotation'{} ->
+	  'e_msg_GeneratedCodeInfo.Annotation'(Msg, TrUserData);
       #'GeneratedCodeInfo'{} ->
 	  e_msg_GeneratedCodeInfo(Msg, TrUserData)
     end.
 
 
+
+'e_msg_SourceCodeInfo.Location'(Msg, TrUserData) ->
+    'e_msg_SourceCodeInfo.Location'(Msg, <<>>, TrUserData).
+
+
+'e_msg_SourceCodeInfo.Location'(#'SourceCodeInfo.Location'{path
+							       = F1,
+							   span = F2,
+							   leading_comments =
+							       F3,
+							   trailing_comments =
+							       F4,
+							   leading_detached_comments
+							       = F5},
+				Bin, TrUserData) ->
+    B1 = begin
+	   TrF1 = id(F1, TrUserData),
+	   if TrF1 == [] -> Bin;
+	      true ->
+		  'e_field_SourceCodeInfo.Location_path'(TrF1, Bin,
+							 TrUserData)
+	   end
+	 end,
+    B2 = begin
+	   TrF2 = id(F2, TrUserData),
+	   if TrF2 == [] -> B1;
+	      true ->
+		  'e_field_SourceCodeInfo.Location_span'(TrF2, B1,
+							 TrUserData)
+	   end
+	 end,
+    B3 = if F3 == undefined -> B2;
+	    true ->
+		begin
+		  TrF3 = id(F3, TrUserData),
+		  e_type_string(TrF3, <<B2/binary, 26>>)
+		end
+	 end,
+    B4 = if F4 == undefined -> B3;
+	    true ->
+		begin
+		  TrF4 = id(F4, TrUserData),
+		  e_type_string(TrF4, <<B3/binary, 34>>)
+		end
+	 end,
+    begin
+      TrF5 = id(F5, TrUserData),
+      if TrF5 == [] -> B4;
+	 true ->
+	     'e_field_SourceCodeInfo.Location_leading_detached_comments'(TrF5,
+									 B4,
+									 TrUserData)
+      end
+    end.
+
+e_msg_SourceCodeInfo(Msg, TrUserData) ->
+    e_msg_SourceCodeInfo(Msg, <<>>, TrUserData).
+
+
+e_msg_SourceCodeInfo(#'SourceCodeInfo'{location = F1},
+		     Bin, TrUserData) ->
+    begin
+      TrF1 = id(F1, TrUserData),
+      if TrF1 == [] -> Bin;
+	 true ->
+	     e_field_SourceCodeInfo_location(TrF1, Bin, TrUserData)
+      end
+    end.
 
 'e_msg_UninterpretedOption.NamePart'(Msg, TrUserData) ->
     'e_msg_UninterpretedOption.NamePart'(Msg, <<>>,
@@ -207,6 +275,139 @@ e_msg_UninterpretedOption(#'UninterpretedOption'{name =
 	     TrF7 = id(F7, TrUserData),
 	     e_type_string(TrF7, <<B6/binary, 66>>)
 	   end
+    end.
+
+e_msg_FileOptions(Msg, TrUserData) ->
+    e_msg_FileOptions(Msg, <<>>, TrUserData).
+
+
+e_msg_FileOptions(#'FileOptions'{java_package = F1,
+				 java_outer_classname = F2,
+				 java_multiple_files = F3,
+				 java_generate_equals_and_hash = F4,
+				 java_string_check_utf8 = F5, optimize_for = F6,
+				 go_package = F7, cc_generic_services = F8,
+				 java_generic_services = F9,
+				 py_generic_services = F10, deprecated = F11,
+				 cc_enable_arenas = F12,
+				 objc_class_prefix = F13,
+				 csharp_namespace = F14,
+				 javanano_use_deprecated_package = F15,
+				 uninterpreted_option = F16},
+		  Bin, TrUserData) ->
+    B1 = if F1 == undefined -> Bin;
+	    true ->
+		begin
+		  TrF1 = id(F1, TrUserData),
+		  e_type_string(TrF1, <<Bin/binary, 10>>)
+		end
+	 end,
+    B2 = if F2 == undefined -> B1;
+	    true ->
+		begin
+		  TrF2 = id(F2, TrUserData),
+		  e_type_string(TrF2, <<B1/binary, 66>>)
+		end
+	 end,
+    B3 = if F3 == undefined -> B2;
+	    true ->
+		begin
+		  TrF3 = id(F3, TrUserData),
+		  e_type_bool(TrF3, <<B2/binary, 80>>)
+		end
+	 end,
+    B4 = if F4 == undefined -> B3;
+	    true ->
+		begin
+		  TrF4 = id(F4, TrUserData),
+		  e_type_bool(TrF4, <<B3/binary, 160, 1>>)
+		end
+	 end,
+    B5 = if F5 == undefined -> B4;
+	    true ->
+		begin
+		  TrF5 = id(F5, TrUserData),
+		  e_type_bool(TrF5, <<B4/binary, 216, 1>>)
+		end
+	 end,
+    B6 = if F6 == undefined -> B5;
+	    true ->
+		begin
+		  TrF6 = id(F6, TrUserData),
+		  'e_enum_FileOptions.OptimizeMode'(TrF6,
+						    <<B5/binary, 72>>)
+		end
+	 end,
+    B7 = if F7 == undefined -> B6;
+	    true ->
+		begin
+		  TrF7 = id(F7, TrUserData),
+		  e_type_string(TrF7, <<B6/binary, 90>>)
+		end
+	 end,
+    B8 = if F8 == undefined -> B7;
+	    true ->
+		begin
+		  TrF8 = id(F8, TrUserData),
+		  e_type_bool(TrF8, <<B7/binary, 128, 1>>)
+		end
+	 end,
+    B9 = if F9 == undefined -> B8;
+	    true ->
+		begin
+		  TrF9 = id(F9, TrUserData),
+		  e_type_bool(TrF9, <<B8/binary, 136, 1>>)
+		end
+	 end,
+    B10 = if F10 == undefined -> B9;
+	     true ->
+		 begin
+		   TrF10 = id(F10, TrUserData),
+		   e_type_bool(TrF10, <<B9/binary, 144, 1>>)
+		 end
+	  end,
+    B11 = if F11 == undefined -> B10;
+	     true ->
+		 begin
+		   TrF11 = id(F11, TrUserData),
+		   e_type_bool(TrF11, <<B10/binary, 184, 1>>)
+		 end
+	  end,
+    B12 = if F12 == undefined -> B11;
+	     true ->
+		 begin
+		   TrF12 = id(F12, TrUserData),
+		   e_type_bool(TrF12, <<B11/binary, 248, 1>>)
+		 end
+	  end,
+    B13 = if F13 == undefined -> B12;
+	     true ->
+		 begin
+		   TrF13 = id(F13, TrUserData),
+		   e_type_string(TrF13, <<B12/binary, 162, 2>>)
+		 end
+	  end,
+    B14 = if F14 == undefined -> B13;
+	     true ->
+		 begin
+		   TrF14 = id(F14, TrUserData),
+		   e_type_string(TrF14, <<B13/binary, 170, 2>>)
+		 end
+	  end,
+    B15 = if F15 == undefined -> B14;
+	     true ->
+		 begin
+		   TrF15 = id(F15, TrUserData),
+		   e_type_bool(TrF15, <<B14/binary, 176, 2>>)
+		 end
+	  end,
+    begin
+      TrF16 = id(F16, TrUserData),
+      if TrF16 == [] -> B15;
+	 true ->
+	     e_field_FileOptions_uninterpreted_option(TrF16, B15,
+						      TrUserData)
+      end
     end.
 
 e_msg_FieldOptions(Msg, TrUserData) ->
@@ -356,231 +557,6 @@ e_msg_FieldDescriptorProto(#'FieldDescriptorProto'{name
 						   <<B9/binary, 66>>,
 						   TrUserData)
 	   end
-    end.
-
-e_msg_EnumValueOptions(Msg, TrUserData) ->
-    e_msg_EnumValueOptions(Msg, <<>>, TrUserData).
-
-
-e_msg_EnumValueOptions(#'EnumValueOptions'{deprecated =
-					       F1,
-					   uninterpreted_option = F2},
-		       Bin, TrUserData) ->
-    B1 = if F1 == undefined -> Bin;
-	    true ->
-		begin
-		  TrF1 = id(F1, TrUserData),
-		  e_type_bool(TrF1, <<Bin/binary, 8>>)
-		end
-	 end,
-    begin
-      TrF2 = id(F2, TrUserData),
-      if TrF2 == [] -> B1;
-	 true ->
-	     e_field_EnumValueOptions_uninterpreted_option(TrF2, B1,
-							   TrUserData)
-      end
-    end.
-
-'e_msg_SourceCodeInfo.Location'(Msg, TrUserData) ->
-    'e_msg_SourceCodeInfo.Location'(Msg, <<>>, TrUserData).
-
-
-'e_msg_SourceCodeInfo.Location'(#'SourceCodeInfo.Location'{path
-							       = F1,
-							   span = F2,
-							   leading_comments =
-							       F3,
-							   trailing_comments =
-							       F4,
-							   leading_detached_comments
-							       = F5},
-				Bin, TrUserData) ->
-    B1 = begin
-	   TrF1 = id(F1, TrUserData),
-	   if TrF1 == [] -> Bin;
-	      true ->
-		  'e_field_SourceCodeInfo.Location_path'(TrF1, Bin,
-							 TrUserData)
-	   end
-	 end,
-    B2 = begin
-	   TrF2 = id(F2, TrUserData),
-	   if TrF2 == [] -> B1;
-	      true ->
-		  'e_field_SourceCodeInfo.Location_span'(TrF2, B1,
-							 TrUserData)
-	   end
-	 end,
-    B3 = if F3 == undefined -> B2;
-	    true ->
-		begin
-		  TrF3 = id(F3, TrUserData),
-		  e_type_string(TrF3, <<B2/binary, 26>>)
-		end
-	 end,
-    B4 = if F4 == undefined -> B3;
-	    true ->
-		begin
-		  TrF4 = id(F4, TrUserData),
-		  e_type_string(TrF4, <<B3/binary, 34>>)
-		end
-	 end,
-    begin
-      TrF5 = id(F5, TrUserData),
-      if TrF5 == [] -> B4;
-	 true ->
-	     'e_field_SourceCodeInfo.Location_leading_detached_comments'(TrF5,
-									 B4,
-									 TrUserData)
-      end
-    end.
-
-e_msg_SourceCodeInfo(Msg, TrUserData) ->
-    e_msg_SourceCodeInfo(Msg, <<>>, TrUserData).
-
-
-e_msg_SourceCodeInfo(#'SourceCodeInfo'{location = F1},
-		     Bin, TrUserData) ->
-    begin
-      TrF1 = id(F1, TrUserData),
-      if TrF1 == [] -> Bin;
-	 true ->
-	     e_field_SourceCodeInfo_location(TrF1, Bin, TrUserData)
-      end
-    end.
-
-e_msg_FileOptions(Msg, TrUserData) ->
-    e_msg_FileOptions(Msg, <<>>, TrUserData).
-
-
-e_msg_FileOptions(#'FileOptions'{java_package = F1,
-				 java_outer_classname = F2,
-				 java_multiple_files = F3,
-				 java_generate_equals_and_hash = F4,
-				 java_string_check_utf8 = F5, optimize_for = F6,
-				 go_package = F7, cc_generic_services = F8,
-				 java_generic_services = F9,
-				 py_generic_services = F10, deprecated = F11,
-				 cc_enable_arenas = F12,
-				 objc_class_prefix = F13,
-				 csharp_namespace = F14,
-				 javanano_use_deprecated_package = F15,
-				 uninterpreted_option = F16},
-		  Bin, TrUserData) ->
-    B1 = if F1 == undefined -> Bin;
-	    true ->
-		begin
-		  TrF1 = id(F1, TrUserData),
-		  e_type_string(TrF1, <<Bin/binary, 10>>)
-		end
-	 end,
-    B2 = if F2 == undefined -> B1;
-	    true ->
-		begin
-		  TrF2 = id(F2, TrUserData),
-		  e_type_string(TrF2, <<B1/binary, 66>>)
-		end
-	 end,
-    B3 = if F3 == undefined -> B2;
-	    true ->
-		begin
-		  TrF3 = id(F3, TrUserData),
-		  e_type_bool(TrF3, <<B2/binary, 80>>)
-		end
-	 end,
-    B4 = if F4 == undefined -> B3;
-	    true ->
-		begin
-		  TrF4 = id(F4, TrUserData),
-		  e_type_bool(TrF4, <<B3/binary, 160, 1>>)
-		end
-	 end,
-    B5 = if F5 == undefined -> B4;
-	    true ->
-		begin
-		  TrF5 = id(F5, TrUserData),
-		  e_type_bool(TrF5, <<B4/binary, 216, 1>>)
-		end
-	 end,
-    B6 = if F6 == undefined -> B5;
-	    true ->
-		begin
-		  TrF6 = id(F6, TrUserData),
-		  'e_enum_FileOptions.OptimizeMode'(TrF6,
-						    <<B5/binary, 72>>)
-		end
-	 end,
-    B7 = if F7 == undefined -> B6;
-	    true ->
-		begin
-		  TrF7 = id(F7, TrUserData),
-		  e_type_string(TrF7, <<B6/binary, 90>>)
-		end
-	 end,
-    B8 = if F8 == undefined -> B7;
-	    true ->
-		begin
-		  TrF8 = id(F8, TrUserData),
-		  e_type_bool(TrF8, <<B7/binary, 128, 1>>)
-		end
-	 end,
-    B9 = if F9 == undefined -> B8;
-	    true ->
-		begin
-		  TrF9 = id(F9, TrUserData),
-		  e_type_bool(TrF9, <<B8/binary, 136, 1>>)
-		end
-	 end,
-    B10 = if F10 == undefined -> B9;
-	     true ->
-		 begin
-		   TrF10 = id(F10, TrUserData),
-		   e_type_bool(TrF10, <<B9/binary, 144, 1>>)
-		 end
-	  end,
-    B11 = if F11 == undefined -> B10;
-	     true ->
-		 begin
-		   TrF11 = id(F11, TrUserData),
-		   e_type_bool(TrF11, <<B10/binary, 184, 1>>)
-		 end
-	  end,
-    B12 = if F12 == undefined -> B11;
-	     true ->
-		 begin
-		   TrF12 = id(F12, TrUserData),
-		   e_type_bool(TrF12, <<B11/binary, 248, 1>>)
-		 end
-	  end,
-    B13 = if F13 == undefined -> B12;
-	     true ->
-		 begin
-		   TrF13 = id(F13, TrUserData),
-		   e_type_string(TrF13, <<B12/binary, 162, 2>>)
-		 end
-	  end,
-    B14 = if F14 == undefined -> B13;
-	     true ->
-		 begin
-		   TrF14 = id(F14, TrUserData),
-		   e_type_string(TrF14, <<B13/binary, 170, 2>>)
-		 end
-	  end,
-    B15 = if F15 == undefined -> B14;
-	     true ->
-		 begin
-		   TrF15 = id(F15, TrUserData),
-		   e_type_bool(TrF15, <<B14/binary, 176, 2>>)
-		 end
-	  end,
-    begin
-      TrF16 = id(F16, TrUserData),
-      if TrF16 == [] -> B15;
-	 true ->
-	     e_field_FileOptions_uninterpreted_option(TrF16, B15,
-						      TrUserData)
-      end
     end.
 
 e_msg_ServiceOptions(Msg, TrUserData) ->
@@ -747,6 +723,30 @@ e_msg_EnumOptions(#'EnumOptions'{allow_alias = F1,
 	 true ->
 	     e_field_EnumOptions_uninterpreted_option(TrF3, B2,
 						      TrUserData)
+      end
+    end.
+
+e_msg_EnumValueOptions(Msg, TrUserData) ->
+    e_msg_EnumValueOptions(Msg, <<>>, TrUserData).
+
+
+e_msg_EnumValueOptions(#'EnumValueOptions'{deprecated =
+					       F1,
+					   uninterpreted_option = F2},
+		       Bin, TrUserData) ->
+    B1 = if F1 == undefined -> Bin;
+	    true ->
+		begin
+		  TrF1 = id(F1, TrUserData),
+		  e_type_bool(TrF1, <<Bin/binary, 8>>)
+		end
+	 end,
+    begin
+      TrF2 = id(F2, TrUserData),
+      if TrF2 == [] -> B1;
+	 true ->
+	     e_field_EnumValueOptions_uninterpreted_option(TrF2, B1,
+							   TrUserData)
       end
     end.
 
@@ -1129,6 +1129,20 @@ e_msg_FileDescriptorProto(#'FileDescriptorProto'{name =
 	   end
     end.
 
+e_msg_FileDescriptorSet(Msg, TrUserData) ->
+    e_msg_FileDescriptorSet(Msg, <<>>, TrUserData).
+
+
+e_msg_FileDescriptorSet(#'FileDescriptorSet'{file = F1},
+			Bin, TrUserData) ->
+    begin
+      TrF1 = id(F1, TrUserData),
+      if TrF1 == [] -> Bin;
+	 true ->
+	     e_field_FileDescriptorSet_file(TrF1, Bin, TrUserData)
+      end
+    end.
+
 'e_msg_GeneratedCodeInfo.Annotation'(Msg, TrUserData) ->
     'e_msg_GeneratedCodeInfo.Annotation'(Msg, <<>>,
 					 TrUserData).
@@ -1173,20 +1187,6 @@ e_msg_FileDescriptorProto(#'FileDescriptorProto'{name =
 	   end
     end.
 
-e_msg_FileDescriptorSet(Msg, TrUserData) ->
-    e_msg_FileDescriptorSet(Msg, <<>>, TrUserData).
-
-
-e_msg_FileDescriptorSet(#'FileDescriptorSet'{file = F1},
-			Bin, TrUserData) ->
-    begin
-      TrF1 = id(F1, TrUserData),
-      if TrF1 == [] -> Bin;
-	 true ->
-	     e_field_FileDescriptorSet_file(TrF1, Bin, TrUserData)
-      end
-    end.
-
 e_msg_GeneratedCodeInfo(Msg, TrUserData) ->
     e_msg_GeneratedCodeInfo(Msg, <<>>, TrUserData).
 
@@ -1202,72 +1202,6 @@ e_msg_GeneratedCodeInfo(#'GeneratedCodeInfo'{annotation
 						  TrUserData)
       end
     end.
-
-e_mfield_UninterpretedOption_name(Msg, Bin,
-				  TrUserData) ->
-    SubBin = 'e_msg_UninterpretedOption.NamePart'(Msg, <<>>,
-						  TrUserData),
-    Bin2 = e_varint(byte_size(SubBin), Bin),
-    <<Bin2/binary, SubBin/binary>>.
-
-e_field_UninterpretedOption_name([Elem | Rest], Bin,
-				 TrUserData) ->
-    Bin2 = <<Bin/binary, 18>>,
-    Bin3 = e_mfield_UninterpretedOption_name(id(Elem,
-						TrUserData),
-					     Bin2, TrUserData),
-    e_field_UninterpretedOption_name(Rest, Bin3,
-				     TrUserData);
-e_field_UninterpretedOption_name([], Bin,
-				 _TrUserData) ->
-    Bin.
-
-e_mfield_FieldOptions_uninterpreted_option(Msg, Bin,
-					   TrUserData) ->
-    SubBin = e_msg_UninterpretedOption(Msg, <<>>,
-				       TrUserData),
-    Bin2 = e_varint(byte_size(SubBin), Bin),
-    <<Bin2/binary, SubBin/binary>>.
-
-e_field_FieldOptions_uninterpreted_option([Elem | Rest],
-					  Bin, TrUserData) ->
-    Bin2 = <<Bin/binary, 186, 62>>,
-    Bin3 =
-	e_mfield_FieldOptions_uninterpreted_option(id(Elem,
-						      TrUserData),
-						   Bin2, TrUserData),
-    e_field_FieldOptions_uninterpreted_option(Rest, Bin3,
-					      TrUserData);
-e_field_FieldOptions_uninterpreted_option([], Bin,
-					  _TrUserData) ->
-    Bin.
-
-e_mfield_FieldDescriptorProto_options(Msg, Bin,
-				      TrUserData) ->
-    SubBin = e_msg_FieldOptions(Msg, <<>>, TrUserData),
-    Bin2 = e_varint(byte_size(SubBin), Bin),
-    <<Bin2/binary, SubBin/binary>>.
-
-e_mfield_EnumValueOptions_uninterpreted_option(Msg, Bin,
-					       TrUserData) ->
-    SubBin = e_msg_UninterpretedOption(Msg, <<>>,
-				       TrUserData),
-    Bin2 = e_varint(byte_size(SubBin), Bin),
-    <<Bin2/binary, SubBin/binary>>.
-
-e_field_EnumValueOptions_uninterpreted_option([Elem
-					       | Rest],
-					      Bin, TrUserData) ->
-    Bin2 = <<Bin/binary, 186, 62>>,
-    Bin3 =
-	e_mfield_EnumValueOptions_uninterpreted_option(id(Elem,
-							  TrUserData),
-						       Bin2, TrUserData),
-    e_field_EnumValueOptions_uninterpreted_option(Rest,
-						  Bin3, TrUserData);
-e_field_EnumValueOptions_uninterpreted_option([], Bin,
-					      _TrUserData) ->
-    Bin.
 
 'e_field_SourceCodeInfo.Location_path'(Elems, Bin,
 				       TrUserData)
@@ -1340,6 +1274,25 @@ e_field_SourceCodeInfo_location([Elem | Rest], Bin,
 e_field_SourceCodeInfo_location([], Bin, _TrUserData) ->
     Bin.
 
+e_mfield_UninterpretedOption_name(Msg, Bin,
+				  TrUserData) ->
+    SubBin = 'e_msg_UninterpretedOption.NamePart'(Msg, <<>>,
+						  TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_field_UninterpretedOption_name([Elem | Rest], Bin,
+				 TrUserData) ->
+    Bin2 = <<Bin/binary, 18>>,
+    Bin3 = e_mfield_UninterpretedOption_name(id(Elem,
+						TrUserData),
+					     Bin2, TrUserData),
+    e_field_UninterpretedOption_name(Rest, Bin3,
+				     TrUserData);
+e_field_UninterpretedOption_name([], Bin,
+				 _TrUserData) ->
+    Bin.
+
 e_mfield_FileOptions_uninterpreted_option(Msg, Bin,
 					  TrUserData) ->
     SubBin = e_msg_UninterpretedOption(Msg, <<>>,
@@ -1359,6 +1312,32 @@ e_field_FileOptions_uninterpreted_option([Elem | Rest],
 e_field_FileOptions_uninterpreted_option([], Bin,
 					 _TrUserData) ->
     Bin.
+
+e_mfield_FieldOptions_uninterpreted_option(Msg, Bin,
+					   TrUserData) ->
+    SubBin = e_msg_UninterpretedOption(Msg, <<>>,
+				       TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_field_FieldOptions_uninterpreted_option([Elem | Rest],
+					  Bin, TrUserData) ->
+    Bin2 = <<Bin/binary, 186, 62>>,
+    Bin3 =
+	e_mfield_FieldOptions_uninterpreted_option(id(Elem,
+						      TrUserData),
+						   Bin2, TrUserData),
+    e_field_FieldOptions_uninterpreted_option(Rest, Bin3,
+					      TrUserData);
+e_field_FieldOptions_uninterpreted_option([], Bin,
+					  _TrUserData) ->
+    Bin.
+
+e_mfield_FieldDescriptorProto_options(Msg, Bin,
+				      TrUserData) ->
+    SubBin = e_msg_FieldOptions(Msg, <<>>, TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
 
 e_mfield_ServiceOptions_uninterpreted_option(Msg, Bin,
 					     TrUserData) ->
@@ -1451,6 +1430,27 @@ e_field_EnumOptions_uninterpreted_option([Elem | Rest],
 					     TrUserData);
 e_field_EnumOptions_uninterpreted_option([], Bin,
 					 _TrUserData) ->
+    Bin.
+
+e_mfield_EnumValueOptions_uninterpreted_option(Msg, Bin,
+					       TrUserData) ->
+    SubBin = e_msg_UninterpretedOption(Msg, <<>>,
+				       TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_field_EnumValueOptions_uninterpreted_option([Elem
+					       | Rest],
+					      Bin, TrUserData) ->
+    Bin2 = <<Bin/binary, 186, 62>>,
+    Bin3 =
+	e_mfield_EnumValueOptions_uninterpreted_option(id(Elem,
+							  TrUserData),
+						       Bin2, TrUserData),
+    e_field_EnumValueOptions_uninterpreted_option(Rest,
+						  Bin3, TrUserData);
+e_field_EnumValueOptions_uninterpreted_option([], Bin,
+					      _TrUserData) ->
     Bin.
 
 e_mfield_EnumValueDescriptorProto_options(Msg, Bin,
@@ -1770,6 +1770,22 @@ e_mfield_FileDescriptorProto_source_code_info(Msg, Bin,
     Bin2 = e_varint(byte_size(SubBin), Bin),
     <<Bin2/binary, SubBin/binary>>.
 
+e_mfield_FileDescriptorSet_file(Msg, Bin, TrUserData) ->
+    SubBin = e_msg_FileDescriptorProto(Msg, <<>>,
+				       TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_field_FileDescriptorSet_file([Elem | Rest], Bin,
+			       TrUserData) ->
+    Bin2 = <<Bin/binary, 10>>,
+    Bin3 = e_mfield_FileDescriptorSet_file(id(Elem,
+					      TrUserData),
+					   Bin2, TrUserData),
+    e_field_FileDescriptorSet_file(Rest, Bin3, TrUserData);
+e_field_FileDescriptorSet_file([], Bin, _TrUserData) ->
+    Bin.
+
 'e_field_GeneratedCodeInfo.Annotation_path'(Elems, Bin,
 					    TrUserData)
     when Elems =/= [] ->
@@ -1791,22 +1807,6 @@ e_mfield_FileDescriptorProto_source_code_info(Msg, Bin,
 						 TrUserData);
 'e_pfield_GeneratedCodeInfo.Annotation_path'([], Bin,
 					     _TrUserData) ->
-    Bin.
-
-e_mfield_FileDescriptorSet_file(Msg, Bin, TrUserData) ->
-    SubBin = e_msg_FileDescriptorProto(Msg, <<>>,
-				       TrUserData),
-    Bin2 = e_varint(byte_size(SubBin), Bin),
-    <<Bin2/binary, SubBin/binary>>.
-
-e_field_FileDescriptorSet_file([Elem | Rest], Bin,
-			       TrUserData) ->
-    Bin2 = <<Bin/binary, 10>>,
-    Bin3 = e_mfield_FileDescriptorSet_file(id(Elem,
-					      TrUserData),
-					   Bin2, TrUserData),
-    e_field_FileDescriptorSet_file(Rest, Bin3, TrUserData);
-e_field_FileDescriptorSet_file([], Bin, _TrUserData) ->
     Bin.
 
 e_mfield_GeneratedCodeInfo_annotation(Msg, Bin,
@@ -1970,6 +1970,24 @@ decode_msg(Bin, MsgName) when is_binary(Bin) ->
 decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
     TrUserData = proplists:get_value(user_data, Opts),
     case MsgName of
+      'SourceCodeInfo.Location' ->
+	  try 'd_msg_SourceCodeInfo.Location'(Bin, TrUserData)
+	  catch
+	    Class:Reason ->
+		StackTrace = erlang:get_stacktrace(),
+		error({gpb_error,
+		       {decoding_failure,
+			{Bin, 'SourceCodeInfo.Location',
+			 {Class, Reason, StackTrace}}}})
+	  end;
+      'SourceCodeInfo' ->
+	  try d_msg_SourceCodeInfo(Bin, TrUserData) catch
+	    Class:Reason ->
+		StackTrace = erlang:get_stacktrace(),
+		error({gpb_error,
+		       {decoding_failure,
+			{Bin, 'SourceCodeInfo', {Class, Reason, StackTrace}}}})
+	  end;
       'UninterpretedOption.NamePart' ->
 	  try 'd_msg_UninterpretedOption.NamePart'(Bin,
 						   TrUserData)
@@ -1990,6 +2008,14 @@ decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
 			{Bin, 'UninterpretedOption',
 			 {Class, Reason, StackTrace}}}})
 	  end;
+      'FileOptions' ->
+	  try d_msg_FileOptions(Bin, TrUserData) catch
+	    Class:Reason ->
+		StackTrace = erlang:get_stacktrace(),
+		error({gpb_error,
+		       {decoding_failure,
+			{Bin, 'FileOptions', {Class, Reason, StackTrace}}}})
+	  end;
       'FieldOptions' ->
 	  try d_msg_FieldOptions(Bin, TrUserData) catch
 	    Class:Reason ->
@@ -2006,41 +2032,6 @@ decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
 		       {decoding_failure,
 			{Bin, 'FieldDescriptorProto',
 			 {Class, Reason, StackTrace}}}})
-	  end;
-      'EnumValueOptions' ->
-	  try d_msg_EnumValueOptions(Bin, TrUserData) catch
-	    Class:Reason ->
-		StackTrace = erlang:get_stacktrace(),
-		error({gpb_error,
-		       {decoding_failure,
-			{Bin, 'EnumValueOptions',
-			 {Class, Reason, StackTrace}}}})
-	  end;
-      'SourceCodeInfo.Location' ->
-	  try 'd_msg_SourceCodeInfo.Location'(Bin, TrUserData)
-	  catch
-	    Class:Reason ->
-		StackTrace = erlang:get_stacktrace(),
-		error({gpb_error,
-		       {decoding_failure,
-			{Bin, 'SourceCodeInfo.Location',
-			 {Class, Reason, StackTrace}}}})
-	  end;
-      'SourceCodeInfo' ->
-	  try d_msg_SourceCodeInfo(Bin, TrUserData) catch
-	    Class:Reason ->
-		StackTrace = erlang:get_stacktrace(),
-		error({gpb_error,
-		       {decoding_failure,
-			{Bin, 'SourceCodeInfo', {Class, Reason, StackTrace}}}})
-	  end;
-      'FileOptions' ->
-	  try d_msg_FileOptions(Bin, TrUserData) catch
-	    Class:Reason ->
-		StackTrace = erlang:get_stacktrace(),
-		error({gpb_error,
-		       {decoding_failure,
-			{Bin, 'FileOptions', {Class, Reason, StackTrace}}}})
 	  end;
       'ServiceOptions' ->
 	  try d_msg_ServiceOptions(Bin, TrUserData) catch
@@ -2083,6 +2074,15 @@ decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
 		error({gpb_error,
 		       {decoding_failure,
 			{Bin, 'EnumOptions', {Class, Reason, StackTrace}}}})
+	  end;
+      'EnumValueOptions' ->
+	  try d_msg_EnumValueOptions(Bin, TrUserData) catch
+	    Class:Reason ->
+		StackTrace = erlang:get_stacktrace(),
+		error({gpb_error,
+		       {decoding_failure,
+			{Bin, 'EnumValueOptions',
+			 {Class, Reason, StackTrace}}}})
 	  end;
       'EnumValueDescriptorProto' ->
 	  try d_msg_EnumValueDescriptorProto(Bin, TrUserData)
@@ -2159,6 +2159,15 @@ decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
 			{Bin, 'FileDescriptorProto',
 			 {Class, Reason, StackTrace}}}})
 	  end;
+      'FileDescriptorSet' ->
+	  try d_msg_FileDescriptorSet(Bin, TrUserData) catch
+	    Class:Reason ->
+		StackTrace = erlang:get_stacktrace(),
+		error({gpb_error,
+		       {decoding_failure,
+			{Bin, 'FileDescriptorSet',
+			 {Class, Reason, StackTrace}}}})
+	  end;
       'GeneratedCodeInfo.Annotation' ->
 	  try 'd_msg_GeneratedCodeInfo.Annotation'(Bin,
 						   TrUserData)
@@ -2168,15 +2177,6 @@ decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
 		error({gpb_error,
 		       {decoding_failure,
 			{Bin, 'GeneratedCodeInfo.Annotation',
-			 {Class, Reason, StackTrace}}}})
-	  end;
-      'FileDescriptorSet' ->
-	  try d_msg_FileDescriptorSet(Bin, TrUserData) catch
-	    Class:Reason ->
-		StackTrace = erlang:get_stacktrace(),
-		error({gpb_error,
-		       {decoding_failure,
-			{Bin, 'FileDescriptorSet',
 			 {Class, Reason, StackTrace}}}})
 	  end;
       'GeneratedCodeInfo' ->
@@ -2191,6 +2191,546 @@ decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
     end.
 
 
+
+'d_msg_SourceCodeInfo.Location'(Bin, TrUserData) ->
+    'dfp_read_field_def_SourceCodeInfo.Location'(Bin, 0, 0,
+						 id([], TrUserData),
+						 id([], TrUserData),
+						 id(undefined, TrUserData),
+						 id(undefined, TrUserData),
+						 id([], TrUserData),
+						 TrUserData).
+
+'dfp_read_field_def_SourceCodeInfo.Location'(<<10,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, TrUserData) ->
+    'd_pfield_SourceCodeInfo.Location_path'(Rest, Z1, Z2,
+					    F@_1, F@_2, F@_3, F@_4, F@_5,
+					    TrUserData);
+'dfp_read_field_def_SourceCodeInfo.Location'(<<8,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, TrUserData) ->
+    'd_field_SourceCodeInfo.Location_path'(Rest, Z1, Z2,
+					   F@_1, F@_2, F@_3, F@_4, F@_5,
+					   TrUserData);
+'dfp_read_field_def_SourceCodeInfo.Location'(<<18,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, TrUserData) ->
+    'd_pfield_SourceCodeInfo.Location_span'(Rest, Z1, Z2,
+					    F@_1, F@_2, F@_3, F@_4, F@_5,
+					    TrUserData);
+'dfp_read_field_def_SourceCodeInfo.Location'(<<16,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, TrUserData) ->
+    'd_field_SourceCodeInfo.Location_span'(Rest, Z1, Z2,
+					   F@_1, F@_2, F@_3, F@_4, F@_5,
+					   TrUserData);
+'dfp_read_field_def_SourceCodeInfo.Location'(<<26,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, TrUserData) ->
+    'd_field_SourceCodeInfo.Location_leading_comments'(Rest,
+						       Z1, Z2, F@_1, F@_2, F@_3,
+						       F@_4, F@_5, TrUserData);
+'dfp_read_field_def_SourceCodeInfo.Location'(<<34,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, TrUserData) ->
+    'd_field_SourceCodeInfo.Location_trailing_comments'(Rest,
+							Z1, Z2, F@_1, F@_2,
+							F@_3, F@_4, F@_5,
+							TrUserData);
+'dfp_read_field_def_SourceCodeInfo.Location'(<<50,
+					       Rest/binary>>,
+					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
+					     F@_5, TrUserData) ->
+    'd_field_SourceCodeInfo.Location_leading_detached_comments'(Rest,
+								Z1, Z2, F@_1,
+								F@_2, F@_3,
+								F@_4, F@_5,
+								TrUserData);
+'dfp_read_field_def_SourceCodeInfo.Location'(<<>>, 0, 0,
+					     R1, R2, F@_3, F@_4, R3,
+					     TrUserData) ->
+    #'SourceCodeInfo.Location'{path =
+				   lists_reverse(R1, TrUserData),
+			       span = lists_reverse(R2, TrUserData),
+			       leading_comments = F@_3,
+			       trailing_comments = F@_4,
+			       leading_detached_comments =
+				   lists_reverse(R3, TrUserData)};
+'dfp_read_field_def_SourceCodeInfo.Location'(Other, Z1,
+					     Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
+					     TrUserData) ->
+    'dg_read_field_def_SourceCodeInfo.Location'(Other, Z1,
+						Z2, F@_1, F@_2, F@_3, F@_4,
+						F@_5, TrUserData).
+
+'dg_read_field_def_SourceCodeInfo.Location'(<<1:1, X:7,
+					      Rest/binary>>,
+					    N, Acc, F@_1, F@_2, F@_3, F@_4,
+					    F@_5, TrUserData)
+    when N < 32 - 7 ->
+    'dg_read_field_def_SourceCodeInfo.Location'(Rest, N + 7,
+						X bsl N + Acc, F@_1, F@_2, F@_3,
+						F@_4, F@_5, TrUserData);
+'dg_read_field_def_SourceCodeInfo.Location'(<<0:1, X:7,
+					      Rest/binary>>,
+					    N, Acc, F@_1, F@_2, F@_3, F@_4,
+					    F@_5, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+      10 ->
+	  'd_pfield_SourceCodeInfo.Location_path'(Rest, 0, 0,
+						  F@_1, F@_2, F@_3, F@_4, F@_5,
+						  TrUserData);
+      8 ->
+	  'd_field_SourceCodeInfo.Location_path'(Rest, 0, 0, F@_1,
+						 F@_2, F@_3, F@_4, F@_5,
+						 TrUserData);
+      18 ->
+	  'd_pfield_SourceCodeInfo.Location_span'(Rest, 0, 0,
+						  F@_1, F@_2, F@_3, F@_4, F@_5,
+						  TrUserData);
+      16 ->
+	  'd_field_SourceCodeInfo.Location_span'(Rest, 0, 0, F@_1,
+						 F@_2, F@_3, F@_4, F@_5,
+						 TrUserData);
+      26 ->
+	  'd_field_SourceCodeInfo.Location_leading_comments'(Rest,
+							     0, 0, F@_1, F@_2,
+							     F@_3, F@_4, F@_5,
+							     TrUserData);
+      34 ->
+	  'd_field_SourceCodeInfo.Location_trailing_comments'(Rest,
+							      0, 0, F@_1, F@_2,
+							      F@_3, F@_4, F@_5,
+							      TrUserData);
+      50 ->
+	  'd_field_SourceCodeInfo.Location_leading_detached_comments'(Rest,
+								      0, 0,
+								      F@_1,
+								      F@_2,
+								      F@_3,
+								      F@_4,
+								      F@_5,
+								      TrUserData);
+      _ ->
+	  case Key band 7 of
+	    0 ->
+		'skip_varint_SourceCodeInfo.Location'(Rest, 0, 0, F@_1,
+						      F@_2, F@_3, F@_4, F@_5,
+						      TrUserData);
+	    1 ->
+		'skip_64_SourceCodeInfo.Location'(Rest, 0, 0, F@_1,
+						  F@_2, F@_3, F@_4, F@_5,
+						  TrUserData);
+	    2 ->
+		'skip_length_delimited_SourceCodeInfo.Location'(Rest, 0,
+								0, F@_1, F@_2,
+								F@_3, F@_4,
+								F@_5,
+								TrUserData);
+	    3 ->
+		'skip_group_SourceCodeInfo.Location'(Rest, Key bsr 3, 0,
+						     F@_1, F@_2, F@_3, F@_4,
+						     F@_5, TrUserData);
+	    5 ->
+		'skip_32_SourceCodeInfo.Location'(Rest, 0, 0, F@_1,
+						  F@_2, F@_3, F@_4, F@_5,
+						  TrUserData)
+	  end
+    end;
+'dg_read_field_def_SourceCodeInfo.Location'(<<>>, 0, 0,
+					    R1, R2, F@_3, F@_4, R3,
+					    TrUserData) ->
+    #'SourceCodeInfo.Location'{path =
+				   lists_reverse(R1, TrUserData),
+			       span = lists_reverse(R2, TrUserData),
+			       leading_comments = F@_3,
+			       trailing_comments = F@_4,
+			       leading_detached_comments =
+				   lists_reverse(R3, TrUserData)}.
+
+'d_field_SourceCodeInfo.Location_path'(<<1:1, X:7,
+					 Rest/binary>>,
+				       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+				       TrUserData)
+    when N < 57 ->
+    'd_field_SourceCodeInfo.Location_path'(Rest, N + 7,
+					   X bsl N + Acc, F@_1, F@_2, F@_3,
+					   F@_4, F@_5, TrUserData);
+'d_field_SourceCodeInfo.Location_path'(<<0:1, X:7,
+					 Rest/binary>>,
+				       N, Acc, Prev, F@_2, F@_3, F@_4, F@_5,
+				       TrUserData) ->
+    {NewFValue, RestF} = {begin
+			    <<Res:32/signed-native>> = <<(X bsl N +
+							    Acc):32/unsigned-native>>,
+			    Res
+			  end,
+			  Rest},
+    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
+						 0,
+						 cons(NewFValue, Prev,
+						      TrUserData),
+						 F@_2, F@_3, F@_4, F@_5,
+						 TrUserData).
+
+'d_pfield_SourceCodeInfo.Location_path'(<<1:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					TrUserData)
+    when N < 57 ->
+    'd_pfield_SourceCodeInfo.Location_path'(Rest, N + 7,
+					    X bsl N + Acc, F@_1, F@_2, F@_3,
+					    F@_4, F@_5, TrUserData);
+'d_pfield_SourceCodeInfo.Location_path'(<<0:1, X:7,
+					  Rest/binary>>,
+					N, Acc, E, F@_2, F@_3, F@_4, F@_5,
+					TrUserData) ->
+    Len = X bsl N + Acc,
+    <<PackedBytes:Len/binary, Rest2/binary>> = Rest,
+    NewSeq =
+	'd_packed_field_SourceCodeInfo.Location_path'(PackedBytes,
+						      0, 0, E),
+    'dfp_read_field_def_SourceCodeInfo.Location'(Rest2, 0,
+						 0, NewSeq, F@_2, F@_3, F@_4,
+						 F@_5, TrUserData).
+
+'d_packed_field_SourceCodeInfo.Location_path'(<<1:1,
+						X:7, Rest/binary>>,
+					      N, Acc, AccSeq)
+    when N < 57 ->
+    'd_packed_field_SourceCodeInfo.Location_path'(Rest,
+						  N + 7, X bsl N + Acc, AccSeq);
+'d_packed_field_SourceCodeInfo.Location_path'(<<0:1,
+						X:7, Rest/binary>>,
+					      N, Acc, AccSeq) ->
+    {NewFValue, RestF} = {begin
+			    <<Res:32/signed-native>> = <<(X bsl N +
+							    Acc):32/unsigned-native>>,
+			    Res
+			  end,
+			  Rest},
+    'd_packed_field_SourceCodeInfo.Location_path'(RestF, 0,
+						  0, [NewFValue | AccSeq]);
+'d_packed_field_SourceCodeInfo.Location_path'(<<>>, 0,
+					      0, AccSeq) ->
+    AccSeq.
+
+'d_field_SourceCodeInfo.Location_span'(<<1:1, X:7,
+					 Rest/binary>>,
+				       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+				       TrUserData)
+    when N < 57 ->
+    'd_field_SourceCodeInfo.Location_span'(Rest, N + 7,
+					   X bsl N + Acc, F@_1, F@_2, F@_3,
+					   F@_4, F@_5, TrUserData);
+'d_field_SourceCodeInfo.Location_span'(<<0:1, X:7,
+					 Rest/binary>>,
+				       N, Acc, F@_1, Prev, F@_3, F@_4, F@_5,
+				       TrUserData) ->
+    {NewFValue, RestF} = {begin
+			    <<Res:32/signed-native>> = <<(X bsl N +
+							    Acc):32/unsigned-native>>,
+			    Res
+			  end,
+			  Rest},
+    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
+						 0, F@_1,
+						 cons(NewFValue, Prev,
+						      TrUserData),
+						 F@_3, F@_4, F@_5, TrUserData).
+
+'d_pfield_SourceCodeInfo.Location_span'(<<1:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					TrUserData)
+    when N < 57 ->
+    'd_pfield_SourceCodeInfo.Location_span'(Rest, N + 7,
+					    X bsl N + Acc, F@_1, F@_2, F@_3,
+					    F@_4, F@_5, TrUserData);
+'d_pfield_SourceCodeInfo.Location_span'(<<0:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, E, F@_3, F@_4, F@_5,
+					TrUserData) ->
+    Len = X bsl N + Acc,
+    <<PackedBytes:Len/binary, Rest2/binary>> = Rest,
+    NewSeq =
+	'd_packed_field_SourceCodeInfo.Location_span'(PackedBytes,
+						      0, 0, E),
+    'dfp_read_field_def_SourceCodeInfo.Location'(Rest2, 0,
+						 0, F@_1, NewSeq, F@_3, F@_4,
+						 F@_5, TrUserData).
+
+'d_packed_field_SourceCodeInfo.Location_span'(<<1:1,
+						X:7, Rest/binary>>,
+					      N, Acc, AccSeq)
+    when N < 57 ->
+    'd_packed_field_SourceCodeInfo.Location_span'(Rest,
+						  N + 7, X bsl N + Acc, AccSeq);
+'d_packed_field_SourceCodeInfo.Location_span'(<<0:1,
+						X:7, Rest/binary>>,
+					      N, Acc, AccSeq) ->
+    {NewFValue, RestF} = {begin
+			    <<Res:32/signed-native>> = <<(X bsl N +
+							    Acc):32/unsigned-native>>,
+			    Res
+			  end,
+			  Rest},
+    'd_packed_field_SourceCodeInfo.Location_span'(RestF, 0,
+						  0, [NewFValue | AccSeq]);
+'d_packed_field_SourceCodeInfo.Location_span'(<<>>, 0,
+					      0, AccSeq) ->
+    AccSeq.
+
+'d_field_SourceCodeInfo.Location_leading_comments'(<<1:1,
+						     X:7, Rest/binary>>,
+						   N, Acc, F@_1, F@_2, F@_3,
+						   F@_4, F@_5, TrUserData)
+    when N < 57 ->
+    'd_field_SourceCodeInfo.Location_leading_comments'(Rest,
+						       N + 7, X bsl N + Acc,
+						       F@_1, F@_2, F@_3, F@_4,
+						       F@_5, TrUserData);
+'d_field_SourceCodeInfo.Location_leading_comments'(<<0:1,
+						     X:7, Rest/binary>>,
+						   N, Acc, F@_1, F@_2, _, F@_4,
+						   F@_5, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
+						 0, F@_1, F@_2, NewFValue, F@_4,
+						 F@_5, TrUserData).
+
+'d_field_SourceCodeInfo.Location_trailing_comments'(<<1:1,
+						      X:7, Rest/binary>>,
+						    N, Acc, F@_1, F@_2, F@_3,
+						    F@_4, F@_5, TrUserData)
+    when N < 57 ->
+    'd_field_SourceCodeInfo.Location_trailing_comments'(Rest,
+							N + 7, X bsl N + Acc,
+							F@_1, F@_2, F@_3, F@_4,
+							F@_5, TrUserData);
+'d_field_SourceCodeInfo.Location_trailing_comments'(<<0:1,
+						      X:7, Rest/binary>>,
+						    N, Acc, F@_1, F@_2, F@_3, _,
+						    F@_5, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
+						 0, F@_1, F@_2, F@_3, NewFValue,
+						 F@_5, TrUserData).
+
+'d_field_SourceCodeInfo.Location_leading_detached_comments'(<<1:1,
+							      X:7,
+							      Rest/binary>>,
+							    N, Acc, F@_1, F@_2,
+							    F@_3, F@_4, F@_5,
+							    TrUserData)
+    when N < 57 ->
+    'd_field_SourceCodeInfo.Location_leading_detached_comments'(Rest,
+								N + 7,
+								X bsl N + Acc,
+								F@_1, F@_2,
+								F@_3, F@_4,
+								F@_5,
+								TrUserData);
+'d_field_SourceCodeInfo.Location_leading_detached_comments'(<<0:1,
+							      X:7,
+							      Rest/binary>>,
+							    N, Acc, F@_1, F@_2,
+							    F@_3, F@_4, Prev,
+							    TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
+						 0, F@_1, F@_2, F@_3, F@_4,
+						 cons(NewFValue, Prev,
+						      TrUserData),
+						 TrUserData).
+
+'skip_varint_SourceCodeInfo.Location'(<<1:1, _:7,
+					Rest/binary>>,
+				      Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
+				      TrUserData) ->
+    'skip_varint_SourceCodeInfo.Location'(Rest, Z1, Z2,
+					  F@_1, F@_2, F@_3, F@_4, F@_5,
+					  TrUserData);
+'skip_varint_SourceCodeInfo.Location'(<<0:1, _:7,
+					Rest/binary>>,
+				      Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
+				      TrUserData) ->
+    'dfp_read_field_def_SourceCodeInfo.Location'(Rest, Z1,
+						 Z2, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, TrUserData).
+
+'skip_length_delimited_SourceCodeInfo.Location'(<<1:1,
+						  X:7, Rest/binary>>,
+						N, Acc, F@_1, F@_2, F@_3, F@_4,
+						F@_5, TrUserData)
+    when N < 57 ->
+    'skip_length_delimited_SourceCodeInfo.Location'(Rest,
+						    N + 7, X bsl N + Acc, F@_1,
+						    F@_2, F@_3, F@_4, F@_5,
+						    TrUserData);
+'skip_length_delimited_SourceCodeInfo.Location'(<<0:1,
+						  X:7, Rest/binary>>,
+						N, Acc, F@_1, F@_2, F@_3, F@_4,
+						F@_5, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    'dfp_read_field_def_SourceCodeInfo.Location'(Rest2, 0,
+						 0, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, TrUserData).
+
+'skip_group_SourceCodeInfo.Location'(Bin, FNum, Z2,
+				     F@_1, F@_2, F@_3, F@_4, F@_5,
+				     TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    'dfp_read_field_def_SourceCodeInfo.Location'(Rest, 0,
+						 Z2, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, TrUserData).
+
+'skip_32_SourceCodeInfo.Location'(<<_:32, Rest/binary>>,
+				  Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
+				  TrUserData) ->
+    'dfp_read_field_def_SourceCodeInfo.Location'(Rest, Z1,
+						 Z2, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, TrUserData).
+
+'skip_64_SourceCodeInfo.Location'(<<_:64, Rest/binary>>,
+				  Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
+				  TrUserData) ->
+    'dfp_read_field_def_SourceCodeInfo.Location'(Rest, Z1,
+						 Z2, F@_1, F@_2, F@_3, F@_4,
+						 F@_5, TrUserData).
+
+d_msg_SourceCodeInfo(Bin, TrUserData) ->
+    dfp_read_field_def_SourceCodeInfo(Bin, 0, 0,
+				      id([], TrUserData), TrUserData).
+
+dfp_read_field_def_SourceCodeInfo(<<10, Rest/binary>>,
+				  Z1, Z2, F@_1, TrUserData) ->
+    d_field_SourceCodeInfo_location(Rest, Z1, Z2, F@_1,
+				    TrUserData);
+dfp_read_field_def_SourceCodeInfo(<<>>, 0, 0, R1,
+				  TrUserData) ->
+    #'SourceCodeInfo'{location =
+			  lists_reverse(R1, TrUserData)};
+dfp_read_field_def_SourceCodeInfo(Other, Z1, Z2, F@_1,
+				  TrUserData) ->
+    dg_read_field_def_SourceCodeInfo(Other, Z1, Z2, F@_1,
+				     TrUserData).
+
+dg_read_field_def_SourceCodeInfo(<<1:1, X:7,
+				   Rest/binary>>,
+				 N, Acc, F@_1, TrUserData)
+    when N < 32 - 7 ->
+    dg_read_field_def_SourceCodeInfo(Rest, N + 7,
+				     X bsl N + Acc, F@_1, TrUserData);
+dg_read_field_def_SourceCodeInfo(<<0:1, X:7,
+				   Rest/binary>>,
+				 N, Acc, F@_1, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+      10 ->
+	  d_field_SourceCodeInfo_location(Rest, 0, 0, F@_1,
+					  TrUserData);
+      _ ->
+	  case Key band 7 of
+	    0 ->
+		skip_varint_SourceCodeInfo(Rest, 0, 0, F@_1,
+					   TrUserData);
+	    1 ->
+		skip_64_SourceCodeInfo(Rest, 0, 0, F@_1, TrUserData);
+	    2 ->
+		skip_length_delimited_SourceCodeInfo(Rest, 0, 0, F@_1,
+						     TrUserData);
+	    3 ->
+		skip_group_SourceCodeInfo(Rest, Key bsr 3, 0, F@_1,
+					  TrUserData);
+	    5 ->
+		skip_32_SourceCodeInfo(Rest, 0, 0, F@_1, TrUserData)
+	  end
+    end;
+dg_read_field_def_SourceCodeInfo(<<>>, 0, 0, R1,
+				 TrUserData) ->
+    #'SourceCodeInfo'{location =
+			  lists_reverse(R1, TrUserData)}.
+
+d_field_SourceCodeInfo_location(<<1:1, X:7,
+				  Rest/binary>>,
+				N, Acc, F@_1, TrUserData)
+    when N < 57 ->
+    d_field_SourceCodeInfo_location(Rest, N + 7,
+				    X bsl N + Acc, F@_1, TrUserData);
+d_field_SourceCodeInfo_location(<<0:1, X:7,
+				  Rest/binary>>,
+				N, Acc, Prev, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Bs:Len/binary, Rest2/binary>> = Rest,
+			   {id('d_msg_SourceCodeInfo.Location'(Bs, TrUserData),
+			       TrUserData),
+			    Rest2}
+			 end,
+    dfp_read_field_def_SourceCodeInfo(RestF, 0, 0,
+				      cons(NewFValue, Prev, TrUserData),
+				      TrUserData).
+
+skip_varint_SourceCodeInfo(<<1:1, _:7, Rest/binary>>,
+			   Z1, Z2, F@_1, TrUserData) ->
+    skip_varint_SourceCodeInfo(Rest, Z1, Z2, F@_1,
+			       TrUserData);
+skip_varint_SourceCodeInfo(<<0:1, _:7, Rest/binary>>,
+			   Z1, Z2, F@_1, TrUserData) ->
+    dfp_read_field_def_SourceCodeInfo(Rest, Z1, Z2, F@_1,
+				      TrUserData).
+
+skip_length_delimited_SourceCodeInfo(<<1:1, X:7,
+				       Rest/binary>>,
+				     N, Acc, F@_1, TrUserData)
+    when N < 57 ->
+    skip_length_delimited_SourceCodeInfo(Rest, N + 7,
+					 X bsl N + Acc, F@_1, TrUserData);
+skip_length_delimited_SourceCodeInfo(<<0:1, X:7,
+				       Rest/binary>>,
+				     N, Acc, F@_1, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_SourceCodeInfo(Rest2, 0, 0, F@_1,
+				      TrUserData).
+
+skip_group_SourceCodeInfo(Bin, FNum, Z2, F@_1,
+			  TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_SourceCodeInfo(Rest, 0, Z2, F@_1,
+				      TrUserData).
+
+skip_32_SourceCodeInfo(<<_:32, Rest/binary>>, Z1, Z2,
+		       F@_1, TrUserData) ->
+    dfp_read_field_def_SourceCodeInfo(Rest, Z1, Z2, F@_1,
+				      TrUserData).
+
+skip_64_SourceCodeInfo(<<_:64, Rest/binary>>, Z1, Z2,
+		       F@_1, TrUserData) ->
+    dfp_read_field_def_SourceCodeInfo(Rest, Z1, Z2, F@_1,
+				      TrUserData).
 
 'd_msg_UninterpretedOption.NamePart'(Bin, TrUserData) ->
     'dfp_read_field_def_UninterpretedOption.NamePart'(Bin,
@@ -2734,6 +3274,832 @@ skip_64_UninterpretedOption(<<_:64, Rest/binary>>, Z1,
     dfp_read_field_def_UninterpretedOption(Rest, Z1, Z2,
 					   F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
 					   F@_7, TrUserData).
+
+d_msg_FileOptions(Bin, TrUserData) ->
+    dfp_read_field_def_FileOptions(Bin, 0, 0,
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id(undefined, TrUserData),
+				   id([], TrUserData), TrUserData).
+
+dfp_read_field_def_FileOptions(<<10, Rest/binary>>, Z1,
+			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_java_package(Rest, Z1, Z2, F@_1,
+				     F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+				     F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				     F@_15, F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<66, Rest/binary>>, Z1,
+			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_java_outer_classname(Rest, Z1, Z2,
+					     F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					     F@_7, F@_8, F@_9, F@_10, F@_11,
+					     F@_12, F@_13, F@_14, F@_15, F@_16,
+					     TrUserData);
+dfp_read_field_def_FileOptions(<<80, Rest/binary>>, Z1,
+			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_java_multiple_files(Rest, Z1, Z2,
+					    F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					    F@_7, F@_8, F@_9, F@_10, F@_11,
+					    F@_12, F@_13, F@_14, F@_15, F@_16,
+					    TrUserData);
+dfp_read_field_def_FileOptions(<<160, 1, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_java_generate_equals_and_hash(Rest,
+						      Z1, Z2, F@_1, F@_2, F@_3,
+						      F@_4, F@_5, F@_6, F@_7,
+						      F@_8, F@_9, F@_10, F@_11,
+						      F@_12, F@_13, F@_14,
+						      F@_15, F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<216, 1, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_java_string_check_utf8(Rest, Z1, Z2,
+					       F@_1, F@_2, F@_3, F@_4, F@_5,
+					       F@_6, F@_7, F@_8, F@_9, F@_10,
+					       F@_11, F@_12, F@_13, F@_14,
+					       F@_15, F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<72, Rest/binary>>, Z1,
+			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_optimize_for(Rest, Z1, Z2, F@_1,
+				     F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+				     F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				     F@_15, F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<90, Rest/binary>>, Z1,
+			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_go_package(Rest, Z1, Z2, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<128, 1, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_cc_generic_services(Rest, Z1, Z2,
+					    F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					    F@_7, F@_8, F@_9, F@_10, F@_11,
+					    F@_12, F@_13, F@_14, F@_15, F@_16,
+					    TrUserData);
+dfp_read_field_def_FileOptions(<<136, 1, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_java_generic_services(Rest, Z1, Z2,
+					      F@_1, F@_2, F@_3, F@_4, F@_5,
+					      F@_6, F@_7, F@_8, F@_9, F@_10,
+					      F@_11, F@_12, F@_13, F@_14, F@_15,
+					      F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<144, 1, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_py_generic_services(Rest, Z1, Z2,
+					    F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					    F@_7, F@_8, F@_9, F@_10, F@_11,
+					    F@_12, F@_13, F@_14, F@_15, F@_16,
+					    TrUserData);
+dfp_read_field_def_FileOptions(<<184, 1, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_deprecated(Rest, Z1, Z2, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<248, 1, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_cc_enable_arenas(Rest, Z1, Z2, F@_1,
+					 F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+					 F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
+					 F@_14, F@_15, F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<162, 2, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_objc_class_prefix(Rest, Z1, Z2,
+					  F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					  F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+					  F@_13, F@_14, F@_15, F@_16,
+					  TrUserData);
+dfp_read_field_def_FileOptions(<<170, 2, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_csharp_namespace(Rest, Z1, Z2, F@_1,
+					 F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+					 F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
+					 F@_14, F@_15, F@_16, TrUserData);
+dfp_read_field_def_FileOptions(<<176, 2, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_javanano_use_deprecated_package(Rest,
+							Z1, Z2, F@_1, F@_2,
+							F@_3, F@_4, F@_5, F@_6,
+							F@_7, F@_8, F@_9, F@_10,
+							F@_11, F@_12, F@_13,
+							F@_14, F@_15, F@_16,
+							TrUserData);
+dfp_read_field_def_FileOptions(<<186, 62, Rest/binary>>,
+			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    d_field_FileOptions_uninterpreted_option(Rest, Z1, Z2,
+					     F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+					     F@_7, F@_8, F@_9, F@_10, F@_11,
+					     F@_12, F@_13, F@_14, F@_15, F@_16,
+					     TrUserData);
+dfp_read_field_def_FileOptions(<<>>, 0, 0, F@_1, F@_2,
+			       F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
+			       F@_11, F@_12, F@_13, F@_14, F@_15, R1,
+			       TrUserData) ->
+    #'FileOptions'{java_package = F@_1,
+		   java_outer_classname = F@_2, java_multiple_files = F@_3,
+		   java_generate_equals_and_hash = F@_4,
+		   java_string_check_utf8 = F@_5, optimize_for = F@_6,
+		   go_package = F@_7, cc_generic_services = F@_8,
+		   java_generic_services = F@_9,
+		   py_generic_services = F@_10, deprecated = F@_11,
+		   cc_enable_arenas = F@_12, objc_class_prefix = F@_13,
+		   csharp_namespace = F@_14,
+		   javanano_use_deprecated_package = F@_15,
+		   uninterpreted_option = lists_reverse(R1, TrUserData)};
+dfp_read_field_def_FileOptions(Other, Z1, Z2, F@_1,
+			       F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+			       F@_10, F@_11, F@_12, F@_13, F@_14, F@_15, F@_16,
+			       TrUserData) ->
+    dg_read_field_def_FileOptions(Other, Z1, Z2, F@_1, F@_2,
+				  F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				  F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				  F@_16, TrUserData).
+
+dg_read_field_def_FileOptions(<<1:1, X:7, Rest/binary>>,
+			      N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			      F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			      F@_15, F@_16, TrUserData)
+    when N < 32 - 7 ->
+    dg_read_field_def_FileOptions(Rest, N + 7,
+				  X bsl N + Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+				  F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+				  F@_13, F@_14, F@_15, F@_16, TrUserData);
+dg_read_field_def_FileOptions(<<0:1, X:7, Rest/binary>>,
+			      N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			      F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			      F@_15, F@_16, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+      10 ->
+	  d_field_FileOptions_java_package(Rest, 0, 0, F@_1, F@_2,
+					   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+					   F@_9, F@_10, F@_11, F@_12, F@_13,
+					   F@_14, F@_15, F@_16, TrUserData);
+      66 ->
+	  d_field_FileOptions_java_outer_classname(Rest, 0, 0,
+						   F@_1, F@_2, F@_3, F@_4, F@_5,
+						   F@_6, F@_7, F@_8, F@_9,
+						   F@_10, F@_11, F@_12, F@_13,
+						   F@_14, F@_15, F@_16,
+						   TrUserData);
+      80 ->
+	  d_field_FileOptions_java_multiple_files(Rest, 0, 0,
+						  F@_1, F@_2, F@_3, F@_4, F@_5,
+						  F@_6, F@_7, F@_8, F@_9, F@_10,
+						  F@_11, F@_12, F@_13, F@_14,
+						  F@_15, F@_16, TrUserData);
+      160 ->
+	  d_field_FileOptions_java_generate_equals_and_hash(Rest,
+							    0, 0, F@_1, F@_2,
+							    F@_3, F@_4, F@_5,
+							    F@_6, F@_7, F@_8,
+							    F@_9, F@_10, F@_11,
+							    F@_12, F@_13, F@_14,
+							    F@_15, F@_16,
+							    TrUserData);
+      216 ->
+	  d_field_FileOptions_java_string_check_utf8(Rest, 0, 0,
+						     F@_1, F@_2, F@_3, F@_4,
+						     F@_5, F@_6, F@_7, F@_8,
+						     F@_9, F@_10, F@_11, F@_12,
+						     F@_13, F@_14, F@_15, F@_16,
+						     TrUserData);
+      72 ->
+	  d_field_FileOptions_optimize_for(Rest, 0, 0, F@_1, F@_2,
+					   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+					   F@_9, F@_10, F@_11, F@_12, F@_13,
+					   F@_14, F@_15, F@_16, TrUserData);
+      90 ->
+	  d_field_FileOptions_go_package(Rest, 0, 0, F@_1, F@_2,
+					 F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+					 F@_9, F@_10, F@_11, F@_12, F@_13,
+					 F@_14, F@_15, F@_16, TrUserData);
+      128 ->
+	  d_field_FileOptions_cc_generic_services(Rest, 0, 0,
+						  F@_1, F@_2, F@_3, F@_4, F@_5,
+						  F@_6, F@_7, F@_8, F@_9, F@_10,
+						  F@_11, F@_12, F@_13, F@_14,
+						  F@_15, F@_16, TrUserData);
+      136 ->
+	  d_field_FileOptions_java_generic_services(Rest, 0, 0,
+						    F@_1, F@_2, F@_3, F@_4,
+						    F@_5, F@_6, F@_7, F@_8,
+						    F@_9, F@_10, F@_11, F@_12,
+						    F@_13, F@_14, F@_15, F@_16,
+						    TrUserData);
+      144 ->
+	  d_field_FileOptions_py_generic_services(Rest, 0, 0,
+						  F@_1, F@_2, F@_3, F@_4, F@_5,
+						  F@_6, F@_7, F@_8, F@_9, F@_10,
+						  F@_11, F@_12, F@_13, F@_14,
+						  F@_15, F@_16, TrUserData);
+      184 ->
+	  d_field_FileOptions_deprecated(Rest, 0, 0, F@_1, F@_2,
+					 F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+					 F@_9, F@_10, F@_11, F@_12, F@_13,
+					 F@_14, F@_15, F@_16, TrUserData);
+      248 ->
+	  d_field_FileOptions_cc_enable_arenas(Rest, 0, 0, F@_1,
+					       F@_2, F@_3, F@_4, F@_5, F@_6,
+					       F@_7, F@_8, F@_9, F@_10, F@_11,
+					       F@_12, F@_13, F@_14, F@_15,
+					       F@_16, TrUserData);
+      290 ->
+	  d_field_FileOptions_objc_class_prefix(Rest, 0, 0, F@_1,
+						F@_2, F@_3, F@_4, F@_5, F@_6,
+						F@_7, F@_8, F@_9, F@_10, F@_11,
+						F@_12, F@_13, F@_14, F@_15,
+						F@_16, TrUserData);
+      298 ->
+	  d_field_FileOptions_csharp_namespace(Rest, 0, 0, F@_1,
+					       F@_2, F@_3, F@_4, F@_5, F@_6,
+					       F@_7, F@_8, F@_9, F@_10, F@_11,
+					       F@_12, F@_13, F@_14, F@_15,
+					       F@_16, TrUserData);
+      304 ->
+	  d_field_FileOptions_javanano_use_deprecated_package(Rest,
+							      0, 0, F@_1, F@_2,
+							      F@_3, F@_4, F@_5,
+							      F@_6, F@_7, F@_8,
+							      F@_9, F@_10,
+							      F@_11, F@_12,
+							      F@_13, F@_14,
+							      F@_15, F@_16,
+							      TrUserData);
+      7994 ->
+	  d_field_FileOptions_uninterpreted_option(Rest, 0, 0,
+						   F@_1, F@_2, F@_3, F@_4, F@_5,
+						   F@_6, F@_7, F@_8, F@_9,
+						   F@_10, F@_11, F@_12, F@_13,
+						   F@_14, F@_15, F@_16,
+						   TrUserData);
+      _ ->
+	  case Key band 7 of
+	    0 ->
+		skip_varint_FileOptions(Rest, 0, 0, F@_1, F@_2, F@_3,
+					F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+					F@_10, F@_11, F@_12, F@_13, F@_14,
+					F@_15, F@_16, TrUserData);
+	    1 ->
+		skip_64_FileOptions(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
+				    F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+				    F@_12, F@_13, F@_14, F@_15, F@_16,
+				    TrUserData);
+	    2 ->
+		skip_length_delimited_FileOptions(Rest, 0, 0, F@_1,
+						  F@_2, F@_3, F@_4, F@_5, F@_6,
+						  F@_7, F@_8, F@_9, F@_10,
+						  F@_11, F@_12, F@_13, F@_14,
+						  F@_15, F@_16, TrUserData);
+	    3 ->
+		skip_group_FileOptions(Rest, Key bsr 3, 0, F@_1, F@_2,
+				       F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				       F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				       F@_16, TrUserData);
+	    5 ->
+		skip_32_FileOptions(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
+				    F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+				    F@_12, F@_13, F@_14, F@_15, F@_16,
+				    TrUserData)
+	  end
+    end;
+dg_read_field_def_FileOptions(<<>>, 0, 0, F@_1, F@_2,
+			      F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
+			      F@_11, F@_12, F@_13, F@_14, F@_15, R1,
+			      TrUserData) ->
+    #'FileOptions'{java_package = F@_1,
+		   java_outer_classname = F@_2, java_multiple_files = F@_3,
+		   java_generate_equals_and_hash = F@_4,
+		   java_string_check_utf8 = F@_5, optimize_for = F@_6,
+		   go_package = F@_7, cc_generic_services = F@_8,
+		   java_generic_services = F@_9,
+		   py_generic_services = F@_10, deprecated = F@_11,
+		   cc_enable_arenas = F@_12, objc_class_prefix = F@_13,
+		   csharp_namespace = F@_14,
+		   javanano_use_deprecated_package = F@_15,
+		   uninterpreted_option = lists_reverse(R1, TrUserData)}.
+
+d_field_FileOptions_java_package(<<1:1, X:7,
+				   Rest/binary>>,
+				 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				 F@_7, F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
+				 F@_14, F@_15, F@_16, TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_java_package(Rest, N + 7,
+				     X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+				     F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+				     F@_12, F@_13, F@_14, F@_15, F@_16,
+				     TrUserData);
+d_field_FileOptions_java_package(<<0:1, X:7,
+				   Rest/binary>>,
+				 N, Acc, _, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+				 F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				 F@_15, F@_16, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    dfp_read_field_def_FileOptions(RestF, 0, 0, NewFValue,
+				   F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				   F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_java_outer_classname(<<1:1, X:7,
+					   Rest/binary>>,
+					 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					 F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					 F@_12, F@_13, F@_14, F@_15, F@_16,
+					 TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_java_outer_classname(Rest, N + 7,
+					     X bsl N + Acc, F@_1, F@_2, F@_3,
+					     F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+					     F@_10, F@_11, F@_12, F@_13, F@_14,
+					     F@_15, F@_16, TrUserData);
+d_field_FileOptions_java_outer_classname(<<0:1, X:7,
+					   Rest/binary>>,
+					 N, Acc, F@_1, _, F@_3, F@_4, F@_5,
+					 F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					 F@_12, F@_13, F@_14, F@_15, F@_16,
+					 TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1,
+				   NewFValue, F@_3, F@_4, F@_5, F@_6, F@_7,
+				   F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
+				   F@_14, F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_java_multiple_files(<<1:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					F@_12, F@_13, F@_14, F@_15, F@_16,
+					TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_java_multiple_files(Rest, N + 7,
+					    X bsl N + Acc, F@_1, F@_2, F@_3,
+					    F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+					    F@_10, F@_11, F@_12, F@_13, F@_14,
+					    F@_15, F@_16, TrUserData);
+d_field_FileOptions_java_multiple_files(<<0:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, F@_2, _, F@_4, F@_5, F@_6,
+					F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+					F@_13, F@_14, F@_15, F@_16,
+					TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   NewFValue, F@_4, F@_5, F@_6, F@_7, F@_8,
+				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				   F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_java_generate_equals_and_hash(<<1:1,
+						    X:7, Rest/binary>>,
+						  N, Acc, F@_1, F@_2, F@_3,
+						  F@_4, F@_5, F@_6, F@_7, F@_8,
+						  F@_9, F@_10, F@_11, F@_12,
+						  F@_13, F@_14, F@_15, F@_16,
+						  TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_java_generate_equals_and_hash(Rest,
+						      N + 7, X bsl N + Acc,
+						      F@_1, F@_2, F@_3, F@_4,
+						      F@_5, F@_6, F@_7, F@_8,
+						      F@_9, F@_10, F@_11, F@_12,
+						      F@_13, F@_14, F@_15,
+						      F@_16, TrUserData);
+d_field_FileOptions_java_generate_equals_and_hash(<<0:1,
+						    X:7, Rest/binary>>,
+						  N, Acc, F@_1, F@_2, F@_3, _,
+						  F@_5, F@_6, F@_7, F@_8, F@_9,
+						  F@_10, F@_11, F@_12, F@_13,
+						  F@_14, F@_15, F@_16,
+						  TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, NewFValue, F@_5, F@_6, F@_7, F@_8,
+				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				   F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_java_string_check_utf8(<<1:1, X:7,
+					     Rest/binary>>,
+					   N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					   F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					   F@_12, F@_13, F@_14, F@_15, F@_16,
+					   TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_java_string_check_utf8(Rest, N + 7,
+					       X bsl N + Acc, F@_1, F@_2, F@_3,
+					       F@_4, F@_5, F@_6, F@_7, F@_8,
+					       F@_9, F@_10, F@_11, F@_12, F@_13,
+					       F@_14, F@_15, F@_16, TrUserData);
+d_field_FileOptions_java_string_check_utf8(<<0:1, X:7,
+					     Rest/binary>>,
+					   N, Acc, F@_1, F@_2, F@_3, F@_4, _,
+					   F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					   F@_12, F@_13, F@_14, F@_15, F@_16,
+					   TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, NewFValue, F@_6, F@_7, F@_8,
+				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				   F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_optimize_for(<<1:1, X:7,
+				   Rest/binary>>,
+				 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				 F@_7, F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
+				 F@_14, F@_15, F@_16, TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_optimize_for(Rest, N + 7,
+				     X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+				     F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+				     F@_12, F@_13, F@_14, F@_15, F@_16,
+				     TrUserData);
+d_field_FileOptions_optimize_for(<<0:1, X:7,
+				   Rest/binary>>,
+				 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, _, F@_7,
+				 F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				 F@_15, F@_16, TrUserData) ->
+    {NewFValue, RestF} =
+	{'d_enum_FileOptions.OptimizeMode'(begin
+					     <<Res:32/signed-native>> = <<(X bsl
+									     N
+									     +
+									     Acc):32/unsigned-native>>,
+					     Res
+					   end),
+	 Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, NewFValue, F@_7, F@_8,
+				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				   F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_go_package(<<1:1, X:7,
+				 Rest/binary>>,
+			       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_go_package(Rest, N + 7,
+				   X bsl N + Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+				   F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+				   F@_13, F@_14, F@_15, F@_16, TrUserData);
+d_field_FileOptions_go_package(<<0:1, X:7,
+				 Rest/binary>>,
+			       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, _,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, NewFValue, F@_8,
+				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				   F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_cc_generic_services(<<1:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					F@_12, F@_13, F@_14, F@_15, F@_16,
+					TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_cc_generic_services(Rest, N + 7,
+					    X bsl N + Acc, F@_1, F@_2, F@_3,
+					    F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+					    F@_10, F@_11, F@_12, F@_13, F@_14,
+					    F@_15, F@_16, TrUserData);
+d_field_FileOptions_cc_generic_services(<<0:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					F@_6, F@_7, _, F@_9, F@_10, F@_11,
+					F@_12, F@_13, F@_14, F@_15, F@_16,
+					TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, NewFValue,
+				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+				   F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_java_generic_services(<<1:1, X:7,
+					    Rest/binary>>,
+					  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					  F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					  F@_12, F@_13, F@_14, F@_15, F@_16,
+					  TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_java_generic_services(Rest, N + 7,
+					      X bsl N + Acc, F@_1, F@_2, F@_3,
+					      F@_4, F@_5, F@_6, F@_7, F@_8,
+					      F@_9, F@_10, F@_11, F@_12, F@_13,
+					      F@_14, F@_15, F@_16, TrUserData);
+d_field_FileOptions_java_generic_services(<<0:1, X:7,
+					    Rest/binary>>,
+					  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					  F@_6, F@_7, F@_8, _, F@_10, F@_11,
+					  F@_12, F@_13, F@_14, F@_15, F@_16,
+					  TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+				   NewFValue, F@_10, F@_11, F@_12, F@_13, F@_14,
+				   F@_15, F@_16, TrUserData).
+
+d_field_FileOptions_py_generic_services(<<1:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					F@_12, F@_13, F@_14, F@_15, F@_16,
+					TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_py_generic_services(Rest, N + 7,
+					    X bsl N + Acc, F@_1, F@_2, F@_3,
+					    F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+					    F@_10, F@_11, F@_12, F@_13, F@_14,
+					    F@_15, F@_16, TrUserData);
+d_field_FileOptions_py_generic_services(<<0:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					F@_6, F@_7, F@_8, F@_9, _, F@_11, F@_12,
+					F@_13, F@_14, F@_15, F@_16,
+					TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   NewFValue, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData).
+
+d_field_FileOptions_deprecated(<<1:1, X:7,
+				 Rest/binary>>,
+			       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
+			       F@_15, F@_16, TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_deprecated(Rest, N + 7,
+				   X bsl N + Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+				   F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+				   F@_13, F@_14, F@_15, F@_16, TrUserData);
+d_field_FileOptions_deprecated(<<0:1, X:7,
+				 Rest/binary>>,
+			       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
+			       F@_8, F@_9, F@_10, _, F@_12, F@_13, F@_14, F@_15,
+			       F@_16, TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, NewFValue, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData).
+
+d_field_FileOptions_cc_enable_arenas(<<1:1, X:7,
+				       Rest/binary>>,
+				     N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				     F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+				     F@_13, F@_14, F@_15, F@_16, TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_cc_enable_arenas(Rest, N + 7,
+					 X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+					 F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
+					 F@_11, F@_12, F@_13, F@_14, F@_15,
+					 F@_16, TrUserData);
+d_field_FileOptions_cc_enable_arenas(<<0:1, X:7,
+				       Rest/binary>>,
+				     N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				     F@_7, F@_8, F@_9, F@_10, F@_11, _, F@_13,
+				     F@_14, F@_15, F@_16, TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, NewFValue, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData).
+
+d_field_FileOptions_objc_class_prefix(<<1:1, X:7,
+					Rest/binary>>,
+				      N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+				      F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+				      F@_12, F@_13, F@_14, F@_15, F@_16,
+				      TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_objc_class_prefix(Rest, N + 7,
+					  X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+					  F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
+					  F@_11, F@_12, F@_13, F@_14, F@_15,
+					  F@_16, TrUserData);
+d_field_FileOptions_objc_class_prefix(<<0:1, X:7,
+					Rest/binary>>,
+				      N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+				      F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+				      F@_12, _, F@_14, F@_15, F@_16,
+				      TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, NewFValue, F@_14, F@_15,
+				   F@_16, TrUserData).
+
+d_field_FileOptions_csharp_namespace(<<1:1, X:7,
+				       Rest/binary>>,
+				     N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				     F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+				     F@_13, F@_14, F@_15, F@_16, TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_csharp_namespace(Rest, N + 7,
+					 X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+					 F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
+					 F@_11, F@_12, F@_13, F@_14, F@_15,
+					 F@_16, TrUserData);
+d_field_FileOptions_csharp_namespace(<<0:1, X:7,
+				       Rest/binary>>,
+				     N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				     F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+				     F@_13, _, F@_15, F@_16, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, NewFValue, F@_15,
+				   F@_16, TrUserData).
+
+d_field_FileOptions_javanano_use_deprecated_package(<<1:1,
+						      X:7, Rest/binary>>,
+						    N, Acc, F@_1, F@_2, F@_3,
+						    F@_4, F@_5, F@_6, F@_7,
+						    F@_8, F@_9, F@_10, F@_11,
+						    F@_12, F@_13, F@_14, F@_15,
+						    F@_16, TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_javanano_use_deprecated_package(Rest,
+							N + 7, X bsl N + Acc,
+							F@_1, F@_2, F@_3, F@_4,
+							F@_5, F@_6, F@_7, F@_8,
+							F@_9, F@_10, F@_11,
+							F@_12, F@_13, F@_14,
+							F@_15, F@_16,
+							TrUserData);
+d_field_FileOptions_javanano_use_deprecated_package(<<0:1,
+						      X:7, Rest/binary>>,
+						    N, Acc, F@_1, F@_2, F@_3,
+						    F@_4, F@_5, F@_6, F@_7,
+						    F@_8, F@_9, F@_10, F@_11,
+						    F@_12, F@_13, F@_14, _,
+						    F@_16, TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, NewFValue,
+				   F@_16, TrUserData).
+
+d_field_FileOptions_uninterpreted_option(<<1:1, X:7,
+					   Rest/binary>>,
+					 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					 F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					 F@_12, F@_13, F@_14, F@_15, F@_16,
+					 TrUserData)
+    when N < 57 ->
+    d_field_FileOptions_uninterpreted_option(Rest, N + 7,
+					     X bsl N + Acc, F@_1, F@_2, F@_3,
+					     F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+					     F@_10, F@_11, F@_12, F@_13, F@_14,
+					     F@_15, F@_16, TrUserData);
+d_field_FileOptions_uninterpreted_option(<<0:1, X:7,
+					   Rest/binary>>,
+					 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
+					 F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+					 F@_12, F@_13, F@_14, F@_15, Prev,
+					 TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Bs:Len/binary, Rest2/binary>> = Rest,
+			   {id(d_msg_UninterpretedOption(Bs, TrUserData),
+			       TrUserData),
+			    Rest2}
+			 end,
+    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   cons(NewFValue, Prev, TrUserData),
+				   TrUserData).
+
+skip_varint_FileOptions(<<1:1, _:7, Rest/binary>>, Z1,
+			Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+			F@_9, F@_10, F@_11, F@_12, F@_13, F@_14, F@_15, F@_16,
+			TrUserData) ->
+    skip_varint_FileOptions(Rest, Z1, Z2, F@_1, F@_2, F@_3,
+			    F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
+			    F@_12, F@_13, F@_14, F@_15, F@_16, TrUserData);
+skip_varint_FileOptions(<<0:1, _:7, Rest/binary>>, Z1,
+			Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
+			F@_9, F@_10, F@_11, F@_12, F@_13, F@_14, F@_15, F@_16,
+			TrUserData) ->
+    dfp_read_field_def_FileOptions(Rest, Z1, Z2, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData).
+
+skip_length_delimited_FileOptions(<<1:1, X:7,
+				    Rest/binary>>,
+				  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				  F@_7, F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
+				  F@_14, F@_15, F@_16, TrUserData)
+    when N < 57 ->
+    skip_length_delimited_FileOptions(Rest, N + 7,
+				      X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
+				      F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
+				      F@_11, F@_12, F@_13, F@_14, F@_15, F@_16,
+				      TrUserData);
+skip_length_delimited_FileOptions(<<0:1, X:7,
+				    Rest/binary>>,
+				  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
+				  F@_7, F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
+				  F@_14, F@_15, F@_16, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_FileOptions(Rest2, 0, 0, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData).
+
+skip_group_FileOptions(Bin, FNum, Z2, F@_1, F@_2, F@_3,
+		       F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
+		       F@_13, F@_14, F@_15, F@_16, TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_FileOptions(Rest, 0, Z2, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData).
+
+skip_32_FileOptions(<<_:32, Rest/binary>>, Z1, Z2, F@_1,
+		    F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
+		    F@_11, F@_12, F@_13, F@_14, F@_15, F@_16, TrUserData) ->
+    dfp_read_field_def_FileOptions(Rest, Z1, Z2, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData).
+
+skip_64_FileOptions(<<_:64, Rest/binary>>, Z1, Z2, F@_1,
+		    F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
+		    F@_11, F@_12, F@_13, F@_14, F@_15, F@_16, TrUserData) ->
+    dfp_read_field_def_FileOptions(Rest, Z1, Z2, F@_1, F@_2,
+				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
+				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
+				   F@_16, TrUserData).
 
 d_msg_FieldOptions(Bin, TrUserData) ->
     dfp_read_field_def_FieldOptions(Bin, 0, 0,
@@ -3567,1511 +4933,6 @@ skip_64_FieldDescriptorProto(<<_:64, Rest/binary>>, Z1,
 					    F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
 					    F@_7, F@_8, F@_9, F@_10,
 					    TrUserData).
-
-d_msg_EnumValueOptions(Bin, TrUserData) ->
-    dfp_read_field_def_EnumValueOptions(Bin, 0, 0,
-					id(undefined, TrUserData),
-					id([], TrUserData), TrUserData).
-
-dfp_read_field_def_EnumValueOptions(<<8, Rest/binary>>,
-				    Z1, Z2, F@_1, F@_2, TrUserData) ->
-    d_field_EnumValueOptions_deprecated(Rest, Z1, Z2, F@_1,
-					F@_2, TrUserData);
-dfp_read_field_def_EnumValueOptions(<<186, 62,
-				      Rest/binary>>,
-				    Z1, Z2, F@_1, F@_2, TrUserData) ->
-    d_field_EnumValueOptions_uninterpreted_option(Rest, Z1,
-						  Z2, F@_1, F@_2, TrUserData);
-dfp_read_field_def_EnumValueOptions(<<>>, 0, 0, F@_1,
-				    R1, TrUserData) ->
-    #'EnumValueOptions'{deprecated = F@_1,
-			uninterpreted_option = lists_reverse(R1, TrUserData)};
-dfp_read_field_def_EnumValueOptions(Other, Z1, Z2, F@_1,
-				    F@_2, TrUserData) ->
-    dg_read_field_def_EnumValueOptions(Other, Z1, Z2, F@_1,
-				       F@_2, TrUserData).
-
-dg_read_field_def_EnumValueOptions(<<1:1, X:7,
-				     Rest/binary>>,
-				   N, Acc, F@_1, F@_2, TrUserData)
-    when N < 32 - 7 ->
-    dg_read_field_def_EnumValueOptions(Rest, N + 7,
-				       X bsl N + Acc, F@_1, F@_2, TrUserData);
-dg_read_field_def_EnumValueOptions(<<0:1, X:7,
-				     Rest/binary>>,
-				   N, Acc, F@_1, F@_2, TrUserData) ->
-    Key = X bsl N + Acc,
-    case Key of
-      8 ->
-	  d_field_EnumValueOptions_deprecated(Rest, 0, 0, F@_1,
-					      F@_2, TrUserData);
-      7994 ->
-	  d_field_EnumValueOptions_uninterpreted_option(Rest, 0,
-							0, F@_1, F@_2,
-							TrUserData);
-      _ ->
-	  case Key band 7 of
-	    0 ->
-		skip_varint_EnumValueOptions(Rest, 0, 0, F@_1, F@_2,
-					     TrUserData);
-	    1 ->
-		skip_64_EnumValueOptions(Rest, 0, 0, F@_1, F@_2,
-					 TrUserData);
-	    2 ->
-		skip_length_delimited_EnumValueOptions(Rest, 0, 0, F@_1,
-						       F@_2, TrUserData);
-	    3 ->
-		skip_group_EnumValueOptions(Rest, Key bsr 3, 0, F@_1,
-					    F@_2, TrUserData);
-	    5 ->
-		skip_32_EnumValueOptions(Rest, 0, 0, F@_1, F@_2,
-					 TrUserData)
-	  end
-    end;
-dg_read_field_def_EnumValueOptions(<<>>, 0, 0, F@_1, R1,
-				   TrUserData) ->
-    #'EnumValueOptions'{deprecated = F@_1,
-			uninterpreted_option = lists_reverse(R1, TrUserData)}.
-
-d_field_EnumValueOptions_deprecated(<<1:1, X:7,
-				      Rest/binary>>,
-				    N, Acc, F@_1, F@_2, TrUserData)
-    when N < 57 ->
-    d_field_EnumValueOptions_deprecated(Rest, N + 7,
-					X bsl N + Acc, F@_1, F@_2, TrUserData);
-d_field_EnumValueOptions_deprecated(<<0:1, X:7,
-				      Rest/binary>>,
-				    N, Acc, _, F@_2, TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_EnumValueOptions(RestF, 0, 0,
-					NewFValue, F@_2, TrUserData).
-
-d_field_EnumValueOptions_uninterpreted_option(<<1:1,
-						X:7, Rest/binary>>,
-					      N, Acc, F@_1, F@_2, TrUserData)
-    when N < 57 ->
-    d_field_EnumValueOptions_uninterpreted_option(Rest,
-						  N + 7, X bsl N + Acc, F@_1,
-						  F@_2, TrUserData);
-d_field_EnumValueOptions_uninterpreted_option(<<0:1,
-						X:7, Rest/binary>>,
-					      N, Acc, F@_1, Prev, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Bs:Len/binary, Rest2/binary>> = Rest,
-			   {id(d_msg_UninterpretedOption(Bs, TrUserData),
-			       TrUserData),
-			    Rest2}
-			 end,
-    dfp_read_field_def_EnumValueOptions(RestF, 0, 0, F@_1,
-					cons(NewFValue, Prev, TrUserData),
-					TrUserData).
-
-skip_varint_EnumValueOptions(<<1:1, _:7, Rest/binary>>,
-			     Z1, Z2, F@_1, F@_2, TrUserData) ->
-    skip_varint_EnumValueOptions(Rest, Z1, Z2, F@_1, F@_2,
-				 TrUserData);
-skip_varint_EnumValueOptions(<<0:1, _:7, Rest/binary>>,
-			     Z1, Z2, F@_1, F@_2, TrUserData) ->
-    dfp_read_field_def_EnumValueOptions(Rest, Z1, Z2, F@_1,
-					F@_2, TrUserData).
-
-skip_length_delimited_EnumValueOptions(<<1:1, X:7,
-					 Rest/binary>>,
-				       N, Acc, F@_1, F@_2, TrUserData)
-    when N < 57 ->
-    skip_length_delimited_EnumValueOptions(Rest, N + 7,
-					   X bsl N + Acc, F@_1, F@_2,
-					   TrUserData);
-skip_length_delimited_EnumValueOptions(<<0:1, X:7,
-					 Rest/binary>>,
-				       N, Acc, F@_1, F@_2, TrUserData) ->
-    Length = X bsl N + Acc,
-    <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_EnumValueOptions(Rest2, 0, 0, F@_1,
-					F@_2, TrUserData).
-
-skip_group_EnumValueOptions(Bin, FNum, Z2, F@_1, F@_2,
-			    TrUserData) ->
-    {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_EnumValueOptions(Rest, 0, Z2, F@_1,
-					F@_2, TrUserData).
-
-skip_32_EnumValueOptions(<<_:32, Rest/binary>>, Z1, Z2,
-			 F@_1, F@_2, TrUserData) ->
-    dfp_read_field_def_EnumValueOptions(Rest, Z1, Z2, F@_1,
-					F@_2, TrUserData).
-
-skip_64_EnumValueOptions(<<_:64, Rest/binary>>, Z1, Z2,
-			 F@_1, F@_2, TrUserData) ->
-    dfp_read_field_def_EnumValueOptions(Rest, Z1, Z2, F@_1,
-					F@_2, TrUserData).
-
-'d_msg_SourceCodeInfo.Location'(Bin, TrUserData) ->
-    'dfp_read_field_def_SourceCodeInfo.Location'(Bin, 0, 0,
-						 id([], TrUserData),
-						 id([], TrUserData),
-						 id(undefined, TrUserData),
-						 id(undefined, TrUserData),
-						 id([], TrUserData),
-						 TrUserData).
-
-'dfp_read_field_def_SourceCodeInfo.Location'(<<10,
-					       Rest/binary>>,
-					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					     F@_5, TrUserData) ->
-    'd_pfield_SourceCodeInfo.Location_path'(Rest, Z1, Z2,
-					    F@_1, F@_2, F@_3, F@_4, F@_5,
-					    TrUserData);
-'dfp_read_field_def_SourceCodeInfo.Location'(<<8,
-					       Rest/binary>>,
-					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					     F@_5, TrUserData) ->
-    'd_field_SourceCodeInfo.Location_path'(Rest, Z1, Z2,
-					   F@_1, F@_2, F@_3, F@_4, F@_5,
-					   TrUserData);
-'dfp_read_field_def_SourceCodeInfo.Location'(<<18,
-					       Rest/binary>>,
-					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					     F@_5, TrUserData) ->
-    'd_pfield_SourceCodeInfo.Location_span'(Rest, Z1, Z2,
-					    F@_1, F@_2, F@_3, F@_4, F@_5,
-					    TrUserData);
-'dfp_read_field_def_SourceCodeInfo.Location'(<<16,
-					       Rest/binary>>,
-					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					     F@_5, TrUserData) ->
-    'd_field_SourceCodeInfo.Location_span'(Rest, Z1, Z2,
-					   F@_1, F@_2, F@_3, F@_4, F@_5,
-					   TrUserData);
-'dfp_read_field_def_SourceCodeInfo.Location'(<<26,
-					       Rest/binary>>,
-					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					     F@_5, TrUserData) ->
-    'd_field_SourceCodeInfo.Location_leading_comments'(Rest,
-						       Z1, Z2, F@_1, F@_2, F@_3,
-						       F@_4, F@_5, TrUserData);
-'dfp_read_field_def_SourceCodeInfo.Location'(<<34,
-					       Rest/binary>>,
-					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					     F@_5, TrUserData) ->
-    'd_field_SourceCodeInfo.Location_trailing_comments'(Rest,
-							Z1, Z2, F@_1, F@_2,
-							F@_3, F@_4, F@_5,
-							TrUserData);
-'dfp_read_field_def_SourceCodeInfo.Location'(<<50,
-					       Rest/binary>>,
-					     Z1, Z2, F@_1, F@_2, F@_3, F@_4,
-					     F@_5, TrUserData) ->
-    'd_field_SourceCodeInfo.Location_leading_detached_comments'(Rest,
-								Z1, Z2, F@_1,
-								F@_2, F@_3,
-								F@_4, F@_5,
-								TrUserData);
-'dfp_read_field_def_SourceCodeInfo.Location'(<<>>, 0, 0,
-					     R1, R2, F@_3, F@_4, R3,
-					     TrUserData) ->
-    #'SourceCodeInfo.Location'{path =
-				   lists_reverse(R1, TrUserData),
-			       span = lists_reverse(R2, TrUserData),
-			       leading_comments = F@_3,
-			       trailing_comments = F@_4,
-			       leading_detached_comments =
-				   lists_reverse(R3, TrUserData)};
-'dfp_read_field_def_SourceCodeInfo.Location'(Other, Z1,
-					     Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-					     TrUserData) ->
-    'dg_read_field_def_SourceCodeInfo.Location'(Other, Z1,
-						Z2, F@_1, F@_2, F@_3, F@_4,
-						F@_5, TrUserData).
-
-'dg_read_field_def_SourceCodeInfo.Location'(<<1:1, X:7,
-					      Rest/binary>>,
-					    N, Acc, F@_1, F@_2, F@_3, F@_4,
-					    F@_5, TrUserData)
-    when N < 32 - 7 ->
-    'dg_read_field_def_SourceCodeInfo.Location'(Rest, N + 7,
-						X bsl N + Acc, F@_1, F@_2, F@_3,
-						F@_4, F@_5, TrUserData);
-'dg_read_field_def_SourceCodeInfo.Location'(<<0:1, X:7,
-					      Rest/binary>>,
-					    N, Acc, F@_1, F@_2, F@_3, F@_4,
-					    F@_5, TrUserData) ->
-    Key = X bsl N + Acc,
-    case Key of
-      10 ->
-	  'd_pfield_SourceCodeInfo.Location_path'(Rest, 0, 0,
-						  F@_1, F@_2, F@_3, F@_4, F@_5,
-						  TrUserData);
-      8 ->
-	  'd_field_SourceCodeInfo.Location_path'(Rest, 0, 0, F@_1,
-						 F@_2, F@_3, F@_4, F@_5,
-						 TrUserData);
-      18 ->
-	  'd_pfield_SourceCodeInfo.Location_span'(Rest, 0, 0,
-						  F@_1, F@_2, F@_3, F@_4, F@_5,
-						  TrUserData);
-      16 ->
-	  'd_field_SourceCodeInfo.Location_span'(Rest, 0, 0, F@_1,
-						 F@_2, F@_3, F@_4, F@_5,
-						 TrUserData);
-      26 ->
-	  'd_field_SourceCodeInfo.Location_leading_comments'(Rest,
-							     0, 0, F@_1, F@_2,
-							     F@_3, F@_4, F@_5,
-							     TrUserData);
-      34 ->
-	  'd_field_SourceCodeInfo.Location_trailing_comments'(Rest,
-							      0, 0, F@_1, F@_2,
-							      F@_3, F@_4, F@_5,
-							      TrUserData);
-      50 ->
-	  'd_field_SourceCodeInfo.Location_leading_detached_comments'(Rest,
-								      0, 0,
-								      F@_1,
-								      F@_2,
-								      F@_3,
-								      F@_4,
-								      F@_5,
-								      TrUserData);
-      _ ->
-	  case Key band 7 of
-	    0 ->
-		'skip_varint_SourceCodeInfo.Location'(Rest, 0, 0, F@_1,
-						      F@_2, F@_3, F@_4, F@_5,
-						      TrUserData);
-	    1 ->
-		'skip_64_SourceCodeInfo.Location'(Rest, 0, 0, F@_1,
-						  F@_2, F@_3, F@_4, F@_5,
-						  TrUserData);
-	    2 ->
-		'skip_length_delimited_SourceCodeInfo.Location'(Rest, 0,
-								0, F@_1, F@_2,
-								F@_3, F@_4,
-								F@_5,
-								TrUserData);
-	    3 ->
-		'skip_group_SourceCodeInfo.Location'(Rest, Key bsr 3, 0,
-						     F@_1, F@_2, F@_3, F@_4,
-						     F@_5, TrUserData);
-	    5 ->
-		'skip_32_SourceCodeInfo.Location'(Rest, 0, 0, F@_1,
-						  F@_2, F@_3, F@_4, F@_5,
-						  TrUserData)
-	  end
-    end;
-'dg_read_field_def_SourceCodeInfo.Location'(<<>>, 0, 0,
-					    R1, R2, F@_3, F@_4, R3,
-					    TrUserData) ->
-    #'SourceCodeInfo.Location'{path =
-				   lists_reverse(R1, TrUserData),
-			       span = lists_reverse(R2, TrUserData),
-			       leading_comments = F@_3,
-			       trailing_comments = F@_4,
-			       leading_detached_comments =
-				   lists_reverse(R3, TrUserData)}.
-
-'d_field_SourceCodeInfo.Location_path'(<<1:1, X:7,
-					 Rest/binary>>,
-				       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-				       TrUserData)
-    when N < 57 ->
-    'd_field_SourceCodeInfo.Location_path'(Rest, N + 7,
-					   X bsl N + Acc, F@_1, F@_2, F@_3,
-					   F@_4, F@_5, TrUserData);
-'d_field_SourceCodeInfo.Location_path'(<<0:1, X:7,
-					 Rest/binary>>,
-				       N, Acc, Prev, F@_2, F@_3, F@_4, F@_5,
-				       TrUserData) ->
-    {NewFValue, RestF} = {begin
-			    <<Res:32/signed-native>> = <<(X bsl N +
-							    Acc):32/unsigned-native>>,
-			    Res
-			  end,
-			  Rest},
-    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
-						 0,
-						 cons(NewFValue, Prev,
-						      TrUserData),
-						 F@_2, F@_3, F@_4, F@_5,
-						 TrUserData).
-
-'d_pfield_SourceCodeInfo.Location_path'(<<1:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					TrUserData)
-    when N < 57 ->
-    'd_pfield_SourceCodeInfo.Location_path'(Rest, N + 7,
-					    X bsl N + Acc, F@_1, F@_2, F@_3,
-					    F@_4, F@_5, TrUserData);
-'d_pfield_SourceCodeInfo.Location_path'(<<0:1, X:7,
-					  Rest/binary>>,
-					N, Acc, E, F@_2, F@_3, F@_4, F@_5,
-					TrUserData) ->
-    Len = X bsl N + Acc,
-    <<PackedBytes:Len/binary, Rest2/binary>> = Rest,
-    NewSeq =
-	'd_packed_field_SourceCodeInfo.Location_path'(PackedBytes,
-						      0, 0, E),
-    'dfp_read_field_def_SourceCodeInfo.Location'(Rest2, 0,
-						 0, NewSeq, F@_2, F@_3, F@_4,
-						 F@_5, TrUserData).
-
-'d_packed_field_SourceCodeInfo.Location_path'(<<1:1,
-						X:7, Rest/binary>>,
-					      N, Acc, AccSeq)
-    when N < 57 ->
-    'd_packed_field_SourceCodeInfo.Location_path'(Rest,
-						  N + 7, X bsl N + Acc, AccSeq);
-'d_packed_field_SourceCodeInfo.Location_path'(<<0:1,
-						X:7, Rest/binary>>,
-					      N, Acc, AccSeq) ->
-    {NewFValue, RestF} = {begin
-			    <<Res:32/signed-native>> = <<(X bsl N +
-							    Acc):32/unsigned-native>>,
-			    Res
-			  end,
-			  Rest},
-    'd_packed_field_SourceCodeInfo.Location_path'(RestF, 0,
-						  0, [NewFValue | AccSeq]);
-'d_packed_field_SourceCodeInfo.Location_path'(<<>>, 0,
-					      0, AccSeq) ->
-    AccSeq.
-
-'d_field_SourceCodeInfo.Location_span'(<<1:1, X:7,
-					 Rest/binary>>,
-				       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-				       TrUserData)
-    when N < 57 ->
-    'd_field_SourceCodeInfo.Location_span'(Rest, N + 7,
-					   X bsl N + Acc, F@_1, F@_2, F@_3,
-					   F@_4, F@_5, TrUserData);
-'d_field_SourceCodeInfo.Location_span'(<<0:1, X:7,
-					 Rest/binary>>,
-				       N, Acc, F@_1, Prev, F@_3, F@_4, F@_5,
-				       TrUserData) ->
-    {NewFValue, RestF} = {begin
-			    <<Res:32/signed-native>> = <<(X bsl N +
-							    Acc):32/unsigned-native>>,
-			    Res
-			  end,
-			  Rest},
-    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
-						 0, F@_1,
-						 cons(NewFValue, Prev,
-						      TrUserData),
-						 F@_3, F@_4, F@_5, TrUserData).
-
-'d_pfield_SourceCodeInfo.Location_span'(<<1:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					TrUserData)
-    when N < 57 ->
-    'd_pfield_SourceCodeInfo.Location_span'(Rest, N + 7,
-					    X bsl N + Acc, F@_1, F@_2, F@_3,
-					    F@_4, F@_5, TrUserData);
-'d_pfield_SourceCodeInfo.Location_span'(<<0:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, E, F@_3, F@_4, F@_5,
-					TrUserData) ->
-    Len = X bsl N + Acc,
-    <<PackedBytes:Len/binary, Rest2/binary>> = Rest,
-    NewSeq =
-	'd_packed_field_SourceCodeInfo.Location_span'(PackedBytes,
-						      0, 0, E),
-    'dfp_read_field_def_SourceCodeInfo.Location'(Rest2, 0,
-						 0, F@_1, NewSeq, F@_3, F@_4,
-						 F@_5, TrUserData).
-
-'d_packed_field_SourceCodeInfo.Location_span'(<<1:1,
-						X:7, Rest/binary>>,
-					      N, Acc, AccSeq)
-    when N < 57 ->
-    'd_packed_field_SourceCodeInfo.Location_span'(Rest,
-						  N + 7, X bsl N + Acc, AccSeq);
-'d_packed_field_SourceCodeInfo.Location_span'(<<0:1,
-						X:7, Rest/binary>>,
-					      N, Acc, AccSeq) ->
-    {NewFValue, RestF} = {begin
-			    <<Res:32/signed-native>> = <<(X bsl N +
-							    Acc):32/unsigned-native>>,
-			    Res
-			  end,
-			  Rest},
-    'd_packed_field_SourceCodeInfo.Location_span'(RestF, 0,
-						  0, [NewFValue | AccSeq]);
-'d_packed_field_SourceCodeInfo.Location_span'(<<>>, 0,
-					      0, AccSeq) ->
-    AccSeq.
-
-'d_field_SourceCodeInfo.Location_leading_comments'(<<1:1,
-						     X:7, Rest/binary>>,
-						   N, Acc, F@_1, F@_2, F@_3,
-						   F@_4, F@_5, TrUserData)
-    when N < 57 ->
-    'd_field_SourceCodeInfo.Location_leading_comments'(Rest,
-						       N + 7, X bsl N + Acc,
-						       F@_1, F@_2, F@_3, F@_4,
-						       F@_5, TrUserData);
-'d_field_SourceCodeInfo.Location_leading_comments'(<<0:1,
-						     X:7, Rest/binary>>,
-						   N, Acc, F@_1, F@_2, _, F@_4,
-						   F@_5, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {unicode:characters_to_list(Utf8, unicode), Rest2}
-			 end,
-    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
-						 0, F@_1, F@_2, NewFValue, F@_4,
-						 F@_5, TrUserData).
-
-'d_field_SourceCodeInfo.Location_trailing_comments'(<<1:1,
-						      X:7, Rest/binary>>,
-						    N, Acc, F@_1, F@_2, F@_3,
-						    F@_4, F@_5, TrUserData)
-    when N < 57 ->
-    'd_field_SourceCodeInfo.Location_trailing_comments'(Rest,
-							N + 7, X bsl N + Acc,
-							F@_1, F@_2, F@_3, F@_4,
-							F@_5, TrUserData);
-'d_field_SourceCodeInfo.Location_trailing_comments'(<<0:1,
-						      X:7, Rest/binary>>,
-						    N, Acc, F@_1, F@_2, F@_3, _,
-						    F@_5, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {unicode:characters_to_list(Utf8, unicode), Rest2}
-			 end,
-    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
-						 0, F@_1, F@_2, F@_3, NewFValue,
-						 F@_5, TrUserData).
-
-'d_field_SourceCodeInfo.Location_leading_detached_comments'(<<1:1,
-							      X:7,
-							      Rest/binary>>,
-							    N, Acc, F@_1, F@_2,
-							    F@_3, F@_4, F@_5,
-							    TrUserData)
-    when N < 57 ->
-    'd_field_SourceCodeInfo.Location_leading_detached_comments'(Rest,
-								N + 7,
-								X bsl N + Acc,
-								F@_1, F@_2,
-								F@_3, F@_4,
-								F@_5,
-								TrUserData);
-'d_field_SourceCodeInfo.Location_leading_detached_comments'(<<0:1,
-							      X:7,
-							      Rest/binary>>,
-							    N, Acc, F@_1, F@_2,
-							    F@_3, F@_4, Prev,
-							    TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {unicode:characters_to_list(Utf8, unicode), Rest2}
-			 end,
-    'dfp_read_field_def_SourceCodeInfo.Location'(RestF, 0,
-						 0, F@_1, F@_2, F@_3, F@_4,
-						 cons(NewFValue, Prev,
-						      TrUserData),
-						 TrUserData).
-
-'skip_varint_SourceCodeInfo.Location'(<<1:1, _:7,
-					Rest/binary>>,
-				      Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-				      TrUserData) ->
-    'skip_varint_SourceCodeInfo.Location'(Rest, Z1, Z2,
-					  F@_1, F@_2, F@_3, F@_4, F@_5,
-					  TrUserData);
-'skip_varint_SourceCodeInfo.Location'(<<0:1, _:7,
-					Rest/binary>>,
-				      Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-				      TrUserData) ->
-    'dfp_read_field_def_SourceCodeInfo.Location'(Rest, Z1,
-						 Z2, F@_1, F@_2, F@_3, F@_4,
-						 F@_5, TrUserData).
-
-'skip_length_delimited_SourceCodeInfo.Location'(<<1:1,
-						  X:7, Rest/binary>>,
-						N, Acc, F@_1, F@_2, F@_3, F@_4,
-						F@_5, TrUserData)
-    when N < 57 ->
-    'skip_length_delimited_SourceCodeInfo.Location'(Rest,
-						    N + 7, X bsl N + Acc, F@_1,
-						    F@_2, F@_3, F@_4, F@_5,
-						    TrUserData);
-'skip_length_delimited_SourceCodeInfo.Location'(<<0:1,
-						  X:7, Rest/binary>>,
-						N, Acc, F@_1, F@_2, F@_3, F@_4,
-						F@_5, TrUserData) ->
-    Length = X bsl N + Acc,
-    <<_:Length/binary, Rest2/binary>> = Rest,
-    'dfp_read_field_def_SourceCodeInfo.Location'(Rest2, 0,
-						 0, F@_1, F@_2, F@_3, F@_4,
-						 F@_5, TrUserData).
-
-'skip_group_SourceCodeInfo.Location'(Bin, FNum, Z2,
-				     F@_1, F@_2, F@_3, F@_4, F@_5,
-				     TrUserData) ->
-    {_, Rest} = read_group(Bin, FNum),
-    'dfp_read_field_def_SourceCodeInfo.Location'(Rest, 0,
-						 Z2, F@_1, F@_2, F@_3, F@_4,
-						 F@_5, TrUserData).
-
-'skip_32_SourceCodeInfo.Location'(<<_:32, Rest/binary>>,
-				  Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-				  TrUserData) ->
-    'dfp_read_field_def_SourceCodeInfo.Location'(Rest, Z1,
-						 Z2, F@_1, F@_2, F@_3, F@_4,
-						 F@_5, TrUserData).
-
-'skip_64_SourceCodeInfo.Location'(<<_:64, Rest/binary>>,
-				  Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5,
-				  TrUserData) ->
-    'dfp_read_field_def_SourceCodeInfo.Location'(Rest, Z1,
-						 Z2, F@_1, F@_2, F@_3, F@_4,
-						 F@_5, TrUserData).
-
-d_msg_SourceCodeInfo(Bin, TrUserData) ->
-    dfp_read_field_def_SourceCodeInfo(Bin, 0, 0,
-				      id([], TrUserData), TrUserData).
-
-dfp_read_field_def_SourceCodeInfo(<<10, Rest/binary>>,
-				  Z1, Z2, F@_1, TrUserData) ->
-    d_field_SourceCodeInfo_location(Rest, Z1, Z2, F@_1,
-				    TrUserData);
-dfp_read_field_def_SourceCodeInfo(<<>>, 0, 0, R1,
-				  TrUserData) ->
-    #'SourceCodeInfo'{location =
-			  lists_reverse(R1, TrUserData)};
-dfp_read_field_def_SourceCodeInfo(Other, Z1, Z2, F@_1,
-				  TrUserData) ->
-    dg_read_field_def_SourceCodeInfo(Other, Z1, Z2, F@_1,
-				     TrUserData).
-
-dg_read_field_def_SourceCodeInfo(<<1:1, X:7,
-				   Rest/binary>>,
-				 N, Acc, F@_1, TrUserData)
-    when N < 32 - 7 ->
-    dg_read_field_def_SourceCodeInfo(Rest, N + 7,
-				     X bsl N + Acc, F@_1, TrUserData);
-dg_read_field_def_SourceCodeInfo(<<0:1, X:7,
-				   Rest/binary>>,
-				 N, Acc, F@_1, TrUserData) ->
-    Key = X bsl N + Acc,
-    case Key of
-      10 ->
-	  d_field_SourceCodeInfo_location(Rest, 0, 0, F@_1,
-					  TrUserData);
-      _ ->
-	  case Key band 7 of
-	    0 ->
-		skip_varint_SourceCodeInfo(Rest, 0, 0, F@_1,
-					   TrUserData);
-	    1 ->
-		skip_64_SourceCodeInfo(Rest, 0, 0, F@_1, TrUserData);
-	    2 ->
-		skip_length_delimited_SourceCodeInfo(Rest, 0, 0, F@_1,
-						     TrUserData);
-	    3 ->
-		skip_group_SourceCodeInfo(Rest, Key bsr 3, 0, F@_1,
-					  TrUserData);
-	    5 ->
-		skip_32_SourceCodeInfo(Rest, 0, 0, F@_1, TrUserData)
-	  end
-    end;
-dg_read_field_def_SourceCodeInfo(<<>>, 0, 0, R1,
-				 TrUserData) ->
-    #'SourceCodeInfo'{location =
-			  lists_reverse(R1, TrUserData)}.
-
-d_field_SourceCodeInfo_location(<<1:1, X:7,
-				  Rest/binary>>,
-				N, Acc, F@_1, TrUserData)
-    when N < 57 ->
-    d_field_SourceCodeInfo_location(Rest, N + 7,
-				    X bsl N + Acc, F@_1, TrUserData);
-d_field_SourceCodeInfo_location(<<0:1, X:7,
-				  Rest/binary>>,
-				N, Acc, Prev, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Bs:Len/binary, Rest2/binary>> = Rest,
-			   {id('d_msg_SourceCodeInfo.Location'(Bs, TrUserData),
-			       TrUserData),
-			    Rest2}
-			 end,
-    dfp_read_field_def_SourceCodeInfo(RestF, 0, 0,
-				      cons(NewFValue, Prev, TrUserData),
-				      TrUserData).
-
-skip_varint_SourceCodeInfo(<<1:1, _:7, Rest/binary>>,
-			   Z1, Z2, F@_1, TrUserData) ->
-    skip_varint_SourceCodeInfo(Rest, Z1, Z2, F@_1,
-			       TrUserData);
-skip_varint_SourceCodeInfo(<<0:1, _:7, Rest/binary>>,
-			   Z1, Z2, F@_1, TrUserData) ->
-    dfp_read_field_def_SourceCodeInfo(Rest, Z1, Z2, F@_1,
-				      TrUserData).
-
-skip_length_delimited_SourceCodeInfo(<<1:1, X:7,
-				       Rest/binary>>,
-				     N, Acc, F@_1, TrUserData)
-    when N < 57 ->
-    skip_length_delimited_SourceCodeInfo(Rest, N + 7,
-					 X bsl N + Acc, F@_1, TrUserData);
-skip_length_delimited_SourceCodeInfo(<<0:1, X:7,
-				       Rest/binary>>,
-				     N, Acc, F@_1, TrUserData) ->
-    Length = X bsl N + Acc,
-    <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_SourceCodeInfo(Rest2, 0, 0, F@_1,
-				      TrUserData).
-
-skip_group_SourceCodeInfo(Bin, FNum, Z2, F@_1,
-			  TrUserData) ->
-    {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_SourceCodeInfo(Rest, 0, Z2, F@_1,
-				      TrUserData).
-
-skip_32_SourceCodeInfo(<<_:32, Rest/binary>>, Z1, Z2,
-		       F@_1, TrUserData) ->
-    dfp_read_field_def_SourceCodeInfo(Rest, Z1, Z2, F@_1,
-				      TrUserData).
-
-skip_64_SourceCodeInfo(<<_:64, Rest/binary>>, Z1, Z2,
-		       F@_1, TrUserData) ->
-    dfp_read_field_def_SourceCodeInfo(Rest, Z1, Z2, F@_1,
-				      TrUserData).
-
-d_msg_FileOptions(Bin, TrUserData) ->
-    dfp_read_field_def_FileOptions(Bin, 0, 0,
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id(undefined, TrUserData),
-				   id([], TrUserData), TrUserData).
-
-dfp_read_field_def_FileOptions(<<10, Rest/binary>>, Z1,
-			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_java_package(Rest, Z1, Z2, F@_1,
-				     F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-				     F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				     F@_15, F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<66, Rest/binary>>, Z1,
-			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_java_outer_classname(Rest, Z1, Z2,
-					     F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-					     F@_7, F@_8, F@_9, F@_10, F@_11,
-					     F@_12, F@_13, F@_14, F@_15, F@_16,
-					     TrUserData);
-dfp_read_field_def_FileOptions(<<80, Rest/binary>>, Z1,
-			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_java_multiple_files(Rest, Z1, Z2,
-					    F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-					    F@_7, F@_8, F@_9, F@_10, F@_11,
-					    F@_12, F@_13, F@_14, F@_15, F@_16,
-					    TrUserData);
-dfp_read_field_def_FileOptions(<<160, 1, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_java_generate_equals_and_hash(Rest,
-						      Z1, Z2, F@_1, F@_2, F@_3,
-						      F@_4, F@_5, F@_6, F@_7,
-						      F@_8, F@_9, F@_10, F@_11,
-						      F@_12, F@_13, F@_14,
-						      F@_15, F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<216, 1, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_java_string_check_utf8(Rest, Z1, Z2,
-					       F@_1, F@_2, F@_3, F@_4, F@_5,
-					       F@_6, F@_7, F@_8, F@_9, F@_10,
-					       F@_11, F@_12, F@_13, F@_14,
-					       F@_15, F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<72, Rest/binary>>, Z1,
-			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_optimize_for(Rest, Z1, Z2, F@_1,
-				     F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-				     F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				     F@_15, F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<90, Rest/binary>>, Z1,
-			       Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_go_package(Rest, Z1, Z2, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<128, 1, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_cc_generic_services(Rest, Z1, Z2,
-					    F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-					    F@_7, F@_8, F@_9, F@_10, F@_11,
-					    F@_12, F@_13, F@_14, F@_15, F@_16,
-					    TrUserData);
-dfp_read_field_def_FileOptions(<<136, 1, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_java_generic_services(Rest, Z1, Z2,
-					      F@_1, F@_2, F@_3, F@_4, F@_5,
-					      F@_6, F@_7, F@_8, F@_9, F@_10,
-					      F@_11, F@_12, F@_13, F@_14, F@_15,
-					      F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<144, 1, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_py_generic_services(Rest, Z1, Z2,
-					    F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-					    F@_7, F@_8, F@_9, F@_10, F@_11,
-					    F@_12, F@_13, F@_14, F@_15, F@_16,
-					    TrUserData);
-dfp_read_field_def_FileOptions(<<184, 1, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_deprecated(Rest, Z1, Z2, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<248, 1, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_cc_enable_arenas(Rest, Z1, Z2, F@_1,
-					 F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-					 F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
-					 F@_14, F@_15, F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<162, 2, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_objc_class_prefix(Rest, Z1, Z2,
-					  F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-					  F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-					  F@_13, F@_14, F@_15, F@_16,
-					  TrUserData);
-dfp_read_field_def_FileOptions(<<170, 2, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_csharp_namespace(Rest, Z1, Z2, F@_1,
-					 F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-					 F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
-					 F@_14, F@_15, F@_16, TrUserData);
-dfp_read_field_def_FileOptions(<<176, 2, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_javanano_use_deprecated_package(Rest,
-							Z1, Z2, F@_1, F@_2,
-							F@_3, F@_4, F@_5, F@_6,
-							F@_7, F@_8, F@_9, F@_10,
-							F@_11, F@_12, F@_13,
-							F@_14, F@_15, F@_16,
-							TrUserData);
-dfp_read_field_def_FileOptions(<<186, 62, Rest/binary>>,
-			       Z1, Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    d_field_FileOptions_uninterpreted_option(Rest, Z1, Z2,
-					     F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-					     F@_7, F@_8, F@_9, F@_10, F@_11,
-					     F@_12, F@_13, F@_14, F@_15, F@_16,
-					     TrUserData);
-dfp_read_field_def_FileOptions(<<>>, 0, 0, F@_1, F@_2,
-			       F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
-			       F@_11, F@_12, F@_13, F@_14, F@_15, R1,
-			       TrUserData) ->
-    #'FileOptions'{java_package = F@_1,
-		   java_outer_classname = F@_2, java_multiple_files = F@_3,
-		   java_generate_equals_and_hash = F@_4,
-		   java_string_check_utf8 = F@_5, optimize_for = F@_6,
-		   go_package = F@_7, cc_generic_services = F@_8,
-		   java_generic_services = F@_9,
-		   py_generic_services = F@_10, deprecated = F@_11,
-		   cc_enable_arenas = F@_12, objc_class_prefix = F@_13,
-		   csharp_namespace = F@_14,
-		   javanano_use_deprecated_package = F@_15,
-		   uninterpreted_option = lists_reverse(R1, TrUserData)};
-dfp_read_field_def_FileOptions(Other, Z1, Z2, F@_1,
-			       F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-			       F@_10, F@_11, F@_12, F@_13, F@_14, F@_15, F@_16,
-			       TrUserData) ->
-    dg_read_field_def_FileOptions(Other, Z1, Z2, F@_1, F@_2,
-				  F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				  F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				  F@_16, TrUserData).
-
-dg_read_field_def_FileOptions(<<1:1, X:7, Rest/binary>>,
-			      N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			      F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			      F@_15, F@_16, TrUserData)
-    when N < 32 - 7 ->
-    dg_read_field_def_FileOptions(Rest, N + 7,
-				  X bsl N + Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-				  F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-				  F@_13, F@_14, F@_15, F@_16, TrUserData);
-dg_read_field_def_FileOptions(<<0:1, X:7, Rest/binary>>,
-			      N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			      F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			      F@_15, F@_16, TrUserData) ->
-    Key = X bsl N + Acc,
-    case Key of
-      10 ->
-	  d_field_FileOptions_java_package(Rest, 0, 0, F@_1, F@_2,
-					   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-					   F@_9, F@_10, F@_11, F@_12, F@_13,
-					   F@_14, F@_15, F@_16, TrUserData);
-      66 ->
-	  d_field_FileOptions_java_outer_classname(Rest, 0, 0,
-						   F@_1, F@_2, F@_3, F@_4, F@_5,
-						   F@_6, F@_7, F@_8, F@_9,
-						   F@_10, F@_11, F@_12, F@_13,
-						   F@_14, F@_15, F@_16,
-						   TrUserData);
-      80 ->
-	  d_field_FileOptions_java_multiple_files(Rest, 0, 0,
-						  F@_1, F@_2, F@_3, F@_4, F@_5,
-						  F@_6, F@_7, F@_8, F@_9, F@_10,
-						  F@_11, F@_12, F@_13, F@_14,
-						  F@_15, F@_16, TrUserData);
-      160 ->
-	  d_field_FileOptions_java_generate_equals_and_hash(Rest,
-							    0, 0, F@_1, F@_2,
-							    F@_3, F@_4, F@_5,
-							    F@_6, F@_7, F@_8,
-							    F@_9, F@_10, F@_11,
-							    F@_12, F@_13, F@_14,
-							    F@_15, F@_16,
-							    TrUserData);
-      216 ->
-	  d_field_FileOptions_java_string_check_utf8(Rest, 0, 0,
-						     F@_1, F@_2, F@_3, F@_4,
-						     F@_5, F@_6, F@_7, F@_8,
-						     F@_9, F@_10, F@_11, F@_12,
-						     F@_13, F@_14, F@_15, F@_16,
-						     TrUserData);
-      72 ->
-	  d_field_FileOptions_optimize_for(Rest, 0, 0, F@_1, F@_2,
-					   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-					   F@_9, F@_10, F@_11, F@_12, F@_13,
-					   F@_14, F@_15, F@_16, TrUserData);
-      90 ->
-	  d_field_FileOptions_go_package(Rest, 0, 0, F@_1, F@_2,
-					 F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-					 F@_9, F@_10, F@_11, F@_12, F@_13,
-					 F@_14, F@_15, F@_16, TrUserData);
-      128 ->
-	  d_field_FileOptions_cc_generic_services(Rest, 0, 0,
-						  F@_1, F@_2, F@_3, F@_4, F@_5,
-						  F@_6, F@_7, F@_8, F@_9, F@_10,
-						  F@_11, F@_12, F@_13, F@_14,
-						  F@_15, F@_16, TrUserData);
-      136 ->
-	  d_field_FileOptions_java_generic_services(Rest, 0, 0,
-						    F@_1, F@_2, F@_3, F@_4,
-						    F@_5, F@_6, F@_7, F@_8,
-						    F@_9, F@_10, F@_11, F@_12,
-						    F@_13, F@_14, F@_15, F@_16,
-						    TrUserData);
-      144 ->
-	  d_field_FileOptions_py_generic_services(Rest, 0, 0,
-						  F@_1, F@_2, F@_3, F@_4, F@_5,
-						  F@_6, F@_7, F@_8, F@_9, F@_10,
-						  F@_11, F@_12, F@_13, F@_14,
-						  F@_15, F@_16, TrUserData);
-      184 ->
-	  d_field_FileOptions_deprecated(Rest, 0, 0, F@_1, F@_2,
-					 F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-					 F@_9, F@_10, F@_11, F@_12, F@_13,
-					 F@_14, F@_15, F@_16, TrUserData);
-      248 ->
-	  d_field_FileOptions_cc_enable_arenas(Rest, 0, 0, F@_1,
-					       F@_2, F@_3, F@_4, F@_5, F@_6,
-					       F@_7, F@_8, F@_9, F@_10, F@_11,
-					       F@_12, F@_13, F@_14, F@_15,
-					       F@_16, TrUserData);
-      290 ->
-	  d_field_FileOptions_objc_class_prefix(Rest, 0, 0, F@_1,
-						F@_2, F@_3, F@_4, F@_5, F@_6,
-						F@_7, F@_8, F@_9, F@_10, F@_11,
-						F@_12, F@_13, F@_14, F@_15,
-						F@_16, TrUserData);
-      298 ->
-	  d_field_FileOptions_csharp_namespace(Rest, 0, 0, F@_1,
-					       F@_2, F@_3, F@_4, F@_5, F@_6,
-					       F@_7, F@_8, F@_9, F@_10, F@_11,
-					       F@_12, F@_13, F@_14, F@_15,
-					       F@_16, TrUserData);
-      304 ->
-	  d_field_FileOptions_javanano_use_deprecated_package(Rest,
-							      0, 0, F@_1, F@_2,
-							      F@_3, F@_4, F@_5,
-							      F@_6, F@_7, F@_8,
-							      F@_9, F@_10,
-							      F@_11, F@_12,
-							      F@_13, F@_14,
-							      F@_15, F@_16,
-							      TrUserData);
-      7994 ->
-	  d_field_FileOptions_uninterpreted_option(Rest, 0, 0,
-						   F@_1, F@_2, F@_3, F@_4, F@_5,
-						   F@_6, F@_7, F@_8, F@_9,
-						   F@_10, F@_11, F@_12, F@_13,
-						   F@_14, F@_15, F@_16,
-						   TrUserData);
-      _ ->
-	  case Key band 7 of
-	    0 ->
-		skip_varint_FileOptions(Rest, 0, 0, F@_1, F@_2, F@_3,
-					F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-					F@_10, F@_11, F@_12, F@_13, F@_14,
-					F@_15, F@_16, TrUserData);
-	    1 ->
-		skip_64_FileOptions(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
-				    F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-				    F@_12, F@_13, F@_14, F@_15, F@_16,
-				    TrUserData);
-	    2 ->
-		skip_length_delimited_FileOptions(Rest, 0, 0, F@_1,
-						  F@_2, F@_3, F@_4, F@_5, F@_6,
-						  F@_7, F@_8, F@_9, F@_10,
-						  F@_11, F@_12, F@_13, F@_14,
-						  F@_15, F@_16, TrUserData);
-	    3 ->
-		skip_group_FileOptions(Rest, Key bsr 3, 0, F@_1, F@_2,
-				       F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				       F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				       F@_16, TrUserData);
-	    5 ->
-		skip_32_FileOptions(Rest, 0, 0, F@_1, F@_2, F@_3, F@_4,
-				    F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-				    F@_12, F@_13, F@_14, F@_15, F@_16,
-				    TrUserData)
-	  end
-    end;
-dg_read_field_def_FileOptions(<<>>, 0, 0, F@_1, F@_2,
-			      F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
-			      F@_11, F@_12, F@_13, F@_14, F@_15, R1,
-			      TrUserData) ->
-    #'FileOptions'{java_package = F@_1,
-		   java_outer_classname = F@_2, java_multiple_files = F@_3,
-		   java_generate_equals_and_hash = F@_4,
-		   java_string_check_utf8 = F@_5, optimize_for = F@_6,
-		   go_package = F@_7, cc_generic_services = F@_8,
-		   java_generic_services = F@_9,
-		   py_generic_services = F@_10, deprecated = F@_11,
-		   cc_enable_arenas = F@_12, objc_class_prefix = F@_13,
-		   csharp_namespace = F@_14,
-		   javanano_use_deprecated_package = F@_15,
-		   uninterpreted_option = lists_reverse(R1, TrUserData)}.
-
-d_field_FileOptions_java_package(<<1:1, X:7,
-				   Rest/binary>>,
-				 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-				 F@_7, F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
-				 F@_14, F@_15, F@_16, TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_java_package(Rest, N + 7,
-				     X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
-				     F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-				     F@_12, F@_13, F@_14, F@_15, F@_16,
-				     TrUserData);
-d_field_FileOptions_java_package(<<0:1, X:7,
-				   Rest/binary>>,
-				 N, Acc, _, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-				 F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				 F@_15, F@_16, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {unicode:characters_to_list(Utf8, unicode), Rest2}
-			 end,
-    dfp_read_field_def_FileOptions(RestF, 0, 0, NewFValue,
-				   F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				   F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_java_outer_classname(<<1:1, X:7,
-					   Rest/binary>>,
-					 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					 F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					 F@_12, F@_13, F@_14, F@_15, F@_16,
-					 TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_java_outer_classname(Rest, N + 7,
-					     X bsl N + Acc, F@_1, F@_2, F@_3,
-					     F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-					     F@_10, F@_11, F@_12, F@_13, F@_14,
-					     F@_15, F@_16, TrUserData);
-d_field_FileOptions_java_outer_classname(<<0:1, X:7,
-					   Rest/binary>>,
-					 N, Acc, F@_1, _, F@_3, F@_4, F@_5,
-					 F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					 F@_12, F@_13, F@_14, F@_15, F@_16,
-					 TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {unicode:characters_to_list(Utf8, unicode), Rest2}
-			 end,
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1,
-				   NewFValue, F@_3, F@_4, F@_5, F@_6, F@_7,
-				   F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
-				   F@_14, F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_java_multiple_files(<<1:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					F@_12, F@_13, F@_14, F@_15, F@_16,
-					TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_java_multiple_files(Rest, N + 7,
-					    X bsl N + Acc, F@_1, F@_2, F@_3,
-					    F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-					    F@_10, F@_11, F@_12, F@_13, F@_14,
-					    F@_15, F@_16, TrUserData);
-d_field_FileOptions_java_multiple_files(<<0:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, F@_2, _, F@_4, F@_5, F@_6,
-					F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-					F@_13, F@_14, F@_15, F@_16,
-					TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   NewFValue, F@_4, F@_5, F@_6, F@_7, F@_8,
-				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				   F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_java_generate_equals_and_hash(<<1:1,
-						    X:7, Rest/binary>>,
-						  N, Acc, F@_1, F@_2, F@_3,
-						  F@_4, F@_5, F@_6, F@_7, F@_8,
-						  F@_9, F@_10, F@_11, F@_12,
-						  F@_13, F@_14, F@_15, F@_16,
-						  TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_java_generate_equals_and_hash(Rest,
-						      N + 7, X bsl N + Acc,
-						      F@_1, F@_2, F@_3, F@_4,
-						      F@_5, F@_6, F@_7, F@_8,
-						      F@_9, F@_10, F@_11, F@_12,
-						      F@_13, F@_14, F@_15,
-						      F@_16, TrUserData);
-d_field_FileOptions_java_generate_equals_and_hash(<<0:1,
-						    X:7, Rest/binary>>,
-						  N, Acc, F@_1, F@_2, F@_3, _,
-						  F@_5, F@_6, F@_7, F@_8, F@_9,
-						  F@_10, F@_11, F@_12, F@_13,
-						  F@_14, F@_15, F@_16,
-						  TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, NewFValue, F@_5, F@_6, F@_7, F@_8,
-				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				   F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_java_string_check_utf8(<<1:1, X:7,
-					     Rest/binary>>,
-					   N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					   F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					   F@_12, F@_13, F@_14, F@_15, F@_16,
-					   TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_java_string_check_utf8(Rest, N + 7,
-					       X bsl N + Acc, F@_1, F@_2, F@_3,
-					       F@_4, F@_5, F@_6, F@_7, F@_8,
-					       F@_9, F@_10, F@_11, F@_12, F@_13,
-					       F@_14, F@_15, F@_16, TrUserData);
-d_field_FileOptions_java_string_check_utf8(<<0:1, X:7,
-					     Rest/binary>>,
-					   N, Acc, F@_1, F@_2, F@_3, F@_4, _,
-					   F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					   F@_12, F@_13, F@_14, F@_15, F@_16,
-					   TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, NewFValue, F@_6, F@_7, F@_8,
-				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				   F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_optimize_for(<<1:1, X:7,
-				   Rest/binary>>,
-				 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-				 F@_7, F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
-				 F@_14, F@_15, F@_16, TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_optimize_for(Rest, N + 7,
-				     X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
-				     F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-				     F@_12, F@_13, F@_14, F@_15, F@_16,
-				     TrUserData);
-d_field_FileOptions_optimize_for(<<0:1, X:7,
-				   Rest/binary>>,
-				 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, _, F@_7,
-				 F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				 F@_15, F@_16, TrUserData) ->
-    {NewFValue, RestF} =
-	{'d_enum_FileOptions.OptimizeMode'(begin
-					     <<Res:32/signed-native>> = <<(X bsl
-									     N
-									     +
-									     Acc):32/unsigned-native>>,
-					     Res
-					   end),
-	 Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, NewFValue, F@_7, F@_8,
-				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				   F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_go_package(<<1:1, X:7,
-				 Rest/binary>>,
-			       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_go_package(Rest, N + 7,
-				   X bsl N + Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-				   F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-				   F@_13, F@_14, F@_15, F@_16, TrUserData);
-d_field_FileOptions_go_package(<<0:1, X:7,
-				 Rest/binary>>,
-			       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, _,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {unicode:characters_to_list(Utf8, unicode), Rest2}
-			 end,
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, NewFValue, F@_8,
-				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				   F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_cc_generic_services(<<1:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					F@_12, F@_13, F@_14, F@_15, F@_16,
-					TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_cc_generic_services(Rest, N + 7,
-					    X bsl N + Acc, F@_1, F@_2, F@_3,
-					    F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-					    F@_10, F@_11, F@_12, F@_13, F@_14,
-					    F@_15, F@_16, TrUserData);
-d_field_FileOptions_cc_generic_services(<<0:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					F@_6, F@_7, _, F@_9, F@_10, F@_11,
-					F@_12, F@_13, F@_14, F@_15, F@_16,
-					TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, NewFValue,
-				   F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-				   F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_java_generic_services(<<1:1, X:7,
-					    Rest/binary>>,
-					  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					  F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					  F@_12, F@_13, F@_14, F@_15, F@_16,
-					  TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_java_generic_services(Rest, N + 7,
-					      X bsl N + Acc, F@_1, F@_2, F@_3,
-					      F@_4, F@_5, F@_6, F@_7, F@_8,
-					      F@_9, F@_10, F@_11, F@_12, F@_13,
-					      F@_14, F@_15, F@_16, TrUserData);
-d_field_FileOptions_java_generic_services(<<0:1, X:7,
-					    Rest/binary>>,
-					  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					  F@_6, F@_7, F@_8, _, F@_10, F@_11,
-					  F@_12, F@_13, F@_14, F@_15, F@_16,
-					  TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-				   NewFValue, F@_10, F@_11, F@_12, F@_13, F@_14,
-				   F@_15, F@_16, TrUserData).
-
-d_field_FileOptions_py_generic_services(<<1:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					F@_12, F@_13, F@_14, F@_15, F@_16,
-					TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_py_generic_services(Rest, N + 7,
-					    X bsl N + Acc, F@_1, F@_2, F@_3,
-					    F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-					    F@_10, F@_11, F@_12, F@_13, F@_14,
-					    F@_15, F@_16, TrUserData);
-d_field_FileOptions_py_generic_services(<<0:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					F@_6, F@_7, F@_8, F@_9, _, F@_11, F@_12,
-					F@_13, F@_14, F@_15, F@_16,
-					TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   NewFValue, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData).
-
-d_field_FileOptions_deprecated(<<1:1, X:7,
-				 Rest/binary>>,
-			       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, F@_11, F@_12, F@_13, F@_14,
-			       F@_15, F@_16, TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_deprecated(Rest, N + 7,
-				   X bsl N + Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-				   F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-				   F@_13, F@_14, F@_15, F@_16, TrUserData);
-d_field_FileOptions_deprecated(<<0:1, X:7,
-				 Rest/binary>>,
-			       N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7,
-			       F@_8, F@_9, F@_10, _, F@_12, F@_13, F@_14, F@_15,
-			       F@_16, TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, NewFValue, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData).
-
-d_field_FileOptions_cc_enable_arenas(<<1:1, X:7,
-				       Rest/binary>>,
-				     N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-				     F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-				     F@_13, F@_14, F@_15, F@_16, TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_cc_enable_arenas(Rest, N + 7,
-					 X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
-					 F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
-					 F@_11, F@_12, F@_13, F@_14, F@_15,
-					 F@_16, TrUserData);
-d_field_FileOptions_cc_enable_arenas(<<0:1, X:7,
-				       Rest/binary>>,
-				     N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-				     F@_7, F@_8, F@_9, F@_10, F@_11, _, F@_13,
-				     F@_14, F@_15, F@_16, TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, NewFValue, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData).
-
-d_field_FileOptions_objc_class_prefix(<<1:1, X:7,
-					Rest/binary>>,
-				      N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-				      F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-				      F@_12, F@_13, F@_14, F@_15, F@_16,
-				      TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_objc_class_prefix(Rest, N + 7,
-					  X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
-					  F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
-					  F@_11, F@_12, F@_13, F@_14, F@_15,
-					  F@_16, TrUserData);
-d_field_FileOptions_objc_class_prefix(<<0:1, X:7,
-					Rest/binary>>,
-				      N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-				      F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-				      F@_12, _, F@_14, F@_15, F@_16,
-				      TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {unicode:characters_to_list(Utf8, unicode), Rest2}
-			 end,
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, NewFValue, F@_14, F@_15,
-				   F@_16, TrUserData).
-
-d_field_FileOptions_csharp_namespace(<<1:1, X:7,
-				       Rest/binary>>,
-				     N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-				     F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-				     F@_13, F@_14, F@_15, F@_16, TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_csharp_namespace(Rest, N + 7,
-					 X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
-					 F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
-					 F@_11, F@_12, F@_13, F@_14, F@_15,
-					 F@_16, TrUserData);
-d_field_FileOptions_csharp_namespace(<<0:1, X:7,
-				       Rest/binary>>,
-				     N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-				     F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-				     F@_13, _, F@_15, F@_16, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
-			   {unicode:characters_to_list(Utf8, unicode), Rest2}
-			 end,
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, NewFValue, F@_15,
-				   F@_16, TrUserData).
-
-d_field_FileOptions_javanano_use_deprecated_package(<<1:1,
-						      X:7, Rest/binary>>,
-						    N, Acc, F@_1, F@_2, F@_3,
-						    F@_4, F@_5, F@_6, F@_7,
-						    F@_8, F@_9, F@_10, F@_11,
-						    F@_12, F@_13, F@_14, F@_15,
-						    F@_16, TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_javanano_use_deprecated_package(Rest,
-							N + 7, X bsl N + Acc,
-							F@_1, F@_2, F@_3, F@_4,
-							F@_5, F@_6, F@_7, F@_8,
-							F@_9, F@_10, F@_11,
-							F@_12, F@_13, F@_14,
-							F@_15, F@_16,
-							TrUserData);
-d_field_FileOptions_javanano_use_deprecated_package(<<0:1,
-						      X:7, Rest/binary>>,
-						    N, Acc, F@_1, F@_2, F@_3,
-						    F@_4, F@_5, F@_6, F@_7,
-						    F@_8, F@_9, F@_10, F@_11,
-						    F@_12, F@_13, F@_14, _,
-						    F@_16, TrUserData) ->
-    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, NewFValue,
-				   F@_16, TrUserData).
-
-d_field_FileOptions_uninterpreted_option(<<1:1, X:7,
-					   Rest/binary>>,
-					 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					 F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					 F@_12, F@_13, F@_14, F@_15, F@_16,
-					 TrUserData)
-    when N < 57 ->
-    d_field_FileOptions_uninterpreted_option(Rest, N + 7,
-					     X bsl N + Acc, F@_1, F@_2, F@_3,
-					     F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-					     F@_10, F@_11, F@_12, F@_13, F@_14,
-					     F@_15, F@_16, TrUserData);
-d_field_FileOptions_uninterpreted_option(<<0:1, X:7,
-					   Rest/binary>>,
-					 N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5,
-					 F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-					 F@_12, F@_13, F@_14, F@_15, Prev,
-					 TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Bs:Len/binary, Rest2/binary>> = Rest,
-			   {id(d_msg_UninterpretedOption(Bs, TrUserData),
-			       TrUserData),
-			    Rest2}
-			 end,
-    dfp_read_field_def_FileOptions(RestF, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   cons(NewFValue, Prev, TrUserData),
-				   TrUserData).
-
-skip_varint_FileOptions(<<1:1, _:7, Rest/binary>>, Z1,
-			Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-			F@_9, F@_10, F@_11, F@_12, F@_13, F@_14, F@_15, F@_16,
-			TrUserData) ->
-    skip_varint_FileOptions(Rest, Z1, Z2, F@_1, F@_2, F@_3,
-			    F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11,
-			    F@_12, F@_13, F@_14, F@_15, F@_16, TrUserData);
-skip_varint_FileOptions(<<0:1, _:7, Rest/binary>>, Z1,
-			Z2, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8,
-			F@_9, F@_10, F@_11, F@_12, F@_13, F@_14, F@_15, F@_16,
-			TrUserData) ->
-    dfp_read_field_def_FileOptions(Rest, Z1, Z2, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData).
-
-skip_length_delimited_FileOptions(<<1:1, X:7,
-				    Rest/binary>>,
-				  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-				  F@_7, F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
-				  F@_14, F@_15, F@_16, TrUserData)
-    when N < 57 ->
-    skip_length_delimited_FileOptions(Rest, N + 7,
-				      X bsl N + Acc, F@_1, F@_2, F@_3, F@_4,
-				      F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
-				      F@_11, F@_12, F@_13, F@_14, F@_15, F@_16,
-				      TrUserData);
-skip_length_delimited_FileOptions(<<0:1, X:7,
-				    Rest/binary>>,
-				  N, Acc, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6,
-				  F@_7, F@_8, F@_9, F@_10, F@_11, F@_12, F@_13,
-				  F@_14, F@_15, F@_16, TrUserData) ->
-    Length = X bsl N + Acc,
-    <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_FileOptions(Rest2, 0, 0, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData).
-
-skip_group_FileOptions(Bin, FNum, Z2, F@_1, F@_2, F@_3,
-		       F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, F@_12,
-		       F@_13, F@_14, F@_15, F@_16, TrUserData) ->
-    {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_FileOptions(Rest, 0, Z2, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData).
-
-skip_32_FileOptions(<<_:32, Rest/binary>>, Z1, Z2, F@_1,
-		    F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
-		    F@_11, F@_12, F@_13, F@_14, F@_15, F@_16, TrUserData) ->
-    dfp_read_field_def_FileOptions(Rest, Z1, Z2, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData).
-
-skip_64_FileOptions(<<_:64, Rest/binary>>, Z1, Z2, F@_1,
-		    F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10,
-		    F@_11, F@_12, F@_13, F@_14, F@_15, F@_16, TrUserData) ->
-    dfp_read_field_def_FileOptions(Rest, Z1, Z2, F@_1, F@_2,
-				   F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9,
-				   F@_10, F@_11, F@_12, F@_13, F@_14, F@_15,
-				   F@_16, TrUserData).
 
 d_msg_ServiceOptions(Bin, TrUserData) ->
     dfp_read_field_def_ServiceOptions(Bin, 0, 0,
@@ -6019,6 +5880,145 @@ skip_64_EnumOptions(<<_:64, Rest/binary>>, Z1, Z2, F@_1,
 		    F@_2, F@_3, TrUserData) ->
     dfp_read_field_def_EnumOptions(Rest, Z1, Z2, F@_1, F@_2,
 				   F@_3, TrUserData).
+
+d_msg_EnumValueOptions(Bin, TrUserData) ->
+    dfp_read_field_def_EnumValueOptions(Bin, 0, 0,
+					id(undefined, TrUserData),
+					id([], TrUserData), TrUserData).
+
+dfp_read_field_def_EnumValueOptions(<<8, Rest/binary>>,
+				    Z1, Z2, F@_1, F@_2, TrUserData) ->
+    d_field_EnumValueOptions_deprecated(Rest, Z1, Z2, F@_1,
+					F@_2, TrUserData);
+dfp_read_field_def_EnumValueOptions(<<186, 62,
+				      Rest/binary>>,
+				    Z1, Z2, F@_1, F@_2, TrUserData) ->
+    d_field_EnumValueOptions_uninterpreted_option(Rest, Z1,
+						  Z2, F@_1, F@_2, TrUserData);
+dfp_read_field_def_EnumValueOptions(<<>>, 0, 0, F@_1,
+				    R1, TrUserData) ->
+    #'EnumValueOptions'{deprecated = F@_1,
+			uninterpreted_option = lists_reverse(R1, TrUserData)};
+dfp_read_field_def_EnumValueOptions(Other, Z1, Z2, F@_1,
+				    F@_2, TrUserData) ->
+    dg_read_field_def_EnumValueOptions(Other, Z1, Z2, F@_1,
+				       F@_2, TrUserData).
+
+dg_read_field_def_EnumValueOptions(<<1:1, X:7,
+				     Rest/binary>>,
+				   N, Acc, F@_1, F@_2, TrUserData)
+    when N < 32 - 7 ->
+    dg_read_field_def_EnumValueOptions(Rest, N + 7,
+				       X bsl N + Acc, F@_1, F@_2, TrUserData);
+dg_read_field_def_EnumValueOptions(<<0:1, X:7,
+				     Rest/binary>>,
+				   N, Acc, F@_1, F@_2, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+      8 ->
+	  d_field_EnumValueOptions_deprecated(Rest, 0, 0, F@_1,
+					      F@_2, TrUserData);
+      7994 ->
+	  d_field_EnumValueOptions_uninterpreted_option(Rest, 0,
+							0, F@_1, F@_2,
+							TrUserData);
+      _ ->
+	  case Key band 7 of
+	    0 ->
+		skip_varint_EnumValueOptions(Rest, 0, 0, F@_1, F@_2,
+					     TrUserData);
+	    1 ->
+		skip_64_EnumValueOptions(Rest, 0, 0, F@_1, F@_2,
+					 TrUserData);
+	    2 ->
+		skip_length_delimited_EnumValueOptions(Rest, 0, 0, F@_1,
+						       F@_2, TrUserData);
+	    3 ->
+		skip_group_EnumValueOptions(Rest, Key bsr 3, 0, F@_1,
+					    F@_2, TrUserData);
+	    5 ->
+		skip_32_EnumValueOptions(Rest, 0, 0, F@_1, F@_2,
+					 TrUserData)
+	  end
+    end;
+dg_read_field_def_EnumValueOptions(<<>>, 0, 0, F@_1, R1,
+				   TrUserData) ->
+    #'EnumValueOptions'{deprecated = F@_1,
+			uninterpreted_option = lists_reverse(R1, TrUserData)}.
+
+d_field_EnumValueOptions_deprecated(<<1:1, X:7,
+				      Rest/binary>>,
+				    N, Acc, F@_1, F@_2, TrUserData)
+    when N < 57 ->
+    d_field_EnumValueOptions_deprecated(Rest, N + 7,
+					X bsl N + Acc, F@_1, F@_2, TrUserData);
+d_field_EnumValueOptions_deprecated(<<0:1, X:7,
+				      Rest/binary>>,
+				    N, Acc, _, F@_2, TrUserData) ->
+    {NewFValue, RestF} = {X bsl N + Acc =/= 0, Rest},
+    dfp_read_field_def_EnumValueOptions(RestF, 0, 0,
+					NewFValue, F@_2, TrUserData).
+
+d_field_EnumValueOptions_uninterpreted_option(<<1:1,
+						X:7, Rest/binary>>,
+					      N, Acc, F@_1, F@_2, TrUserData)
+    when N < 57 ->
+    d_field_EnumValueOptions_uninterpreted_option(Rest,
+						  N + 7, X bsl N + Acc, F@_1,
+						  F@_2, TrUserData);
+d_field_EnumValueOptions_uninterpreted_option(<<0:1,
+						X:7, Rest/binary>>,
+					      N, Acc, F@_1, Prev, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Bs:Len/binary, Rest2/binary>> = Rest,
+			   {id(d_msg_UninterpretedOption(Bs, TrUserData),
+			       TrUserData),
+			    Rest2}
+			 end,
+    dfp_read_field_def_EnumValueOptions(RestF, 0, 0, F@_1,
+					cons(NewFValue, Prev, TrUserData),
+					TrUserData).
+
+skip_varint_EnumValueOptions(<<1:1, _:7, Rest/binary>>,
+			     Z1, Z2, F@_1, F@_2, TrUserData) ->
+    skip_varint_EnumValueOptions(Rest, Z1, Z2, F@_1, F@_2,
+				 TrUserData);
+skip_varint_EnumValueOptions(<<0:1, _:7, Rest/binary>>,
+			     Z1, Z2, F@_1, F@_2, TrUserData) ->
+    dfp_read_field_def_EnumValueOptions(Rest, Z1, Z2, F@_1,
+					F@_2, TrUserData).
+
+skip_length_delimited_EnumValueOptions(<<1:1, X:7,
+					 Rest/binary>>,
+				       N, Acc, F@_1, F@_2, TrUserData)
+    when N < 57 ->
+    skip_length_delimited_EnumValueOptions(Rest, N + 7,
+					   X bsl N + Acc, F@_1, F@_2,
+					   TrUserData);
+skip_length_delimited_EnumValueOptions(<<0:1, X:7,
+					 Rest/binary>>,
+				       N, Acc, F@_1, F@_2, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_EnumValueOptions(Rest2, 0, 0, F@_1,
+					F@_2, TrUserData).
+
+skip_group_EnumValueOptions(Bin, FNum, Z2, F@_1, F@_2,
+			    TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_EnumValueOptions(Rest, 0, Z2, F@_1,
+					F@_2, TrUserData).
+
+skip_32_EnumValueOptions(<<_:32, Rest/binary>>, Z1, Z2,
+			 F@_1, F@_2, TrUserData) ->
+    dfp_read_field_def_EnumValueOptions(Rest, Z1, Z2, F@_1,
+					F@_2, TrUserData).
+
+skip_64_EnumValueOptions(<<_:64, Rest/binary>>, Z1, Z2,
+			 F@_1, F@_2, TrUserData) ->
+    dfp_read_field_def_EnumValueOptions(Rest, Z1, Z2, F@_1,
+					F@_2, TrUserData).
 
 d_msg_EnumValueDescriptorProto(Bin, TrUserData) ->
     dfp_read_field_def_EnumValueDescriptorProto(Bin, 0, 0,
@@ -8421,6 +8421,119 @@ skip_64_FileDescriptorProto(<<_:64, Rest/binary>>, Z1,
 					   F@_7, F@_8, F@_9, F@_10, F@_11,
 					   F@_12, TrUserData).
 
+d_msg_FileDescriptorSet(Bin, TrUserData) ->
+    dfp_read_field_def_FileDescriptorSet(Bin, 0, 0,
+					 id([], TrUserData), TrUserData).
+
+dfp_read_field_def_FileDescriptorSet(<<10,
+				       Rest/binary>>,
+				     Z1, Z2, F@_1, TrUserData) ->
+    d_field_FileDescriptorSet_file(Rest, Z1, Z2, F@_1,
+				   TrUserData);
+dfp_read_field_def_FileDescriptorSet(<<>>, 0, 0, R1,
+				     TrUserData) ->
+    #'FileDescriptorSet'{file =
+			     lists_reverse(R1, TrUserData)};
+dfp_read_field_def_FileDescriptorSet(Other, Z1, Z2,
+				     F@_1, TrUserData) ->
+    dg_read_field_def_FileDescriptorSet(Other, Z1, Z2, F@_1,
+					TrUserData).
+
+dg_read_field_def_FileDescriptorSet(<<1:1, X:7,
+				      Rest/binary>>,
+				    N, Acc, F@_1, TrUserData)
+    when N < 32 - 7 ->
+    dg_read_field_def_FileDescriptorSet(Rest, N + 7,
+					X bsl N + Acc, F@_1, TrUserData);
+dg_read_field_def_FileDescriptorSet(<<0:1, X:7,
+				      Rest/binary>>,
+				    N, Acc, F@_1, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+      10 ->
+	  d_field_FileDescriptorSet_file(Rest, 0, 0, F@_1,
+					 TrUserData);
+      _ ->
+	  case Key band 7 of
+	    0 ->
+		skip_varint_FileDescriptorSet(Rest, 0, 0, F@_1,
+					      TrUserData);
+	    1 ->
+		skip_64_FileDescriptorSet(Rest, 0, 0, F@_1, TrUserData);
+	    2 ->
+		skip_length_delimited_FileDescriptorSet(Rest, 0, 0,
+							F@_1, TrUserData);
+	    3 ->
+		skip_group_FileDescriptorSet(Rest, Key bsr 3, 0, F@_1,
+					     TrUserData);
+	    5 ->
+		skip_32_FileDescriptorSet(Rest, 0, 0, F@_1, TrUserData)
+	  end
+    end;
+dg_read_field_def_FileDescriptorSet(<<>>, 0, 0, R1,
+				    TrUserData) ->
+    #'FileDescriptorSet'{file =
+			     lists_reverse(R1, TrUserData)}.
+
+d_field_FileDescriptorSet_file(<<1:1, X:7,
+				 Rest/binary>>,
+			       N, Acc, F@_1, TrUserData)
+    when N < 57 ->
+    d_field_FileDescriptorSet_file(Rest, N + 7,
+				   X bsl N + Acc, F@_1, TrUserData);
+d_field_FileDescriptorSet_file(<<0:1, X:7,
+				 Rest/binary>>,
+			       N, Acc, Prev, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Bs:Len/binary, Rest2/binary>> = Rest,
+			   {id(d_msg_FileDescriptorProto(Bs, TrUserData),
+			       TrUserData),
+			    Rest2}
+			 end,
+    dfp_read_field_def_FileDescriptorSet(RestF, 0, 0,
+					 cons(NewFValue, Prev, TrUserData),
+					 TrUserData).
+
+skip_varint_FileDescriptorSet(<<1:1, _:7, Rest/binary>>,
+			      Z1, Z2, F@_1, TrUserData) ->
+    skip_varint_FileDescriptorSet(Rest, Z1, Z2, F@_1,
+				  TrUserData);
+skip_varint_FileDescriptorSet(<<0:1, _:7, Rest/binary>>,
+			      Z1, Z2, F@_1, TrUserData) ->
+    dfp_read_field_def_FileDescriptorSet(Rest, Z1, Z2, F@_1,
+					 TrUserData).
+
+skip_length_delimited_FileDescriptorSet(<<1:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, TrUserData)
+    when N < 57 ->
+    skip_length_delimited_FileDescriptorSet(Rest, N + 7,
+					    X bsl N + Acc, F@_1, TrUserData);
+skip_length_delimited_FileDescriptorSet(<<0:1, X:7,
+					  Rest/binary>>,
+					N, Acc, F@_1, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_FileDescriptorSet(Rest2, 0, 0, F@_1,
+					 TrUserData).
+
+skip_group_FileDescriptorSet(Bin, FNum, Z2, F@_1,
+			     TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_FileDescriptorSet(Rest, 0, Z2, F@_1,
+					 TrUserData).
+
+skip_32_FileDescriptorSet(<<_:32, Rest/binary>>, Z1, Z2,
+			  F@_1, TrUserData) ->
+    dfp_read_field_def_FileDescriptorSet(Rest, Z1, Z2, F@_1,
+					 TrUserData).
+
+skip_64_FileDescriptorSet(<<_:64, Rest/binary>>, Z1, Z2,
+			  F@_1, TrUserData) ->
+    dfp_read_field_def_FileDescriptorSet(Rest, Z1, Z2, F@_1,
+					 TrUserData).
+
 'd_msg_GeneratedCodeInfo.Annotation'(Bin, TrUserData) ->
     'dfp_read_field_def_GeneratedCodeInfo.Annotation'(Bin,
 						      0, 0, id([], TrUserData),
@@ -8742,119 +8855,6 @@ skip_64_FileDescriptorProto(<<_:64, Rest/binary>>, Z1,
 						      Z1, Z2, F@_1, F@_2, F@_3,
 						      F@_4, TrUserData).
 
-d_msg_FileDescriptorSet(Bin, TrUserData) ->
-    dfp_read_field_def_FileDescriptorSet(Bin, 0, 0,
-					 id([], TrUserData), TrUserData).
-
-dfp_read_field_def_FileDescriptorSet(<<10,
-				       Rest/binary>>,
-				     Z1, Z2, F@_1, TrUserData) ->
-    d_field_FileDescriptorSet_file(Rest, Z1, Z2, F@_1,
-				   TrUserData);
-dfp_read_field_def_FileDescriptorSet(<<>>, 0, 0, R1,
-				     TrUserData) ->
-    #'FileDescriptorSet'{file =
-			     lists_reverse(R1, TrUserData)};
-dfp_read_field_def_FileDescriptorSet(Other, Z1, Z2,
-				     F@_1, TrUserData) ->
-    dg_read_field_def_FileDescriptorSet(Other, Z1, Z2, F@_1,
-					TrUserData).
-
-dg_read_field_def_FileDescriptorSet(<<1:1, X:7,
-				      Rest/binary>>,
-				    N, Acc, F@_1, TrUserData)
-    when N < 32 - 7 ->
-    dg_read_field_def_FileDescriptorSet(Rest, N + 7,
-					X bsl N + Acc, F@_1, TrUserData);
-dg_read_field_def_FileDescriptorSet(<<0:1, X:7,
-				      Rest/binary>>,
-				    N, Acc, F@_1, TrUserData) ->
-    Key = X bsl N + Acc,
-    case Key of
-      10 ->
-	  d_field_FileDescriptorSet_file(Rest, 0, 0, F@_1,
-					 TrUserData);
-      _ ->
-	  case Key band 7 of
-	    0 ->
-		skip_varint_FileDescriptorSet(Rest, 0, 0, F@_1,
-					      TrUserData);
-	    1 ->
-		skip_64_FileDescriptorSet(Rest, 0, 0, F@_1, TrUserData);
-	    2 ->
-		skip_length_delimited_FileDescriptorSet(Rest, 0, 0,
-							F@_1, TrUserData);
-	    3 ->
-		skip_group_FileDescriptorSet(Rest, Key bsr 3, 0, F@_1,
-					     TrUserData);
-	    5 ->
-		skip_32_FileDescriptorSet(Rest, 0, 0, F@_1, TrUserData)
-	  end
-    end;
-dg_read_field_def_FileDescriptorSet(<<>>, 0, 0, R1,
-				    TrUserData) ->
-    #'FileDescriptorSet'{file =
-			     lists_reverse(R1, TrUserData)}.
-
-d_field_FileDescriptorSet_file(<<1:1, X:7,
-				 Rest/binary>>,
-			       N, Acc, F@_1, TrUserData)
-    when N < 57 ->
-    d_field_FileDescriptorSet_file(Rest, N + 7,
-				   X bsl N + Acc, F@_1, TrUserData);
-d_field_FileDescriptorSet_file(<<0:1, X:7,
-				 Rest/binary>>,
-			       N, Acc, Prev, TrUserData) ->
-    {NewFValue, RestF} = begin
-			   Len = X bsl N + Acc,
-			   <<Bs:Len/binary, Rest2/binary>> = Rest,
-			   {id(d_msg_FileDescriptorProto(Bs, TrUserData),
-			       TrUserData),
-			    Rest2}
-			 end,
-    dfp_read_field_def_FileDescriptorSet(RestF, 0, 0,
-					 cons(NewFValue, Prev, TrUserData),
-					 TrUserData).
-
-skip_varint_FileDescriptorSet(<<1:1, _:7, Rest/binary>>,
-			      Z1, Z2, F@_1, TrUserData) ->
-    skip_varint_FileDescriptorSet(Rest, Z1, Z2, F@_1,
-				  TrUserData);
-skip_varint_FileDescriptorSet(<<0:1, _:7, Rest/binary>>,
-			      Z1, Z2, F@_1, TrUserData) ->
-    dfp_read_field_def_FileDescriptorSet(Rest, Z1, Z2, F@_1,
-					 TrUserData).
-
-skip_length_delimited_FileDescriptorSet(<<1:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, TrUserData)
-    when N < 57 ->
-    skip_length_delimited_FileDescriptorSet(Rest, N + 7,
-					    X bsl N + Acc, F@_1, TrUserData);
-skip_length_delimited_FileDescriptorSet(<<0:1, X:7,
-					  Rest/binary>>,
-					N, Acc, F@_1, TrUserData) ->
-    Length = X bsl N + Acc,
-    <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_FileDescriptorSet(Rest2, 0, 0, F@_1,
-					 TrUserData).
-
-skip_group_FileDescriptorSet(Bin, FNum, Z2, F@_1,
-			     TrUserData) ->
-    {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_FileDescriptorSet(Rest, 0, Z2, F@_1,
-					 TrUserData).
-
-skip_32_FileDescriptorSet(<<_:32, Rest/binary>>, Z1, Z2,
-			  F@_1, TrUserData) ->
-    dfp_read_field_def_FileDescriptorSet(Rest, Z1, Z2, F@_1,
-					 TrUserData).
-
-skip_64_FileDescriptorSet(<<_:64, Rest/binary>>, Z1, Z2,
-			  F@_1, TrUserData) ->
-    dfp_read_field_def_FileDescriptorSet(Rest, Z1, Z2, F@_1,
-					 TrUserData).
-
 d_msg_GeneratedCodeInfo(Bin, TrUserData) ->
     dfp_read_field_def_GeneratedCodeInfo(Bin, 0, 0,
 					 id([], TrUserData), TrUserData).
@@ -9079,24 +9079,22 @@ merge_msgs(Prev, New, Opts)
     when element(1, Prev) =:= element(1, New) ->
     TrUserData = proplists:get_value(user_data, Opts),
     case Prev of
-      #'UninterpretedOption.NamePart'{} ->
-	  'merge_msg_UninterpretedOption.NamePart'(Prev, New,
-						   TrUserData);
-      #'UninterpretedOption'{} ->
-	  merge_msg_UninterpretedOption(Prev, New, TrUserData);
-      #'FieldOptions'{} ->
-	  merge_msg_FieldOptions(Prev, New, TrUserData);
-      #'FieldDescriptorProto'{} ->
-	  merge_msg_FieldDescriptorProto(Prev, New, TrUserData);
-      #'EnumValueOptions'{} ->
-	  merge_msg_EnumValueOptions(Prev, New, TrUserData);
       #'SourceCodeInfo.Location'{} ->
 	  'merge_msg_SourceCodeInfo.Location'(Prev, New,
 					      TrUserData);
       #'SourceCodeInfo'{} ->
 	  merge_msg_SourceCodeInfo(Prev, New, TrUserData);
+      #'UninterpretedOption.NamePart'{} ->
+	  'merge_msg_UninterpretedOption.NamePart'(Prev, New,
+						   TrUserData);
+      #'UninterpretedOption'{} ->
+	  merge_msg_UninterpretedOption(Prev, New, TrUserData);
       #'FileOptions'{} ->
 	  merge_msg_FileOptions(Prev, New, TrUserData);
+      #'FieldOptions'{} ->
+	  merge_msg_FieldOptions(Prev, New, TrUserData);
+      #'FieldDescriptorProto'{} ->
+	  merge_msg_FieldDescriptorProto(Prev, New, TrUserData);
       #'ServiceOptions'{} ->
 	  merge_msg_ServiceOptions(Prev, New, TrUserData);
       #'MethodOptions'{} ->
@@ -9107,6 +9105,8 @@ merge_msgs(Prev, New, Opts)
 	  merge_msg_ServiceDescriptorProto(Prev, New, TrUserData);
       #'EnumOptions'{} ->
 	  merge_msg_EnumOptions(Prev, New, TrUserData);
+      #'EnumValueOptions'{} ->
+	  merge_msg_EnumValueOptions(Prev, New, TrUserData);
       #'EnumValueDescriptorProto'{} ->
 	  merge_msg_EnumValueDescriptorProto(Prev, New,
 					     TrUserData);
@@ -9126,234 +9126,14 @@ merge_msgs(Prev, New, Opts)
 	  merge_msg_DescriptorProto(Prev, New, TrUserData);
       #'FileDescriptorProto'{} ->
 	  merge_msg_FileDescriptorProto(Prev, New, TrUserData);
+      #'FileDescriptorSet'{} ->
+	  merge_msg_FileDescriptorSet(Prev, New, TrUserData);
       #'GeneratedCodeInfo.Annotation'{} ->
 	  'merge_msg_GeneratedCodeInfo.Annotation'(Prev, New,
 						   TrUserData);
-      #'FileDescriptorSet'{} ->
-	  merge_msg_FileDescriptorSet(Prev, New, TrUserData);
       #'GeneratedCodeInfo'{} ->
 	  merge_msg_GeneratedCodeInfo(Prev, New, TrUserData)
     end.
-
-'merge_msg_UninterpretedOption.NamePart'(#'UninterpretedOption.NamePart'{},
-					 #'UninterpretedOption.NamePart'{name_part
-									     =
-									     NFname_part,
-									 is_extension
-									     =
-									     NFis_extension},
-					 _) ->
-    #'UninterpretedOption.NamePart'{name_part = NFname_part,
-				    is_extension = NFis_extension}.
-
-merge_msg_UninterpretedOption(#'UninterpretedOption'{name
-							 = PFname,
-						     identifier_value =
-							 PFidentifier_value,
-						     positive_int_value =
-							 PFpositive_int_value,
-						     negative_int_value =
-							 PFnegative_int_value,
-						     double_value =
-							 PFdouble_value,
-						     string_value =
-							 PFstring_value,
-						     aggregate_value =
-							 PFaggregate_value},
-			      #'UninterpretedOption'{name = NFname,
-						     identifier_value =
-							 NFidentifier_value,
-						     positive_int_value =
-							 NFpositive_int_value,
-						     negative_int_value =
-							 NFnegative_int_value,
-						     double_value =
-							 NFdouble_value,
-						     string_value =
-							 NFstring_value,
-						     aggregate_value =
-							 NFaggregate_value},
-			      TrUserData) ->
-    #'UninterpretedOption'{name =
-			       if PFname /= undefined, NFname /= undefined ->
-				      'erlang_++'(PFname, NFname, TrUserData);
-				  PFname == undefined -> NFname;
-				  NFname == undefined -> PFname
-			       end,
-			   identifier_value =
-			       if NFidentifier_value =:= undefined ->
-				      PFidentifier_value;
-				  true -> NFidentifier_value
-			       end,
-			   positive_int_value =
-			       if NFpositive_int_value =:= undefined ->
-				      PFpositive_int_value;
-				  true -> NFpositive_int_value
-			       end,
-			   negative_int_value =
-			       if NFnegative_int_value =:= undefined ->
-				      PFnegative_int_value;
-				  true -> NFnegative_int_value
-			       end,
-			   double_value =
-			       if NFdouble_value =:= undefined ->
-				      PFdouble_value;
-				  true -> NFdouble_value
-			       end,
-			   string_value =
-			       if NFstring_value =:= undefined ->
-				      PFstring_value;
-				  true -> NFstring_value
-			       end,
-			   aggregate_value =
-			       if NFaggregate_value =:= undefined ->
-				      PFaggregate_value;
-				  true -> NFaggregate_value
-			       end}.
-
-merge_msg_FieldOptions(#'FieldOptions'{ctype = PFctype,
-				       packed = PFpacked, jstype = PFjstype,
-				       lazy = PFlazy, deprecated = PFdeprecated,
-				       weak = PFweak,
-				       uninterpreted_option =
-					   PFuninterpreted_option},
-		       #'FieldOptions'{ctype = NFctype, packed = NFpacked,
-				       jstype = NFjstype, lazy = NFlazy,
-				       deprecated = NFdeprecated, weak = NFweak,
-				       uninterpreted_option =
-					   NFuninterpreted_option},
-		       TrUserData) ->
-    #'FieldOptions'{ctype =
-			if NFctype =:= undefined -> PFctype;
-			   true -> NFctype
-			end,
-		    packed =
-			if NFpacked =:= undefined -> PFpacked;
-			   true -> NFpacked
-			end,
-		    jstype =
-			if NFjstype =:= undefined -> PFjstype;
-			   true -> NFjstype
-			end,
-		    lazy =
-			if NFlazy =:= undefined -> PFlazy;
-			   true -> NFlazy
-			end,
-		    deprecated =
-			if NFdeprecated =:= undefined -> PFdeprecated;
-			   true -> NFdeprecated
-			end,
-		    weak =
-			if NFweak =:= undefined -> PFweak;
-			   true -> NFweak
-			end,
-		    uninterpreted_option =
-			if PFuninterpreted_option /= undefined,
-			   NFuninterpreted_option /= undefined ->
-			       'erlang_++'(PFuninterpreted_option,
-					   NFuninterpreted_option, TrUserData);
-			   PFuninterpreted_option == undefined ->
-			       NFuninterpreted_option;
-			   NFuninterpreted_option == undefined ->
-			       PFuninterpreted_option
-			end}.
-
-merge_msg_FieldDescriptorProto(#'FieldDescriptorProto'{name
-							   = PFname,
-						       number = PFnumber,
-						       label = PFlabel,
-						       type = PFtype,
-						       type_name = PFtype_name,
-						       extendee = PFextendee,
-						       default_value =
-							   PFdefault_value,
-						       oneof_index =
-							   PFoneof_index,
-						       json_name = PFjson_name,
-						       options = PFoptions},
-			       #'FieldDescriptorProto'{name = NFname,
-						       number = NFnumber,
-						       label = NFlabel,
-						       type = NFtype,
-						       type_name = NFtype_name,
-						       extendee = NFextendee,
-						       default_value =
-							   NFdefault_value,
-						       oneof_index =
-							   NFoneof_index,
-						       json_name = NFjson_name,
-						       options = NFoptions},
-			       TrUserData) ->
-    #'FieldDescriptorProto'{name =
-				if NFname =:= undefined -> PFname;
-				   true -> NFname
-				end,
-			    number =
-				if NFnumber =:= undefined -> PFnumber;
-				   true -> NFnumber
-				end,
-			    label =
-				if NFlabel =:= undefined -> PFlabel;
-				   true -> NFlabel
-				end,
-			    type =
-				if NFtype =:= undefined -> PFtype;
-				   true -> NFtype
-				end,
-			    type_name =
-				if NFtype_name =:= undefined -> PFtype_name;
-				   true -> NFtype_name
-				end,
-			    extendee =
-				if NFextendee =:= undefined -> PFextendee;
-				   true -> NFextendee
-				end,
-			    default_value =
-				if NFdefault_value =:= undefined ->
-				       PFdefault_value;
-				   true -> NFdefault_value
-				end,
-			    oneof_index =
-				if NFoneof_index =:= undefined -> PFoneof_index;
-				   true -> NFoneof_index
-				end,
-			    json_name =
-				if NFjson_name =:= undefined -> PFjson_name;
-				   true -> NFjson_name
-				end,
-			    options =
-				if PFoptions /= undefined,
-				   NFoptions /= undefined ->
-				       merge_msg_FieldOptions(PFoptions,
-							      NFoptions,
-							      TrUserData);
-				   PFoptions == undefined -> NFoptions;
-				   NFoptions == undefined -> PFoptions
-				end}.
-
-merge_msg_EnumValueOptions(#'EnumValueOptions'{deprecated
-						   = PFdeprecated,
-					       uninterpreted_option =
-						   PFuninterpreted_option},
-			   #'EnumValueOptions'{deprecated = NFdeprecated,
-					       uninterpreted_option =
-						   NFuninterpreted_option},
-			   TrUserData) ->
-    #'EnumValueOptions'{deprecated =
-			    if NFdeprecated =:= undefined -> PFdeprecated;
-			       true -> NFdeprecated
-			    end,
-			uninterpreted_option =
-			    if PFuninterpreted_option /= undefined,
-			       NFuninterpreted_option /= undefined ->
-				   'erlang_++'(PFuninterpreted_option,
-					       NFuninterpreted_option,
-					       TrUserData);
-			       PFuninterpreted_option == undefined ->
-				   NFuninterpreted_option;
-			       NFuninterpreted_option == undefined ->
-				   PFuninterpreted_option
-			    end}.
 
 'merge_msg_SourceCodeInfo.Location'(#'SourceCodeInfo.Location'{path
 								   = PFpath,
@@ -9431,6 +9211,82 @@ merge_msg_SourceCodeInfo(#'SourceCodeInfo'{location =
 			     PFlocation == undefined -> NFlocation;
 			     NFlocation == undefined -> PFlocation
 			  end}.
+
+'merge_msg_UninterpretedOption.NamePart'(#'UninterpretedOption.NamePart'{},
+					 #'UninterpretedOption.NamePart'{name_part
+									     =
+									     NFname_part,
+									 is_extension
+									     =
+									     NFis_extension},
+					 _) ->
+    #'UninterpretedOption.NamePart'{name_part = NFname_part,
+				    is_extension = NFis_extension}.
+
+merge_msg_UninterpretedOption(#'UninterpretedOption'{name
+							 = PFname,
+						     identifier_value =
+							 PFidentifier_value,
+						     positive_int_value =
+							 PFpositive_int_value,
+						     negative_int_value =
+							 PFnegative_int_value,
+						     double_value =
+							 PFdouble_value,
+						     string_value =
+							 PFstring_value,
+						     aggregate_value =
+							 PFaggregate_value},
+			      #'UninterpretedOption'{name = NFname,
+						     identifier_value =
+							 NFidentifier_value,
+						     positive_int_value =
+							 NFpositive_int_value,
+						     negative_int_value =
+							 NFnegative_int_value,
+						     double_value =
+							 NFdouble_value,
+						     string_value =
+							 NFstring_value,
+						     aggregate_value =
+							 NFaggregate_value},
+			      TrUserData) ->
+    #'UninterpretedOption'{name =
+			       if PFname /= undefined, NFname /= undefined ->
+				      'erlang_++'(PFname, NFname, TrUserData);
+				  PFname == undefined -> NFname;
+				  NFname == undefined -> PFname
+			       end,
+			   identifier_value =
+			       if NFidentifier_value =:= undefined ->
+				      PFidentifier_value;
+				  true -> NFidentifier_value
+			       end,
+			   positive_int_value =
+			       if NFpositive_int_value =:= undefined ->
+				      PFpositive_int_value;
+				  true -> NFpositive_int_value
+			       end,
+			   negative_int_value =
+			       if NFnegative_int_value =:= undefined ->
+				      PFnegative_int_value;
+				  true -> NFnegative_int_value
+			       end,
+			   double_value =
+			       if NFdouble_value =:= undefined ->
+				      PFdouble_value;
+				  true -> NFdouble_value
+			       end,
+			   string_value =
+			       if NFstring_value =:= undefined ->
+				      PFstring_value;
+				  true -> NFstring_value
+			       end,
+			   aggregate_value =
+			       if NFaggregate_value =:= undefined ->
+				      PFaggregate_value;
+				  true -> NFaggregate_value
+			       end}.
 
 merge_msg_FileOptions(#'FileOptions'{java_package =
 					 PFjava_package,
@@ -9565,6 +9421,126 @@ merge_msg_FileOptions(#'FileOptions'{java_package =
 			  NFuninterpreted_option == undefined ->
 			      PFuninterpreted_option
 		       end}.
+
+merge_msg_FieldOptions(#'FieldOptions'{ctype = PFctype,
+				       packed = PFpacked, jstype = PFjstype,
+				       lazy = PFlazy, deprecated = PFdeprecated,
+				       weak = PFweak,
+				       uninterpreted_option =
+					   PFuninterpreted_option},
+		       #'FieldOptions'{ctype = NFctype, packed = NFpacked,
+				       jstype = NFjstype, lazy = NFlazy,
+				       deprecated = NFdeprecated, weak = NFweak,
+				       uninterpreted_option =
+					   NFuninterpreted_option},
+		       TrUserData) ->
+    #'FieldOptions'{ctype =
+			if NFctype =:= undefined -> PFctype;
+			   true -> NFctype
+			end,
+		    packed =
+			if NFpacked =:= undefined -> PFpacked;
+			   true -> NFpacked
+			end,
+		    jstype =
+			if NFjstype =:= undefined -> PFjstype;
+			   true -> NFjstype
+			end,
+		    lazy =
+			if NFlazy =:= undefined -> PFlazy;
+			   true -> NFlazy
+			end,
+		    deprecated =
+			if NFdeprecated =:= undefined -> PFdeprecated;
+			   true -> NFdeprecated
+			end,
+		    weak =
+			if NFweak =:= undefined -> PFweak;
+			   true -> NFweak
+			end,
+		    uninterpreted_option =
+			if PFuninterpreted_option /= undefined,
+			   NFuninterpreted_option /= undefined ->
+			       'erlang_++'(PFuninterpreted_option,
+					   NFuninterpreted_option, TrUserData);
+			   PFuninterpreted_option == undefined ->
+			       NFuninterpreted_option;
+			   NFuninterpreted_option == undefined ->
+			       PFuninterpreted_option
+			end}.
+
+merge_msg_FieldDescriptorProto(#'FieldDescriptorProto'{name
+							   = PFname,
+						       number = PFnumber,
+						       label = PFlabel,
+						       type = PFtype,
+						       type_name = PFtype_name,
+						       extendee = PFextendee,
+						       default_value =
+							   PFdefault_value,
+						       oneof_index =
+							   PFoneof_index,
+						       json_name = PFjson_name,
+						       options = PFoptions},
+			       #'FieldDescriptorProto'{name = NFname,
+						       number = NFnumber,
+						       label = NFlabel,
+						       type = NFtype,
+						       type_name = NFtype_name,
+						       extendee = NFextendee,
+						       default_value =
+							   NFdefault_value,
+						       oneof_index =
+							   NFoneof_index,
+						       json_name = NFjson_name,
+						       options = NFoptions},
+			       TrUserData) ->
+    #'FieldDescriptorProto'{name =
+				if NFname =:= undefined -> PFname;
+				   true -> NFname
+				end,
+			    number =
+				if NFnumber =:= undefined -> PFnumber;
+				   true -> NFnumber
+				end,
+			    label =
+				if NFlabel =:= undefined -> PFlabel;
+				   true -> NFlabel
+				end,
+			    type =
+				if NFtype =:= undefined -> PFtype;
+				   true -> NFtype
+				end,
+			    type_name =
+				if NFtype_name =:= undefined -> PFtype_name;
+				   true -> NFtype_name
+				end,
+			    extendee =
+				if NFextendee =:= undefined -> PFextendee;
+				   true -> NFextendee
+				end,
+			    default_value =
+				if NFdefault_value =:= undefined ->
+				       PFdefault_value;
+				   true -> NFdefault_value
+				end,
+			    oneof_index =
+				if NFoneof_index =:= undefined -> PFoneof_index;
+				   true -> NFoneof_index
+				end,
+			    json_name =
+				if NFjson_name =:= undefined -> PFjson_name;
+				   true -> NFjson_name
+				end,
+			    options =
+				if PFoptions /= undefined,
+				   NFoptions /= undefined ->
+				       merge_msg_FieldOptions(PFoptions,
+							      NFoptions,
+							      TrUserData);
+				   PFoptions == undefined -> NFoptions;
+				   NFoptions == undefined -> PFoptions
+				end}.
 
 merge_msg_ServiceOptions(#'ServiceOptions'{deprecated =
 					       PFdeprecated,
@@ -9726,6 +9702,30 @@ merge_msg_EnumOptions(#'EnumOptions'{allow_alias =
 			  NFuninterpreted_option == undefined ->
 			      PFuninterpreted_option
 		       end}.
+
+merge_msg_EnumValueOptions(#'EnumValueOptions'{deprecated
+						   = PFdeprecated,
+					       uninterpreted_option =
+						   PFuninterpreted_option},
+			   #'EnumValueOptions'{deprecated = NFdeprecated,
+					       uninterpreted_option =
+						   NFuninterpreted_option},
+			   TrUserData) ->
+    #'EnumValueOptions'{deprecated =
+			    if NFdeprecated =:= undefined -> PFdeprecated;
+			       true -> NFdeprecated
+			    end,
+			uninterpreted_option =
+			    if PFuninterpreted_option /= undefined,
+			       NFuninterpreted_option /= undefined ->
+				   'erlang_++'(PFuninterpreted_option,
+					       NFuninterpreted_option,
+					       TrUserData);
+			       PFuninterpreted_option == undefined ->
+				   NFuninterpreted_option;
+			       NFuninterpreted_option == undefined ->
+				   PFuninterpreted_option
+			    end}.
 
 merge_msg_EnumValueDescriptorProto(#'EnumValueDescriptorProto'{name
 								   = PFname,
@@ -10112,6 +10112,16 @@ merge_msg_FileDescriptorProto(#'FileDescriptorProto'{name
 				  true -> NFsyntax
 			       end}.
 
+merge_msg_FileDescriptorSet(#'FileDescriptorSet'{file =
+						     PFfile},
+			    #'FileDescriptorSet'{file = NFfile}, TrUserData) ->
+    #'FileDescriptorSet'{file =
+			     if PFfile /= undefined, NFfile /= undefined ->
+				    'erlang_++'(PFfile, NFfile, TrUserData);
+				PFfile == undefined -> NFfile;
+				NFfile == undefined -> PFfile
+			     end}.
+
 'merge_msg_GeneratedCodeInfo.Annotation'(#'GeneratedCodeInfo.Annotation'{path
 									     =
 									     PFpath,
@@ -10156,16 +10166,6 @@ merge_msg_FileDescriptorProto(#'FileDescriptorProto'{name
 					   true -> NFend
 					end}.
 
-merge_msg_FileDescriptorSet(#'FileDescriptorSet'{file =
-						     PFfile},
-			    #'FileDescriptorSet'{file = NFfile}, TrUserData) ->
-    #'FileDescriptorSet'{file =
-			     if PFfile /= undefined, NFfile /= undefined ->
-				    'erlang_++'(PFfile, NFfile, TrUserData);
-				PFfile == undefined -> NFfile;
-				NFfile == undefined -> PFfile
-			     end}.
-
 merge_msg_GeneratedCodeInfo(#'GeneratedCodeInfo'{annotation
 						     = PFannotation},
 			    #'GeneratedCodeInfo'{annotation = NFannotation},
@@ -10185,21 +10185,6 @@ verify_msg(Msg) -> verify_msg(Msg, []).
 verify_msg(Msg, Opts) ->
     TrUserData = proplists:get_value(user_data, Opts),
     case Msg of
-      #'UninterpretedOption.NamePart'{} ->
-	  'v_msg_UninterpretedOption.NamePart'(Msg,
-					       ['UninterpretedOption.NamePart'],
-					       TrUserData);
-      #'UninterpretedOption'{} ->
-	  v_msg_UninterpretedOption(Msg, ['UninterpretedOption'],
-				    TrUserData);
-      #'FieldOptions'{} ->
-	  v_msg_FieldOptions(Msg, ['FieldOptions'], TrUserData);
-      #'FieldDescriptorProto'{} ->
-	  v_msg_FieldDescriptorProto(Msg,
-				     ['FieldDescriptorProto'], TrUserData);
-      #'EnumValueOptions'{} ->
-	  v_msg_EnumValueOptions(Msg, ['EnumValueOptions'],
-				 TrUserData);
       #'SourceCodeInfo.Location'{} ->
 	  'v_msg_SourceCodeInfo.Location'(Msg,
 					  ['SourceCodeInfo.Location'],
@@ -10207,8 +10192,20 @@ verify_msg(Msg, Opts) ->
       #'SourceCodeInfo'{} ->
 	  v_msg_SourceCodeInfo(Msg, ['SourceCodeInfo'],
 			       TrUserData);
+      #'UninterpretedOption.NamePart'{} ->
+	  'v_msg_UninterpretedOption.NamePart'(Msg,
+					       ['UninterpretedOption.NamePart'],
+					       TrUserData);
+      #'UninterpretedOption'{} ->
+	  v_msg_UninterpretedOption(Msg, ['UninterpretedOption'],
+				    TrUserData);
       #'FileOptions'{} ->
 	  v_msg_FileOptions(Msg, ['FileOptions'], TrUserData);
+      #'FieldOptions'{} ->
+	  v_msg_FieldOptions(Msg, ['FieldOptions'], TrUserData);
+      #'FieldDescriptorProto'{} ->
+	  v_msg_FieldDescriptorProto(Msg,
+				     ['FieldDescriptorProto'], TrUserData);
       #'ServiceOptions'{} ->
 	  v_msg_ServiceOptions(Msg, ['ServiceOptions'],
 			       TrUserData);
@@ -10222,6 +10219,9 @@ verify_msg(Msg, Opts) ->
 				       ['ServiceDescriptorProto'], TrUserData);
       #'EnumOptions'{} ->
 	  v_msg_EnumOptions(Msg, ['EnumOptions'], TrUserData);
+      #'EnumValueOptions'{} ->
+	  v_msg_EnumValueOptions(Msg, ['EnumValueOptions'],
+				 TrUserData);
       #'EnumValueDescriptorProto'{} ->
 	  v_msg_EnumValueDescriptorProto(Msg,
 					 ['EnumValueDescriptorProto'],
@@ -10249,19 +10249,82 @@ verify_msg(Msg, Opts) ->
       #'FileDescriptorProto'{} ->
 	  v_msg_FileDescriptorProto(Msg, ['FileDescriptorProto'],
 				    TrUserData);
+      #'FileDescriptorSet'{} ->
+	  v_msg_FileDescriptorSet(Msg, ['FileDescriptorSet'],
+				  TrUserData);
       #'GeneratedCodeInfo.Annotation'{} ->
 	  'v_msg_GeneratedCodeInfo.Annotation'(Msg,
 					       ['GeneratedCodeInfo.Annotation'],
 					       TrUserData);
-      #'FileDescriptorSet'{} ->
-	  v_msg_FileDescriptorSet(Msg, ['FileDescriptorSet'],
-				  TrUserData);
       #'GeneratedCodeInfo'{} ->
 	  v_msg_GeneratedCodeInfo(Msg, ['GeneratedCodeInfo'],
 				  TrUserData);
       _ -> mk_type_error(not_a_known_message, Msg, [])
     end.
 
+
+-dialyzer({nowarn_function,'v_msg_SourceCodeInfo.Location'/3}).
+'v_msg_SourceCodeInfo.Location'(#'SourceCodeInfo.Location'{path
+							       = F1,
+							   span = F2,
+							   leading_comments =
+							       F3,
+							   trailing_comments =
+							       F4,
+							   leading_detached_comments
+							       = F5},
+				Path, _) ->
+    if is_list(F1) ->
+	   _ = [v_type_int32(Elem, [path | Path]) || Elem <- F1],
+	   ok;
+       true ->
+	   mk_type_error({invalid_list_of, int32}, F1,
+			 [path | Path])
+    end,
+    if is_list(F2) ->
+	   _ = [v_type_int32(Elem, [span | Path]) || Elem <- F2],
+	   ok;
+       true ->
+	   mk_type_error({invalid_list_of, int32}, F2,
+			 [span | Path])
+    end,
+    if F3 == undefined -> ok;
+       true -> v_type_string(F3, [leading_comments | Path])
+    end,
+    if F4 == undefined -> ok;
+       true -> v_type_string(F4, [trailing_comments | Path])
+    end,
+    if is_list(F5) ->
+	   _ = [v_type_string(Elem,
+			      [leading_detached_comments | Path])
+		|| Elem <- F5],
+	   ok;
+       true ->
+	   mk_type_error({invalid_list_of, string}, F5,
+			 [leading_detached_comments | Path])
+    end,
+    ok;
+'v_msg_SourceCodeInfo.Location'(X, Path, _TrUserData) ->
+    mk_type_error({expected_msg, 'SourceCodeInfo.Location'},
+		  X, Path).
+
+-dialyzer({nowarn_function,v_msg_SourceCodeInfo/3}).
+v_msg_SourceCodeInfo(#'SourceCodeInfo'{location = F1},
+		     Path, TrUserData) ->
+    if is_list(F1) ->
+	   _ = ['v_msg_SourceCodeInfo.Location'(Elem,
+						[location | Path], TrUserData)
+		|| Elem <- F1],
+	   ok;
+       true ->
+	   mk_type_error({invalid_list_of,
+			  {msg, 'SourceCodeInfo.Location'}},
+			 F1, [location | Path])
+    end,
+    ok;
+v_msg_SourceCodeInfo(X, Path, _TrUserData) ->
+    mk_type_error({expected_msg, 'SourceCodeInfo'}, X,
+		  Path).
 
 -dialyzer({nowarn_function,'v_msg_UninterpretedOption.NamePart'/3}).
 'v_msg_UninterpretedOption.NamePart'(#'UninterpretedOption.NamePart'{name_part
@@ -10320,6 +10383,86 @@ v_msg_UninterpretedOption(#'UninterpretedOption'{name =
 v_msg_UninterpretedOption(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'UninterpretedOption'}, X,
 		  Path).
+
+-dialyzer({nowarn_function,v_msg_FileOptions/3}).
+v_msg_FileOptions(#'FileOptions'{java_package = F1,
+				 java_outer_classname = F2,
+				 java_multiple_files = F3,
+				 java_generate_equals_and_hash = F4,
+				 java_string_check_utf8 = F5, optimize_for = F6,
+				 go_package = F7, cc_generic_services = F8,
+				 java_generic_services = F9,
+				 py_generic_services = F10, deprecated = F11,
+				 cc_enable_arenas = F12,
+				 objc_class_prefix = F13,
+				 csharp_namespace = F14,
+				 javanano_use_deprecated_package = F15,
+				 uninterpreted_option = F16},
+		  Path, TrUserData) ->
+    if F1 == undefined -> ok;
+       true -> v_type_string(F1, [java_package | Path])
+    end,
+    if F2 == undefined -> ok;
+       true -> v_type_string(F2, [java_outer_classname | Path])
+    end,
+    if F3 == undefined -> ok;
+       true -> v_type_bool(F3, [java_multiple_files | Path])
+    end,
+    if F4 == undefined -> ok;
+       true ->
+	   v_type_bool(F4, [java_generate_equals_and_hash | Path])
+    end,
+    if F5 == undefined -> ok;
+       true -> v_type_bool(F5, [java_string_check_utf8 | Path])
+    end,
+    if F6 == undefined -> ok;
+       true ->
+	   'v_enum_FileOptions.OptimizeMode'(F6,
+					     [optimize_for | Path])
+    end,
+    if F7 == undefined -> ok;
+       true -> v_type_string(F7, [go_package | Path])
+    end,
+    if F8 == undefined -> ok;
+       true -> v_type_bool(F8, [cc_generic_services | Path])
+    end,
+    if F9 == undefined -> ok;
+       true -> v_type_bool(F9, [java_generic_services | Path])
+    end,
+    if F10 == undefined -> ok;
+       true -> v_type_bool(F10, [py_generic_services | Path])
+    end,
+    if F11 == undefined -> ok;
+       true -> v_type_bool(F11, [deprecated | Path])
+    end,
+    if F12 == undefined -> ok;
+       true -> v_type_bool(F12, [cc_enable_arenas | Path])
+    end,
+    if F13 == undefined -> ok;
+       true -> v_type_string(F13, [objc_class_prefix | Path])
+    end,
+    if F14 == undefined -> ok;
+       true -> v_type_string(F14, [csharp_namespace | Path])
+    end,
+    if F15 == undefined -> ok;
+       true ->
+	   v_type_bool(F15,
+		       [javanano_use_deprecated_package | Path])
+    end,
+    if is_list(F16) ->
+	   _ = [v_msg_UninterpretedOption(Elem,
+					  [uninterpreted_option | Path],
+					  TrUserData)
+		|| Elem <- F16],
+	   ok;
+       true ->
+	   mk_type_error({invalid_list_of,
+			  {msg, 'UninterpretedOption'}},
+			 F16, [uninterpreted_option | Path])
+    end,
+    ok;
+v_msg_FileOptions(X, Path, _TrUserData) ->
+    mk_type_error({expected_msg, 'FileOptions'}, X, Path).
 
 -dialyzer({nowarn_function,v_msg_FieldOptions/3}).
 v_msg_FieldOptions(#'FieldOptions'{ctype = F1,
@@ -10409,173 +10552,6 @@ v_msg_FieldDescriptorProto(#'FieldDescriptorProto'{name
 v_msg_FieldDescriptorProto(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'FieldDescriptorProto'}, X,
 		  Path).
-
--dialyzer({nowarn_function,v_msg_EnumValueOptions/3}).
-v_msg_EnumValueOptions(#'EnumValueOptions'{deprecated =
-					       F1,
-					   uninterpreted_option = F2},
-		       Path, TrUserData) ->
-    if F1 == undefined -> ok;
-       true -> v_type_bool(F1, [deprecated | Path])
-    end,
-    if is_list(F2) ->
-	   _ = [v_msg_UninterpretedOption(Elem,
-					  [uninterpreted_option | Path],
-					  TrUserData)
-		|| Elem <- F2],
-	   ok;
-       true ->
-	   mk_type_error({invalid_list_of,
-			  {msg, 'UninterpretedOption'}},
-			 F2, [uninterpreted_option | Path])
-    end,
-    ok;
-v_msg_EnumValueOptions(X, Path, _TrUserData) ->
-    mk_type_error({expected_msg, 'EnumValueOptions'}, X,
-		  Path).
-
--dialyzer({nowarn_function,'v_msg_SourceCodeInfo.Location'/3}).
-'v_msg_SourceCodeInfo.Location'(#'SourceCodeInfo.Location'{path
-							       = F1,
-							   span = F2,
-							   leading_comments =
-							       F3,
-							   trailing_comments =
-							       F4,
-							   leading_detached_comments
-							       = F5},
-				Path, _) ->
-    if is_list(F1) ->
-	   _ = [v_type_int32(Elem, [path | Path]) || Elem <- F1],
-	   ok;
-       true ->
-	   mk_type_error({invalid_list_of, int32}, F1,
-			 [path | Path])
-    end,
-    if is_list(F2) ->
-	   _ = [v_type_int32(Elem, [span | Path]) || Elem <- F2],
-	   ok;
-       true ->
-	   mk_type_error({invalid_list_of, int32}, F2,
-			 [span | Path])
-    end,
-    if F3 == undefined -> ok;
-       true -> v_type_string(F3, [leading_comments | Path])
-    end,
-    if F4 == undefined -> ok;
-       true -> v_type_string(F4, [trailing_comments | Path])
-    end,
-    if is_list(F5) ->
-	   _ = [v_type_string(Elem,
-			      [leading_detached_comments | Path])
-		|| Elem <- F5],
-	   ok;
-       true ->
-	   mk_type_error({invalid_list_of, string}, F5,
-			 [leading_detached_comments | Path])
-    end,
-    ok;
-'v_msg_SourceCodeInfo.Location'(X, Path, _TrUserData) ->
-    mk_type_error({expected_msg, 'SourceCodeInfo.Location'},
-		  X, Path).
-
--dialyzer({nowarn_function,v_msg_SourceCodeInfo/3}).
-v_msg_SourceCodeInfo(#'SourceCodeInfo'{location = F1},
-		     Path, TrUserData) ->
-    if is_list(F1) ->
-	   _ = ['v_msg_SourceCodeInfo.Location'(Elem,
-						[location | Path], TrUserData)
-		|| Elem <- F1],
-	   ok;
-       true ->
-	   mk_type_error({invalid_list_of,
-			  {msg, 'SourceCodeInfo.Location'}},
-			 F1, [location | Path])
-    end,
-    ok;
-v_msg_SourceCodeInfo(X, Path, _TrUserData) ->
-    mk_type_error({expected_msg, 'SourceCodeInfo'}, X,
-		  Path).
-
--dialyzer({nowarn_function,v_msg_FileOptions/3}).
-v_msg_FileOptions(#'FileOptions'{java_package = F1,
-				 java_outer_classname = F2,
-				 java_multiple_files = F3,
-				 java_generate_equals_and_hash = F4,
-				 java_string_check_utf8 = F5, optimize_for = F6,
-				 go_package = F7, cc_generic_services = F8,
-				 java_generic_services = F9,
-				 py_generic_services = F10, deprecated = F11,
-				 cc_enable_arenas = F12,
-				 objc_class_prefix = F13,
-				 csharp_namespace = F14,
-				 javanano_use_deprecated_package = F15,
-				 uninterpreted_option = F16},
-		  Path, TrUserData) ->
-    if F1 == undefined -> ok;
-       true -> v_type_string(F1, [java_package | Path])
-    end,
-    if F2 == undefined -> ok;
-       true -> v_type_string(F2, [java_outer_classname | Path])
-    end,
-    if F3 == undefined -> ok;
-       true -> v_type_bool(F3, [java_multiple_files | Path])
-    end,
-    if F4 == undefined -> ok;
-       true ->
-	   v_type_bool(F4, [java_generate_equals_and_hash | Path])
-    end,
-    if F5 == undefined -> ok;
-       true -> v_type_bool(F5, [java_string_check_utf8 | Path])
-    end,
-    if F6 == undefined -> ok;
-       true ->
-	   'v_enum_FileOptions.OptimizeMode'(F6,
-					     [optimize_for | Path])
-    end,
-    if F7 == undefined -> ok;
-       true -> v_type_string(F7, [go_package | Path])
-    end,
-    if F8 == undefined -> ok;
-       true -> v_type_bool(F8, [cc_generic_services | Path])
-    end,
-    if F9 == undefined -> ok;
-       true -> v_type_bool(F9, [java_generic_services | Path])
-    end,
-    if F10 == undefined -> ok;
-       true -> v_type_bool(F10, [py_generic_services | Path])
-    end,
-    if F11 == undefined -> ok;
-       true -> v_type_bool(F11, [deprecated | Path])
-    end,
-    if F12 == undefined -> ok;
-       true -> v_type_bool(F12, [cc_enable_arenas | Path])
-    end,
-    if F13 == undefined -> ok;
-       true -> v_type_string(F13, [objc_class_prefix | Path])
-    end,
-    if F14 == undefined -> ok;
-       true -> v_type_string(F14, [csharp_namespace | Path])
-    end,
-    if F15 == undefined -> ok;
-       true ->
-	   v_type_bool(F15,
-		       [javanano_use_deprecated_package | Path])
-    end,
-    if is_list(F16) ->
-	   _ = [v_msg_UninterpretedOption(Elem,
-					  [uninterpreted_option | Path],
-					  TrUserData)
-		|| Elem <- F16],
-	   ok;
-       true ->
-	   mk_type_error({invalid_list_of,
-			  {msg, 'UninterpretedOption'}},
-			 F16, [uninterpreted_option | Path])
-    end,
-    ok;
-v_msg_FileOptions(X, Path, _TrUserData) ->
-    mk_type_error({expected_msg, 'FileOptions'}, X, Path).
 
 -dialyzer({nowarn_function,v_msg_ServiceOptions/3}).
 v_msg_ServiceOptions(#'ServiceOptions'{deprecated = F1,
@@ -10707,6 +10683,30 @@ v_msg_EnumOptions(#'EnumOptions'{allow_alias = F1,
     ok;
 v_msg_EnumOptions(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'EnumOptions'}, X, Path).
+
+-dialyzer({nowarn_function,v_msg_EnumValueOptions/3}).
+v_msg_EnumValueOptions(#'EnumValueOptions'{deprecated =
+					       F1,
+					   uninterpreted_option = F2},
+		       Path, TrUserData) ->
+    if F1 == undefined -> ok;
+       true -> v_type_bool(F1, [deprecated | Path])
+    end,
+    if is_list(F2) ->
+	   _ = [v_msg_UninterpretedOption(Elem,
+					  [uninterpreted_option | Path],
+					  TrUserData)
+		|| Elem <- F2],
+	   ok;
+       true ->
+	   mk_type_error({invalid_list_of,
+			  {msg, 'UninterpretedOption'}},
+			 F2, [uninterpreted_option | Path])
+    end,
+    ok;
+v_msg_EnumValueOptions(X, Path, _TrUserData) ->
+    mk_type_error({expected_msg, 'EnumValueOptions'}, X,
+		  Path).
 
 -dialyzer({nowarn_function,v_msg_EnumValueDescriptorProto/3}).
 v_msg_EnumValueDescriptorProto(#'EnumValueDescriptorProto'{name
@@ -11045,6 +11045,21 @@ v_msg_FileDescriptorProto(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'FileDescriptorProto'}, X,
 		  Path).
 
+-dialyzer({nowarn_function,v_msg_FileDescriptorSet/3}).
+v_msg_FileDescriptorSet(#'FileDescriptorSet'{file = F1},
+			Path, TrUserData) ->
+    if is_list(F1) ->
+	   _ = [v_msg_FileDescriptorProto(Elem, [file | Path],
+					  TrUserData)
+		|| Elem <- F1],
+	   ok;
+       true ->
+	   mk_type_error({invalid_list_of,
+			  {msg, 'FileDescriptorProto'}},
+			 F1, [file | Path])
+    end,
+    ok.
+
 -dialyzer({nowarn_function,'v_msg_GeneratedCodeInfo.Annotation'/3}).
 'v_msg_GeneratedCodeInfo.Annotation'(#'GeneratedCodeInfo.Annotation'{path
 									 = F1,
@@ -11077,21 +11092,6 @@ v_msg_FileDescriptorProto(X, Path, _TrUserData) ->
     mk_type_error({expected_msg,
 		   'GeneratedCodeInfo.Annotation'},
 		  X, Path).
-
--dialyzer({nowarn_function,v_msg_FileDescriptorSet/3}).
-v_msg_FileDescriptorSet(#'FileDescriptorSet'{file = F1},
-			Path, TrUserData) ->
-    if is_list(F1) ->
-	   _ = [v_msg_FileDescriptorProto(Elem, [file | Path],
-					  TrUserData)
-		|| Elem <- F1],
-	   ok;
-       true ->
-	   mk_type_error({invalid_list_of,
-			  {msg, 'FileDescriptorProto'}},
-			 F1, [file | Path])
-    end,
-    ok.
 
 -dialyzer({nowarn_function,v_msg_GeneratedCodeInfo/3}).
 v_msg_GeneratedCodeInfo(#'GeneratedCodeInfo'{annotation
@@ -11356,6 +11356,22 @@ get_msg_defs() ->
       [{'STRING', 0}, {'CORD', 1}, {'STRING_PIECE', 2}]},
      {{enum, 'FieldOptions.JSType'},
       [{'JS_NORMAL', 0}, {'JS_STRING', 1}, {'JS_NUMBER', 2}]},
+     {{msg, 'SourceCodeInfo.Location'},
+      [#field{name = path, fnum = 1, rnum = 2, type = int32,
+	      occurrence = repeated, opts = [packed]},
+       #field{name = span, fnum = 2, rnum = 3, type = int32,
+	      occurrence = repeated, opts = [packed]},
+       #field{name = leading_comments, fnum = 3, rnum = 4,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = trailing_comments, fnum = 4, rnum = 5,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = leading_detached_comments, fnum = 6,
+	      rnum = 6, type = string, occurrence = repeated,
+	      opts = []}]},
+     {{msg, 'SourceCodeInfo'},
+      [#field{name = location, fnum = 1, rnum = 2,
+	      type = {msg, 'SourceCodeInfo.Location'},
+	      occurrence = repeated, opts = []}]},
      {{msg, 'UninterpretedOption.NamePart'},
       [#field{name = name_part, fnum = 1, rnum = 2,
 	      type = string, occurrence = required, opts = []},
@@ -11377,72 +11393,6 @@ get_msg_defs() ->
 	      type = bytes, occurrence = optional, opts = []},
        #field{name = aggregate_value, fnum = 8, rnum = 8,
 	      type = string, occurrence = optional, opts = []}]},
-     {{msg, 'FieldOptions'},
-      [#field{name = ctype, fnum = 1, rnum = 2,
-	      type = {enum, 'FieldOptions.CType'},
-	      occurrence = optional, opts = [{default, 'STRING'}]},
-       #field{name = packed, fnum = 2, rnum = 3, type = bool,
-	      occurrence = optional, opts = []},
-       #field{name = jstype, fnum = 6, rnum = 4,
-	      type = {enum, 'FieldOptions.JSType'},
-	      occurrence = optional, opts = [{default, 'JS_NORMAL'}]},
-       #field{name = lazy, fnum = 5, rnum = 5, type = bool,
-	      occurrence = optional, opts = [{default, false}]},
-       #field{name = deprecated, fnum = 3, rnum = 6,
-	      type = bool, occurrence = optional,
-	      opts = [{default, false}]},
-       #field{name = weak, fnum = 10, rnum = 7, type = bool,
-	      occurrence = optional, opts = [{default, false}]},
-       #field{name = uninterpreted_option, fnum = 999,
-	      rnum = 8, type = {msg, 'UninterpretedOption'},
-	      occurrence = repeated, opts = []}]},
-     {{msg, 'FieldDescriptorProto'},
-      [#field{name = name, fnum = 1, rnum = 2, type = string,
-	      occurrence = optional, opts = []},
-       #field{name = number, fnum = 3, rnum = 3, type = int32,
-	      occurrence = optional, opts = []},
-       #field{name = label, fnum = 4, rnum = 4,
-	      type = {enum, 'FieldDescriptorProto.Label'},
-	      occurrence = optional, opts = []},
-       #field{name = type, fnum = 5, rnum = 5,
-	      type = {enum, 'FieldDescriptorProto.Type'},
-	      occurrence = optional, opts = []},
-       #field{name = type_name, fnum = 6, rnum = 6,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = extendee, fnum = 2, rnum = 7,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = default_value, fnum = 7, rnum = 8,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = oneof_index, fnum = 9, rnum = 9,
-	      type = int32, occurrence = optional, opts = []},
-       #field{name = json_name, fnum = 10, rnum = 10,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = options, fnum = 8, rnum = 11,
-	      type = {msg, 'FieldOptions'}, occurrence = optional,
-	      opts = []}]},
-     {{msg, 'EnumValueOptions'},
-      [#field{name = deprecated, fnum = 1, rnum = 2,
-	      type = bool, occurrence = optional,
-	      opts = [{default, false}]},
-       #field{name = uninterpreted_option, fnum = 999,
-	      rnum = 3, type = {msg, 'UninterpretedOption'},
-	      occurrence = repeated, opts = []}]},
-     {{msg, 'SourceCodeInfo.Location'},
-      [#field{name = path, fnum = 1, rnum = 2, type = int32,
-	      occurrence = repeated, opts = [packed]},
-       #field{name = span, fnum = 2, rnum = 3, type = int32,
-	      occurrence = repeated, opts = [packed]},
-       #field{name = leading_comments, fnum = 3, rnum = 4,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = trailing_comments, fnum = 4, rnum = 5,
-	      type = string, occurrence = optional, opts = []},
-       #field{name = leading_detached_comments, fnum = 6,
-	      rnum = 6, type = string, occurrence = repeated,
-	      opts = []}]},
-     {{msg, 'SourceCodeInfo'},
-      [#field{name = location, fnum = 1, rnum = 2,
-	      type = {msg, 'SourceCodeInfo.Location'},
-	      occurrence = repeated, opts = []}]},
      {{msg, 'FileOptions'},
       [#field{name = java_package, fnum = 1, rnum = 2,
 	      type = string, occurrence = optional, opts = []},
@@ -11487,6 +11437,49 @@ get_msg_defs() ->
        #field{name = uninterpreted_option, fnum = 999,
 	      rnum = 17, type = {msg, 'UninterpretedOption'},
 	      occurrence = repeated, opts = []}]},
+     {{msg, 'FieldOptions'},
+      [#field{name = ctype, fnum = 1, rnum = 2,
+	      type = {enum, 'FieldOptions.CType'},
+	      occurrence = optional, opts = [{default, 'STRING'}]},
+       #field{name = packed, fnum = 2, rnum = 3, type = bool,
+	      occurrence = optional, opts = []},
+       #field{name = jstype, fnum = 6, rnum = 4,
+	      type = {enum, 'FieldOptions.JSType'},
+	      occurrence = optional, opts = [{default, 'JS_NORMAL'}]},
+       #field{name = lazy, fnum = 5, rnum = 5, type = bool,
+	      occurrence = optional, opts = [{default, false}]},
+       #field{name = deprecated, fnum = 3, rnum = 6,
+	      type = bool, occurrence = optional,
+	      opts = [{default, false}]},
+       #field{name = weak, fnum = 10, rnum = 7, type = bool,
+	      occurrence = optional, opts = [{default, false}]},
+       #field{name = uninterpreted_option, fnum = 999,
+	      rnum = 8, type = {msg, 'UninterpretedOption'},
+	      occurrence = repeated, opts = []}]},
+     {{msg, 'FieldDescriptorProto'},
+      [#field{name = name, fnum = 1, rnum = 2, type = string,
+	      occurrence = optional, opts = []},
+       #field{name = number, fnum = 3, rnum = 3, type = int32,
+	      occurrence = optional, opts = []},
+       #field{name = label, fnum = 4, rnum = 4,
+	      type = {enum, 'FieldDescriptorProto.Label'},
+	      occurrence = optional, opts = []},
+       #field{name = type, fnum = 5, rnum = 5,
+	      type = {enum, 'FieldDescriptorProto.Type'},
+	      occurrence = optional, opts = []},
+       #field{name = type_name, fnum = 6, rnum = 6,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = extendee, fnum = 2, rnum = 7,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = default_value, fnum = 7, rnum = 8,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = oneof_index, fnum = 9, rnum = 9,
+	      type = int32, occurrence = optional, opts = []},
+       #field{name = json_name, fnum = 10, rnum = 10,
+	      type = string, occurrence = optional, opts = []},
+       #field{name = options, fnum = 8, rnum = 11,
+	      type = {msg, 'FieldOptions'}, occurrence = optional,
+	      opts = []}]},
      {{msg, 'ServiceOptions'},
       [#field{name = deprecated, fnum = 33, rnum = 2,
 	      type = bool, occurrence = optional,
@@ -11534,6 +11527,13 @@ get_msg_defs() ->
 	      opts = [{default, false}]},
        #field{name = uninterpreted_option, fnum = 999,
 	      rnum = 4, type = {msg, 'UninterpretedOption'},
+	      occurrence = repeated, opts = []}]},
+     {{msg, 'EnumValueOptions'},
+      [#field{name = deprecated, fnum = 1, rnum = 2,
+	      type = bool, occurrence = optional,
+	      opts = [{default, false}]},
+       #field{name = uninterpreted_option, fnum = 999,
+	      rnum = 3, type = {msg, 'UninterpretedOption'},
 	      occurrence = repeated, opts = []}]},
      {{msg, 'EnumValueDescriptorProto'},
       [#field{name = name, fnum = 1, rnum = 2, type = string,
@@ -11640,6 +11640,10 @@ get_msg_defs() ->
 	      opts = []},
        #field{name = syntax, fnum = 12, rnum = 13,
 	      type = string, occurrence = optional, opts = []}]},
+     {{msg, 'FileDescriptorSet'},
+      [#field{name = file, fnum = 1, rnum = 2,
+	      type = {msg, 'FileDescriptorProto'},
+	      occurrence = repeated, opts = []}]},
      {{msg, 'GeneratedCodeInfo.Annotation'},
       [#field{name = path, fnum = 1, rnum = 2, type = int32,
 	      occurrence = repeated, opts = [packed]},
@@ -11649,10 +11653,6 @@ get_msg_defs() ->
 	      occurrence = optional, opts = []},
        #field{name = 'end', fnum = 4, rnum = 5, type = int32,
 	      occurrence = optional, opts = []}]},
-     {{msg, 'FileDescriptorSet'},
-      [#field{name = file, fnum = 1, rnum = 2,
-	      type = {msg, 'FileDescriptorProto'},
-	      occurrence = repeated, opts = []}]},
      {{msg, 'GeneratedCodeInfo'},
       [#field{name = annotation, fnum = 1, rnum = 2,
 	      type = {msg, 'GeneratedCodeInfo.Annotation'},
@@ -11660,36 +11660,36 @@ get_msg_defs() ->
 
 
 get_msg_names() ->
-    ['UninterpretedOption.NamePart', 'UninterpretedOption',
-     'FieldOptions', 'FieldDescriptorProto',
-     'EnumValueOptions', 'SourceCodeInfo.Location',
-     'SourceCodeInfo', 'FileOptions', 'ServiceOptions',
-     'MethodOptions', 'MethodDescriptorProto',
-     'ServiceDescriptorProto', 'EnumOptions',
+    ['SourceCodeInfo.Location', 'SourceCodeInfo',
+     'UninterpretedOption.NamePart', 'UninterpretedOption',
+     'FileOptions', 'FieldOptions', 'FieldDescriptorProto',
+     'ServiceOptions', 'MethodOptions',
+     'MethodDescriptorProto', 'ServiceDescriptorProto',
+     'EnumOptions', 'EnumValueOptions',
      'EnumValueDescriptorProto', 'EnumDescriptorProto',
      'DescriptorProto.ReservedRange', 'MessageOptions',
      'OneofDescriptorProto',
      'DescriptorProto.ExtensionRange', 'DescriptorProto',
-     'FileDescriptorProto', 'GeneratedCodeInfo.Annotation',
-     'FileDescriptorSet', 'GeneratedCodeInfo'].
+     'FileDescriptorProto', 'FileDescriptorSet',
+     'GeneratedCodeInfo.Annotation', 'GeneratedCodeInfo'].
 
 
 get_group_names() -> [].
 
 
 get_msg_or_group_names() ->
-    ['UninterpretedOption.NamePart', 'UninterpretedOption',
-     'FieldOptions', 'FieldDescriptorProto',
-     'EnumValueOptions', 'SourceCodeInfo.Location',
-     'SourceCodeInfo', 'FileOptions', 'ServiceOptions',
-     'MethodOptions', 'MethodDescriptorProto',
-     'ServiceDescriptorProto', 'EnumOptions',
+    ['SourceCodeInfo.Location', 'SourceCodeInfo',
+     'UninterpretedOption.NamePart', 'UninterpretedOption',
+     'FileOptions', 'FieldOptions', 'FieldDescriptorProto',
+     'ServiceOptions', 'MethodOptions',
+     'MethodDescriptorProto', 'ServiceDescriptorProto',
+     'EnumOptions', 'EnumValueOptions',
      'EnumValueDescriptorProto', 'EnumDescriptorProto',
      'DescriptorProto.ReservedRange', 'MessageOptions',
      'OneofDescriptorProto',
      'DescriptorProto.ExtensionRange', 'DescriptorProto',
-     'FileDescriptorProto', 'GeneratedCodeInfo.Annotation',
-     'FileDescriptorSet', 'GeneratedCodeInfo'].
+     'FileDescriptorProto', 'FileDescriptorSet',
+     'GeneratedCodeInfo.Annotation', 'GeneratedCodeInfo'].
 
 
 get_enum_names() ->
@@ -11713,6 +11713,22 @@ fetch_enum_def(EnumName) ->
     end.
 
 
+find_msg_def('SourceCodeInfo.Location') ->
+    [#field{name = path, fnum = 1, rnum = 2, type = int32,
+	    occurrence = repeated, opts = [packed]},
+     #field{name = span, fnum = 2, rnum = 3, type = int32,
+	    occurrence = repeated, opts = [packed]},
+     #field{name = leading_comments, fnum = 3, rnum = 4,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = trailing_comments, fnum = 4, rnum = 5,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = leading_detached_comments, fnum = 6,
+	    rnum = 6, type = string, occurrence = repeated,
+	    opts = []}];
+find_msg_def('SourceCodeInfo') ->
+    [#field{name = location, fnum = 1, rnum = 2,
+	    type = {msg, 'SourceCodeInfo.Location'},
+	    occurrence = repeated, opts = []}];
 find_msg_def('UninterpretedOption.NamePart') ->
     [#field{name = name_part, fnum = 1, rnum = 2,
 	    type = string, occurrence = required, opts = []},
@@ -11734,72 +11750,6 @@ find_msg_def('UninterpretedOption') ->
 	    type = bytes, occurrence = optional, opts = []},
      #field{name = aggregate_value, fnum = 8, rnum = 8,
 	    type = string, occurrence = optional, opts = []}];
-find_msg_def('FieldOptions') ->
-    [#field{name = ctype, fnum = 1, rnum = 2,
-	    type = {enum, 'FieldOptions.CType'},
-	    occurrence = optional, opts = [{default, 'STRING'}]},
-     #field{name = packed, fnum = 2, rnum = 3, type = bool,
-	    occurrence = optional, opts = []},
-     #field{name = jstype, fnum = 6, rnum = 4,
-	    type = {enum, 'FieldOptions.JSType'},
-	    occurrence = optional, opts = [{default, 'JS_NORMAL'}]},
-     #field{name = lazy, fnum = 5, rnum = 5, type = bool,
-	    occurrence = optional, opts = [{default, false}]},
-     #field{name = deprecated, fnum = 3, rnum = 6,
-	    type = bool, occurrence = optional,
-	    opts = [{default, false}]},
-     #field{name = weak, fnum = 10, rnum = 7, type = bool,
-	    occurrence = optional, opts = [{default, false}]},
-     #field{name = uninterpreted_option, fnum = 999,
-	    rnum = 8, type = {msg, 'UninterpretedOption'},
-	    occurrence = repeated, opts = []}];
-find_msg_def('FieldDescriptorProto') ->
-    [#field{name = name, fnum = 1, rnum = 2, type = string,
-	    occurrence = optional, opts = []},
-     #field{name = number, fnum = 3, rnum = 3, type = int32,
-	    occurrence = optional, opts = []},
-     #field{name = label, fnum = 4, rnum = 4,
-	    type = {enum, 'FieldDescriptorProto.Label'},
-	    occurrence = optional, opts = []},
-     #field{name = type, fnum = 5, rnum = 5,
-	    type = {enum, 'FieldDescriptorProto.Type'},
-	    occurrence = optional, opts = []},
-     #field{name = type_name, fnum = 6, rnum = 6,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = extendee, fnum = 2, rnum = 7,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = default_value, fnum = 7, rnum = 8,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = oneof_index, fnum = 9, rnum = 9,
-	    type = int32, occurrence = optional, opts = []},
-     #field{name = json_name, fnum = 10, rnum = 10,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = options, fnum = 8, rnum = 11,
-	    type = {msg, 'FieldOptions'}, occurrence = optional,
-	    opts = []}];
-find_msg_def('EnumValueOptions') ->
-    [#field{name = deprecated, fnum = 1, rnum = 2,
-	    type = bool, occurrence = optional,
-	    opts = [{default, false}]},
-     #field{name = uninterpreted_option, fnum = 999,
-	    rnum = 3, type = {msg, 'UninterpretedOption'},
-	    occurrence = repeated, opts = []}];
-find_msg_def('SourceCodeInfo.Location') ->
-    [#field{name = path, fnum = 1, rnum = 2, type = int32,
-	    occurrence = repeated, opts = [packed]},
-     #field{name = span, fnum = 2, rnum = 3, type = int32,
-	    occurrence = repeated, opts = [packed]},
-     #field{name = leading_comments, fnum = 3, rnum = 4,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = trailing_comments, fnum = 4, rnum = 5,
-	    type = string, occurrence = optional, opts = []},
-     #field{name = leading_detached_comments, fnum = 6,
-	    rnum = 6, type = string, occurrence = repeated,
-	    opts = []}];
-find_msg_def('SourceCodeInfo') ->
-    [#field{name = location, fnum = 1, rnum = 2,
-	    type = {msg, 'SourceCodeInfo.Location'},
-	    occurrence = repeated, opts = []}];
 find_msg_def('FileOptions') ->
     [#field{name = java_package, fnum = 1, rnum = 2,
 	    type = string, occurrence = optional, opts = []},
@@ -11844,6 +11794,49 @@ find_msg_def('FileOptions') ->
      #field{name = uninterpreted_option, fnum = 999,
 	    rnum = 17, type = {msg, 'UninterpretedOption'},
 	    occurrence = repeated, opts = []}];
+find_msg_def('FieldOptions') ->
+    [#field{name = ctype, fnum = 1, rnum = 2,
+	    type = {enum, 'FieldOptions.CType'},
+	    occurrence = optional, opts = [{default, 'STRING'}]},
+     #field{name = packed, fnum = 2, rnum = 3, type = bool,
+	    occurrence = optional, opts = []},
+     #field{name = jstype, fnum = 6, rnum = 4,
+	    type = {enum, 'FieldOptions.JSType'},
+	    occurrence = optional, opts = [{default, 'JS_NORMAL'}]},
+     #field{name = lazy, fnum = 5, rnum = 5, type = bool,
+	    occurrence = optional, opts = [{default, false}]},
+     #field{name = deprecated, fnum = 3, rnum = 6,
+	    type = bool, occurrence = optional,
+	    opts = [{default, false}]},
+     #field{name = weak, fnum = 10, rnum = 7, type = bool,
+	    occurrence = optional, opts = [{default, false}]},
+     #field{name = uninterpreted_option, fnum = 999,
+	    rnum = 8, type = {msg, 'UninterpretedOption'},
+	    occurrence = repeated, opts = []}];
+find_msg_def('FieldDescriptorProto') ->
+    [#field{name = name, fnum = 1, rnum = 2, type = string,
+	    occurrence = optional, opts = []},
+     #field{name = number, fnum = 3, rnum = 3, type = int32,
+	    occurrence = optional, opts = []},
+     #field{name = label, fnum = 4, rnum = 4,
+	    type = {enum, 'FieldDescriptorProto.Label'},
+	    occurrence = optional, opts = []},
+     #field{name = type, fnum = 5, rnum = 5,
+	    type = {enum, 'FieldDescriptorProto.Type'},
+	    occurrence = optional, opts = []},
+     #field{name = type_name, fnum = 6, rnum = 6,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = extendee, fnum = 2, rnum = 7,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = default_value, fnum = 7, rnum = 8,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = oneof_index, fnum = 9, rnum = 9,
+	    type = int32, occurrence = optional, opts = []},
+     #field{name = json_name, fnum = 10, rnum = 10,
+	    type = string, occurrence = optional, opts = []},
+     #field{name = options, fnum = 8, rnum = 11,
+	    type = {msg, 'FieldOptions'}, occurrence = optional,
+	    opts = []}];
 find_msg_def('ServiceOptions') ->
     [#field{name = deprecated, fnum = 33, rnum = 2,
 	    type = bool, occurrence = optional,
@@ -11891,6 +11884,13 @@ find_msg_def('EnumOptions') ->
 	    opts = [{default, false}]},
      #field{name = uninterpreted_option, fnum = 999,
 	    rnum = 4, type = {msg, 'UninterpretedOption'},
+	    occurrence = repeated, opts = []}];
+find_msg_def('EnumValueOptions') ->
+    [#field{name = deprecated, fnum = 1, rnum = 2,
+	    type = bool, occurrence = optional,
+	    opts = [{default, false}]},
+     #field{name = uninterpreted_option, fnum = 999,
+	    rnum = 3, type = {msg, 'UninterpretedOption'},
 	    occurrence = repeated, opts = []}];
 find_msg_def('EnumValueDescriptorProto') ->
     [#field{name = name, fnum = 1, rnum = 2, type = string,
@@ -11997,6 +11997,10 @@ find_msg_def('FileDescriptorProto') ->
 	    opts = []},
      #field{name = syntax, fnum = 12, rnum = 13,
 	    type = string, occurrence = optional, opts = []}];
+find_msg_def('FileDescriptorSet') ->
+    [#field{name = file, fnum = 1, rnum = 2,
+	    type = {msg, 'FileDescriptorProto'},
+	    occurrence = repeated, opts = []}];
 find_msg_def('GeneratedCodeInfo.Annotation') ->
     [#field{name = path, fnum = 1, rnum = 2, type = int32,
 	    occurrence = repeated, opts = [packed]},
@@ -12006,10 +12010,6 @@ find_msg_def('GeneratedCodeInfo.Annotation') ->
 	    occurrence = optional, opts = []},
      #field{name = 'end', fnum = 4, rnum = 5, type = int32,
 	    occurrence = optional, opts = []}];
-find_msg_def('FileDescriptorSet') ->
-    [#field{name = file, fnum = 1, rnum = 2,
-	    type = {msg, 'FileDescriptorProto'},
-	    occurrence = repeated, opts = []}];
 find_msg_def('GeneratedCodeInfo') ->
     [#field{name = annotation, fnum = 1, rnum = 2,
 	    type = {msg, 'GeneratedCodeInfo.Annotation'},

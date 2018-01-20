@@ -7,6 +7,24 @@
 
 -define(gpb_descriptor_gpb_version, "4.0.2").
 
+-ifndef('SOURCECODEINFO.LOCATION_PB_H').
+-define('SOURCECODEINFO.LOCATION_PB_H', true).
+-record('SourceCodeInfo.Location',
+        {path = []              :: [integer()] | undefined, % = 1, 32 bits
+         span = []              :: [integer()] | undefined, % = 2, 32 bits
+         leading_comments       :: iolist() | undefined, % = 3
+         trailing_comments      :: iolist() | undefined, % = 4
+         leading_detached_comments = [] :: [iolist()] | undefined % = 6
+        }).
+-endif.
+
+-ifndef('SOURCECODEINFO_PB_H').
+-define('SOURCECODEINFO_PB_H', true).
+-record('SourceCodeInfo',
+        {location = []          :: [#'SourceCodeInfo.Location'{}] | undefined % = 1
+        }).
+-endif.
+
 -ifndef('UNINTERPRETEDOPTION.NAMEPART_PB_H').
 -define('UNINTERPRETEDOPTION.NAMEPART_PB_H', true).
 -record('UninterpretedOption.NamePart',
@@ -25,6 +43,28 @@
          double_value           :: float() | integer() | infinity | '-infinity' | nan | undefined, % = 6
          string_value           :: binary() | undefined, % = 7
          aggregate_value        :: iolist() | undefined % = 8
+        }).
+-endif.
+
+-ifndef('FILEOPTIONS_PB_H').
+-define('FILEOPTIONS_PB_H', true).
+-record('FileOptions',
+        {java_package           :: iolist() | undefined, % = 1
+         java_outer_classname   :: iolist() | undefined, % = 8
+         java_multiple_files = false :: boolean() | 0 | 1 | undefined, % = 10
+         java_generate_equals_and_hash = false :: boolean() | 0 | 1 | undefined, % = 20
+         java_string_check_utf8 = false :: boolean() | 0 | 1 | undefined, % = 27
+         optimize_for = 'SPEED' :: 'SPEED' | 'CODE_SIZE' | 'LITE_RUNTIME' | integer() | undefined, % = 9, enum FileOptions.OptimizeMode
+         go_package             :: iolist() | undefined, % = 11
+         cc_generic_services = false :: boolean() | 0 | 1 | undefined, % = 16
+         java_generic_services = false :: boolean() | 0 | 1 | undefined, % = 17
+         py_generic_services = false :: boolean() | 0 | 1 | undefined, % = 18
+         deprecated = false     :: boolean() | 0 | 1 | undefined, % = 23
+         cc_enable_arenas = false :: boolean() | 0 | 1 | undefined, % = 31
+         objc_class_prefix      :: iolist() | undefined, % = 36
+         csharp_namespace       :: iolist() | undefined, % = 37
+         javanano_use_deprecated_package :: boolean() | 0 | 1 | undefined, % = 38
+         uninterpreted_option = [] :: [#'UninterpretedOption'{}] | undefined % = 999
         }).
 -endif.
 
@@ -54,54 +94,6 @@
          oneof_index            :: integer() | undefined, % = 9, 32 bits
          json_name              :: iolist() | undefined, % = 10
          options                :: #'FieldOptions'{} | undefined % = 8
-        }).
--endif.
-
--ifndef('ENUMVALUEOPTIONS_PB_H').
--define('ENUMVALUEOPTIONS_PB_H', true).
--record('EnumValueOptions',
-        {deprecated = false     :: boolean() | 0 | 1 | undefined, % = 1
-         uninterpreted_option = [] :: [#'UninterpretedOption'{}] | undefined % = 999
-        }).
--endif.
-
--ifndef('SOURCECODEINFO.LOCATION_PB_H').
--define('SOURCECODEINFO.LOCATION_PB_H', true).
--record('SourceCodeInfo.Location',
-        {path = []              :: [integer()] | undefined, % = 1, 32 bits
-         span = []              :: [integer()] | undefined, % = 2, 32 bits
-         leading_comments       :: iolist() | undefined, % = 3
-         trailing_comments      :: iolist() | undefined, % = 4
-         leading_detached_comments = [] :: [iolist()] | undefined % = 6
-        }).
--endif.
-
--ifndef('SOURCECODEINFO_PB_H').
--define('SOURCECODEINFO_PB_H', true).
--record('SourceCodeInfo',
-        {location = []          :: [#'SourceCodeInfo.Location'{}] | undefined % = 1
-        }).
--endif.
-
--ifndef('FILEOPTIONS_PB_H').
--define('FILEOPTIONS_PB_H', true).
--record('FileOptions',
-        {java_package           :: iolist() | undefined, % = 1
-         java_outer_classname   :: iolist() | undefined, % = 8
-         java_multiple_files = false :: boolean() | 0 | 1 | undefined, % = 10
-         java_generate_equals_and_hash = false :: boolean() | 0 | 1 | undefined, % = 20
-         java_string_check_utf8 = false :: boolean() | 0 | 1 | undefined, % = 27
-         optimize_for = 'SPEED' :: 'SPEED' | 'CODE_SIZE' | 'LITE_RUNTIME' | integer() | undefined, % = 9, enum FileOptions.OptimizeMode
-         go_package             :: iolist() | undefined, % = 11
-         cc_generic_services = false :: boolean() | 0 | 1 | undefined, % = 16
-         java_generic_services = false :: boolean() | 0 | 1 | undefined, % = 17
-         py_generic_services = false :: boolean() | 0 | 1 | undefined, % = 18
-         deprecated = false     :: boolean() | 0 | 1 | undefined, % = 23
-         cc_enable_arenas = false :: boolean() | 0 | 1 | undefined, % = 31
-         objc_class_prefix      :: iolist() | undefined, % = 36
-         csharp_namespace       :: iolist() | undefined, % = 37
-         javanano_use_deprecated_package :: boolean() | 0 | 1 | undefined, % = 38
-         uninterpreted_option = [] :: [#'UninterpretedOption'{}] | undefined % = 999
         }).
 -endif.
 
@@ -147,6 +139,14 @@
 -record('EnumOptions',
         {allow_alias            :: boolean() | 0 | 1 | undefined, % = 2
          deprecated = false     :: boolean() | 0 | 1 | undefined, % = 3
+         uninterpreted_option = [] :: [#'UninterpretedOption'{}] | undefined % = 999
+        }).
+-endif.
+
+-ifndef('ENUMVALUEOPTIONS_PB_H').
+-define('ENUMVALUEOPTIONS_PB_H', true).
+-record('EnumValueOptions',
+        {deprecated = false     :: boolean() | 0 | 1 | undefined, % = 1
          uninterpreted_option = [] :: [#'UninterpretedOption'{}] | undefined % = 999
         }).
 -endif.
@@ -237,6 +237,13 @@
         }).
 -endif.
 
+-ifndef('FILEDESCRIPTORSET_PB_H').
+-define('FILEDESCRIPTORSET_PB_H', true).
+-record('FileDescriptorSet',
+        {file = []              :: [#'FileDescriptorProto'{}] | undefined % = 1
+        }).
+-endif.
+
 -ifndef('GENERATEDCODEINFO.ANNOTATION_PB_H').
 -define('GENERATEDCODEINFO.ANNOTATION_PB_H', true).
 -record('GeneratedCodeInfo.Annotation',
@@ -244,13 +251,6 @@
          source_file            :: iolist() | undefined, % = 2
          'begin'                :: integer() | undefined, % = 3, 32 bits
          'end'                  :: integer() | undefined % = 4, 32 bits
-        }).
--endif.
-
--ifndef('FILEDESCRIPTORSET_PB_H').
--define('FILEDESCRIPTORSET_PB_H', true).
--record('FileDescriptorSet',
-        {file = []              :: [#'FileDescriptorProto'{}] | undefined % = 1
         }).
 -endif.
 

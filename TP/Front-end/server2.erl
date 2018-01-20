@@ -1,26 +1,22 @@
 -module(server).
--export([server/1]).
+-export([server/0]).
 
 %=================
 % Server Configs : initialize erlzmq context, and bind a socket for accept connections.
-server(Port) ->
+server() ->
     LoginManager = spawn(fun()-> loginManager(#{"ri" => {"33", false}}) end),
     process_flag(trap_exit, true),
-    {ok, LSock} = gen_tcp:listen(Port, [binary, {packet, 0}, {active, false}]),
-    acceptor(LSock, LoginManager).
-
-%===========
-% process runing for accpet new connects
-acceptor(LSock, LoginManager) ->
-    {ok, Sock} = gen_tcp:accept(LSock),
-    spawn(fun() -> acceptor(LSock, LoginManager) end),
+    {ok, Ctx} = erlzmq:context(),
+    {ok, Sock} = erlzmq:socket(Ctx, [rep, {active, false}]),
+    ok = erlzmq:bind(Sock, "tcp://*:3333"),
+    io:format("Accept connection\n"),
     waitLogin(LoginManager, Sock).
 
 
 %================================
 % Receive all message and process them. The message are decoded/encoded by ProcolBuffers.
 waitLogin(LoginManager, Sock) ->
-    case gen_tcp:recv(Sock,0) of
+    case erlzmq:recv(Sock) of
         {ok, Data} ->
             io:format("Data: ~p\n",[Data]),
             Map = protos:decode_msg(Data,'MsgCS'),
@@ -28,7 +24,7 @@ waitLogin(LoginManager, Sock) ->
                 {ok,"1"} ->
                     io:format("Type1\n"),
                     Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => true, msg => "User&Pass"}}, 'MsgCS'),
-                    gen_tcp:send(Sock, Bin),
+                    erlzmq:send(Sock, Bin),
                     waitLogin(LoginManager, Sock);
                 {ok,"2"} ->
                     io:format("Type2\n"),
@@ -37,21 +33,36 @@ waitLogin(LoginManager, Sock) ->
                     {ok, Pass} = maps:find(pass, MapUser),
                     LoginManager ! {login, User, Pass, self()},
                     receive
-                        {_, logged} ->
+                        {LoginManager, logged} ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => true, msg => "Logged"}}, 'MsgCS'),
-                            gen_tcp:send(Sock, Bin),
-                            user(Sock, LoginManager);
-                        {_, invalid} ->
+                            erlzmq:send(Sock, Bin),
+                            waitLogin(LoginManager, Sock);
+                        {LoginManager, invalid} ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => false, msg => "Invalid"}}, 'MsgCS'),
-                            gen_tcp:send(Sock, Bin),
+                            erlzmq:send(Sock, Bin),
                             waitLogin(LoginManager, Sock)
                     end;
+                {ok,"3"} -> 
+                    {ok, MapOrder} = maps:find(orderRequest, Map),
+                    {ok, Type} = maps:find(type, MapOrder),
+                    case string:tokens(Type, "\n\t\r ") of
+                        ["1"] ->
+                            io:format("Order1\n");
+                        ["2"] ->
+                            io:format("Order2\n")
+                    end,
+                    Bin = protos:encode_msg(#{type=>"4"}, 'MsgCS'),
+                    erlzmq:send(Sock, Bin),
+                    waitLogin(LoginManager, Sock);
                 _ ->
                     io:format("Pack invalid\n"),
                     waitLogin(LoginManager, Sock)
             end;
         {error, closed} ->
-            io:format("User closed\n")
+            io:format("User closed\n"),
+            waitLogin(LoginManager, Sock);
+        {error, efsm} ->
+            io:format("IDK\n")
     end.
 
 %===========
@@ -75,30 +86,3 @@ loginManager(M) ->
             loginManager(maps:update(U, {P,false}, M))
     end.
 
-
-%===========
-% User 
-user(Sock, LoginManager) ->
-    case gen_tcp:recv(Sock, 0) of 
-        {ok, Data} ->
-            Map = protos:decode_msg(Data, 'MsgCS'),
-            case maps:find(type, Map) of
-                {ok,"3"} -> 
-                    {ok, MapOrder} = maps:find(orderRequest, Map),
-                    {ok, Type} = maps:find(type, MapOrder),
-                    case string:tokens(Type, "\n\t\r ") of
-                        ["1"] ->
-                            io:format("Order1\n");
-                        ["2"] ->
-                            io:format("Order2\n")
-                    end,
-                    Bin = protos:encode_msg(#{type=>"4"}, 'MsgCS'),
-                    gen_tcp:send(Sock, Bin),
-                    waitLogin(LoginManager, Sock);
-                _ ->
-                    io:format("Pack invalid"),
-                    user(Sock, LoginManager)
-            end;
-        {error, closed} ->
-            io:format("User closed")
-end.

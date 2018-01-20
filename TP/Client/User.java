@@ -19,9 +19,11 @@ public class User {
 		try{	
 			ZMQ.Context context = ZMQ.context(1);
          	ZMQ.Socket socket = context.socket(ZMQ.REQ);
-         	socket.connect("tcp://localhost:3333");
+         	Socket s = new Socket("localhost",3333);
 
-			UserRequest ur = new UserRequest(socket);
+         	//socket.connect("tcp://localhost:3333");
+
+			UserRequest ur = new UserRequest(s);
 			ur.exe();
 
 			socket.close();
