@@ -1,5 +1,5 @@
 client:
-	protoc --java_out=. proto-buf/protos.proto
+	tools/protoc/bin/./protoc --java_out=. proto-buf/protos.proto
 	javac -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar client/*.java
 
 server:
@@ -9,7 +9,7 @@ server:
 	erlc -I tools/erlzmq/include -o front-end/ front-end/erlzmq_nif.erl
 
 exchange:
-	protoc --java_out=. proto-buf/protos.proto
+	tools/protoc/bin/./protoc --java_out=. proto-buf/protos.proto
 	javac -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:tools/jar/gson-2.6.2.jar:. exchange/*.java
 
 directory:
@@ -22,7 +22,7 @@ run-broker-frontend-exchange:
 	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. exchange.BrokerFrontEndExchange 3333 4444	
 
 run:
-	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.User
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.User 1111
 
 run-client-example:
 	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.UserExample 1111 3333

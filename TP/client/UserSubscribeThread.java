@@ -2,7 +2,7 @@ package client;
 import org.zeromq.ZMQ;
 
 public class UserSubscribeThread extends Thread{
-	ZMQ.Socket socket;
+	private ZMQ.Socket socket;
 
 	public UserSubscribeThread(ZMQ.Socket socket){
 		this.socket = socket;

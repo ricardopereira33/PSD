@@ -40,7 +40,10 @@ waitLogin(LoginManager, Sock) ->
                         {_, logged} ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => true, msg => "Logged"}}, 'MsgCS'),
                             gen_tcp:send(Sock, Bin),
-                            user(Sock, LoginManager);
+                            {ok, Ctx} = erlzmq:context(),
+                            {ok, ZmqSock} = erlzmq:socket(Ctx, [pub, {active, false}]),
+                            ok = erlzmq:connect(ZmqSock, "tcp://localhost:3333"),
+                            user(Sock, User, LoginManager, ZmqSock);
                         {_, invalid} ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => false, msg => "Invalid"}}, 'MsgCS'),
                             gen_tcp:send(Sock, Bin),
@@ -78,7 +81,7 @@ loginManager(M) ->
 
 %===========
 % User 
-user(Sock, LoginManager) ->
+user(Sock, User, LoginManager, ZmqSock) ->
     case gen_tcp:recv(Sock, 0) of 
         {ok, Data} ->
             Map = protos:decode_msg(Data, 'MsgCS'),
@@ -88,17 +91,21 @@ user(Sock, LoginManager) ->
                     {ok, Type} = maps:find(type, MapOrder),
                     case string:tokens(Type, "\n\t\r ") of
                         ["1"] ->
-                            io:format("Order1\n");
+                            io:format("Send sell\n"),
+                            erlzmq:send(ZmqSock, Data);
                         ["2"] ->
-                            io:format("Order2\n")
+                            io:format("Send buy\n"),
+                            erlzmq:send(ZmqSock, Data)
                     end,
                     Bin = protos:encode_msg(#{type=>"4"}, 'MsgCS'),
                     gen_tcp:send(Sock, Bin),
-                    waitLogin(LoginManager, Sock);
+                    user(Sock, User, LoginManager, ZmqSock);
                 _ ->
                     io:format("Pack invalid"),
-                    user(Sock, LoginManager)
+                    user(Sock, User, LoginManager, ZmqSock)
             end;
         {error, closed} ->
+            LoginManager ! {logout, User, self()},
             io:format("User closed")
-end.
+
+    end.

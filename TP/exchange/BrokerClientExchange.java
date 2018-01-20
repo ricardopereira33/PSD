@@ -5,7 +5,7 @@ public class BrokerClientExchange{
 
 	public static void main(String[] args) {
 
-	    ZMQ.Context context = ZMQ.context(1);
+    	ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket sub = context.socket(ZMQ.XSUB);
         sub.bind("tcp://*:"+args[0]);
         ZMQ.Socket pub = context.socket(ZMQ.XPUB);

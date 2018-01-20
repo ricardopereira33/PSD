@@ -21,7 +21,7 @@ public class UserRequest {
     private Messenger msg;
     
 
-    public UserRequest( ZMQ.Socket socket, ZMQ.Socket sub){
+    public UserRequest( Socket socket, ZMQ.Socket sub){
         this.msg = new Messenger();
         this.sock = socket;
         this.sub = sub;
