@@ -32,19 +32,19 @@ public class Exchange {
     private ZMQ.Socket pub;
 
     public Exchange(ZMQ.Socket pub){
-            this.companies = new HashMap();
-            this.transactions = new HashMap();
-            this.sell_orders = new HashMap();
-            this.buy_orders = new HashMap();
-            this.pub = pub;
+        this.companies = new HashMap();
+        this.transactions = new HashMap();
+        this.sell_orders = new HashMap();
+        this.buy_orders = new HashMap();
+        this.pub = pub;
     }
 
     public Exchange(ZMQ.Socket pub, Map<String,Company> companies){
-            this.companies = companies;
-            this.transactions = new HashMap();
-            this.sell_orders = new HashMap();
-            this.buy_orders = new HashMap();
-            this.pub = pub;
+        this.companies = companies;
+        this.transactions = new HashMap();
+        this.sell_orders = new HashMap();
+        this.buy_orders = new HashMap();
+        this.pub = pub;
     }
 
     public List<Transaction> getTransactionsByCompany(String company_id){
@@ -88,7 +88,7 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
-                pub.send(new_transaction.getCompany() + ":" + "DONE"); // send to subscribed clients ////falta meter os dados da transacao  
+                pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -116,7 +116,7 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
-                pub.send(new_transaction.getCompany() + ":" + "DONE"); // send to subscribed clients ////falta meter os dados da transacao  
+                pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -198,7 +198,7 @@ public class Exchange {
                 String sell_id = String.valueOf(exchange.getSellsByCompany(order.getCompanyId()).size());
                 Sell sell = new Sell(sell_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderSell(sell); // send to directory
-                pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
+                pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
                 exchange.receiveSell(sell);
                 //socket.send("Received sell.");
             }
@@ -207,7 +207,7 @@ public class Exchange {
                 String buy_id = String.valueOf(exchange.getBuysByCompany(order.getCompanyId()).size());
                 Buy buy = new Buy(buy_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderBuy(buy); // send to directory
-                pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
+                pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
                 exchange.receiveBuy(buy);
                 //socket.send("Received buy.");
             }

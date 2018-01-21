@@ -4,7 +4,7 @@
 %=================
 % Server Configs : initialize erlzmq context, and bind a socket for accept connections.
 server(Port, Broker) ->
-    LoginManager = spawn(fun()-> loginManager(#{"ri" => {"33", false}}) end),
+    LoginManager = spawn(fun()-> loginManager(#{"user1" => {"33", false},"user2" => {"85", false},"user3" => {"3", false}}) end),
     process_flag(trap_exit, true),
     {ok, LSock} = gen_tcp:listen(Port, [binary, {packet, 0}, {active, false}]),
     acceptor(LSock, LoginManager, Broker).
