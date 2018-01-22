@@ -17,23 +17,19 @@ import org.zeromq.ZMQ;
 public class Exchange {
 
     private String name;
-    private ZMQ.Socket pub;
+    private ZMQ.Socket client_pub;
+    private ZMQ.Socket frontend_push;
+    private ZMQ.Socket frontend_pull;
     private Map<String,Company> companies;
     private Map<String,List<Buy>> buy_orders;
     private Map<String,List<Sell>> sell_orders;
     private Map<String,List<Transaction>> transactions;
 
-    public Exchange(ZMQ.Socket pub){
-        this.pub = pub;
-        this.companies = new HashMap();
-        this.buy_orders = new HashMap();
-        this.sell_orders = new HashMap();
-        this.transactions = new HashMap();
-    }
-
-    public Exchange(ZMQ.Socket pub, Map<String,Company> companies, String name){
-        this.pub = pub;
+    public Exchange(String name, ZMQ.Socket frontend_push, ZMQ.Socket frontend_pull, ZMQ.Socket client_pub, Map<String,Company> companies){
         this.name = name;
+        this.frontend_push = frontend_push;
+        this.frontend_pull = frontend_pull;
+        this.client_pub = client_pub;
         this.companies = companies;
         this.buy_orders = new HashMap();
         this.sell_orders = new HashMap();
@@ -54,7 +50,7 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
-                pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
+                client_pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -82,7 +78,7 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
-                pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
+                client_pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -132,57 +128,59 @@ public class Exchange {
 
     public static void main(String[] args) throws Exception{
 
-        //ZMQ.Context context = ZMQ.context(1);
-        //ZMQ.Socket socket = context.socket(ZMQ.REP);
-        //socket.bind("tcp://*:" + 3333);
-        //ligacao ao front end
-        ZMQ.Context context = ZMQ.context(1);
-        ZMQ.Socket sub = context.socket(ZMQ.SUB);
-        sub.connect("tcp://localhost:" + args[0]);
+        // ARGS
+        // 0 -> FrontEnd PUSH
+        // 1 -> FrontEnd PULL
+        // 2 -> Client PULL
+        // 3 -> Exchange type (1, 2 or 3)
 
-        //ligacao direta com o cliente
-        ZMQ.Context context2 = ZMQ.context(1);
-        ZMQ.Socket pub = context2.socket(ZMQ.PUB);
-        pub.connect("tcp://localhost:" + args[1]);
+        // Front-end connections
+        ZMQ.Context frontEndContext = ZMQ.context(1);
+        ZMQ.Socket frontend_push = frontEndContext.socket(ZMQ.PUSH);
+        frontend_push.connect("tcp://localhost: " + args[0]);
+        ZMQ.Socket frontend_pull = frontEndContext.socket(ZMQ.PULL);
+        frontend_pull.connect("tcp://localhost: " + args[1]);
 
-        Exchange exchange = populateExchange(pub,sub,1);
+        // Client direct connection
+        ZMQ.Context clientContext = ZMQ.context(1);
+        ZMQ.Socket client_pub = clientContext.socket(ZMQ.PUB);
+        client_pub.connect("tcp://localhost:" + args[2]);
+
+        Exchange exchange = new Exchange("Exchange" + args[3], frontend_push, frontend_pull, client_pub, populateCompanies(Integer.parseInt(args[3])));
         
         while(true){
-            byte[] b = sub.recv();
+            byte[] b = frontend_pull.recv();
             MsgCS msg = MsgCS.parseFrom(b);
-            System.out.println("Received " + msg.toString());
+            System.out.println("Received " + msg.toString()); // provavelmente é para tirar isto!!!
            
             OrderRequest order = msg.getOrderRequest();
             String type = order.getType();
             Client client = msg.getInfo();
             
             if(type.equals("1")){
-                // sell
+                // SELL
                 String sell_id = String.valueOf(exchange.getSellsByCompany(order.getCompanyId()).size());
                 Sell sell = new Sell(sell_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderSell(sell); // send to directory
-                pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
+                client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
                 exchange.receiveSell(sell);
                 //socket.send("Received sell.");
             }
             else if(type.equals("2")){
-                // buy
+                // BUY
                 String buy_id = String.valueOf(exchange.getBuysByCompany(order.getCompanyId()).size());
                 Buy buy = new Buy(buy_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderBuy(buy); // send to directory
-                pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
+                client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
                 exchange.receiveBuy(buy);
                 //socket.send("Received buy.");
             }
         }
-        //socket.close();
-        //context.term();
     }
 
-    public static Exchange populateExchange(ZMQ.Socket pub, ZMQ.Socket sub, int number){
+    public static Map<String,Company> populateCompanies(int number){
 
         Map<String,Company> companies = new HashMap();
-        String name = "Exchange" + number;
 
         switch(number){
             case 1: 
@@ -199,7 +197,7 @@ public class Exchange {
                 companies.put("AliExpress",new Company("AliExpress"));
             default: break;
         }
-        return new Exchange(pub, companies, name);
+        return companies;
     }
 
     public List<Transaction> getTransactionsByCompany(String company){
