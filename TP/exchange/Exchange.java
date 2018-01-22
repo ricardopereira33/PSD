@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package exchange;
 
 import exchange.Protos.MsgCS;
@@ -19,59 +14,28 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import org.zeromq.ZMQ;
 
-/**
- *
- * @author dinispeixoto
- */
 public class Exchange {
 
-    private Map<String,Company> companies;
-    private Map<String,List<Transaction>> transactions;
-    private Map<String,List<Sell>> sell_orders;
-    private Map<String,List<Buy>> buy_orders;
     private ZMQ.Socket pub;
+    private Map<String,Company> companies;
+    private Map<String,List<Buy>> buy_orders;
+    private Map<String,List<Sell>> sell_orders;
+    private Map<String,List<Transaction>> transactions;
 
     public Exchange(ZMQ.Socket pub){
-        this.companies = new HashMap();
-        this.transactions = new HashMap();
-        this.sell_orders = new HashMap();
-        this.buy_orders = new HashMap();
         this.pub = pub;
+        this.companies = new HashMap();
+        this.buy_orders = new HashMap();
+        this.sell_orders = new HashMap();
+        this.transactions = new HashMap();
     }
 
     public Exchange(ZMQ.Socket pub, Map<String,Company> companies){
-        this.companies = companies;
-        this.transactions = new HashMap();
-        this.sell_orders = new HashMap();
-        this.buy_orders = new HashMap();
         this.pub = pub;
-    }
-
-    public List<Transaction> getTransactionsByCompany(String company_id){
-        List<Transaction> transaction_queue = transactions.get(company_id);
-        if(transaction_queue == null){
-            transaction_queue = new LinkedList<Transaction>();
-            transactions.put(company_id, transaction_queue);
-        }
-        return transaction_queue;
-    }
-
-    public List<Sell> getSellsByCompany(String company_id){
-        List<Sell> sell_queue = sell_orders.get(company_id);
-        if(sell_queue == null){
-            sell_queue = new LinkedList<Sell>();
-            sell_orders.put(company_id, sell_queue);
-        }
-        return sell_queue;
-    }
-
-    public List<Buy> getBuysByCompany(String company_id){
-        List<Buy> buy_queue = buy_orders.get(company_id);
-        if(buy_queue == null){
-            buy_queue = new LinkedList<Buy>();
-            buy_orders.put(company_id, buy_queue);
-        }
-        return buy_queue;
+        this.companies = companies;
+        this.buy_orders = new HashMap();
+        this.sell_orders = new HashMap();
+        this.transactions = new HashMap();
     }
 
     public void receiveSell(Sell sell_order) throws Exception{
@@ -141,13 +105,13 @@ public class Exchange {
         sell_queue.remove(sell_order);
         buy_queue.remove(buy_order);
         
-        // Theres more to sell
+        // There's more to sell
         if(buy_qt < sell_qt){
             String sell_id = String.valueOf(getSellsByCompany(company_id).size());
             sell_order = new Sell(sell_id, sell_order.getSeller(), company_id, sell_qt - min_quantity, sell_order.getPrice());
             sell_queue.add(sell_order);
         } 
-        // Theres more to buy    
+        // There's more to buy    
         else if(sell_qt > buy_qt){
             String buy_id = String.valueOf(getBuysByCompany(company_id).size());
             buy_order = new Buy(buy_id, buy_order.getBuyer(), company_id, buy_qt - min_quantity, buy_order.getPrice());
@@ -163,8 +127,6 @@ public class Exchange {
 
         return new Transaction(transaction_id, sell_order.getId(), buy_order.getId(), mean_price, min_quantity, company_id);
     }
-
-
 
     public static void main(String[] args) throws Exception{
 
@@ -184,7 +146,6 @@ public class Exchange {
         Exchange exchange = populateExchange(pub,sub,1);
         
         while(true){
-            //byte[] b = socket.recv();
             byte[] b = sub.recv();
             MsgCS msg = MsgCS.parseFrom(b);
             System.out.println("Received " + msg.toString());
@@ -212,7 +173,6 @@ public class Exchange {
                 //socket.send("Received buy.");
             }
         }
-    
         //socket.close();
         //context.term();
     }
@@ -220,51 +180,49 @@ public class Exchange {
     public static Exchange populateExchange(ZMQ.Socket pub, ZMQ.Socket sub, int number){
 
         Map<String,Company> companies = new HashMap();
-        String exchange_name = "Exchange" + number;
 
         switch(number){
             case 1: 
-                Company first = new Company("1","Apple",exchange_name, "Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.");
-                sub.subscribe(toByteArray("Apple"));
-                Company second = new Company("2","Samsung",exchange_name, "Samsung Group is a South Korean multinational conglomerate headquartered in Samsung Town, Seoul.");
-                sub.subscribe(toByteArray("Samsung"));
-                Company third = new Company("3","Xiaomi",exchange_name, "Xiaomi Inc. (stylized as Mi) is a Chinese electronics and software company headquartered in Beijing.");
-                sub.subscribe(toByteArray("Xiaomi"));
-                companies.put("Apple",first); companies.put("Samsung",second); companies.put("Xiaomi",third);
+                companies.put("Apple",new Company("Apple"));
+                companies.put("Samsung",new Company("Samsung"));
+                companies.put("Xiaomi",new Company("Xiaomi"));
             case 2:
-                Company fourth = new Company("4","Google",exchange_name, "Google LLC is an American multinational technology company that specializes in Internet-related services and products.");
-                sub.subscribe(toByteArray("Google"));
-                Company fifth = new Company("5","Facebook",exchange_name, "Facebook is an American online social media and social networking service based in Menlo Park, California..");
-                sub.subscribe(toByteArray("Facebook"));
-                Company sixth = new Company("6","Twitter",exchange_name, "Twitter is an online news and social networking service where users post and interact with messages, known as tweets.");
-                sub.subscribe(toByteArray("Twitter"));
-                companies.put("Google",fourth); companies.put("Facebook",fifth); companies.put("Twitter",sixth);
+                companies.put("Google",new Company("Google"));
+                companies.put("Facebook",new Company("Facebook"));
+                companies.put("Twitter",new Company("Twitter"));
             case 3:
-                Company seventh = new Company("7","Amazon",exchange_name,"Amazon.com, Inc., doing business as Amazon is an American electronic commerce and cloud computing company based in Seattle, Washington");
-                sub.subscribe(toByteArray("Amazon"));
-                Company eighth = new Company("8","Ebay",exchange_name,"eBay Inc is a multinational e-commerce corporation headquartered in San Jose, California that facilitates consumer-to-consumer and business-to-consumer sales through its website.");
-                sub.subscribe(toByteArray("Ebay"));
-                Company ninth = new Company("9","AliExpress",exchange_name,"Launched in 2010, AliExpress.com is an online retail service made up of small businesses in China and elsewhere offering products to international online buyers.");
-                sub.subscribe(toByteArray("AliExpress"));
-                companies.put("Amazon",seventh); companies.put("Ebay",eighth); companies.put("AliExpress",ninth);
+                companies.put("Amazon",new Company("Amazon"));
+                companies.put("Ebay",new Company("Ebay"));
+                companies.put("AliExpress",new Company("AliExpress"));
             default: break;
         }
         return new Exchange(pub, companies);
     }
 
-    public static byte[] toByteArray(String string){
-
-        byte[] byte_head = new byte[2];
-        byte_head[0] = 10;
-        byte_head[1] = (byte) string.length();
-
-        byte[] byte_string = string.getBytes();
-
-        byte[] byte_array = new byte[byte_head.length + byte_string.length];
-        System.arraycopy(byte_head, 0, byte_array, 0, byte_head.length);
-        System.arraycopy(byte_string, 0, byte_array, byte_head.length, byte_string.length);
-
-        return byte_array;
+    public List<Transaction> getTransactionsByCompany(String company){
+        List<Transaction> transaction_queue = transactions.get(company);
+        if(transaction_queue == null){
+            transaction_queue = new LinkedList<Transaction>();
+            transactions.put(company, transaction_queue);
+        }
+        return transaction_queue;
     }
-    
+
+    public List<Sell> getSellsByCompany(String company){
+        List<Sell> sell_queue = sell_orders.get(company);
+        if(sell_queue == null){
+            sell_queue = new LinkedList<Sell>();
+            sell_orders.put(company, sell_queue);
+        }
+        return sell_queue;
+    }
+
+    public List<Buy> getBuysByCompany(String company){
+        List<Buy> buy_queue = buy_orders.get(company);
+        if(buy_queue == null){
+            buy_queue = new LinkedList<Buy>();
+            buy_orders.put(company, buy_queue);
+        }
+        return buy_queue;
+    }
 }
