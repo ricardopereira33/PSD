@@ -11,7 +11,8 @@ import java.util.Map;
 public class Company {
     private String id;
     private String name;
-    private String exange;
+    private String host;
+    private String port;
     private String description;
     private Map<Integer, List<Order>> orders;
     private Map<Integer, List<Transaction>> transactions;
@@ -19,10 +20,11 @@ public class Company {
 
     public Company(){ }
 
-    public Company(String id, String name, String exange, String description){
+    public Company(String id, String name, String host, String port, String description){
         this.id = id;
         this.name = name;
-        this.exange = exange;
+        this.host = host;
+        this.port = port;
         this.description = description;
         this.orders = new HashMap();
         this.transactions = new HashMap();
@@ -37,9 +39,11 @@ public class Company {
         return name;
     }
 
-    public String getExange(){
-        return exange;
+    public String getHost(){
+        return host;
     }
+
+    public String getPort() {return port; }
 
     public String getDescription() {
         return description;
@@ -78,8 +82,6 @@ public class Company {
         if(transactionsFromActualDay.isEmpty()) return null;
         return transactionsFromActualDay;
     }
-
-
 
     public void addOrder(Order order){
         if(orders.containsKey(day)){

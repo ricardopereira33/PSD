@@ -1,7 +1,7 @@
 package resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.org.apache.regexp.internal.RE;
+//import com.sun.org.apache.regexp.internal.RE;
 import org.omg.CORBA.TRANSACTION_MODE;
 import representations.CompanyRep;
 import representations.PriceInfo;
@@ -21,28 +21,24 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 public class CompanyResource {
     private Map<String,Company> companies;
-    private int id;
 
     public CompanyResource(){
         this.companies = new HashMap();
-        this.id = 0;
 
-        Company first = new Company("1","Apple","Exchange1", "Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.");
-        Company second = new Company("2","Samsung","Exchange1", "Samsung Group is a South Korean multinational conglomerate headquartered in Samsung Town, Seoul.");
-        Company third = new Company("3","Xiaomi","Exchange1", "Xiaomi Inc. (stylized as Mi) is a Chinese electronics and software company headquartered in Beijing.");
+        Company first = new Company("1","Apple","host1", "1111", "Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.");
+        Company second = new Company("2","Samsung","host1", "1111",  "Samsung Group is a South Korean multinational conglomerate headquartered in Samsung Town, Seoul.");
+        Company third = new Company("3","Xiaomi","host1", "1111",  "Xiaomi Inc. (stylized as Mi) is a Chinese electronics and software company headquartered in Beijing.");
         companies.put("Apple",first); companies.put("Samsung",second); companies.put("Xiaomi",third);
 
-        Company fourth = new Company("4","Google","Exchange2", "Google LLC is an American multinational technology company that specializes in Internet-related services and products.");
-        Company fifth = new Company("5","Facebook","Exchange2", "Facebook is an American online social media and social networking service based in Menlo Park, California..");
-        Company sixth = new Company("6","Twitter","Exchange2", "Twitter is an online news and social networking service where users post and interact with messages, known as tweets.");
+        Company fourth = new Company("4","Google","host2", "2222",  "Google LLC is an American multinational technology company that specializes in Internet-related services and products.");
+        Company fifth = new Company("5","Facebook","host2", "2222", "Facebook is an American online social media and social networking service based in Menlo Park, California..");
+        Company sixth = new Company("6","Twitter","host2", "2222", "Twitter is an online news and social networking service where users post and interact with messages, known as tweets.");
         companies.put("Google",fourth); companies.put("Facebook",fifth); companies.put("Twitter",sixth);
 
-        Company seventh = new Company("7","Amazon","Exchange3","Amazon.com, Inc., doing business as Amazon is an American electronic commerce and cloud computing company based in Seattle, Washington");
-        Company eighth = new Company("8","Ebay","Exchange3","eBay Inc is a multinational e-commerce corporation headquartered in San Jose, California that facilitates consumer-to-consumer and business-to-consumer sales through its website.");
-        Company ninth = new Company("9","AliExpress","Exchange3","Launched in 2010, AliExpress.com is an online retail service made up of small businesses in China and elsewhere offering products to international online buyers.");
+        Company seventh = new Company("7","Amazon","host3", "3333","Amazon.com, Inc., doing business as Amazon is an American electronic commerce and cloud computing company based in Seattle, Washington");
+        Company eighth = new Company("8","Ebay","host3", "3333","eBay Inc is a multinational e-commerce corporation headquartered in San Jose, California that facilitates consumer-to-consumer and business-to-consumer sales through its website.");
+        Company ninth = new Company("9","AliExpress","host3", "3333","Launched in 2010, AliExpress.com is an online retail service made up of small businesses in China and elsewhere offering products to international online buyers.");
         companies.put("Amazon",seventh); companies.put("Ebay",eighth); companies.put("AliExpress",ninth);
-
-
     }
 
     @GET
@@ -50,7 +46,7 @@ public class CompanyResource {
     public Response getCompanies(){
         List<CompanyRep> companiesList = new ArrayList();
         for(Company c : companies.values()){
-            companiesList.add(new CompanyRep(c.getId(),c.getName(),c.getExange(),c.getDescription()));
+            companiesList.add(new CompanyRep(c.getId(),c.getName(),c.getHost(),c.getPort(),c.getDescription()));
         }
         if(companiesList.isEmpty()) return Response.status(Response.Status.NOT_FOUND).build();
         else return Response.ok(companiesList).build();
@@ -61,7 +57,7 @@ public class CompanyResource {
     public Response getCompany(@PathParam("id") String id){
         if(companies.containsKey(id)){
             Company c = companies.get(id);
-            return Response.ok(new CompanyRep(c.getId(),c.getName(),c.getExange(),c.getDescription())).build();
+            return Response.ok(new CompanyRep(c.getId(),c.getName(),c.getHost(),c.getPort(),c.getDescription())).build();
         }
         else return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -116,7 +112,7 @@ public class CompanyResource {
     @Path("company/{id}")
     public Response putCompany(Company company){
         if(companies.containsKey(company.getId())) return Response.status(Response.Status.CONFLICT).build();
-        companies.put(company.getId(),new Company(company.getId(),company.getName(),company.getExange(),company.getDescription()));
+        companies.put(company.getId(),new Company(company.getId(),company.getName(),company.getHost(),company.getPort(),company.getDescription()));
         return Response.status(Response.Status.CREATED).build();
     }
 
