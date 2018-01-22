@@ -16,6 +16,7 @@ import org.zeromq.ZMQ;
 
 public class Exchange {
 
+    private String name;
     private ZMQ.Socket pub;
     private Map<String,Company> companies;
     private Map<String,List<Buy>> buy_orders;
@@ -30,8 +31,9 @@ public class Exchange {
         this.transactions = new HashMap();
     }
 
-    public Exchange(ZMQ.Socket pub, Map<String,Company> companies){
+    public Exchange(ZMQ.Socket pub, Map<String,Company> companies, String name){
         this.pub = pub;
+        this.name = name;
         this.companies = companies;
         this.buy_orders = new HashMap();
         this.sell_orders = new HashMap();
@@ -180,6 +182,7 @@ public class Exchange {
     public static Exchange populateExchange(ZMQ.Socket pub, ZMQ.Socket sub, int number){
 
         Map<String,Company> companies = new HashMap();
+        String name = "Exchange" + number;
 
         switch(number){
             case 1: 
@@ -196,7 +199,7 @@ public class Exchange {
                 companies.put("AliExpress",new Company("AliExpress"));
             default: break;
         }
-        return new Exchange(pub, companies);
+        return new Exchange(pub, companies, name);
     }
 
     public List<Transaction> getTransactionsByCompany(String company){
