@@ -4,13 +4,21 @@
 %===========
 % run : process send orders to Exchange
 run(Sock, User) ->
+    Pid = self(),
+    spawn(fun() -> worker(Sock, User, Pid) end),
+    receiver(Sock, User).
+
+% receive 
+receiver(Sock, User) ->
+    io:format("Entrei\n"),
     receive
-        {tcp, Sock, Data} ->
-            Map = protos:decode_msg(Data, 'MsgCS'),
+        {msg, Map} ->
+            io:format("Recebi\n"),
             case maps:find(type, Map) of
                 {ok,"3"} -> 
                     {ok, MapOrder} = maps:find(orderRequest, Map),
                     {ok, Company} = maps:find(company_id, MapOrder),
+                    io:format("Sending.\n"),
                     Pid = exchangeManager:getExchange(Company),
                     producer:order(Data, Pid),
                     Bin = protos:encode_msg(#{type=>"4"}, 'MsgCS'),
@@ -23,10 +31,21 @@ run(Sock, User) ->
         {transaction, Data} ->
             gen_tcp:send(Sock, Data),
             run(Sock, User);
-        {tcp_closed, _} ->
+        _ ->
+            io:format("Error.\n")
+    end,
+    io:format("End.").
+
+% ator - tpc connections 
+worker(Sock, User, Pid) ->
+    io:format("fds\n"),
+    case gen_tcp:recv(Sock, 0) of
+        {ok, Data} ->
+            io:format("nice\n"),
+            Map = protos:decode_msg(Data, 'MsgCS'),
+            Pid ! {msg, Map},
+            worker(Sock, User, Pid);
+        {error, closed} ->
             login:logout(User),
-            io:format("User closed\n");
-        {tcp_error, _} ->
-            login:logout(User),
-            io:format("User error\n")
+            io:format("User closed\n")
     end.
