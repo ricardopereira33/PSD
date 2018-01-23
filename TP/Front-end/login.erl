@@ -29,7 +29,7 @@ request_pid(User) ->
 
 receiveMsg() ->
     receive
-        {?MODULE, Res} -> Res
+        {?MODULE, Res} ->  Res
     end.
 
 %===========

@@ -33,16 +33,17 @@ waitLogin(Sock) ->
                     {ok, UserInfo} = maps:find(info, Map),
                     {ok, User} = maps:find(user, UserInfo),
                     {ok, Pass} = maps:find(pass, UserInfo),
-                    login:login(User, Pass),
-                    receive
-                        {_, logged} ->
+                    case login:login(User, Pass) of                
+                        logged ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => true, msg => "Logged"}}, 'MsgCS'),
                             gen_tcp:send(Sock, Bin),
                             user:run(Sock, User);
-                        {_, invalid} ->
+                        invalid ->
                             Bin = protos:encode_msg(#{type=>"2", repL=>#{valid => false, msg => "Invalid"}}, 'MsgCS'),
                             gen_tcp:send(Sock, Bin),
-                            waitLogin(Sock)
+                            waitLogin(Sock);
+                        _ -> 
+                            io:format("Error.\n")
                     end;
                 _ ->
                     io:format("Invalid\n"),
