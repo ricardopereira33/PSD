@@ -11,9 +11,6 @@ public class BrokerClientExchange{
         ZMQ.Socket pub = context.socket(ZMQ.XPUB);
         pub.bind("tcp://*:"+args[1]);
         ZMQ.proxy(sub, pub, null);
-
-        //sub.close();
-        //pub.close();
-        //context.term();
+        
 	}
 }
