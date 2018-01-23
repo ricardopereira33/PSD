@@ -1,54 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package exchange;
 
-/**
- *
- * @author dinispeixoto
- */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Company {
-    private String id;
     private String name;
-    private String exange;
-    private String description;
     private Map<Integer, List<Order>> orders;
     private Map<Integer, List<Transaction>> transactions;
     private int day;
 
     public Company(){ }
 
-    public Company(String id, String name, String exange, String description){
-        this.id = id;
+    public Company(String name){
         this.name = name;
-        this.exange = exange;
-        this.description = description;
         this.orders = new HashMap();
         this.transactions = new HashMap();
         this.day = 0;
     }
 
-    public String getId(){
-        return id;
-    }
-
     public String getName(){
         return name;
-    }
-
-    public String getExange(){
-        return exange;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public List<Order> getOrdersFromDayBefore(){
@@ -85,8 +58,6 @@ public class Company {
         return transactionsFromActualDay;
     }
 
-
-
     public void addOrder(Order order){
         if(orders.containsKey(day)){
             orders.get(day).add(order);
@@ -109,4 +80,3 @@ public class Company {
         }
     }
 }
-

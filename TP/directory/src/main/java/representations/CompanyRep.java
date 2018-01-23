@@ -3,16 +3,18 @@ package representations;
 import com.fasterxml.jackson.annotation.*;
 
 public class CompanyRep {
-    public final String id;
     public final String name;
-    public final String exange;
+    public final String host;
+    public final String port;
     public final String description;
+    public final String exchange;
 
     @JsonCreator
-    public CompanyRep(@JsonProperty("id") String id, @JsonProperty("name") String name, @JsonProperty("exange") String exange, @JsonProperty("description") String description){
-        this.id = id;
+    public CompanyRep(@JsonProperty("name") String name, @JsonProperty("host") String host, @JsonProperty("port") String port, @JsonProperty("description") String description, @JsonProperty("exchange") String exchange){
         this.name = name;
-        this.exange = exange;
+        this.host = host;
+        this.port = port;
         this.description = description;
+        this.exchange = exchange;
     }
 }

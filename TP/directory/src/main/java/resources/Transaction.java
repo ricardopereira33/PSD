@@ -1,7 +1,5 @@
 package resources;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Transaction {
     private String id;
     private String sellOrder;

@@ -6,14 +6,11 @@ public class BrokerFrontEndExchange{
     public static void main(String[] args) {
 
         ZMQ.Context context = ZMQ.context(1);
-        ZMQ.Socket sub = context.socket(ZMQ.XSUB);
-        sub.bind("tcp://*:"+args[0]);
-        ZMQ.Socket pub = context.socket(ZMQ.XPUB);
-        pub.bind("tcp://*:"+args[1]);
-        ZMQ.proxy(sub, pub, null);
+        ZMQ.Socket push = context.socket(ZMQ.PUSH;
+        push.bind("tcp://*:" + args[0]);
+        ZMQ.Socket pull = context.socket(ZMQ.PULL);
+        pull.bind("tcp://*:" + args[1]);
+        ZMQ.proxy(pull, push, null);
 
-        //sub.close();
-        //pub.close();
-        //context.term();
     }
 }

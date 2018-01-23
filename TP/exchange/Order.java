@@ -3,15 +3,15 @@ package exchange;
 public abstract class Order{
 
     private String id;
-    private String company_id;
+    private String company;
     private int quantity;
     private float price;
 
     public Order(){}
 
-    public Order(String id, String company_id, int quantity, float price){
+    public Order(String id, String company, int quantity, float price){
         this.id = id;
-        this.company_id = company_id;
+        this.company = company;
         this.quantity = quantity;
         this.price = price;
     }
@@ -29,6 +29,6 @@ public abstract class Order{
     }
 
     public String getCompany(){
-        return company_id;
+        return company;
     }
 }

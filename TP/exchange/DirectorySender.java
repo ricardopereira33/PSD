@@ -18,7 +18,7 @@ public class DirectorySender {
     public static void createCompany(Company c) throws Exception{
         String jsonCompany = gson.toJson(c);
         //System.out.println(jsonCompany);
-        String urly = "http://localhost:8080/company/"+c.getId();
+        String urly = "http://localhost:8080/company/"+c.getName();
         //System.out.println(urly);
         URL url = new URL(urly);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
