@@ -109,18 +109,14 @@ public class UserRequest {
                     try{
                         getCompanies(br);
                     }
-                    catch(Exception e){
-
-                    }
+                    catch(Exception e){ e.printStackTrace();}
                     br.readLine();
                     break;
                 case "6":
                     try{
                         getCompanyInfo(br);
                     }
-                    catch(Exception e){
-                        
-                    }
+                    catch(Exception e){ e.printStackTrace();}
                     br.readLine();
                     break;
                 default: 

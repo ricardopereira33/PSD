@@ -24,6 +24,7 @@ logout(User) ->
     receiveMsg().
 
 request_pid(User) ->
+    io:format("Request Pid\n"),
     users ! { request_pid, User, self()},
     receiveMsg().
 
@@ -58,6 +59,7 @@ loginManager(Map) ->
             case maps:find(User, Map) of
                 {ok, {Pass, false}} ->
                     From ! {?MODULE, logged},
+                    users ! {add_pid, User, From},
                     io:format("account ~p logged in\n", [User]),
                     loginManager(maps:update(User, {Pass, true}, Map));
                 _ -> 
@@ -67,7 +69,7 @@ loginManager(Map) ->
         {logout, User, From} -> 
             io:format("account ~p logged out\n", [User]),
             From ! {?MODULE, ok},
-            users ! {add_pid, User, From},
+            users ! {rm_pid, User},
             {Pass, _} = maps:get(User, Map),
             loginManager(maps:update(User, {Pass,false}, Map))
     end.

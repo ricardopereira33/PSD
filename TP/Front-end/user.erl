@@ -27,7 +27,6 @@ receiver(Sock, User) ->
                     receiver(Sock, User)
             end;
         {transaction, Data} ->
-            io:format("Data: ~p",[Data]),
             gen_tcp:send(Sock, Data),
             receiver(Sock, User);
         _ ->
