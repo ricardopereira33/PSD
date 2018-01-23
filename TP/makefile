@@ -36,4 +36,3 @@ run-directory:
 clean:
 	rm client/*.class
 	rm front-end/*.beam
-

@@ -53,14 +53,18 @@
         repL                    => 'Reply_Login'(), % = 5
         orderRequest            => 'OrderRequest'() % = 6
        }.
--export_type(['Request_Login'/0, 'Reply_Login'/0, 'Client'/0, 'OrderRequest'/0, 'MsgCS'/0]).
+-type 'OrderReply'() ::
+      #{user                    => iolist(),        % = 1
+        notification            => iolist()         % = 2
+       }.
+-export_type(['Request_Login'/0, 'Reply_Login'/0, 'Client'/0, 'OrderRequest'/0, 'MsgCS'/0, 'OrderReply'/0]).
 
--spec encode_msg('Request_Login'() | 'Reply_Login'() | 'Client'() | 'OrderRequest'() | 'MsgCS'(),'Request_Login' | 'Reply_Login' | 'Client' | 'OrderRequest' | 'MsgCS') -> binary().
+-spec encode_msg('Request_Login'() | 'Reply_Login'() | 'Client'() | 'OrderRequest'() | 'MsgCS'() | 'OrderReply'(),'Request_Login' | 'Reply_Login' | 'Client' | 'OrderRequest' | 'MsgCS' | 'OrderReply') -> binary().
 encode_msg(Msg, MsgName) ->
     encode_msg(Msg, MsgName, []).
 
 
--spec encode_msg('Request_Login'() | 'Reply_Login'() | 'Client'() | 'OrderRequest'() | 'MsgCS'(),'Request_Login' | 'Reply_Login' | 'Client' | 'OrderRequest' | 'MsgCS', list()) -> binary().
+-spec encode_msg('Request_Login'() | 'Reply_Login'() | 'Client'() | 'OrderRequest'() | 'MsgCS'() | 'OrderReply'(),'Request_Login' | 'Reply_Login' | 'Client' | 'OrderRequest' | 'MsgCS' | 'OrderReply', list()) -> binary().
 encode_msg(Msg, MsgName, Opts) ->
     case proplists:get_bool(verify, Opts) of
       true -> verify_msg(Msg, MsgName, Opts);
@@ -72,7 +76,8 @@ encode_msg(Msg, MsgName, Opts) ->
       'Reply_Login' -> e_msg_Reply_Login(Msg, TrUserData);
       'Client' -> e_msg_Client(Msg, TrUserData);
       'OrderRequest' -> e_msg_OrderRequest(Msg, TrUserData);
-      'MsgCS' -> e_msg_MsgCS(Msg, TrUserData)
+      'MsgCS' -> e_msg_MsgCS(Msg, TrUserData);
+      'OrderReply' -> e_msg_OrderReply(Msg, TrUserData)
     end.
 
 
@@ -228,6 +233,28 @@ e_msg_MsgCS(#{} = M, Bin, TrUserData) ->
       _ -> B5
     end.
 
+e_msg_OrderReply(Msg, TrUserData) ->
+    e_msg_OrderReply(Msg, <<>>, TrUserData).
+
+
+e_msg_OrderReply(#{} = M, Bin, TrUserData) ->
+    B1 = case M of
+	   #{user := F1} ->
+	       begin
+		 TrF1 = id(F1, TrUserData),
+		 e_type_string(TrF1, <<Bin/binary, 10>>)
+	       end;
+	   _ -> Bin
+	 end,
+    case M of
+      #{notification := F2} ->
+	  begin
+	    TrF2 = id(F2, TrUserData),
+	    e_type_string(TrF2, <<B1/binary, 18>>)
+	  end;
+      _ -> B1
+    end.
+
 e_mfield_MsgCS_info(Msg, Bin, TrUserData) ->
     SubBin = e_msg_Client(Msg, <<>>, TrUserData),
     Bin2 = e_varint(byte_size(SubBin), Bin),
@@ -325,6 +352,14 @@ decode_msg(Bin, MsgName, Opts) when is_binary(Bin) ->
 		error({gpb_error,
 		       {decoding_failure,
 			{Bin, 'MsgCS', {Class, Reason, StackTrace}}}})
+	  end;
+      'OrderReply' ->
+	  try d_msg_OrderReply(Bin, TrUserData) catch
+	    Class:Reason ->
+		StackTrace = erlang:get_stacktrace(),
+		error({gpb_error,
+		       {decoding_failure,
+			{Bin, 'OrderReply', {Class, Reason, StackTrace}}}})
 	  end
     end.
 
@@ -1194,6 +1229,146 @@ skip_64_MsgCS(<<_:64, Rest/binary>>, Z1, Z2, F@_1, F@_2,
     dfp_read_field_def_MsgCS(Rest, Z1, Z2, F@_1, F@_2, F@_3,
 			     F@_4, F@_5, F@_6, TrUserData).
 
+d_msg_OrderReply(Bin, TrUserData) ->
+    dfp_read_field_def_OrderReply(Bin, 0, 0,
+				  id('$undef', TrUserData),
+				  id('$undef', TrUserData), TrUserData).
+
+dfp_read_field_def_OrderReply(<<10, Rest/binary>>, Z1,
+			      Z2, F@_1, F@_2, TrUserData) ->
+    d_field_OrderReply_user(Rest, Z1, Z2, F@_1, F@_2,
+			    TrUserData);
+dfp_read_field_def_OrderReply(<<18, Rest/binary>>, Z1,
+			      Z2, F@_1, F@_2, TrUserData) ->
+    d_field_OrderReply_notification(Rest, Z1, Z2, F@_1,
+				    F@_2, TrUserData);
+dfp_read_field_def_OrderReply(<<>>, 0, 0, F@_1, F@_2,
+			      _) ->
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{user => F@_1}
+	 end,
+    if F@_2 == '$undef' -> S2;
+       true -> S2#{notification => F@_2}
+    end;
+dfp_read_field_def_OrderReply(Other, Z1, Z2, F@_1, F@_2,
+			      TrUserData) ->
+    dg_read_field_def_OrderReply(Other, Z1, Z2, F@_1, F@_2,
+				 TrUserData).
+
+dg_read_field_def_OrderReply(<<1:1, X:7, Rest/binary>>,
+			     N, Acc, F@_1, F@_2, TrUserData)
+    when N < 32 - 7 ->
+    dg_read_field_def_OrderReply(Rest, N + 7, X bsl N + Acc,
+				 F@_1, F@_2, TrUserData);
+dg_read_field_def_OrderReply(<<0:1, X:7, Rest/binary>>,
+			     N, Acc, F@_1, F@_2, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+      10 ->
+	  d_field_OrderReply_user(Rest, 0, 0, F@_1, F@_2,
+				  TrUserData);
+      18 ->
+	  d_field_OrderReply_notification(Rest, 0, 0, F@_1, F@_2,
+					  TrUserData);
+      _ ->
+	  case Key band 7 of
+	    0 ->
+		skip_varint_OrderReply(Rest, 0, 0, F@_1, F@_2,
+				       TrUserData);
+	    1 ->
+		skip_64_OrderReply(Rest, 0, 0, F@_1, F@_2, TrUserData);
+	    2 ->
+		skip_length_delimited_OrderReply(Rest, 0, 0, F@_1, F@_2,
+						 TrUserData);
+	    3 ->
+		skip_group_OrderReply(Rest, Key bsr 3, 0, F@_1, F@_2,
+				      TrUserData);
+	    5 ->
+		skip_32_OrderReply(Rest, 0, 0, F@_1, F@_2, TrUserData)
+	  end
+    end;
+dg_read_field_def_OrderReply(<<>>, 0, 0, F@_1, F@_2,
+			     _) ->
+    S1 = #{},
+    S2 = if F@_1 == '$undef' -> S1;
+	    true -> S1#{user => F@_1}
+	 end,
+    if F@_2 == '$undef' -> S2;
+       true -> S2#{notification => F@_2}
+    end.
+
+d_field_OrderReply_user(<<1:1, X:7, Rest/binary>>, N,
+			Acc, F@_1, F@_2, TrUserData)
+    when N < 57 ->
+    d_field_OrderReply_user(Rest, N + 7, X bsl N + Acc,
+			    F@_1, F@_2, TrUserData);
+d_field_OrderReply_user(<<0:1, X:7, Rest/binary>>, N,
+			Acc, _, F@_2, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    dfp_read_field_def_OrderReply(RestF, 0, 0, NewFValue,
+				  F@_2, TrUserData).
+
+d_field_OrderReply_notification(<<1:1, X:7,
+				  Rest/binary>>,
+				N, Acc, F@_1, F@_2, TrUserData)
+    when N < 57 ->
+    d_field_OrderReply_notification(Rest, N + 7,
+				    X bsl N + Acc, F@_1, F@_2, TrUserData);
+d_field_OrderReply_notification(<<0:1, X:7,
+				  Rest/binary>>,
+				N, Acc, F@_1, _, TrUserData) ->
+    {NewFValue, RestF} = begin
+			   Len = X bsl N + Acc,
+			   <<Utf8:Len/binary, Rest2/binary>> = Rest,
+			   {unicode:characters_to_list(Utf8, unicode), Rest2}
+			 end,
+    dfp_read_field_def_OrderReply(RestF, 0, 0, F@_1,
+				  NewFValue, TrUserData).
+
+skip_varint_OrderReply(<<1:1, _:7, Rest/binary>>, Z1,
+		       Z2, F@_1, F@_2, TrUserData) ->
+    skip_varint_OrderReply(Rest, Z1, Z2, F@_1, F@_2,
+			   TrUserData);
+skip_varint_OrderReply(<<0:1, _:7, Rest/binary>>, Z1,
+		       Z2, F@_1, F@_2, TrUserData) ->
+    dfp_read_field_def_OrderReply(Rest, Z1, Z2, F@_1, F@_2,
+				  TrUserData).
+
+skip_length_delimited_OrderReply(<<1:1, X:7,
+				   Rest/binary>>,
+				 N, Acc, F@_1, F@_2, TrUserData)
+    when N < 57 ->
+    skip_length_delimited_OrderReply(Rest, N + 7,
+				     X bsl N + Acc, F@_1, F@_2, TrUserData);
+skip_length_delimited_OrderReply(<<0:1, X:7,
+				   Rest/binary>>,
+				 N, Acc, F@_1, F@_2, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_OrderReply(Rest2, 0, 0, F@_1, F@_2,
+				  TrUserData).
+
+skip_group_OrderReply(Bin, FNum, Z2, F@_1, F@_2,
+		      TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_OrderReply(Rest, 0, Z2, F@_1, F@_2,
+				  TrUserData).
+
+skip_32_OrderReply(<<_:32, Rest/binary>>, Z1, Z2, F@_1,
+		   F@_2, TrUserData) ->
+    dfp_read_field_def_OrderReply(Rest, Z1, Z2, F@_1, F@_2,
+				  TrUserData).
+
+skip_64_OrderReply(<<_:64, Rest/binary>>, Z1, Z2, F@_1,
+		   F@_2, TrUserData) ->
+    dfp_read_field_def_OrderReply(Rest, Z1, Z2, F@_1, F@_2,
+				  TrUserData).
+
 read_group(Bin, FieldNum) ->
     {NumBytes, EndTagLen} = read_gr_b(Bin, 0, 0, 0, 0, FieldNum),
     <<Group:NumBytes/binary, _:EndTagLen/binary, Rest/binary>> = Bin,
@@ -1265,7 +1440,9 @@ merge_msgs(Prev, New, MsgName, Opts) ->
       'Client' -> merge_msg_Client(Prev, New, TrUserData);
       'OrderRequest' ->
 	  merge_msg_OrderRequest(Prev, New, TrUserData);
-      'MsgCS' -> merge_msg_MsgCS(Prev, New, TrUserData)
+      'MsgCS' -> merge_msg_MsgCS(Prev, New, TrUserData);
+      'OrderReply' ->
+	  merge_msg_OrderReply(Prev, New, TrUserData)
     end.
 
 merge_msg_Request_Login(PMsg, NMsg, _) ->
@@ -1380,6 +1557,21 @@ merge_msg_MsgCS(PMsg, NMsg, TrUserData) ->
       {_, _} -> S6
     end.
 
+merge_msg_OrderReply(PMsg, NMsg, _) ->
+    S1 = #{},
+    S2 = case {PMsg, NMsg} of
+	   {_, #{user := NFuser}} -> S1#{user => NFuser};
+	   {#{user := PFuser}, _} -> S1#{user => PFuser};
+	   _ -> S1
+	 end,
+    case {PMsg, NMsg} of
+      {_, #{notification := NFnotification}} ->
+	  S2#{notification => NFnotification};
+      {#{notification := PFnotification}, _} ->
+	  S2#{notification => PFnotification};
+      _ -> S2
+    end.
+
 
 verify_msg(Msg, MsgName) ->
     verify_msg(Msg, MsgName, []).
@@ -1395,6 +1587,8 @@ verify_msg(Msg, MsgName, Opts) ->
       'OrderRequest' ->
 	  v_msg_OrderRequest(Msg, ['OrderRequest'], TrUserData);
       'MsgCS' -> v_msg_MsgCS(Msg, ['MsgCS'], TrUserData);
+      'OrderReply' ->
+	  v_msg_OrderReply(Msg, ['OrderReply'], TrUserData);
       _ -> mk_type_error(not_a_known_message, Msg, [])
     end.
 
@@ -1554,6 +1748,31 @@ v_msg_MsgCS(M, Path, _TrUserData) when is_map(M) ->
 v_msg_MsgCS(X, Path, _TrUserData) ->
     mk_type_error({expected_msg, 'MsgCS'}, X, Path).
 
+-dialyzer({nowarn_function,v_msg_OrderReply/3}).
+v_msg_OrderReply(#{} = M, Path, _) ->
+    case M of
+      #{user := F1} -> v_type_string(F1, [user | Path]);
+      _ -> ok
+    end,
+    case M of
+      #{notification := F2} ->
+	  v_type_string(F2, [notification | Path]);
+      _ -> ok
+    end,
+    lists:foreach(fun (user) -> ok;
+		      (notification) -> ok;
+		      (OtherKey) ->
+			  mk_type_error({extraneous_key, OtherKey}, M, Path)
+		  end,
+		  maps:keys(M)),
+    ok;
+v_msg_OrderReply(M, Path, _TrUserData) when is_map(M) ->
+    mk_type_error({missing_fields, [] -- maps:keys(M),
+		   'OrderReply'},
+		  M, Path);
+v_msg_OrderReply(X, Path, _TrUserData) ->
+    mk_type_error({expected_msg, 'OrderReply'}, X, Path).
+
 -dialyzer({nowarn_function,v_type_int32/2}).
 v_type_int32(N, _Path)
     when -2147483648 =< N, N =< 2147483647 ->
@@ -1652,12 +1871,17 @@ get_msg_defs() ->
 	 opts => []},
        #{name => orderRequest, fnum => 6, rnum => 7,
 	 type => {msg, 'OrderRequest'}, occurrence => optional,
-	 opts => []}]}].
+	 opts => []}]},
+     {{msg, 'OrderReply'},
+      [#{name => user, fnum => 1, rnum => 2, type => string,
+	 occurrence => optional, opts => []},
+       #{name => notification, fnum => 2, rnum => 3,
+	 type => string, occurrence => optional, opts => []}]}].
 
 
 get_msg_names() ->
     ['Request_Login', 'Reply_Login', 'Client',
-     'OrderRequest', 'MsgCS'].
+     'OrderRequest', 'MsgCS', 'OrderReply'].
 
 
 get_group_names() -> [].
@@ -1665,7 +1889,7 @@ get_group_names() -> [].
 
 get_msg_or_group_names() ->
     ['Request_Login', 'Reply_Login', 'Client',
-     'OrderRequest', 'MsgCS'].
+     'OrderRequest', 'MsgCS', 'OrderReply'].
 
 
 get_enum_names() -> [].
@@ -1722,6 +1946,11 @@ find_msg_def('MsgCS') ->
      #{name => orderRequest, fnum => 6, rnum => 7,
        type => {msg, 'OrderRequest'}, occurrence => optional,
        opts => []}];
+find_msg_def('OrderReply') ->
+    [#{name => user, fnum => 1, rnum => 2, type => string,
+       occurrence => optional, opts => []},
+     #{name => notification, fnum => 2, rnum => 3,
+       type => string, occurrence => optional, opts => []}];
 find_msg_def(_) -> error.
 
 
