@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import org.zeromq.ZMQ;
 
 public class UserRequest {
+
     private Socket frontend;
     private ZMQ.Socket exchange_subscribe;
     private InputStream ins;
@@ -91,7 +92,7 @@ public class UserRequest {
             String op = br.readLine();
             switch(op){
                 case "0": 
-                    return;
+                    System.exit(0); // TEMOS DE FAZER PEDIDO PARA LOGOUT!!!
                 case "1":
                     sendOrder(br, "1");
                     break;

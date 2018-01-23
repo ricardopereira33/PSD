@@ -166,7 +166,7 @@ public class Exchange {
                 String sell_id = String.valueOf(exchange.getSellsByCompany(order.getCompanyId()).size());
                 Sell sell = new Sell(sell_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderSell(sell); // send to directory
-                client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
+                client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
                 exchange.receiveSell(sell);
                 //socket.send("Received sell.");
             }
@@ -175,7 +175,7 @@ public class Exchange {
                 String buy_id = String.valueOf(exchange.getBuysByCompany(order.getCompanyId()).size());
                 Buy buy = new Buy(buy_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderBuy(buy); // send to directory
-                client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + "€!"); // send to subscribed clients
+                client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
                 exchange.receiveBuy(buy);
                 //socket.send("Received buy.");
             }
