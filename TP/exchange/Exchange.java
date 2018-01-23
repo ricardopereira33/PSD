@@ -168,7 +168,6 @@ public class Exchange {
                 DirectorySender.sendOrderSell(sell); // send to directory
                 client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
                 frontend_push.send(Messenger.newOrderReply(sell.getSeller(),"Order to " + sell.getCompany()).toByteArray());
-
                 exchange.receiveSell(sell);
                 //socket.send("Received sell.");
             }
