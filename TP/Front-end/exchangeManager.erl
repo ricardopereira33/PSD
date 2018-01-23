@@ -31,13 +31,13 @@ run(MapExchanges, Cache) ->
 
 requestDir(Company) ->
     inets:start(),
-    httpc:set_options([port, 8080]),
-    httpc:resquest(get, {"localhost/Company/"++Company}),
-    receive
-        {http, {_, Json}} -> 
+    URL = "http://localhost:8080/company/" ++ Company,
+    case httpc:request(URL) of
+        {ok, {_,_,Res}} -> 
             inets:stop(),
-            Result = jsone:decode(Json),
-            io:format("map: ~p",[Result])
+            io:format("map: ~p",[Res]),
+            Result = mochijson:decode(Res),
+            io:format("map2: ~p",[Result])
     end.
 
 putExchange(MapExchange, Exchange, Addr) -> 

@@ -12,8 +12,9 @@ run(Sock, User) ->
 receiver(Sock, User) ->
     io:format("Entrei\n"),
     receive
-        {msg, Map} ->
+        {msg, Data} ->
             io:format("Recebi\n"),
+            Map = protos:decode_msg(Data, 'MsgCS'),
             case maps:find(type, Map) of
                 {ok,"3"} -> 
                     {ok, MapOrder} = maps:find(orderRequest, Map),
@@ -42,8 +43,7 @@ worker(Sock, User, Pid) ->
     case gen_tcp:recv(Sock, 0) of
         {ok, Data} ->
             io:format("nice\n"),
-            Map = protos:decode_msg(Data, 'MsgCS'),
-            Pid ! {msg, Map},
+            Pid ! {msg, Data},
             worker(Sock, User, Pid);
         {error, closed} ->
             login:logout(User),

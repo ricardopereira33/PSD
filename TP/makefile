@@ -13,6 +13,7 @@ server:
 	erlc -o front-end/ front-end/login.erl
 	erlc -o front-end/ front-end/producer.erl 
 	erlc -o front-end/ front-end/user.erl 
+	erlc -o front-end/ front-end/mochijson.erl
 
 exchange:
 	tools/protoc/bin/./protoc --java_out=. proto-buf/protos.proto

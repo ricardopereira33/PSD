@@ -24,5 +24,7 @@ loop(Sock) ->
                     loop(Sock)
             end;        
         {error, closed} ->
-            loop(Sock)
+            loop(Sock);
+        _ -> 
+            io:format("Erro\n")
     end.
