@@ -31,7 +31,7 @@ run-client:
 	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.User 1111 5555
 
 run-exchange:
-	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:tools/jar/gson-2.6.2.jar:. exchange.Exchange 9999 8888 2222 1
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:tools/jar/gson-2.6.2.jar:. exchange.Exchange 4444 7777 2222 1
 
 run-directory:
 	java -jar directory/target/Directory-1.0-SNAPSHOT.jar server 
