@@ -17,21 +17,18 @@ public class User {
 
 	public static void main(String[] args) {
 		try{	
-         	Socket s = new Socket("localhost",3223);
-         	ZMQ.Context context2 = ZMQ.context(1);
-         	ZMQ.Socket sub = context2.socket(ZMQ.SUB);
-         	sub.connect("tcp://localhost:" + args[0]);
+			ZMQ.Context exchangeContext = ZMQ.context(1); 
+         	ZMQ.Socket exchange_subscribe = exchangeContext.socket(ZMQ.SUB);
+         	exchange_subscribe.connect("tcp://localhost:" + args[0]);
 
-         	SubscribeExchangeThread subscriber = new SubscribeExchangeThread(sub);
-    		subscriber.start();
+			Socket frontend = new Socket("localhost",Integer.parseInt(args[1]));
 
-            UserRequest ur = new UserRequest(s, sub);
-			ur.exe();
+         	SubscribeExchangeThread subscriberExchange = new SubscribeExchangeThread(exchange_subscribe); 
+    		subscriberExchange.start();
 
-			s.close();
-			sub.close();
-            System.out.println("Good-bye.");
-            System.exit(0);
+			new UserRequest(frontend, exchange_subscribe).exe(); 
+
+			frontend.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();

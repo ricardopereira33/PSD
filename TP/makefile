@@ -21,11 +21,8 @@ run-broker-client-exchange:
 run-broker-frontend-exchange:
 	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. exchange.BrokerFrontEndExchange 3333 4444	
 
-run:
-	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.User 1111
-
-run-client-example:
-	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.UserExample 1111 3333
+run-client:
+	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:. client.User 1111 5555
 
 run-exchange:
 	java -cp tools/jar/protobuf-java-3.4.1.jar:tools/jar/jeromq-0.4.3.jar:tools/jar/gson-2.6.2.jar:. exchange.Exchange 9999 8888 2222 1

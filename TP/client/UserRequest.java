@@ -14,22 +14,21 @@ import java.util.ArrayList;
 import org.zeromq.ZMQ;
 
 public class UserRequest {
-    private Socket sock;
-    private ZMQ.Socket sub;
+    private Socket frontend;
+    private ZMQ.Socket exchange_subscribe;
     private InputStream ins;
     private OutputStream outs;
     private String user;
     
-
-    public UserRequest( Socket socket, ZMQ.Socket sub){
-        this.sock = socket;
-        this.sub = sub;
+    public UserRequest( Socket frontend, ZMQ.Socket exchange_subscribe){
+        this.frontend = frontend;
+        this.exchange_subscribe = exchange_subscribe;
     }
 
     public void exe(){
         try{    
-            this.ins = sock.getInputStream();
-            this.outs = sock.getOutputStream();
+            this.ins = frontend.getInputStream();
+            this.outs = frontend.getOutputStream();
             connectToServer();
             login();
             processOrders();
@@ -152,7 +151,7 @@ public class UserRequest {
         //testar
         System.out.print("Company: ");
         String company = br.readLine();
-        sub.subscribe(company.getBytes());
+        exchange_subscribe.subscribe(company.getBytes());
         System.out.println("Company Subscribed");
     }
 
@@ -160,7 +159,7 @@ public class UserRequest {
         //testar
         System.out.print("Company: ");
         String company = br.readLine();
-        sub.unsubscribe(company.getBytes());
+        exchange_subscribe.unsubscribe(company.getBytes());
         System.out.println("Company Unsubscribed");
     }
 }
