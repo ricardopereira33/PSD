@@ -16,10 +16,8 @@ import org.zeromq.ZMQ;
 public class UserRequestExample {
     private ZMQ.Socket sock;
     private ZMQ.Socket sub;
-    private Messenger msg;
 
     public UserRequestExample( ZMQ.Socket socket, ZMQ.Socket sub){
-        this.msg = new Messenger();
         this.sock = socket;
         this.sub = sub;
     }
@@ -73,7 +71,7 @@ public class UserRequestExample {
         System.out.print("Price: ");
         float price = Float.parseFloat(br.readLine());
 
-        MsgCS order = msg.newOrderRequest("POR FAZER",type, company, quantity, price);
+        MsgCS order = Messenger.newOrderRequest("POR FAZER",type, company, quantity, price);
         sock.send(order.toByteArray());
 
         //byte[] b = socket.recv();

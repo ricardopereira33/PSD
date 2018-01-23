@@ -5,11 +5,11 @@ import client.Protos.Request_Login;
 import client.Protos.Client;
 import client.Protos.Reply_Login;
 import client.Protos.OrderRequest;
+import client.Protos.OrderReply;
 
 public class Messenger {
-    public Messenger() {}
 
-    public MsgCS newReqLogin() {
+    public static MsgCS newReqLogin() {
         return
             MsgCS.newBuilder()
             .setType("1")
@@ -20,7 +20,7 @@ public class Messenger {
             .build();
     }
 
-    public MsgCS newClient(String user, String pass){
+    public static MsgCS newClient(String user, String pass){
         return
             MsgCS.newBuilder()
             .setType("2")
@@ -32,7 +32,7 @@ public class Messenger {
             .build();
     }
 
-    public MsgCS newRepLogin(boolean valid) {
+    public static MsgCS newRepLogin(boolean valid) {
         return
             MsgCS.newBuilder()
             .setType("4")
@@ -44,7 +44,7 @@ public class Messenger {
             .build();
     }
 
-    public MsgCS newOrderRequest(String user, String type, String company, int quantity, float price) {
+    public static MsgCS newOrderRequest(String user, String type, String company, int quantity, float price) {
         return
             MsgCS.newBuilder()
             .setCompany(company)
@@ -59,6 +59,18 @@ public class Messenger {
             .setInfo(
                 Client.newBuilder()
                 .setUser(user)
+                )
+            .build();
+    }
+
+    public static MsgCS newOrderReply(String user, String notification){
+        return 
+            MsgCS.newBuilder()
+            .setType("4")
+            .setOrderReply(
+                OrderReply.newBuilder()
+                .setUser(user)
+                .setNotification(notification)
                 )
             .build();
     }
