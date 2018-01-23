@@ -32,8 +32,8 @@ public class UserExample {
          	SubscribeExchangeThread subscriberExchange = new SubscribeExchangeThread(exchange_subscribe); 
     		subscriberExchange.start();
 
-			UserRequestExample ur = new UserRequestExample(pub,sub); // mudar
-			ur.exe(pub); // mudar
+			//UserRequestExample ur = new UserRequestExample(pub,sub); // mudar
+			//ur.exe(pub); // mudar
 
 			//socket.close();
 		}

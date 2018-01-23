@@ -9,6 +9,7 @@ message MsgCS {
     optional Request_Login reqL = 4;
     optional Reply_Login repL = 5;
     optional OrderRequest orderRequest = 6;
+    optional OrderReply orderReply = 7;
 }
 
 message Client {

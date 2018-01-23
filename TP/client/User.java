@@ -22,7 +22,7 @@ public class User {
          	ZMQ.Socket sub = context2.socket(ZMQ.SUB);
          	sub.connect("tcp://localhost:" + args[0]);
 
-         	UserSubscribeThread subscriber = new UserSubscribeThread(sub);
+         	SubscribeExchangeThread subscriber = new SubscribeExchangeThread(sub);
     		subscriber.start();
 
             UserRequest ur = new UserRequest(s, sub);

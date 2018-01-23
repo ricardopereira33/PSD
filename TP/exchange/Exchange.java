@@ -5,6 +5,8 @@ import exchange.Protos.Request_Login;
 import exchange.Protos.Client;
 import exchange.Protos.Reply_Login;
 import exchange.Protos.OrderRequest;
+import exchange.Protos.OrderReply;
+import client.Messenger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +53,7 @@ public class Exchange {
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
                 client_pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
+                frontend_push.send(Messenger.newOrderReply(sell_order.getSeller(),new_transaction.getCompany() + ":" + "DONE\n").toByteArray());
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;
@@ -79,6 +82,7 @@ public class Exchange {
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
                 client_pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
+                frontend_push.send(Messenger.newOrderReply(buy_order.getBuyer(),new_transaction.getCompany() + ":" + "DONE\n").toByteArray());
                 transaction_list.add(new_transaction);
                 transactions.put(company_id, transaction_list);
                 break;

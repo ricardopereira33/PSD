@@ -97,6 +97,19 @@ public final class Protos {
      * <code>optional .exchange.OrderRequest orderRequest = 6;</code>
      */
     exchange.Protos.OrderRequestOrBuilder getOrderRequestOrBuilder();
+
+    /**
+     * <code>optional .exchange.OrderReply orderReply = 7;</code>
+     */
+    boolean hasOrderReply();
+    /**
+     * <code>optional .exchange.OrderReply orderReply = 7;</code>
+     */
+    exchange.Protos.OrderReply getOrderReply();
+    /**
+     * <code>optional .exchange.OrderReply orderReply = 7;</code>
+     */
+    exchange.Protos.OrderReplyOrBuilder getOrderReplyOrBuilder();
   }
   /**
    * Protobuf type {@code exchange.MsgCS}
@@ -205,6 +218,19 @@ public final class Protos {
                 orderRequest_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000020;
+              break;
+            }
+            case 58: {
+              exchange.Protos.OrderReply.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000040) == 0x00000040)) {
+                subBuilder = orderReply_.toBuilder();
+              }
+              orderReply_ = input.readMessage(exchange.Protos.OrderReply.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(orderReply_);
+                orderReply_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000040;
               break;
             }
           }
@@ -400,6 +426,27 @@ public final class Protos {
       return orderRequest_ == null ? exchange.Protos.OrderRequest.getDefaultInstance() : orderRequest_;
     }
 
+    public static final int ORDERREPLY_FIELD_NUMBER = 7;
+    private exchange.Protos.OrderReply orderReply_;
+    /**
+     * <code>optional .exchange.OrderReply orderReply = 7;</code>
+     */
+    public boolean hasOrderReply() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional .exchange.OrderReply orderReply = 7;</code>
+     */
+    public exchange.Protos.OrderReply getOrderReply() {
+      return orderReply_ == null ? exchange.Protos.OrderReply.getDefaultInstance() : orderReply_;
+    }
+    /**
+     * <code>optional .exchange.OrderReply orderReply = 7;</code>
+     */
+    public exchange.Protos.OrderReplyOrBuilder getOrderReplyOrBuilder() {
+      return orderReply_ == null ? exchange.Protos.OrderReply.getDefaultInstance() : orderReply_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -430,6 +477,9 @@ public final class Protos {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeMessage(6, getOrderRequest());
       }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeMessage(7, getOrderReply());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -459,6 +509,10 @@ public final class Protos {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, getOrderRequest());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, getOrderReply());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -506,6 +560,11 @@ public final class Protos {
         result = result && getOrderRequest()
             .equals(other.getOrderRequest());
       }
+      result = result && (hasOrderReply() == other.hasOrderReply());
+      if (hasOrderReply()) {
+        result = result && getOrderReply()
+            .equals(other.getOrderReply());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -540,6 +599,10 @@ public final class Protos {
       if (hasOrderRequest()) {
         hash = (37 * hash) + ORDERREQUEST_FIELD_NUMBER;
         hash = (53 * hash) + getOrderRequest().hashCode();
+      }
+      if (hasOrderReply()) {
+        hash = (37 * hash) + ORDERREPLY_FIELD_NUMBER;
+        hash = (53 * hash) + getOrderReply().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -670,6 +733,7 @@ public final class Protos {
           getReqLFieldBuilder();
           getRepLFieldBuilder();
           getOrderRequestFieldBuilder();
+          getOrderReplyFieldBuilder();
         }
       }
       public Builder clear() {
@@ -702,6 +766,12 @@ public final class Protos {
           orderRequestBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000020);
+        if (orderReplyBuilder_ == null) {
+          orderReply_ = null;
+        } else {
+          orderReplyBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -766,6 +836,14 @@ public final class Protos {
         } else {
           result.orderRequest_ = orderRequestBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        if (orderReplyBuilder_ == null) {
+          result.orderReply_ = orderReply_;
+        } else {
+          result.orderReply_ = orderReplyBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -829,6 +907,9 @@ public final class Protos {
         }
         if (other.hasOrderRequest()) {
           mergeOrderRequest(other.getOrderRequest());
+        }
+        if (other.hasOrderReply()) {
+          mergeOrderReply(other.getOrderReply());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1480,6 +1561,124 @@ public final class Protos {
           orderRequest_ = null;
         }
         return orderRequestBuilder_;
+      }
+
+      private exchange.Protos.OrderReply orderReply_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          exchange.Protos.OrderReply, exchange.Protos.OrderReply.Builder, exchange.Protos.OrderReplyOrBuilder> orderReplyBuilder_;
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      public boolean hasOrderReply() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      public exchange.Protos.OrderReply getOrderReply() {
+        if (orderReplyBuilder_ == null) {
+          return orderReply_ == null ? exchange.Protos.OrderReply.getDefaultInstance() : orderReply_;
+        } else {
+          return orderReplyBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      public Builder setOrderReply(exchange.Protos.OrderReply value) {
+        if (orderReplyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          orderReply_ = value;
+          onChanged();
+        } else {
+          orderReplyBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      public Builder setOrderReply(
+          exchange.Protos.OrderReply.Builder builderForValue) {
+        if (orderReplyBuilder_ == null) {
+          orderReply_ = builderForValue.build();
+          onChanged();
+        } else {
+          orderReplyBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      public Builder mergeOrderReply(exchange.Protos.OrderReply value) {
+        if (orderReplyBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) == 0x00000040) &&
+              orderReply_ != null &&
+              orderReply_ != exchange.Protos.OrderReply.getDefaultInstance()) {
+            orderReply_ =
+              exchange.Protos.OrderReply.newBuilder(orderReply_).mergeFrom(value).buildPartial();
+          } else {
+            orderReply_ = value;
+          }
+          onChanged();
+        } else {
+          orderReplyBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      public Builder clearOrderReply() {
+        if (orderReplyBuilder_ == null) {
+          orderReply_ = null;
+          onChanged();
+        } else {
+          orderReplyBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000040);
+        return this;
+      }
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      public exchange.Protos.OrderReply.Builder getOrderReplyBuilder() {
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return getOrderReplyFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      public exchange.Protos.OrderReplyOrBuilder getOrderReplyOrBuilder() {
+        if (orderReplyBuilder_ != null) {
+          return orderReplyBuilder_.getMessageOrBuilder();
+        } else {
+          return orderReply_ == null ?
+              exchange.Protos.OrderReply.getDefaultInstance() : orderReply_;
+        }
+      }
+      /**
+       * <code>optional .exchange.OrderReply orderReply = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          exchange.Protos.OrderReply, exchange.Protos.OrderReply.Builder, exchange.Protos.OrderReplyOrBuilder> 
+          getOrderReplyFieldBuilder() {
+        if (orderReplyBuilder_ == null) {
+          orderReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              exchange.Protos.OrderReply, exchange.Protos.OrderReply.Builder, exchange.Protos.OrderReplyOrBuilder>(
+                  getOrderReply(),
+                  getParentForChildren(),
+                  isClean());
+          orderReply_ = null;
+        }
+        return orderReplyBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -5104,18 +5303,19 @@ public final class Protos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\026proto-buf/protos.proto\022\010exchange\"\300\001\n\005M" +
+      "\n\026proto-buf/protos.proto\022\010exchange\"\352\001\n\005M" +
       "sgCS\022\017\n\007company\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\036\n\004i" +
       "nfo\030\003 \001(\0132\020.exchange.Client\022%\n\004reqL\030\004 \001(" +
       "\0132\027.exchange.Request_Login\022#\n\004repL\030\005 \001(\013" +
       "2\025.exchange.Reply_Login\022,\n\014orderRequest\030" +
-      "\006 \001(\0132\026.exchange.OrderRequest\"$\n\006Client\022" +
-      "\014\n\004user\030\001 \001(\t\022\014\n\004pass\030\002 \001(\t\"\034\n\rRequest_L" +
-      "ogin\022\013\n\003msg\030\001 \001(\t\")\n\013Reply_Login\022\r\n\005vali" +
-      "d\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"Q\n\014OrderRequest\022\014\n\004" +
-      "type\030\001 \001(\t\022\022\n\ncompany_id\030\002 \001(\t\022\020\n\010quanti",
-      "ty\030\003 \001(\005\022\r\n\005price\030\004 \001(\002\"0\n\nOrderReply\022\014\n" +
-      "\004user\030\001 \001(\t\022\024\n\014notification\030\002 \001(\t"
+      "\006 \001(\0132\026.exchange.OrderRequest\022(\n\norderRe" +
+      "ply\030\007 \001(\0132\024.exchange.OrderReply\"$\n\006Clien" +
+      "t\022\014\n\004user\030\001 \001(\t\022\014\n\004pass\030\002 \001(\t\"\034\n\rRequest" +
+      "_Login\022\013\n\003msg\030\001 \001(\t\")\n\013Reply_Login\022\r\n\005va" +
+      "lid\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"Q\n\014OrderRequest\022\014",
+      "\n\004type\030\001 \001(\t\022\022\n\ncompany_id\030\002 \001(\t\022\020\n\010quan" +
+      "tity\030\003 \001(\005\022\r\n\005price\030\004 \001(\002\"0\n\nOrderReply\022" +
+      "\014\n\004user\030\001 \001(\t\022\024\n\014notification\030\002 \001(\t"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5134,7 +5334,7 @@ public final class Protos {
     internal_static_exchange_MsgCS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_exchange_MsgCS_descriptor,
-        new java.lang.String[] { "Company", "Type", "Info", "ReqL", "RepL", "OrderRequest", });
+        new java.lang.String[] { "Company", "Type", "Info", "ReqL", "RepL", "OrderRequest", "OrderReply", });
     internal_static_exchange_Client_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_exchange_Client_fieldAccessorTable = new
