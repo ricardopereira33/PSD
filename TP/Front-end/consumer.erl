@@ -15,7 +15,6 @@ loop(Sock) ->
                 {ok, "4"} -> 
                     {ok, MapOrder} = maps:find(orderReply, Msg),
                     {ok, User} = maps:find(user, MapOrder),
-                    {ok, Notfication} = maps:find(notification, MapOrder),
                     Pid = login:request_pid(User),
                     Pid ! {transaction, Data},
                     loop(Sock);
