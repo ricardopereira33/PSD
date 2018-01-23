@@ -22,10 +22,10 @@ run(MapExchanges, Cache) ->
                     run(MapExchanges, Cache);
                 _ -> 
                     {Ex, Addr} = requestDir(Company),
-                    ExPid = putExchange(MapExchanges, Ex, Addr),
-                    putCache(Cache, Company, ExPid),
+                    {ExPid, NewMap} = putExchange(MapExchanges, Ex, Addr),
+                    NewCache = putCache(Cache, Company, ExPid),
                     From ! {?MODULE, ExPid},
-                    run(MapExchanges, Cache)
+                    run(NewMap, NewCache)
             end
     end.
 
@@ -35,21 +35,34 @@ requestDir(Company) ->
     case httpc:request(URL) of
         {ok, {_,_,Res}} -> 
             inets:stop(),
-            io:format("map: ~p",[Res]),
-            Result = mochijson:decode(Res),
-            io:format("map2: ~p",[Result])
+            {struct, MapResult} = mochijson:decode(Res),
+            Host = keyfind("host", length(MapResult), MapResult),
+            Port = keyfind("port", length(MapResult), MapResult),
+            Exchange = keyfind("exchange", length(MapResult), MapResult),
+            {Exchange,Host++""++Port}
     end.
 
 putExchange(MapExchange, Exchange, Addr) -> 
-    case maps:find(Exchange) of
+    case maps:find(Exchange, MapExchange) of
         {ok, ExchangePush} -> 
-            ExchangePush;
+            {ExchangePush, MapExchange};
         _ ->
             NewExchangePush = spawn(fun() -> producer:run(Addr) end),
-            maps:put(Exchange, NewExchangePush, MapExchange),
-            NewExchangePush
+            NewMap = maps:put(Exchange, NewExchangePush, MapExchange),
+            {NewExchangePush, NewMap}
     end.
 
 putCache(Cache, Company, ExchangePid) ->
     maps:put(Company, ExchangePid, Cache).
+
+
+keyfind(_, 0, _) -> 
+    false;
+keyfind(Key, N, [{KeyL, ValueL}|T]) -> 
+    if 
+        Key =:= KeyL -> ValueL;
+        true -> keyfind(Key,N,T)
+    end.
+
+    
 

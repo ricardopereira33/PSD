@@ -23,19 +23,19 @@ public class CompanyResource {
         this.companies = new HashMap();
         this.clock = new Clock();
 
-        Company first = new Company("Apple","host1", "7777", "Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.","Exchange 1",clock);
-        Company second = new Company("Samsung","host1", "7777",  "Samsung Group is a South Korean multinational conglomerate headquartered in Samsung Town, Seoul.","Exchange 1",clock);
-        Company third = new Company("Xiaomi","host1", "7777",  "Xiaomi Inc. (stylized as Mi) is a Chinese electronics and software company headquartered in Beijing.","Exchange 1",clock);
+        Company first = new Company("Apple","tcp://localhost:", "7777", "Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.","Exchange 1",clock);
+        Company second = new Company("Samsung","tcp://localhost:", "7777",  "Samsung Group is a South Korean multinational conglomerate headquartered in Samsung Town, Seoul.","Exchange 1",clock);
+        Company third = new Company("Xiaomi","tcp://localhost:", "7777",  "Xiaomi Inc. (stylized as Mi) is a Chinese electronics and software company headquartered in Beijing.","Exchange 1",clock);
         companies.put("Apple",first); companies.put("Samsung",second); companies.put("Xiaomi",third);
 
-        Company fourth = new Company("Google","host2", "8888",  "Google LLC is an American multinational technology company that specializes in Internet-related services and products.","Exchange 2",clock);
-        Company fifth = new Company("Facebook","host2", "8888", "Facebook is an American online social media and social networking service based in Menlo Park, California..","Exchange 2",clock);
-        Company sixth = new Company("Twitter","host2", "8888", "Twitter is an online news and social networking service where users post and interact with messages, known as tweets.","Exchange 2",clock);
+        Company fourth = new Company("Google","tcp://localhost:", "8888",  "Google LLC is an American multinational technology company that specializes in Internet-related services and products.","Exchange 2",clock);
+        Company fifth = new Company("Facebook","tcp://localhost:", "8888", "Facebook is an American online social media and social networking service based in Menlo Park, California..","Exchange 2",clock);
+        Company sixth = new Company("Twitter","tcp://localhost:", "8888", "Twitter is an online news and social networking service where users post and interact with messages, known as tweets.","Exchange 2",clock);
         companies.put("Google",fourth); companies.put("Facebook",fifth); companies.put("Twitter",sixth);
 
-        Company seventh = new Company("Amazon","host3", "9999","Amazon.com, Inc., doing business as Amazon is an American electronic commerce and cloud computing company based in Seattle, Washington","Exchange 3",clock);
-        Company eighth = new Company("Ebay","host3", "9999","eBay Inc is a multinational e-commerce corporation headquartered in San Jose, California that facilitates consumer-to-consumer and business-to-consumer sales through its website.","Exchange 3",clock);
-        Company ninth = new Company("AliExpress","host3", "9999","Launched in 2010, AliExpress.com is an online retail service made up of small businesses in China and elsewhere offering products to international online buyers.","Exchange 3",clock);
+        Company seventh = new Company("Amazon","tcp://localhost:", "9999","Amazon.com, Inc., doing business as Amazon is an American electronic commerce and cloud computing company based in Seattle, Washington","Exchange 3",clock);
+        Company eighth = new Company("Ebay","tcp://localhost:", "9999","eBay Inc is a multinational e-commerce corporation headquartered in San Jose, California that facilitates consumer-to-consumer and business-to-consumer sales through its website.","Exchange 3",clock);
+        Company ninth = new Company("AliExpress","tcp://localhost:", "9999","Launched in 2010, AliExpress.com is an online retail service made up of small businesses in China and elsewhere offering products to international online buyers.","Exchange 3",clock);
         companies.put("Amazon",seventh); companies.put("Ebay",eighth); companies.put("AliExpress",ninth);
     }
 

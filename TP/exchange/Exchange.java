@@ -143,7 +143,7 @@ public class Exchange {
         ZMQ.Socket frontend_push = frontEndContext.socket(ZMQ.PUSH);
         frontend_push.connect("tcp://localhost:" + args[0]);
         ZMQ.Socket frontend_pull = frontEndContext.socket(ZMQ.PULL);
-        frontend_pull.connect("tcp://localhost:" + args[1]);
+        frontend_pull.bind("tcp://localhost:" + args[1]);
 
         // Client direct connection
         ZMQ.Context clientContext = ZMQ.context(1);
