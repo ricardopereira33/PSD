@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CompanyInfoRep {
     public String company;
     public String exchange;
+    public String host;
+    public String port;
     public float todayStartPrice;
     public float todayEndPrice;
     public float todayMaxPrice;
@@ -18,6 +20,8 @@ public class CompanyInfoRep {
     @JsonCreator
     public CompanyInfoRep(@JsonProperty("Company") String company,
                           @JsonProperty("Exchange") String exchange,
+                          @JsonProperty("Host") String host,
+                          @JsonProperty("Port") String port,
                           @JsonProperty("TodayStartPrice") float todayStartPrice,
                           @JsonProperty("TodayEndPrice") float todayEndPrice,
                           @JsonProperty("TodayMinPrice") float todayMinPrice,
@@ -29,6 +33,8 @@ public class CompanyInfoRep {
 
         this.company = company;
         this.exchange = exchange;
+        this.host = host;
+        this.port = port;
         this.todayStartPrice = todayStartPrice;
         this.todayEndPrice = todayEndPrice;
         this.todayMaxPrice = todayMaxPrice;

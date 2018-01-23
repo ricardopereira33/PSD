@@ -231,7 +231,7 @@ public class UserRequest {
         String name = companyInfo.getString("company");
         System.out.println("\nCompany Name: " + name);
         String exchange = companyInfo.getString("exchange");
-        System.out.println("Exchange: " + exchange);
+        System.out.println("Exchange: " + exchange + " (" + companyInfo.getString("host") + ":" + companyInfo.getString("port") + ")");
         System.out.println("Today Transactions:");
         double todayStartPrice = companyInfo.getDouble("todayStartPrice");
         System.out.println("\t-Start Price: " + todayStartPrice);
