@@ -16,13 +16,12 @@ public class Company {
     private String port;
     private String description;
     private String exchange;
-    private Map<Integer, List<Order>> orders;
-    private Map<Integer, List<Transaction>> transactions;
-    private Clock clock;
+    private Map<LocalDate, List<Order>> orders;
+    private Map<LocalDate, List<Transaction>> transactions;
 
     public Company(){}
 
-    public Company(String name, String host, String port, String description, String exchange, Clock clock){
+    public Company(String name, String host, String port, String description, String exchange){
         this.name = name;
         this.host = host;
         this.port = port;
@@ -30,7 +29,6 @@ public class Company {
         this.exchange = exchange;
         this.orders = new HashMap();
         this.transactions = new HashMap();
-        this.clock = clock;
     }
 
     public String getName(){
@@ -52,8 +50,7 @@ public class Company {
     }
 
     public void addOrder(Order order){
-        //LocalDate today = LocalDate.now();
-        int today = clock.getDay();
+        LocalDate today = LocalDate.now();
         if(orders.containsKey(today)){
             orders.get(today).add(order);
         }
@@ -65,8 +62,7 @@ public class Company {
     }
 
     public void addTransaction(Transaction transaction){
-        //LocalDate today = LocalDate.now();
-        int today = clock.getDay();
+        LocalDate today = LocalDate.now();
         if(transactions.containsKey(today)){
             transactions.get(today).add(transaction);
         }
@@ -78,8 +74,7 @@ public class Company {
     }
 
     public PriceInfo getTodayPrices(){
-        //LocalDate today = LocalDate.now();
-        int today = clock.getDay();
+        LocalDate today = LocalDate.now();
         PriceInfo todayPrices = new PriceInfo();
         if(transactions.containsKey(today)){
             List<Transaction> todayTransList = transactions.get(today);
@@ -102,8 +97,7 @@ public class Company {
     }
 
     public PriceInfo getYesterdayPrices(){
-        //LocalDate yesterday = LocalDate.now().minusDays(1);
-        int yesterday = clock.getDay() - 1;
+        LocalDate yesterday = LocalDate.now().minusDays(1);
         PriceInfo yesterdayPrices = new PriceInfo();
         if(transactions.containsKey(yesterday)){
             List<Transaction> todayTransList = transactions.get(yesterday);

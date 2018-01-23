@@ -17,25 +17,23 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 public class CompanyResource {
     private Map<String,Company> companies;
-    private Clock clock;
 
     public CompanyResource(){
         this.companies = new HashMap();
-        this.clock = new Clock();
 
-        Company first = new Company("Apple","tcp://localhost:", "7777", "Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.","Exchange 1",clock);
-        Company second = new Company("Samsung","tcp://localhost:", "7777",  "Samsung Group is a South Korean multinational conglomerate headquartered in Samsung Town, Seoul.","Exchange 1",clock);
-        Company third = new Company("Xiaomi","tcp://localhost:", "7777",  "Xiaomi Inc. (stylized as Mi) is a Chinese electronics and software company headquartered in Beijing.","Exchange 1",clock);
+        Company first = new Company("Apple","tcp://localhost:", "7777", "Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services.","Exchange 1");
+        Company second = new Company("Samsung","tcp://localhost:", "7777",  "Samsung Group is a South Korean multinational conglomerate headquartered in Samsung Town, Seoul.","Exchange 1");
+        Company third = new Company("Xiaomi","tcp://localhost:", "7777",  "Xiaomi Inc. (stylized as Mi) is a Chinese electronics and software company headquartered in Beijing.","Exchange 1");
         companies.put("Apple",first); companies.put("Samsung",second); companies.put("Xiaomi",third);
 
-        Company fourth = new Company("Google","tcp://localhost:", "8888",  "Google LLC is an American multinational technology company that specializes in Internet-related services and products.","Exchange 2",clock);
-        Company fifth = new Company("Facebook","tcp://localhost:", "8888", "Facebook is an American online social media and social networking service based in Menlo Park, California..","Exchange 2",clock);
-        Company sixth = new Company("Twitter","tcp://localhost:", "8888", "Twitter is an online news and social networking service where users post and interact with messages, known as tweets.","Exchange 2",clock);
+        Company fourth = new Company("Google","tcp://localhost:", "8888",  "Google LLC is an American multinational technology company that specializes in Internet-related services and products.","Exchange 2");
+        Company fifth = new Company("Facebook","tcp://localhost:", "8888", "Facebook is an American online social media and social networking service based in Menlo Park, California..","Exchange 2");
+        Company sixth = new Company("Twitter","tcp://localhost:", "8888", "Twitter is an online news and social networking service where users post and interact with messages, known as tweets.","Exchange 2");
         companies.put("Google",fourth); companies.put("Facebook",fifth); companies.put("Twitter",sixth);
 
-        Company seventh = new Company("Amazon","tcp://localhost:", "9999","Amazon.com, Inc., doing business as Amazon is an American electronic commerce and cloud computing company based in Seattle, Washington","Exchange 3",clock);
-        Company eighth = new Company("Ebay","tcp://localhost:", "9999","eBay Inc is a multinational e-commerce corporation headquartered in San Jose, California that facilitates consumer-to-consumer and business-to-consumer sales through its website.","Exchange 3",clock);
-        Company ninth = new Company("AliExpress","tcp://localhost:", "9999","Launched in 2010, AliExpress.com is an online retail service made up of small businesses in China and elsewhere offering products to international online buyers.","Exchange 3",clock);
+        Company seventh = new Company("Amazon","tcp://localhost:", "9999","Amazon.com, Inc., doing business as Amazon is an American electronic commerce and cloud computing company based in Seattle, Washington","Exchange 3");
+        Company eighth = new Company("Ebay","tcp://localhost:", "9999","eBay Inc is a multinational e-commerce corporation headquartered in San Jose, California that facilitates consumer-to-consumer and business-to-consumer sales through its website.","Exchange 3");
+        Company ninth = new Company("AliExpress","tcp://localhost:", "9999","Launched in 2010, AliExpress.com is an online retail service made up of small businesses in China and elsewhere offering products to international online buyers.","Exchange 3");
         companies.put("Amazon",seventh); companies.put("Ebay",eighth); companies.put("AliExpress",ninth);
     }
 
@@ -96,7 +94,7 @@ public class CompanyResource {
     @Path("company/{name}")
     public Response putCompany(Company company){
         if(companies.containsKey(company.getName())) return Response.status(Response.Status.CONFLICT).build();
-        companies.put(company.getName(),new Company(company.getName(),company.getHost(),company.getPort(),company.getDescription(),company.getExchange(),clock));
+        companies.put(company.getName(),new Company(company.getName(),company.getHost(),company.getPort(),company.getDescription(),company.getExchange()));
         return Response.status(Response.Status.CREATED).build();
     }
 
@@ -121,7 +119,6 @@ public class CompanyResource {
     public Response putCompanyTransaction(Transaction transaction){
         if(!(companies.containsKey(transaction.getCompany()))) return Response.status(Response.Status.NOT_FOUND).build();
         companies.get(transaction.getCompany()).addTransaction(transaction);
-        System.out.println(clock.getDay());
         return Response.status(Response.Status.CREATED).build();
     }
 }
