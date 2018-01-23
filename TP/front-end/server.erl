@@ -55,8 +55,8 @@ waitLogin(Sock) ->
 %============
 % Create N Consumers
 createConsumers(1, Port) ->
-    spawn(fun() -> consumer:run(Port) end.).
+    spawn(fun() -> consumer:run(Port) end);
 createConsumers(N, Port) ->
-    spawn(fun() -> consumer:run(Port) end.),
+    spawn(fun() -> consumer:run(Port) end),
     createConsumers(N-1, Port).
 

@@ -7,6 +7,12 @@ server:
 	erlc -I tools/gpb/include -o front-end/ front-end/protos.erl
 	erlc -I tools/erlzmq/include -o front-end/ front-end/erlzmq.erl
 	erlc -I tools/erlzmq/include -o front-end/ front-end/erlzmq_nif.erl
+	erlc -o front-end/ front-end/server.erl
+	erlc -o front-end/ front-end/consumer.erl
+	erlc -o front-end/ front-end/exchangeManager.erl
+	erlc -o front-end/ front-end/login.erl
+	erlc -o front-end/ front-end/producer.erl 
+	erlc -o front-end/ front-end/user.erl 
 
 exchange:
 	tools/protoc/bin/./protoc --java_out=. proto-buf/protos.proto

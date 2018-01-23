@@ -1,5 +1,5 @@
 -module(login).
--export([start/0, loginManager/1, create_account/2, close_account/2, login/2, logout/1, online/0]).
+-export([start/0, loginManager/1, create_account/2, close_account/2, login/2, logout/1, request_pid/1]).
 
 %===========
 % Start : spawn cria um processo, que corre o loginManager neste caso.
@@ -23,12 +23,8 @@ logout(User) ->
     ?MODULE ! { logout, User, self()},
     receiveMsg().
 
-online() ->
-    ?MODULE ! { online, self()},
-    receiveMsg().
-
 request_pid(User) ->
-    users ! { request_pid, self()},
+    users ! { request_pid, User, self()},
     receiveMsg().
 
 receiveMsg() ->
@@ -73,12 +69,7 @@ loginManager(Map) ->
             From ! {?MODULE, ok},
             users ! {add_pid, User, From},
             {Pass, _} = maps:get(User, Map),
-            loginManager(maps:update(User, {Pass,false}, Map));
-        {online, From} ->
-            MapOnline = maps:filter( fun(_, {_, State}) -> State end, Map),
-            From ! {?MODULE, maps:keys(MapOnline)},
-            users ! {rm_pid, User},
-            loginManager(Map)
+            loginManager(maps:update(User, {Pass,false}, Map))
     end.
 
 userManager(Map) ->

@@ -22,10 +22,10 @@ run(MapExchanges, Cache) ->
                     run(MapExchanges, Cache);
                 _ -> 
                     {Ex, Addr} = requestDir(Company),
-                    ExPid = putExchange(MapExchanges, Comp, Ex, Addr),
-                    putCache(Cache, Comp, ExPid),
+                    ExPid = putExchange(MapExchanges, Ex, Addr),
+                    putCache(Cache, Company, ExPid),
                     From ! {?MODULE, ExPid},
-                    run(MapExchanges, Cache).
+                    run(MapExchanges, Cache)
             end
     end.
 
@@ -37,15 +37,15 @@ requestDir(Company) ->
         {http, {_, Json}} -> 
             inets:stop(),
             Result = jsone:decode(Json),
-            io:format("map: ~p",[Result]).
+            io:format("map: ~p",[Result])
     end.
 
-putExchange(MapExchange, Company, Exchange, Addr) -> 
+putExchange(MapExchange, Exchange, Addr) -> 
     case maps:find(Exchange) of
         {ok, ExchangePush} -> 
             ExchangePush;
         _ ->
-            NewExchangePush = spawn(fun() -> producer:run(Addr) end.),
+            NewExchangePush = spawn(fun() -> producer:run(Addr) end),
             maps:put(Exchange, NewExchangePush, MapExchange),
             NewExchangePush
     end.

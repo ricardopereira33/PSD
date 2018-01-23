@@ -15,14 +15,14 @@ run(Sock, User) ->
                     producer:order(Data, Pid),
                     Bin = protos:encode_msg(#{type=>"4"}, 'MsgCS'),
                     gen_tcp:send(Sock, Bin),
-                    run(Sock, User, ZmqSock);
+                    run(Sock, User);
                 _ ->
                     io:format("Pack invalid"),
-                    run(Sock, User, ZmqSock)
+                    run(Sock, User)
             end;
         {transaction, Data} ->
             gen_tcp:send(Sock, Data),
-            run(Sock, User, ZmqSock);
+            run(Sock, User);
         {tcp_closed, _} ->
             login:logout(User),
             io:format("User closed\n");

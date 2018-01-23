@@ -8,18 +8,18 @@ run(Addr) ->
     spawn(fun() -> loop(Sock) end).
 
 order(Data, Pid) ->
-    Pid ! {new_order, Data, From},
+    Pid ! {new_order, Data, self()},
     receiveMsg().
 
 receiveMsg() ->
     receive
-        {Pid, Res} -> Res
+        {_, Res} -> Res
     end.
 
 loop(Sock) ->
     receive
         {new_order, Data, From} ->
             erlzmq:send(Sock, Data),
-            From ! {Pid, ok}
+            From ! {self(), ok}
     end.
     
