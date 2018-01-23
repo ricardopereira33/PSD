@@ -35,7 +35,7 @@ public class DirectorySender {
 
     public static void sendOrderSell(Sell o) throws Exception{
         String jsonOrder = gson.toJson(o);
-        System.out.println(jsonOrder);
+        //System.out.println(jsonOrder);
         String urly = "http://localhost:8080/company/"+o.getCompany()+"/order/sell";
         //System.out.println(urly);
         URL url = new URL(urly);

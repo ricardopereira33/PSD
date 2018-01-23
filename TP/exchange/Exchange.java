@@ -167,6 +167,8 @@ public class Exchange {
                 Sell sell = new Sell(sell_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderSell(sell); // send to directory
                 client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
+                frontend_push.send(Messenger.newOrderReply(sell.getSeller(),"Order to " + sell.getCompany()).toByteArray());
+
                 exchange.receiveSell(sell);
                 //socket.send("Received sell.");
             }
@@ -176,6 +178,7 @@ public class Exchange {
                 Buy buy = new Buy(buy_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderBuy(buy); // send to directory
                 client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
+                frontend_push.send(Messenger.newOrderReply(buy.getBuyer(),"Order to " + buy.getCompany()).toByteArray());
                 exchange.receiveBuy(buy);
                 //socket.send("Received buy.");
             }
