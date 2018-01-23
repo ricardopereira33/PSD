@@ -30,24 +30,21 @@ public class ReadFrontEndThread extends Thread{
 				System.out.println("\n" + notification);
 			}
 		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		catch(Exception e){ e.printStackTrace();}
 	}
 
 	public byte[] readMsg(){
         byte[] res = null;
         try{
-            byte[] b = new byte[1024];
+            byte[] b = new byte[2048];
             int n = inputStream.read(b);
             
             res = new byte[n];
             for(int i = 0; i < n; i++){
                 res[i] = b[i];
             }
-        }catch(Exception e){
-            e.printStackTrace();
         }
+        catch(Exception e){ e.printStackTrace();}
         return res;
     }
 }

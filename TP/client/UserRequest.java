@@ -62,7 +62,6 @@ public class UserRequest {
     public void login() throws IOException{
         boolean invalid = true;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         while(invalid){
             System.out.print("Username: ");
             String user = br.readLine();
@@ -86,6 +85,8 @@ public class UserRequest {
         boolean invalid = true;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Printer p = new Printer();
+        ReadFrontEndThread reader = new ReadFrontEndThread(frontend);
+        reader.start();
         while(invalid){
             p.printMenuOrder();
             String type = null;
@@ -137,9 +138,6 @@ public class UserRequest {
 
         MsgCS order = Messenger.newOrderRequest(this.user, type, company, quantity, price);
         writeMsg(order);
-        MsgCS reply = MsgCS.parseFrom(readMsg());
-
-        System.out.println("ACK: " + reply.getType());
     }
 
     public byte[] readMsg(){

@@ -23,10 +23,9 @@ public class User {
 
 			Socket frontend = new Socket("localhost",Integer.parseInt(args[1]));
 
+			new ReadExchangeThread(exchange_subscribe).start(); 
 			new UserRequest(frontend, exchange_subscribe).exe(); 
-			new ReadFrontEndThread(frontend).start();
-         	new ReadExchangeThread(exchange_subscribe).start(); 
-
+			
 			frontend.close();
 		}
 		catch(Exception e){

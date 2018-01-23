@@ -10,6 +10,7 @@ public class ReadExchangeThread extends Thread{
 
 	public void run(){
 		while (true) {
+            System.out.println("Entrei");
             byte[] b = socket.recv();
             String msg = new String(b);
             String s[] = msg.split(":");

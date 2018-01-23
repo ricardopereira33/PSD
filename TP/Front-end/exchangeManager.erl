@@ -63,6 +63,3 @@ keyfind(Key, N, [{KeyL, ValueL}|T]) ->
         Key =:= KeyL -> ValueL;
         true -> keyfind(Key,N,T)
     end.
-
-    
-

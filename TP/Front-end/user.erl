@@ -19,7 +19,7 @@ receiver(Sock, User) ->
                     {ok, Company} = maps:find(company_id, MapOrder),
                     Pid = exchangeManager:getExchange(Company),
                     ok = producer:order(Data, Pid),
-                    Bin = protos:encode_msg(#{type=>"4"}, 'MsgCS'),
+                    Bin = newOrderMsg(User),
                     gen_tcp:send(Sock, Bin),
                     receiver(Sock, User);
                 _ ->
@@ -43,3 +43,6 @@ worker(Sock, User, Pid) ->
             login:logout(User),
             io:format("User closed\n")
     end.
+
+newOrderMsg(User) ->
+    protos:encode_msg(#{type=>"4", orderReply => #{ user => User, notification => "Order Registered."}}, 'MsgCS').
