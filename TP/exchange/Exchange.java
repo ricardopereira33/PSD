@@ -131,7 +131,7 @@ public class Exchange {
         // ARGS
         // 0 -> FrontEnd PUSH
         // 1 -> FrontEnd PULL
-        // 2 -> Client PULL
+        // 2 -> Client PUB
         // 3 -> Exchange type (1, 2 or 3)
 
         // Front-end connections

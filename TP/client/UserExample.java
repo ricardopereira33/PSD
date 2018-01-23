@@ -17,23 +17,23 @@ public class UserExample {
 
 	public static void main(String[] args) {
 		try{	
-			//ZMQ.Context context = ZMQ.context(1);
-         	//ZMQ.Socket socket = context.socket(ZMQ.REQ);
-         	//socket.connect("tcp://localhost:3333");
+			ZMQ.Context exchangeContext = ZMQ.context(1); 
+         	ZMQ.Socket exchange_subscribe = exchangeContext.socket(ZMQ.SUB);
+         	exchange_subscribe.connect("tcp://localhost:" + args[0]);
 
-         	ZMQ.Context context2 = ZMQ.context(1); // acho que aqui temos de meter 2 em vez de 1 como argumento
-         	ZMQ.Socket sub = context2.socket(ZMQ.SUB);
-         	sub.connect("tcp://localhost:" + args[0]);
+			ZMQ.Context frontEndContext = ZMQ.context(1); // mudar
+         	ZMQ.Socket frontend_request = frontEndContext.socket(ZMQ.REQ); // mudar
+         	frontend_request.connect("tcp://localhost:3333"); // mudar
 
-         	ZMQ.Context context = ZMQ.context(1); 
-         	ZMQ.Socket pub = context.socket(ZMQ.PUB);
-         	pub.connect("tcp://localhost:" + args[1]);
+         	ZMQ.Context context = ZMQ.context(1); // mudar
+         	ZMQ.Socket pub = context.socket(ZMQ.PUB); // mudar
+         	pub.connect("tcp://localhost:" + args[1]); // mudar
 
-         	UserSubscribeThread subscriber = new UserSubscribeThread(sub); 
-    		subscriber.start();
+         	SubscribeExchangeThread subscriberExchange = new SubscribeExchangeThread(exchange_subscribe); 
+    		subscriberExchange.start();
 
-			UserRequestExample ur = new UserRequestExample(pub,sub);
-			ur.exe(pub);
+			UserRequestExample ur = new UserRequestExample(pub,sub); // mudar
+			ur.exe(pub); // mudar
 
 			//socket.close();
 		}
