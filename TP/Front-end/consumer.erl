@@ -16,7 +16,6 @@ loop(Sock) ->
                     {ok, MapOrder} = maps:find(orderReply, Msg),
                     {ok, User} = maps:find(user, MapOrder),
                     {ok, Notfication} = maps:find(notification, MapOrder),
-                    io:format("Notif: ~p", [Notfication]),
                     Pid = login:request_pid(User),
                     Pid ! {transaction, Data},
                     loop(Sock);

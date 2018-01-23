@@ -52,8 +52,8 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
-                client_pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
-                frontend_push.send(Messenger.newOrderReply(sell_order.getSeller(),new_transaction.getCompany() + ":" + "DONE\n").toByteArray());
+                client_pub.send("[ " + new_transaction.getCompany() + " ] : " + new_transaction.getQuantity() + " units - " + new_transaction.getPrice() + "€ -- Transaction\n"); // send to subscribed clients ////falta meter os dados da transacao  
+                frontend_push.send(Messenger.newOrderReply(sell_order.getSeller(),"[ " + new_transaction.getCompany() + " ] : " + new_transaction.getQuantity() + " units - " + new_transaction.getPrice() + "€ -- Transaction\n").toByteArray());
                 transaction_list.add(new_transaction);
                 transactions.put(company, transaction_list);
                 break;
@@ -80,8 +80,8 @@ public class Exchange {
 
                 Transaction new_transaction = makeTransaction(buy_order, sell_order, buy_queue, sell_queue);
                 DirectorySender.sendTransaction(new_transaction); // send to directory
-                client_pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
-                frontend_push.send(Messenger.newOrderReply(buy_order.getBuyer(),new_transaction.getCompany() + ":" + "DONE\n").toByteArray());
+                client_pub.send("[ " + new_transaction.getCompany() + " ] : " + new_transaction.getQuantity() + " units - " + new_transaction.getPrice() + "€ -- Transaction\n"); // send to subscribed clients ////falta meter os dados da transacao  
+                frontend_push.send(Messenger.newOrderReply(buy_order.getBuyer(),"[ " + new_transaction.getCompany() + " ] : " + new_transaction.getQuantity() + " units - " + new_transaction.getPrice() + "€ -- Transaction\n").toByteArray());
                 transaction_list.add(new_transaction);
                 transactions.put(company, transaction_list);
                 break;

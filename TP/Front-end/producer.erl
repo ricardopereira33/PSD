@@ -5,7 +5,6 @@ run(Addr) ->
     {ok, Ctx} = erlzmq:context(),
     {ok, Sock} = erlzmq:socket(Ctx, [push, {active, false}]),
     ok = erlzmq:connect(Sock, Addr),
-    io:format("Addr: ~p",[Addr]),
     loop(Sock).
 
 order(Data, Pid) ->

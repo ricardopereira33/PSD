@@ -24,7 +24,6 @@ logout(User) ->
     receiveMsg().
 
 request_pid(User) ->
-    io:format("Request Pid\n"),
     users ! { request_pid, User, self()},
     receiveMsg().
 
