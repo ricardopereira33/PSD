@@ -27,6 +27,7 @@ receiver(Sock, User) ->
                     receiver(Sock, User)
             end;
         {transaction, Data} ->
+            io:format("Data: ~p",[Data]),
             gen_tcp:send(Sock, Data),
             receiver(Sock, User);
         _ ->
@@ -37,7 +38,6 @@ receiver(Sock, User) ->
 worker(Sock, User, Pid) ->
     case gen_tcp:recv(Sock, 0) of
         {ok, Data} ->
-            io:format("nice\n"),
             Pid ! {msg, Data},
             worker(Sock, User, Pid);
         {error, closed} ->

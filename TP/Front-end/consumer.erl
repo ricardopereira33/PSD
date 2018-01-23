@@ -7,17 +7,18 @@ run(Port) ->
     ok = erlzmq:connect(Sock, "tcp://localhost:" ++ integer_to_list(Port)),
     loop(Sock).
 
-
 loop(Sock) -> 
     case erlzmq:recv(Sock) of 
         {ok, Data} ->   
             Msg = protos:decode_msg(Data, 'MsgCS'),
             case maps:find(type, Msg) of
                 {ok, "4"} -> 
-                    {ok, User} = maps:find(user, Msg),
-                    {ok, Notfication} = maps:find(notification, Msg),
+                    {ok, MapOrder} = maps:find(orderReply, Msg),
+                    {ok, User} = maps:find(user, MapOrder),
+                    {ok, Notfication} = maps:find(notification, MapOrder),
                     Pid = login:request_pid(User),
-                    Pid ! {transation, Notfication},
+                    io:format("Pid: ~p", [Pid]),
+                    Pid ! {transaction, Notfication},
                     loop(Sock);
                 _ ->
                     io:format("Error.\n"),

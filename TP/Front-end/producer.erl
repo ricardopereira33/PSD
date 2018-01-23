@@ -21,6 +21,7 @@ loop(Sock) ->
     receive
         {new_order, Data, From} ->
             erlzmq:send(Sock, Data),
-            From ! {self(), ok}
+            From ! {self(), ok},
+            loop(Sock)
     end.
     
