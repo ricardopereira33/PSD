@@ -26,6 +26,10 @@ receiver(Sock, User) ->
                     io:format("Pack invalid"),
                     receiver(Sock, User)
             end;
+        {msgError, _} ->
+            Bin = newMsgClosed(User),
+            gen_tcp:send(Sock, Bin),
+            receiver(Sock, User);
         {transaction, Data} ->
             gen_tcp:send(Sock, Data),
             receiver(Sock, User);
@@ -37,7 +41,11 @@ receiver(Sock, User) ->
 worker(Sock, User, Pid) ->
     case gen_tcp:recv(Sock, 0) of
         {ok, Data} ->
-            Pid ! {msg, Data},
+            IsValid = checkHour(), 
+            if 
+                IsValid ->  Pid ! {msg, Data};
+                true -> Pid ! {msgError, Data}
+            end,
             worker(Sock, User, Pid);
         {error, closed} ->
             login:logout(User),
@@ -46,3 +54,13 @@ worker(Sock, User, Pid) ->
 
 newOrderMsg(User) ->
     protos:encode_msg(#{type=>"4", orderReply => #{ user => User, notification => "Order Registered."}}, 'MsgCS').
+
+newMsgClosed(User) ->
+    protos:encode_msg(#{type=>"4", orderReply => #{ user => User, notification => "Is closed."}}, 'MsgCS').
+
+checkHour() ->
+    Hour = element(1,time()),
+    if
+        (Hour < 17) and (Hour >= 9) -> true;
+        true -> false
+    end.

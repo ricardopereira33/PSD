@@ -60,4 +60,4 @@ createConsumers(1, Port) ->
 createConsumers(N, Port) ->
     spawn(fun() -> consumer:run(Port) end),
     createConsumers(N-1, Port).
-
+ 
