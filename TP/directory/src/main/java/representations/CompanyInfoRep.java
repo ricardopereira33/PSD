@@ -21,7 +21,7 @@ public class CompanyInfoRep {
                           @JsonProperty("TodayStartPrice") float todayStartPrice,
                           @JsonProperty("TodayEndPrice") float todayEndPrice,
                           @JsonProperty("TodayMinPrice") float todayMinPrice,
-                          @JsonProperty("YesterdayMaxPrice") float todayMaxPrice,
+                          @JsonProperty("TodayMaxPrice") float todayMaxPrice,
                           @JsonProperty("YesterdayStartPrice") float yesterdayStartPrice,
                           @JsonProperty("YesterdayEndPrice") float yesterdayEndPrice,
                           @JsonProperty("YesterdayMinPrice") float yesterdayMinPrice,

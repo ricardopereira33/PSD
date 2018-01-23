@@ -10,10 +10,17 @@ import java.io.*;
 import java.net.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.InputStreamReader;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import org.zeromq.ZMQ;
 
 public class UserRequest {
+
     private Socket frontend;
     private ZMQ.Socket exchange_subscribe;
     private InputStream ins;
@@ -85,7 +92,7 @@ public class UserRequest {
             String op = br.readLine();
             switch(op){
                 case "0": 
-                    return;
+                    System.exit(0); // TEMOS DE FAZER PEDIDO PARA LOGOUT!!!
                 case "1":
                     sendOrder(br, "1");
                     break;
@@ -97,6 +104,24 @@ public class UserRequest {
                     break;
                 case "4":
                     unsubscribeCompany(br);
+                    break;
+                case "5":
+                    try{
+                        getCompanies(br);
+                    }
+                    catch(Exception e){
+
+                    }
+                    br.readLine();
+                    break;
+                case "6":
+                    try{
+                        getCompanyInfo(br);
+                    }
+                    catch(Exception e){
+                        
+                    }
+                    br.readLine();
                     break;
                 default: 
                     System.out.println("Invalid option!");
@@ -161,5 +186,69 @@ public class UserRequest {
         String company = br.readLine();
         exchange_subscribe.unsubscribe(company.getBytes());
         System.out.println("Company Unsubscribed");
+    }
+
+    public void getCompanies(BufferedReader br) throws Exception{
+        String urly = "http://localhost:8080/companies";
+        URL url = new URL(urly);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+
+        StringBuilder result = new StringBuilder();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String line;
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+        rd.close();
+
+        JSONArray jsonArray = new JSONArray(result.toString());
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = jsonArray.getJSONObject(i);
+            String company = object.getString("name");
+            System.out.println("-" + company);
+        }
+    }
+
+    public void getCompanyInfo(BufferedReader br) throws Exception{
+        System.out.print("Company: ");
+        String company = br.readLine();
+        String urly = "http://localhost:8080/company/" + company + "/info";
+        URL url = new URL(urly);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+
+        StringBuilder result = new StringBuilder();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String line;
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+        rd.close();
+
+        JSONObject companyInfo = new JSONObject(result.toString());
+        String name = companyInfo.getString("company");
+        System.out.println("\nCompany Name: " + name);
+        String exchange = companyInfo.getString("exchange");
+        System.out.println("Exchange: " + exchange);
+        System.out.println("Today Transactions:");
+        double todayStartPrice = companyInfo.getDouble("todayStartPrice");
+        System.out.println("\t-Start Price: " + todayStartPrice);
+        double todayEndPrice = companyInfo.getDouble("todayEndPrice");
+        System.out.println("\t-End Price: " + todayEndPrice);
+        double todayMinPrice = companyInfo.getDouble("todayMinPrice");
+        System.out.println("\t-Minimum Price: " + todayMinPrice);
+        double todayMaxPrice = companyInfo.getDouble("todayMaxPrice");
+        System.out.println("\t-Maximum Price: " + todayMaxPrice);
+        System.out.println("Yesterday Transactions:");
+        double yesterdayStartPrice = companyInfo.getDouble("yesterdayStartPrice");
+        System.out.println("\t-Start Price: " + yesterdayStartPrice);
+        double yesterdayEndPrice = companyInfo.getDouble("yesterdayEndPrice");
+        System.out.println("\t-End Price: " + yesterdayStartPrice);
+        double yesterdayMinPrice = companyInfo.getDouble("yesterdayMinPrice");
+        System.out.println("\t-Minimum Price: " + yesterdayStartPrice);
+        double yesterdayMaxPrice = companyInfo.getDouble("yesterdayMaxPrice");
+        System.out.println("\t-Maximum Price: " + yesterdayStartPrice);
     }
 }

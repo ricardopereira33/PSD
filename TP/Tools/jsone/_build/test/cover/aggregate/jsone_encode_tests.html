@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>/Users/Ricardo/Documents/Git/PSD/TP/Tools/jsone/_build/test/cover/aggregate/jsone_encode_tests.html</title>
+</head><body style='background-color: white; color: black'>
+<pre>
+File generated from /Users/Ricardo/Documents/Git/PSD/TP/Tools/jsone/_build/test/lib/jsone/test/jsone_encode_tests.erl by COVER 2018-01-22 at 18:45:37
+
+****************************************************************************
+
+        |  %% Copyright (c) 2013-2014, Takeru Ohta &lt;phjgt308@gmail.com&gt;
+        |  %% coding: latin-1
+        |  -module(jsone_encode_tests).
+        |  
+        |  -include_lib("eunit/include/eunit.hrl").
+        |  
+        |  -ifdef('NO_MAP_TYPE').
+        |  -define(OBJ0, {[]}).
+        |  -define(OBJ1(K, V), {[{K, V}]}).
+        |  -define(OBJ2(K1, V1, K2, V2), {[{K1, V1}, {K2, V2}]}).
+        |  -define(OBJECT_FROM_LIST(List), List).
+        |  -else.
+        |  -define(OBJ0, #{}).
+        |  -define(OBJ1(K, V), #{K =&gt; V}).
+        |  -define(OBJ2(K1, V1, K2, V2), #{K1 =&gt; V1, K2 =&gt; V2}).
+        |  -define(OBJECT_FROM_LIST(List), maps:from_list(List)).
+        |  -endif.
+        |  
+        |  encode_test_() -&gt;
+     3..|      [
+        |       %% Symbols
+        |       {"false",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"false"&gt;&gt;}, jsone_encode:encode(false))
+        |        end},
+        |       {"true",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"true"&gt;&gt;}, jsone_encode:encode(true))
+        |        end},
+        |       {"null",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"null"&gt;&gt;}, jsone_encode:encode(null))
+        |        end},
+        |  
+        |       %% Numbers: Inline json term
+        |       {"json",
+        |        fun () -&gt;
+     1..|                ?assertEqual(
+     1..|                   {ok, &lt;&lt;"{\"foo\":[1,2,3],\"bar\":\"",195,169,"ok\"}"&gt;&gt;},
+        |                   jsone_encode:encode(
+        |                     ?OBJ2(foo, {{json, ["["|[$1, ",2",&lt;&lt;",3]"&gt;&gt;]]}},
+     1..|                           &lt;&lt;"bar"&gt;&gt;, {{json_utf8, [$", 233, "ok", $"]}}))),
+     1..|                ?assertEqual(
+     1..|                   {ok, &lt;&lt;"{\"foo\":[1,2,3],\"bar\":\"",233,"ok\"}"&gt;&gt;},
+        |                   jsone_encode:encode(
+        |                     ?OBJ2(foo, {{json, ["["|[$1, ",2",&lt;&lt;",3]"&gt;&gt;]]}},
+     1..|                           &lt;&lt;"bar"&gt;&gt;, {{json, [$", 233, "ok", $"]}}))),
+     1..|                ?assertEqual(
+     1..|                   {ok, &lt;&lt;"{\"json\":\"[1,2,3]\"}"&gt;&gt;},
+     1..|                   jsone_encode:encode([{json, &lt;&lt;"[1,2,3]"&gt;&gt;}])),
+     1..|                ?assertEqual(
+     1..|                   {ok, &lt;&lt;"[[1,2,3]]"&gt;&gt;},
+     1..|                   jsone_encode:encode([{{json, &lt;&lt;"[1,2,3]"&gt;&gt;}}]))
+        |        end},
+        |       %% Numbers: Integer
+        |       {"zero",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"0"&gt;&gt;}, jsone_encode:encode(0))
+        |        end},
+        |       {"positive integer",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"1"&gt;&gt;}, jsone_encode:encode(1))
+        |        end},
+        |       {"negative integer",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"-1"&gt;&gt;}, jsone_encode:encode(-1))
+        |        end},
+        |       {"large number",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"11111111111111111111111111111111111111111111111111111111111111111111111"&gt;&gt;},
+     1..|                             jsone_encode:encode(11111111111111111111111111111111111111111111111111111111111111111111111))
+        |        end},
+        |  
+        |       %% Numbers: Float",
+        |       {"float",
+        |        fun () -&gt;
+     1..|                Input = 1.234,
+     1..|                ?assertMatch({ok, _}, jsone_encode:encode(Input)),
+     1..|                ?assertEqual(Input, binary_to_float(element(2, jsone_encode:encode(Input))))
+        |        end},
+        |       {"float_format option",
+        |        fun () -&gt;
+     1..|                Input = 1.23,
+     1..|                ?assertEqual({ok, &lt;&lt;"1.22999999999999998224e+00"&gt;&gt;}, jsone_encode:encode(Input)),
+     1..|                ?assertEqual({ok, &lt;&lt;"1.2300e+00"&gt;&gt;},                 jsone_encode:encode(Input, [{float_format, [{scientific, 4}]}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"1.2e+00"&gt;&gt;},                    jsone_encode:encode(Input, [{float_format, [{scientific, 1}]}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"1.2300"&gt;&gt;},                     jsone_encode:encode(Input, [{float_format, [{decimals, 4}]}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"1.23"&gt;&gt;},                       jsone_encode:encode(Input, [{float_format, [{decimals, 4}, compact]}]))
+        |        end},
+        |  
+        |       %% Strings
+        |       {"simple string",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"\"abc\""&gt;&gt;}, jsone_encode:encode(&lt;&lt;"abc"&gt;&gt;))
+        |        end},
+        |       {"atom is regarded as string",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"\"abc\""&gt;&gt;}, jsone_encode:encode(abc))
+        |        end},
+        |       {"string: contains escaped characters",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"\"\/\\\b\f\n\r\t"&gt;&gt;,
+     1..|                Expected = list_to_binary([$", [[$\\, C] || C &lt;- [$", $/, $\\, $b, $f, $n, $r, $t]], $"]),
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input)),
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input, [native_utf8]))
+        |        end},
+        |       {"string: contains control characters",
+        |        fun () -&gt;
+     1..|                Ctrls    = lists:seq(16#00, 16#1F) -- [$\b, $\f, $\n, $\r, $\t],
+     1..|                Input    = list_to_binary(Ctrls),
+     1..|                Expected = list_to_binary([$", [io_lib:format("\\u00~2.16.0b", [C]) || C &lt;- Ctrls], $"]),
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input)),
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input, [native_utf8]))
+        |        end},
+        |       {"string: contains multi-byte (UTF-8 encoded) characters",
+        |        fun () -&gt;
+        |                %% japanese
+     1..|                Input1    = &lt;&lt;"あいうえお"&gt;&gt;,  % assumed that the encoding of this file is UTF-8
+     1..|                Expected1 = &lt;&lt;"\"\\u3042\\u3044\\u3046\\u3048\\u304a\""&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected1}, jsone_encode:encode(Input1)),
+     1..|                Expected12 = &lt;&lt;$", Input1/binary, $"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected12}, jsone_encode:encode(Input1, [native_utf8])),
+        |  
+        |                %% other multi-byte characters
+     1..|                Input2    = &lt;&lt;"۝۞ႮႯ"&gt;&gt;,
+     1..|                Expected2 = &lt;&lt;"\"\\u06dd\\u06de\\u10ae\\u10af\""&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected2}, jsone_encode:encode(Input2)),
+     1..|                Expected22 = &lt;&lt;$", Input2/binary, $"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected22}, jsone_encode:encode(Input2, [native_utf8]))
+        |        end},
+        |       {"string: containts surrogate pairs",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"𢁉𢂚𢃼"&gt;&gt;,
+     1..|                Expected = &lt;&lt;"\"\\ud848\\udc49\\ud848\\udc9a\\ud848\\udcfc\""&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input))
+        |        end},
+        |  
+        |       %% Strings variant: Datetimes
+        |       {"datetime: iso8601: utc",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"\"2015-06-25T14:57:25Z\""&gt;&gt;}, jsone_encode:encode({{2015,6,25},{14,57,25}})),
+     1..|                ?assertEqual({ok, &lt;&lt;"\"2015-06-25T14:57:25Z\""&gt;&gt;}, jsone_encode:encode({{2015,6,25},{14,57,25}}, [{datetime_format, iso8601}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"\"2015-06-25T14:57:25Z\""&gt;&gt;}, jsone_encode:encode({{2015,6,25},{14,57,25}}, [{datetime_format, {iso8601, utc}}]))
+        |        end},
+        |       {"datetime: iso8601: local",
+        |        fun () -&gt;
+     1..|                {ok, Json} = jsone_encode:encode({{2015,6,25},{14,57,25}}, [{datetime_format, {iso8601, local}}]),
+        |  
+     1..|                UTC = {{1970, 1, 2}, {0,0,0}},
+     1..|                Local = calendar:universal_time_to_local_time({{1970, 1, 2}, {0,0,0}}),
+     1..|                case UTC =:= Local of
+     1..|                    false -&gt; ?assertMatch(&lt;&lt;"\"2015-06-25T14:57:25",_:6/binary,"\""&gt;&gt;, Json);
+<font color=red>     0..|                    true  -&gt; ?assertMatch(&lt;&lt;"\"2015-06-25T14:57:25Z\""&gt;&gt;, Json)</font>
+        |                end
+        |        end},
+        |       {"datetime: iso8601: timezone",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"\"2015-06-25T14:57:25Z\""&gt;&gt;},      jsone_encode:encode({{2015,6,25},{14,57,25}}, [{datetime_format, {iso8601, 0}}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"\"2015-06-25T14:57:25+00:01\""&gt;&gt;}, jsone_encode:encode({{2015,6,25},{14,57,25}}, [{datetime_format, {iso8601, 60}}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"\"2015-06-25T14:57:25-00:01\""&gt;&gt;}, jsone_encode:encode({{2015,6,25},{14,57,25}}, [{datetime_format, {iso8601, -60}}]))
+        |        end},
+        |       {"datetime as head of array",
+     1..|         ?_assertEqual({ok, &lt;&lt;"[\"2015-06-25T14:57:25Z\"]"&gt;&gt;},
+     1..|                        jsone_encode:encode([{{2015,6,25},{14,57,25}}]))},
+        |  
+        |       {"datetime: iso8601: with fractions of seconds",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"\"2015-06-25T14:57:25.325Z\""&gt;&gt;},
+     1..|                             jsone_encode:encode({{2015,6,25},{14,57,25.3245}})),
+     1..|                ?assertEqual({ok, &lt;&lt;"\"2015-06-25T14:57:05.320Z\""&gt;&gt;},
+     1..|                             jsone_encode:encode({{2015,6,25},{14,57,5.32}}))
+        |        end},
+        |  
+        |       %% Arrays
+        |       {"simple array",
+        |        fun () -&gt;
+     1..|                Input    = [1, 2, 3],
+     1..|                Expected = &lt;&lt;"[1,2,3]"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input))
+        |        end},
+        |       {"empty array",
+        |        fun () -&gt;
+     1..|                Input    = [],
+     1..|                Expected = &lt;&lt;"[]"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input))
+        |        end},
+        |  
+        |       %% Objects
+        |       {"simple object",
+        |        fun () -&gt;
+     1..|                Input1   = {[{&lt;&lt;"key"&gt;&gt;, &lt;&lt;"value"&gt;&gt;}, {&lt;&lt;"1"&gt;&gt;, 2}]},
+     1..|                Input2   = [{&lt;&lt;"key"&gt;&gt;, &lt;&lt;"value"&gt;&gt;}, {&lt;&lt;"1"&gt;&gt;, 2}],
+     1..|                Expected = &lt;&lt;"{\"key\":\"value\",\"1\":2}"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input1)),
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input2))
+        |        end},
+        |       {"empty object",
+        |        fun () -&gt;
+     1..|                Input1   = {[]},
+     1..|                Input2   = [{}],
+     1..|                Expected = &lt;&lt;"{}"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input1)),
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input2))
+        |        end},
+        |       {"simple object: map",
+        |        fun () -&gt;
+     1..|                Input = ?OBJ2(&lt;&lt;"1"&gt;&gt;, 2, &lt;&lt;"key"&gt;&gt;, &lt;&lt;"value"&gt;&gt;),
+     1..|                Expected = &lt;&lt;"{\"1\":2,\"key\":\"value\"}"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input))
+        |        end},
+        |       {"empty object: map",
+        |        fun () -&gt;
+     1..|                Input = ?OBJ0,
+     1..|                Expected = &lt;&lt;"{}"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input))
+        |        end},
+        |       {"atom key is allowed",
+        |        fun () -&gt;
+     1..|                Expected = &lt;&lt;"{\"key\":2}"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode({[{key, 2}]}))
+        |        end},
+        |       {"object_key_type option",
+        |        fun () -&gt;
+        |                %% key: atom
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"a\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1(a, 2), [{object_key_type, string}])), % OK
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"a\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1(a, 2), [{object_key_type, scalar}])), % OK
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"a\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1(a, 2), [{object_key_type, value}])),  % OK
+        |  
+        |                %% key: number
+     1..|                ?assertMatch({error, {badarg, _}},  jsone_encode:encode(?OBJ1(1, 2), [{object_key_type, string}])), % NG
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"1\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1(1, 2), [{object_key_type, scalar}])), % OK
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"1\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1(1, 2), [{object_key_type, value}])),  % OK
+        |  
+        |                %% key: datetime
+     1..|                ?assertMatch({error, {badarg, _}},  jsone_encode:encode(?OBJ1({{2000,1,1}, {0,0,0}}, 2), [{object_key_type, string}])), % NG
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"2000-01-01T00:00:00Z\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1({{2000,1,1}, {0,0,0}}, 2), [{object_key_type, scalar}])), % OK
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"2000-01-01T00:00:00Z\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1({{2000,1,1}, {0,0,0}}, 2), [{object_key_type, value}])),  % OK
+        |  
+        |                %% key: array
+     1..|                ?assertMatch({error, {badarg, _}},    jsone_encode:encode(?OBJ1([1], 2), [{object_key_type, string}])), % NG
+     1..|                ?assertMatch({error, {badarg, _}},    jsone_encode:encode(?OBJ1([1], 2), [{object_key_type, scalar}])), % NG
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"[1]\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1([1], 2), [{object_key_type, value}])),  % OK
+        |  
+        |                %% key: object
+     1..|                ?assertMatch({error, {badarg, _}},   jsone_encode:encode(?OBJ1(?OBJ0, 2), [{object_key_type, string}])), % NG
+     1..|                ?assertMatch({error, {badarg, _}},   jsone_encode:encode(?OBJ1(?OBJ0, 2), [{object_key_type, scalar}])), % NG
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"{}\":2}"&gt;&gt;}, jsone_encode:encode(?OBJ1(?OBJ0, 2), [{object_key_type, value}]))    % OK
+        |        end},
+        |       {"non binary object member key is disallowed",
+        |        fun () -&gt;
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_encode:encode({[{1, 2}]})),
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_encode:encode({[{"1", 2}]}))
+        |        end},
+        |       {"undefined_as_null option",
+        |        fun() -&gt;
+     1..|                ?assertEqual({ok,&lt;&lt;"null"&gt;&gt;},          jsone_encode:encode(undefined,[undefined_as_null])), % OK
+     1..|                ?assertEqual({ok,&lt;&lt;"\"undefined\""&gt;&gt;}, jsone_encode:encode(undefined,[])) % OK
+        |        end},
+        |  
+        |       %% Pretty Print
+        |       {"space",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"[1, 2, 3]"&gt;&gt;}, jsone_encode:encode([1,2,3], [{space, 1}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"[1,  2,  3]"&gt;&gt;}, jsone_encode:encode([1,2,3], [{space, 2}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"a\": 1, \"b\": 2}"&gt;&gt;}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{space, 1}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"{\"a\":  1,  \"b\":  2}"&gt;&gt;}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{space, 2}]))
+        |        end},
+        |       {"indent",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"[\n 1,\n 2,\n 3\n]"&gt;&gt;}, jsone_encode:encode([1,2,3], [{indent, 1}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"[\n  1,\n  2,\n  3\n]"&gt;&gt;}, jsone_encode:encode([1,2,3], [{indent, 2}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"{\n \"a\":1,\n \"b\":2\n}"&gt;&gt;}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{indent, 1}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"{\n  \"a\":1,\n  \"b\":2\n}"&gt;&gt;}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{indent, 2}]))
+        |        end},
+        |       {"indent+space",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"[\n 1,\n 2,\n 3\n]"&gt;&gt;}, jsone_encode:encode([1,2,3], [{indent, 1}, {space, 1}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"[\n  1,\n  2,\n  3\n]"&gt;&gt;}, jsone_encode:encode([1,2,3], [{indent, 2}, {space, 2}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"{\n \"a\": 1,\n \"b\": 2\n}"&gt;&gt;}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{indent, 1}, {space, 1}])),
+     1..|                ?assertEqual({ok, &lt;&lt;"{\n  \"a\":  1,\n  \"b\":  2\n}"&gt;&gt;}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{indent, 2}, {space, 2}]))
+        |        end},
+        |  
+        |       %% Others
+        |       {"compound data",
+        |        fun () -&gt;
+     1..|                Input    = [true, {[{&lt;&lt;"1"&gt;&gt;, 2}, {&lt;&lt;"array"&gt;&gt;, [[[[1]]], {[{&lt;&lt;"ab"&gt;&gt;, &lt;&lt;"cd"&gt;&gt;}]}, false]}]}, null],
+     1..|                Expected = &lt;&lt;"[true,{\"1\":2,\"array\":[[[[1]]],{\"ab\":\"cd\"},false]},null]"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected}, jsone_encode:encode(Input)),
+        |  
+     1..|                PpExpected = &lt;&lt;"[\n true,\n {\n  \"1\": 2,\n  \"array\": [\n   [\n    [\n     [\n      1\n     ]\n    ]\n   ],\n   {\n    \"ab\": \"cd\"\n   },\n   false\n  ]\n },\n null\n]"&gt;&gt;,
+     1..|                ?assertEqual({ok, PpExpected}, jsone_encode:encode(Input, [{indent, 1}, {space, 1}]))
+        |        end},
+        |       {"invalid value",
+        |        fun () -&gt;
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_encode:encode(self()))
+        |        end},
+        |       {"wrong option",
+        |        fun () -&gt;
+     1..|                ?assertError(badarg, jsone_encode:encode(1, [{no_such_option, hoge}]))
+        |        end},
+        |       {"canonical_form",
+        |        fun () -&gt;
+     1..|            Obj1 = ?OBJECT_FROM_LIST( [{&lt;&lt;"key", (integer_to_binary(I))/binary &gt;&gt;, I} || I &lt;- lists:seq(1000, 0, -1)] ),
+     1..|            Obj2 = ?OBJECT_FROM_LIST( [{&lt;&lt;"key", (integer_to_binary(I))/binary &gt;&gt;, I} || I &lt;- lists:seq(0, 1000, 1)] ),
+     1..|            ?assertEqual(jsone_encode:encode(Obj1, [canonical_form]), jsone_encode:encode(Obj2, [canonical_form]))
+        |        end}
+        |      ].
+</pre>
+</body>
+</html>

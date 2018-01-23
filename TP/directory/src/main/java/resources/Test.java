@@ -1,6 +1,8 @@
 package resources;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -34,6 +36,12 @@ public class Test {
     public static void sendTransaction(Transaction t) throws Exception{
         String jsonTransaction = gson.toJson(t);
         System.out.println(jsonTransaction);
+
+        JsonParser parser = new JsonParser();
+        JsonObject obj = parser.parse(jsonTransaction).getAsJsonObject();
+        String imgurl = obj.get("quantity").getAsString();
+        System.out.println(imgurl);
+
         String urly = "http://localhost:8080/company/"+t.getCompany()+"/transaction";
         URL url = new URL(urly);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

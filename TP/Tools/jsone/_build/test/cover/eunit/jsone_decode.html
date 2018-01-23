@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>/Users/Ricardo/Documents/Git/PSD/TP/Tools/jsone/_build/test/cover/eunit/jsone_decode.html</title>
+</head><body style='background-color: white; color: black'>
+<pre>
+File generated from /Users/Ricardo/Documents/Git/PSD/TP/Tools/jsone/_build/test/lib/jsone/ebin/../src/jsone_decode.erl by COVER 2018-01-22 at 18:45:37
+
+****************************************************************************
+
+        |  %%% @doc JSON decoding module
+        |  %%% @private
+        |  %%% @end
+        |  %%%
+        |  %%% Copyright (c) 2013-2016, Takeru Ohta &lt;phjgt308@gmail.com&gt;
+        |  %%%
+        |  %%% The MIT License
+        |  %%%
+        |  %%% Permission is hereby granted, free of charge, to any person obtaining a copy
+        |  %%% of this software and associated documentation files (the "Software"), to deal
+        |  %%% in the Software without restriction, including without limitation the rights
+        |  %%% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        |  %%% copies of the Software, and to permit persons to whom the Software is
+        |  %%% furnished to do so, subject to the following conditions:
+        |  %%%
+        |  %%% The above copyright notice and this permission notice shall be included in
+        |  %%% all copies or substantial portions of the Software.
+        |  %%%
+        |  %%% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        |  %%% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        |  %%% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        |  %%% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        |  %%% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        |  %%% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+        |  %%% THE SOFTWARE.
+        |  %%%
+        |  %%%---------------------------------------------------------------------------------------
+        |  -module(jsone_decode).
+        |  
+        |  -ifdef(ENABLE_HIPE).
+        |  -compile([native, {hipe, [o3]}]).
+        |  -endif.
+        |  
+        |  %%--------------------------------------------------------------------------------
+        |  %% Exported API
+        |  %%--------------------------------------------------------------------------------
+        |  -export([decode/1, decode/2]).
+        |  
+        |  %%--------------------------------------------------------------------------------
+        |  %% Macros &amp; Records &amp; Types
+        |  %%--------------------------------------------------------------------------------
+        |  -define(ERROR(Function, Args), {error, {badarg, [{?MODULE, Function, Args, [{line, ?LINE}]}]}}).
+        |  
+        |  -ifdef('NO_MAP_TYPE').
+        |  -define(DEFAULT_OBJECT_FORMAT, tuple).
+        |  -define(LIST_TO_MAP(X), error({this_erts_does_not_support_maps, X})).
+        |  -else.
+        |  -define(DEFAULT_OBJECT_FORMAT, map).
+        |  -define(LIST_TO_MAP(X), maps:from_list(X)).
+        |  -endif.
+        |  
+        |  -type next() :: {array_next, [jsone:json_value()]}
+        |                | {object_value, jsone:json_object_members()}
+        |                | {object_next, jsone:json_string(), jsone:json_object_members()}.
+        |  
+        |  -type whitespace_next() :: value
+        |                           | array
+        |                           | object
+        |                           | {array_next, [jsone:json_value()]}
+        |                           | {object_key, jsone:json_object_members()}
+        |                           | {object_value, jsone:json_string(), jsone:json_object_members()}
+        |                           | {object_next, jsone:json_object_members()}.
+        |  
+        |  -type decode_result() :: {ok, jsone:json_value(), Rest::binary()} | {error, {Reason::term(), [jsone:stack_item()]}}.
+        |  
+        |  -record(decode_opt_v2,
+        |          {
+        |            object_format=?DEFAULT_OBJECT_FORMAT :: tuple | proplist | map,
+        |            allow_ctrl_chars=false :: boolean(),
+        |            keys=binary :: 'binary' | 'atom' | 'existing_atom' | 'attempt_atom',
+        |            undefined_as_null=false :: boolean()
+        |          }).
+        |  -define(OPT, #decode_opt_v2).
+        |  -type opt() :: #decode_opt_v2{}.
+        |  
+        |  %%--------------------------------------------------------------------------------
+        |  %% Exported Functions
+        |  %%--------------------------------------------------------------------------------
+        |  -spec decode(binary()) -&gt; decode_result().
+        |  decode(Json) -&gt;
+    95..|      decode(Json, []).
+        |  
+        |  -spec decode(binary(), [jsone:decode_option()]) -&gt; decode_result().
+        |  decode(&lt;&lt;Json/binary&gt;&gt;, Options) -&gt;
+   144..|      Opt = parse_options(Options),
+   144..|      whitespace(Json, value, [], &lt;&lt;""&gt;&gt;, Opt).
+        |  
+        |  %%--------------------------------------------------------------------------------
+        |  %% Internal Functions
+        |  %%--------------------------------------------------------------------------------
+        |  -spec next(binary(), jsone:json_value(), [next()], binary(), opt()) -&gt; decode_result().
+        |  next(&lt;&lt;Bin/binary&gt;&gt;, Value, [], _Buf, _Opt) -&gt;
+    82..|      {ok, Value, Bin};
+        |  next(&lt;&lt;Bin/binary&gt;&gt;, Value, [Next | Nexts], Buf, Opt) -&gt;
+    82..|      case Next of
+    26..|          {array_next, Values}        -&gt; whitespace(Bin, {array_next, [Value | Values]}, Nexts, Buf, Opt);
+    29..|          {object_value, Members}     -&gt; whitespace(Bin, {object_value, Value, Members}, Nexts, Buf, Opt);
+    27..|          {object_next, Key, Members} -&gt; whitespace(Bin, {object_next, [{Key, Value} | Members]}, Nexts, Buf, Opt)
+        |      end.
+        |  
+        |  -spec whitespace(binary(), whitespace_next(), [next()], binary(), opt()) -&gt; decode_result().
+    40..|  whitespace(&lt;&lt;$  , Bin/binary&gt;&gt;, Next, Nexts, Buf, Opt) -&gt; whitespace(Bin, Next, Nexts, Buf, Opt);
+     4..|  whitespace(&lt;&lt;$\t, Bin/binary&gt;&gt;, Next, Nexts, Buf, Opt) -&gt; whitespace(Bin, Next, Nexts, Buf, Opt);
+     4..|  whitespace(&lt;&lt;$\r, Bin/binary&gt;&gt;, Next, Nexts, Buf, Opt) -&gt; whitespace(Bin, Next, Nexts, Buf, Opt);
+     5..|  whitespace(&lt;&lt;$\n, Bin/binary&gt;&gt;, Next, Nexts, Buf, Opt) -&gt; whitespace(Bin, Next, Nexts, Buf, Opt);
+        |  whitespace(&lt;&lt;Bin/binary&gt;&gt;,      Next, Nexts, Buf, Opt) -&gt;
+   320..|      case Next of
+   188..|          value  -&gt; value(Bin, Nexts, Buf, Opt);
+    12..|          array  -&gt; array(Bin, Nexts, Buf, Opt);
+    27..|          object -&gt; object(Bin, Nexts, Buf, Opt);
+    11..|          {object_key, Members}        -&gt; object_key(Bin, Members, Nexts, Buf, Opt);
+    26..|          {array_next, Values}         -&gt; array_next(Bin, Values, Nexts, Buf, Opt);
+    29..|          {object_value, Key, Members} -&gt; object_value(Bin, Key, Members, Nexts, Buf, Opt);
+    27..|          {object_next, Members}       -&gt; object_next(Bin, Members, Nexts, Buf, Opt)
+        |      end.
+        |  
+        |  -spec value(binary(), [next()], binary(), opt()) -&gt; decode_result().
+     2..|  value(&lt;&lt;"false", Bin/binary&gt;&gt;, Nexts, Buf, Opt) -&gt; next(Bin, false, Nexts, Buf, Opt);
+     2..|  value(&lt;&lt;"true", Bin/binary&gt;&gt;, Nexts, Buf, Opt)  -&gt; next(Bin, true, Nexts, Buf, Opt);
+        |  value(&lt;&lt;"null", Bin/binary&gt;&gt;, Nexts, Buf,
+     1..|        Opt = ?OPT{undefined_as_null = true})     -&gt; next(Bin, undefined, Nexts, Buf, Opt);
+     7..|  value(&lt;&lt;"null", Bin/binary&gt;&gt;, Nexts, Buf, Opt)  -&gt; next(Bin, null, Nexts, Buf, Opt);
+    12..|  value(&lt;&lt;$[, Bin/binary&gt;&gt;, Nexts, Buf, Opt)      -&gt; whitespace(Bin, array, Nexts, Buf, Opt);
+    27..|  value(&lt;&lt;${, Bin/binary&gt;&gt;, Nexts, Buf, Opt)      -&gt; whitespace(Bin, object, Nexts, Buf, Opt);
+    99..|  value(&lt;&lt;$", Bin/binary&gt;&gt;, Nexts, Buf, Opt)      -&gt; string(Bin, byte_size(Buf), Nexts, Buf, Opt);
+    48..|  value(&lt;&lt;Bin/binary&gt;&gt;, Nexts, Buf, Opt)          -&gt; number(Bin, Nexts, Buf, Opt).
+        |  
+        |  -spec array(binary(), [next()], binary(), opt()) -&gt; decode_result().
+     2..|  array(&lt;&lt;$], Bin/binary&gt;&gt;, Nexts, Buf, Opt) -&gt; next(Bin, [], Nexts, Buf, Opt);
+    10..|  array(&lt;&lt;Bin/binary&gt;&gt;, Nexts, Buf, Opt)     -&gt; value(Bin, [{array_next, []} | Nexts], Buf, Opt).
+        |  
+        |  -spec array_next(binary(), [jsone:json_value()], [next()], binary(), opt()) -&gt; decode_result().
+     7..|  array_next(&lt;&lt;$], Bin/binary&gt;&gt;, Values, Nexts, Buf, Opt) -&gt; next(Bin, lists:reverse(Values), Nexts, Buf, Opt);
+    17..|  array_next(&lt;&lt;$,, Bin/binary&gt;&gt;, Values, Nexts, Buf, Opt) -&gt; whitespace(Bin, value, [{array_next, Values} | Nexts], Buf, Opt);
+     2..|  array_next(Bin,                Values, Nexts, Buf, Opt) -&gt; ?ERROR(array_next, [Bin, Values, Nexts, Buf, Opt]).
+        |  
+        |  -spec object(binary(), [next()], binary(), opt()) -&gt; decode_result().
+     5..|  object(&lt;&lt;$}, Bin/binary&gt;&gt;, Nexts, Buf, Opt) -&gt; next(Bin, make_object([], Opt), Nexts, Buf, Opt);
+    22..|  object(&lt;&lt;Bin/binary&gt;&gt;, Nexts, Buf, Opt)     -&gt; object_key(Bin, [], Nexts, Buf, Opt).
+        |  
+        |  -spec object_key(binary(), jsone:json_object_members(), [next()], binary(), opt()) -&gt; decode_result().
+    29..|  object_key(&lt;&lt;$", Bin/binary&gt;&gt;, Members, Nexts, Buf, Opt) -&gt; string(Bin, byte_size(Buf), [{object_value, Members} | Nexts], Buf, Opt);
+     4..|  object_key(&lt;&lt;Bin/binary&gt;&gt;, Members, Nexts, Buf, Opt)     -&gt; ?ERROR(object_key, [Bin, Members, Nexts, Buf, Opt]).
+        |  
+        |  -spec object_value(binary(), jsone:json_string(), jsone:json_object_members(), [next()], binary(), opt()) -&gt; decode_result().
+        |  object_value(&lt;&lt;$:, Bin/binary&gt;&gt;, Key, Members, Nexts, Buf, Opt) -&gt;
+    28..|      whitespace(Bin, value, [{object_next, object_key(Key, Opt), Members} | Nexts], Buf, Opt);
+     1..|  object_value(Bin,                Key, Members, Nexts, Buf, Opt) -&gt; ?ERROR(object_value, [Bin, Key, Members, Nexts, Buf, Opt]).
+        |  
+        |  -compile({inline, [object_key/2]}).
+    22..|  object_key(Key, ?OPT{keys = binary}) -&gt; Key;
+     2..|  object_key(Key, ?OPT{keys = atom}) -&gt; binary_to_atom(Key, utf8);
+     2..|  object_key(Key, ?OPT{keys = existing_atom}) -&gt; binary_to_existing_atom(Key, utf8);
+        |  object_key(Key, ?OPT{keys = attempt_atom}) -&gt;
+     2..|      try binary_to_existing_atom(Key, utf8)
+     1..|      catch error:badarg -&gt; Key
+        |      end.
+        |  
+        |  -spec object_next(binary(), jsone:json_object_members(), [next()], binary(), opt()) -&gt; decode_result().
+    14..|  object_next(&lt;&lt;$}, Bin/binary&gt;&gt;, Members, Nexts, Buf, Opt) -&gt; next(Bin, make_object(Members, Opt), Nexts, Buf, Opt);
+    11..|  object_next(&lt;&lt;$,, Bin/binary&gt;&gt;, Members, Nexts, Buf, Opt) -&gt; whitespace(Bin, {object_key, Members}, Nexts, Buf, Opt);
+     2..|  object_next(Bin,                Members, Nexts, Buf, Opt) -&gt; ?ERROR(object_next, [Bin, Members, Nexts, Buf, Opt]).
+        |  
+        |  -spec string(binary(), non_neg_integer(), [next()], binary(), opt()) -&gt; decode_result().
+        |  string(&lt;&lt;Bin/binary&gt;&gt;, Start, Nexts, Buf, Opt) -&gt;
+   156..|      string(Bin, Bin, Start, Nexts, Buf, Opt).
+        |  
+        |  -spec string(binary(), binary(), non_neg_integer(), [next()], binary(), opt()) -&gt; decode_result().
+        |  string(&lt;&lt;$", Bin/binary&gt;&gt;, Base, Start, Nexts, Buf, Opt) -&gt;
+    88..|      Prefix = binary:part(Base, 0, byte_size(Base) - byte_size(Bin) - 1),
+    88..|      case Start =:= byte_size(Buf) of
+    82..|          true  -&gt; next(Bin, Prefix, Nexts, Buf, Opt);
+        |          false -&gt;
+     6..|              Buf2 = &lt;&lt;Buf/binary, Prefix/binary&gt;&gt;,
+     6..|              next(Bin, binary:part(Buf2, Start, byte_size(Buf2) - Start), Nexts, Buf2, Opt)
+        |      end;
+        |  string(&lt;&lt;$\\, B/binary&gt;&gt;, Base, Start, Nexts, Buf, Opt) -&gt;
+    36..|      Prefix = binary:part(Base, 0, byte_size(Base) - byte_size(B) - 1),
+    36..|      case B of
+     1..|          &lt;&lt;$", Bin/binary&gt;&gt; -&gt; string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary, $"&gt;&gt;, Opt);
+     1..|          &lt;&lt;$/, Bin/binary&gt;&gt; -&gt; string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary, $/&gt;&gt;, Opt);
+     1..|          &lt;&lt;$\\,Bin/binary&gt;&gt; -&gt; string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary, $\\&gt;&gt;, Opt);
+     1..|          &lt;&lt;$b, Bin/binary&gt;&gt; -&gt; string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary, $\b&gt;&gt;, Opt);
+     1..|          &lt;&lt;$f, Bin/binary&gt;&gt; -&gt; string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary, $\f&gt;&gt;, Opt);
+     1..|          &lt;&lt;$n, Bin/binary&gt;&gt; -&gt; string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary, $\n&gt;&gt;, Opt);
+     1..|          &lt;&lt;$r, Bin/binary&gt;&gt; -&gt; string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary, $\r&gt;&gt;, Opt);
+     1..|          &lt;&lt;$t, Bin/binary&gt;&gt; -&gt; string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary, $\t&gt;&gt;, Opt);
+    27..|          &lt;&lt;$u, Bin/binary&gt;&gt; -&gt; unicode_string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Prefix/binary&gt;&gt;, Opt);
+     1..|          _                  -&gt; ?ERROR(string, [&lt;&lt;$\\, B/binary&gt;&gt;, Base, Start, Nexts, Buf, Opt])
+        |      end;
+        |  string(&lt;&lt;_, Bin/binary&gt;&gt;, Base, Start, Nexts, Buf, Opt) when Opt?OPT.allow_ctrl_chars -&gt;
+    32..|      string(Bin, Base, Start, Nexts, Buf, Opt);
+        |  string(&lt;&lt;C, Bin/binary&gt;&gt;, Base, Start, Nexts, Buf, Opt) when 16#20 =&lt; C -&gt;
+   156..|      string(Bin, Base, Start, Nexts, Buf, Opt);
+        |   string(Bin, Base, Start, Nexts, Buf, Opt) -&gt;
+    32..|       ?ERROR(string, [Bin, Base, Start, Nexts, Buf, Opt]).
+        |  
+        |  -spec unicode_string(binary(), non_neg_integer(), [next()], binary(), opt()) -&gt; decode_result().
+        |  unicode_string(&lt;&lt;N:4/binary, Bin/binary&gt;&gt;, Start, Nexts, Buf, Opt) -&gt;
+    26..|      try binary_to_integer(N, 16) of
+        |          High when 16#D800 =&lt; High, High =&lt; 16#DBFF -&gt;
+        |              %% surrogate pair
+     6..|              case Bin of
+        |                  &lt;&lt;$\\, $u, N2:4/binary, Bin2/binary&gt;&gt; -&gt;
+     5..|                      try binary_to_integer(N2, 16) of
+        |                          Low when 16#DC00 =&lt; Low, Low =&lt; 16#DFFF -&gt;
+     3..|                              &lt;&lt;Unicode/utf16&gt;&gt; = &lt;&lt;High:16, Low:16&gt;&gt;,
+     3..|                              string(Bin2, Start, Nexts, &lt;&lt;Buf/binary, Unicode/utf8&gt;&gt;, Opt);
+     1..|                          _ -&gt; ?ERROR(unicode_string, [&lt;&lt;N/binary, Bin/binary&gt;&gt;, Start, Nexts, Buf, Opt])
+     1..|                      catch error:badarg -&gt; ?ERROR(unicode_string, [&lt;&lt;N/binary, Bin/binary&gt;&gt;, Start, Nexts, Buf, Opt])
+        |                      end;
+     1..|                  _ -&gt; ?ERROR(unicode_string, [&lt;&lt;N/binary, Bin/binary&gt;&gt;, Start, Nexts, Buf, Opt])
+        |              end;
+        |          Unicode when 16#DC00 =&lt; Unicode, Unicode =&lt; 16#DFFF;  % second part of surrogate pair (without first part)
+        |                       0 &gt; Unicode -&gt;
+     2..|              ?ERROR(unicode_string, [&lt;&lt;N/binary, Bin/binary&gt;&gt;, Start, Nexts, Buf, Opt]);
+        |          Unicode -&gt;
+    17..|              string(Bin, Start, Nexts, &lt;&lt;Buf/binary, Unicode/utf8&gt;&gt;, Opt)
+     1..|      catch error:badarg -&gt; ?ERROR(unicode_string, [&lt;&lt;N/binary, Bin/binary&gt;&gt;, Start, Nexts, Buf, Opt])
+        |      end;
+        |  unicode_string(Bin, Start, Nexts, Buf, Opt) -&gt;
+     1..|      ?ERROR(unicode_string, [Bin, Start, Nexts, Buf, Opt]).
+        |  
+        |  -spec number(binary(), [next()], binary(), opt()) -&gt; decode_result().
+     3..|  number(&lt;&lt;$-, Bin/binary&gt;&gt;, Nexts, Buf, Opt) -&gt; number_integer_part(Bin, -1, Nexts, Buf, Opt);
+    45..|  number(&lt;&lt;Bin/binary&gt;&gt;,     Nexts, Buf, Opt) -&gt; number_integer_part(Bin,  1, Nexts, Buf, Opt).
+        |  
+        |  -spec number_integer_part(binary(), 1|-1, [next()], binary(), opt()) -&gt; decode_result().
+        |  number_integer_part(&lt;&lt;$0, Bin/binary&gt;&gt;, Sign, Nexts, Buf, Opt) -&gt;
+    16..|      number_fraction_part(Bin, Sign, 0, Nexts, Buf, Opt);
+        |  number_integer_part(&lt;&lt;C, Bin/binary&gt;&gt;, Sign, Nexts, Buf, Opt) when $1 =&lt; C, C =&lt; $9 -&gt;
+    29..|      number_integer_part_rest(Bin, C - $0, Sign, Nexts, Buf, Opt);
+        |  number_integer_part(Bin, Sign, Nexts, Buf, Opt) -&gt;
+     3..|      ?ERROR(number_integer_part, [Bin, Sign, Nexts, Buf, Opt]).
+        |  
+        |  -spec number_integer_part_rest(binary(), non_neg_integer(), 1|-1, [next()], binary(), opt()) -&gt; decode_result().
+        |  number_integer_part_rest(&lt;&lt;C, Bin/binary&gt;&gt;, N, Sign, Nexts, Buf, Opt) when $0 =&lt; C, C =&lt; $9 -&gt;
+   124..|      number_integer_part_rest(Bin, N * 10 + C - $0, Sign, Nexts, Buf, Opt);
+        |  number_integer_part_rest(&lt;&lt;Bin/binary&gt;&gt;, N, Sign, Nexts, Buf, Opt) -&gt;
+    29..|      number_fraction_part(Bin, Sign, N, Nexts, Buf, Opt).
+        |  
+        |  -spec number_fraction_part(binary(), 1|-1, non_neg_integer(), [next()], binary(), opt()) -&gt; decode_result().
+        |  number_fraction_part(&lt;&lt;$., Bin/binary&gt;&gt;, Sign, Int, Nexts, Buf, Opt) -&gt;
+    14..|      number_fraction_part_rest(Bin, Sign, Int, 0, Nexts, Buf, Opt);
+        |  number_fraction_part(&lt;&lt;Bin/binary&gt;&gt;, Sign, Int, Nexts, Buf, Opt) -&gt;
+    31..|      number_exponation_part(Bin, Sign * Int, 0, Nexts, Buf, Opt).
+        |  
+        |  -spec number_fraction_part_rest(binary(), 1|-1, non_neg_integer(), non_neg_integer(), [next()], binary(), opt()) -&gt; decode_result().
+        |  number_fraction_part_rest(&lt;&lt;C, Bin/binary&gt;&gt;, Sign, N, DecimalOffset, Nexts, Buf, Opt) when $0 =&lt; C, C =&lt; $9 -&gt;
+    30..|      number_fraction_part_rest(Bin, Sign, N * 10 + C - $0, DecimalOffset + 1, Nexts, Buf, Opt);
+        |  number_fraction_part_rest(&lt;&lt;Bin/binary&gt;&gt;, Sign, N, DecimalOffset, Nexts, Buf, Opt) when DecimalOffset &gt; 0 -&gt;
+    12..|      number_exponation_part(Bin, Sign * N, DecimalOffset, Nexts, Buf, Opt);
+        |  number_fraction_part_rest(Bin, Sign, N, DecimalOffset, Nexts, Buf, Opt) -&gt;
+     2..|      ?ERROR(number_fraction_part_rest, [Bin, Sign, N, DecimalOffset, Nexts, Buf, Opt]).
+        |  
+        |  -spec number_exponation_part(binary(), integer(), non_neg_integer(), [next()], binary(), opt()) -&gt; decode_result().
+        |  number_exponation_part(&lt;&lt;$e, $+, Bin/binary&gt;&gt;, N, DecimalOffset, Nexts, Buf, Opt) -&gt;
+     1..|      number_exponation_part(Bin, N, DecimalOffset, 1, 0, true, Nexts, Buf, Opt);
+        |  number_exponation_part(&lt;&lt;$E, $+, Bin/binary&gt;&gt;, N, DecimalOffset, Nexts, Buf, Opt) -&gt;
+     1..|      number_exponation_part(Bin, N, DecimalOffset, 1, 0, true, Nexts, Buf, Opt);
+        |  number_exponation_part(&lt;&lt;$e, $-, Bin/binary&gt;&gt;, N, DecimalOffset, Nexts, Buf, Opt) -&gt;
+     4..|      number_exponation_part(Bin, N, DecimalOffset, -1, 0, true, Nexts, Buf, Opt);
+        |  number_exponation_part(&lt;&lt;$E, $-, Bin/binary&gt;&gt;, N, DecimalOffset, Nexts, Buf, Opt) -&gt;
+     1..|      number_exponation_part(Bin, N, DecimalOffset, -1, 0, true, Nexts, Buf, Opt);
+        |  number_exponation_part(&lt;&lt;$e, Bin/binary&gt;&gt;, N, DecimalOffset, Nexts, Buf, Opt) -&gt;
+     6..|      number_exponation_part(Bin, N, DecimalOffset, 1, 0, true, Nexts, Buf, Opt);
+        |  number_exponation_part(&lt;&lt;$E, Bin/binary&gt;&gt;, N, DecimalOffset, Nexts, Buf, Opt) -&gt;
+     1..|      number_exponation_part(Bin, N, DecimalOffset, 1, 0, true, Nexts, Buf, Opt);
+        |  number_exponation_part(&lt;&lt;Bin/binary&gt;&gt;, N, DecimalOffset, Nexts, Buf, Opt) -&gt;
+    29..|      case DecimalOffset of
+    27..|          0 -&gt; next(Bin, N, Nexts, Buf, Opt);
+     2..|          _ -&gt; next(Bin, N / math:pow(10, DecimalOffset), Nexts, Buf, Opt)
+        |      end.
+        |  
+        |  -spec number_exponation_part(binary(), integer(), non_neg_integer(), 1|-1, non_neg_integer(), boolean(), [next()], binary(), opt()) -&gt; decode_result().
+        |  number_exponation_part(&lt;&lt;C, Bin/binary&gt;&gt;, N, DecimalOffset, ExpSign, Exp, _, Nexts, Buf, Opt) when $0 =&lt; C, C =&lt; $9 -&gt;
+    16..|      number_exponation_part(Bin, N, DecimalOffset, ExpSign, Exp * 10 + C - $0, false, Nexts, Buf, Opt);
+        |  number_exponation_part(&lt;&lt;Bin/binary&gt;&gt;, N, DecimalOffset, ExpSign, Exp, false, Nexts, Buf, Opt) -&gt;
+    10..|      Pos = ExpSign * Exp - DecimalOffset,
+    10..|      try N * math:pow(10, Pos)
+     7..|      of Res -&gt; next(Bin, Res, Nexts, Buf, Opt)
+        |      catch error:badarith -&gt;
+     3..|          ?ERROR(number_exponation_part, [Bin, N, DecimalOffset, ExpSign, Exp, false, Nexts, Buf, Opt])
+        |      end;
+        |  number_exponation_part(Bin, N, DecimalOffset, ExpSign, Exp, IsFirst, Nexts, Buf, Opt) -&gt;
+     4..|      ?ERROR(number_exponation_part, [Bin, N, DecimalOffset, ExpSign, Exp, IsFirst, Nexts, Buf, Opt]).
+        |  
+        |  -spec make_object(jsone:json_object_members(), opt()) -&gt; jsone:json_object().
+     2..|  make_object(Members, ?OPT{object_format = tuple}) -&gt; {lists:reverse(Members)};
+     9..|  make_object(Members, ?OPT{object_format = map})   -&gt; ?LIST_TO_MAP(Members);
+     1..|  make_object([],      _)                           -&gt; [{}];
+     7..|  make_object(Members, _)                           -&gt; lists:reverse(Members).
+        |  
+        |  -spec parse_options([jsone:decode_option()]) -&gt; opt().
+        |  parse_options(Options) -&gt;
+   144..|      parse_option(Options, ?OPT{}).
+        |  
+        |  -spec parse_option([jsone:decode_option()], opt()) -&gt; opt().
+   144..|  parse_option([], Opt) -&gt; Opt;
+        |  parse_option([{object_format,F}|T], Opt) when F =:= tuple; F =:= proplist; F =:= map -&gt;
+    15..|      parse_option(T, Opt?OPT{object_format=F});
+        |  parse_option([{allow_ctrl_chars,B}|T], Opt) when is_boolean(B) -&gt;
+    32..|      parse_option(T, Opt?OPT{allow_ctrl_chars=B});
+        |  parse_option([{keys, K}|T], Opt)
+        |    when K =:= binary; K =:= atom; K =:= existing_atom; K =:= attempt_atom -&gt;
+     7..|      parse_option(T, Opt?OPT{keys = K});
+        |  parse_option([undefined_as_null|T], Opt) -&gt;
+     1..|      parse_option(T, Opt?OPT{undefined_as_null = true});
+        |  parse_option(List, Opt) -&gt;
+<font color=red>     0..|      error(badarg, [List, Opt]).</font>
+</pre>
+</body>
+</html>

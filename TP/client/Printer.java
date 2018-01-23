@@ -10,6 +10,8 @@ public class Printer {
         System.out.println("2.\tBuy");
         System.out.println("3.\tSubscribe Company");
         System.out.println("4.\tUnsubscribe Company");
+        System.out.println("5.\tCompanies List");
+        System.out.println("6.\tCompany Information");
         System.out.println("0.\tExit");
         System.out.print("Option: ");
     }

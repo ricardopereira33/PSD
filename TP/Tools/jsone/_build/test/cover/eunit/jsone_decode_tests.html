@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>/Users/Ricardo/Documents/Git/PSD/TP/Tools/jsone/_build/test/cover/eunit/jsone_decode_tests.html</title>
+</head><body style='background-color: white; color: black'>
+<pre>
+File generated from /Users/Ricardo/Documents/Git/PSD/TP/Tools/jsone/_build/test/lib/jsone/test/jsone_decode_tests.erl by COVER 2018-01-22 at 18:45:37
+
+****************************************************************************
+
+        |  %% Copyright (c) 2013-2015, Takeru Ohta &lt;phjgt308@gmail.com&gt;
+        |  %% coding: latin-1
+        |  -module(jsone_decode_tests).
+        |  
+        |  -include_lib("eunit/include/eunit.hrl").
+        |  
+        |  -ifdef('NO_MAP_TYPE').
+        |  -define(MAP_OBJECT_TYPE, tuple).
+        |  -define(OBJ0, {[]}).
+        |  -define(OBJ1(K, V), {[{K, V}]}).
+        |  -define(OBJ2(K1, V1, K2, V2), {[{K1, V1}, {K2, V2}]}).
+        |  -define(OBJ2_DUP_KEY(K1, V1, K2, V2), ?OBJ2(K1, V1, K2, V2)).
+        |  -else.
+        |  -define(MAP_OBJECT_TYPE, map).
+        |  -define(OBJ0, #{}).
+        |  -define(OBJ1(K, V), #{K =&gt; V}).
+        |  -define(OBJ2(K1, V1, K2, V2), #{K1 =&gt; V1, K2 =&gt; V2}).
+        |  -define(OBJ2_DUP_KEY(K1, V1, _K2, _V2), #{K1 =&gt; V1}). % the first (leftmost) value is used
+        |  -endif.
+        |  
+        |  decode_test_() -&gt;
+     5..|      [
+        |       %% Symbols
+        |       {"false",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, false, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"false"&gt;&gt;))
+        |        end},
+        |       {"true",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, true, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"true"&gt;&gt;))
+        |        end},
+        |       {"null",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, null, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"null"&gt;&gt;))
+        |        end},
+        |  
+        |       %% Numbers: Integer
+        |       {"positive integer",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, 1, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"1"&gt;&gt;))
+        |        end},
+        |       {"zero",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, 0, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"0"&gt;&gt;))
+        |        end},
+        |       {"negative integer",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, -1, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"-1"&gt;&gt;))
+        |        end},
+        |       {"large integer (no limit on size)",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, 111111111111111111111111111111111111111111111111111111111111111111111111111111, &lt;&lt;""&gt;&gt;},
+     1..|                             jsone_decode:decode(&lt;&lt;"111111111111111111111111111111111111111111111111111111111111111111111111111111"&gt;&gt;))
+        |        end},
+        |       {"integer with leading zero (interpreted as zero and remaining binary)",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, 0, &lt;&lt;"0"&gt;&gt;}, jsone_decode:decode(&lt;&lt;"00"&gt;&gt;)),
+     1..|                ?assertEqual({ok, 0, &lt;&lt;"1"&gt;&gt;}, jsone_decode:decode(&lt;&lt;"01"&gt;&gt;)),
+     1..|                ?assertEqual({ok, 0, &lt;&lt;"1"&gt;&gt;}, jsone_decode:decode(&lt;&lt;"-01"&gt;&gt;))
+        |        end},
+        |       {"integer can't begin with an explicit plus sign",
+        |        fun () -&gt;
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"+1"&gt;&gt;))
+        |        end},
+        |  
+        |       %% Numbers: Floats
+        |       {"float: decimal notation",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, 1.23, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"1.23"&gt;&gt;))
+        |        end},
+        |       {"float: exponential notation",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, 12.345, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"12345e-3"&gt;&gt;)), % lower case 'e'
+     1..|                ?assertEqual({ok, 12.345, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"12345E-3"&gt;&gt;)), % upper case 'E'
+     1..|                ?assertEqual({ok, 12.345, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"12345.0e-3"&gt;&gt;)),
+     1..|                ?assertEqual({ok, 12.345, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"0.12345E2"&gt;&gt;)),
+     1..|                ?assertEqual({ok, 12.345, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"0.12345e+2"&gt;&gt;)), % exponent part can begin with plus sign
+     1..|                ?assertEqual({ok, 12.345, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"0.12345E+2"&gt;&gt;)),
+     1..|                ?assertEqual({ok, -12.345, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"-0.012345e3"&gt;&gt;))
+        |        end},
+        |       {"float: invalid format",
+        |        fun () -&gt;
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;".123"&gt;&gt;)),  % omitted integer part
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"0."&gt;&gt;)),    % omitted fraction part: EOS
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"0.e+3"&gt;&gt;)), % omitted fraction part: with exponent part
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"0.1e"&gt;&gt;)),    % imcomplete fraction part
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"0.1e-"&gt;&gt;)),   % imcomplete fraction part
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"0.1ee-1"&gt;&gt;)), % duplicated 'e'
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"0.1e--1"&gt;&gt;)), % duplicated sign
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"1e999"&gt;&gt;)),   % exponent out of range
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"0.1e999"&gt;&gt;)), % exponent out of range
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"100000000000000000000000000000000000e300"&gt;&gt;)), % product out of range
+     1..|                ?assertEqual({ok, 0.1, &lt;&lt;".2"&gt;&gt;}, jsone_decode:decode(&lt;&lt;"0.1.2"&gt;&gt;))     % duplicated '.': interpreted as individual tokens
+        |        end},
+        |  
+        |       %% Strings
+        |       {"simple string",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, &lt;&lt;"abc"&gt;&gt;,  &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"\"abc\""&gt;&gt;))
+        |        end},
+        |       {"string: escaped characters",
+        |        fun () -&gt;
+     1..|                Input    = list_to_binary([$", [[$\\, C] || C &lt;- [$", $/, $\\, $b, $f, $n, $r, $t]], $"]),
+     1..|                Expected = &lt;&lt;"\"\/\\\b\f\n\r\t"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input))
+        |        end},
+        |       {"string: escaped Unicode characters",
+        |        fun () -&gt;
+        |                %% japanese
+     1..|                Input1    = &lt;&lt;"\"\\u3042\\u3044\\u3046\\u3048\\u304A\""&gt;&gt;,
+     1..|                Expected1 = &lt;&lt;"あいうえお"&gt;&gt;,  % assumed that the encoding of this file is UTF-8
+     1..|                ?assertEqual({ok, Expected1, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input1)),
+        |  
+        |                %% ascii
+     1..|                Input2    = &lt;&lt;"\"\\u0061\\u0062\\u0063\""&gt;&gt;,
+     1..|                Expected2 = &lt;&lt;"abc"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected2, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input2)),
+        |  
+        |                %% other multi-byte characters
+     1..|                Input3    = &lt;&lt;"\"\\u06DD\\u06DE\\u10AE\\u10AF\""&gt;&gt;,
+     1..|                Expected3 = &lt;&lt;"۝۞ႮႯ"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected3, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input3)),
+        |  
+        |                %% mixture of ascii and japanese characters
+     1..|                Input4    = &lt;&lt;"\"a\\u30421\\u3044bb\\u304622\\u3048ccc\\u304A333\""&gt;&gt;,
+     1..|                Expected4 = &lt;&lt;"aあ1いbbう22えcccお333"&gt;&gt;,  % assumed that the encoding of this file is UTF-8
+     1..|                ?assertEqual({ok, Expected4, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input4))
+        |        end},
+        |       {"string: surrogate pairs",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"\"\\ud848\\udc49\\ud848\\udc9a\\ud848\\udcfc\""&gt;&gt;,
+     1..|                Expected = &lt;&lt;"𢁉𢂚𢃼"&gt;&gt;,
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input))
+        |        end},
+        |       {"string: control characters",
+        |        fun () -&gt;
+     1..|                Ctrls = lists:seq(0, 16#1f),
+     1..|                lists:foreach(
+        |                  fun (C) -&gt;
+        |                          %% Control characters are unacceptable
+    32..|                          ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;$", C, $"&gt;&gt;))
+        |                  end,
+        |                  Ctrls),
+     1..|                lists:foreach(
+        |                  fun (C) -&gt;
+        |                          %% `allow_ctrl_chars' option allows strings which contain unescaped control characters
+    32..|                          ?assertEqual({ok, &lt;&lt;C&gt;&gt;, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;$", C, $"&gt;&gt;, [{allow_ctrl_chars, true}]))
+        |                  end,
+        |                  Ctrls)
+        |        end},
+        |       {"string: invalid escape characters",
+        |        fun () -&gt;
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"\"\\z\""&gt;&gt;)),    % '\z' is undefined
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"\"\\uab\""&gt;&gt;)),  % too few hex characters
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"\"\\ud848\""&gt;&gt;)), % high(first) surrogate only
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"\"\\udc49\""&gt;&gt;)), % low(second) surrogate only
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"\"\\ud848\\u0061\""&gt;&gt;)), % missing low(second) surrogate
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"\"\\udf0u\""&gt;&gt;)),
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"\"\\ud848\\udf0u\""&gt;&gt;)),
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(&lt;&lt;"\"\\u-3351\""&gt;&gt;))
+        |        end},
+        |  
+        |       %% Arrays
+        |       {"simple array",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"[1,2,\"abc\",null]"&gt;&gt;,
+     1..|                Expected = [1, 2, &lt;&lt;"abc"&gt;&gt;, null],
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input))
+        |        end},
+        |       {"array: contains whitespaces",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"[  1,\t2, \n \"abc\",\r null]"&gt;&gt;,
+     1..|                Expected = [1, 2, &lt;&lt;"abc"&gt;&gt;, null],
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input))
+        |        end},
+        |       {"empty array",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, [], &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"[]"&gt;&gt;)),
+     1..|                ?assertEqual({ok, [], &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"[ \t\r\n]"&gt;&gt;))
+        |        end},
+        |       {"array: trailing comma is disallowed",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"[1, 2, \"abc\", null, ]"&gt;&gt;,
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input))
+        |        end},
+        |       {"array: missing comma",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"[1 2, \"abc\", null]"&gt;&gt;, % a missing comma between '1' and '2'
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input))
+        |        end},
+        |       {"array: missing closing bracket",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"[1, 2, \"abc\", null"&gt;&gt;,
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input))
+        |        end},
+        |  
+        |       %% Objects
+        |       {"simple object",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"{\"1\":2,\"key\":\"value\"}"&gt;&gt;,
+     1..|                Expected = ?OBJ2(&lt;&lt;"1"&gt;&gt;, 2, &lt;&lt;"key"&gt;&gt;, &lt;&lt;"value"&gt;&gt;),
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input)), % `map' is the default format
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input, [{object_format, ?MAP_OBJECT_TYPE}]))
+        |        end},
+        |       {"simple object: tuple or proplist",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"{\"1\":2,\"key\":\"value\"}"&gt;&gt;,
+     1..|                Expected = {[{&lt;&lt;"1"&gt;&gt;, 2},{&lt;&lt;"key"&gt;&gt;, &lt;&lt;"value"&gt;&gt;}]},
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input, [{object_format, tuple}])),
+     1..|                ?assertEqual({ok, element(1, Expected), &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input, [{object_format, proplist}]))
+        |        end},
+        |       {"object: contains whitespaces",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"{  \"1\" :\t 2,\n\r\"key\" :   \n  \"value\"}"&gt;&gt;,
+     1..|                Expected = ?OBJ2(&lt;&lt;"1"&gt;&gt;, 2, &lt;&lt;"key"&gt;&gt;, &lt;&lt;"value"&gt;&gt;),
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input))
+        |        end},
+        |       {"empty object",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, ?OBJ0, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"{}"&gt;&gt;)),
+     1..|                ?assertEqual({ok, ?OBJ0, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"{ \t\r\n}"&gt;&gt;)),
+     1..|                ?assertEqual({ok, {[]}, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"{}"&gt;&gt;, [{object_format, tuple}])),
+     1..|                ?assertEqual({ok, [{}], &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"{}"&gt;&gt;, [{object_format, proplist}]))
+        |        end},
+        |       {"empty object: map",
+        |        fun () -&gt;
+     1..|                ?assertEqual({ok, ?OBJ0, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(&lt;&lt;"{}"&gt;&gt;, [{object_format, ?MAP_OBJECT_TYPE}]))
+        |        end},
+        |       {"duplicated members: map",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"{\"1\":\"first\",\"1\":\"second\"}"&gt;&gt;,
+     1..|                Expected = ?OBJ2_DUP_KEY(&lt;&lt;"1"&gt;&gt;, &lt;&lt;"first"&gt;&gt;, &lt;&lt;"1"&gt;&gt;, &lt;&lt;"second"&gt;&gt;),
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;""&gt;&gt;}, jsone_decode:decode(Input, [{object_format, ?MAP_OBJECT_TYPE}]))
+        |        end},
+        |       {"object: trailing comma is disallowed",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"{\"1\":2, \"key\":\"value\", }"&gt;&gt;,
+     1..|                io:format("~p\n", [catch jsone_decode:decode(Input)]),
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input, [{object_format, tuple}]))
+        |        end},
+        |       {"object: missing comma",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"{\"1\":2 \"key\":\"value\"}"&gt;&gt;,
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input))
+        |        end},
+        |       {"object: missing field key",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"{:2, \"key\":\"value\"}"&gt;&gt;,
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input))
+        |        end},
+        |       {"object: non string key",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"{1:2, \"key\":\"value\"}"&gt;&gt;,
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input))
+        |        end},
+        |       {"object: missing field value",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"{\"1\", \"key\":\"value\"}"&gt;&gt;,
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input))
+        |        end},
+        |       {"object: missing closing brace",
+        |        fun () -&gt;
+     1..|                Input = &lt;&lt;"{\"1\":2 \"key\":\"value\""&gt;&gt;,
+     1..|                ?assertMatch({error, {badarg, _}}, jsone_decode:decode(Input))
+        |        end},
+        |       {"atom keys",
+        |        fun () -&gt;
+     1..|                KeyOpt = fun(Keys) -&gt; [{keys, Keys}, {object_format, proplist}]
+        |                         end,
+     1..|                Input = &lt;&lt;"{\"foo\":\"ok\"}"&gt;&gt;,
+     1..|                ?assertEqual([{&lt;&lt;"foo"&gt;&gt;, &lt;&lt;"ok"&gt;&gt;}], jsone:decode(Input, KeyOpt(binary))),
+     1..|                ?assertEqual([{foo, &lt;&lt;"ok"&gt;&gt;}], jsone:decode(Input, KeyOpt(atom))),
+     1..|                ?assertEqual([{foo, &lt;&lt;"ok"&gt;&gt;}], jsone:decode(Input, KeyOpt(existing_atom))),
+     1..|                ?assertError(badarg, jsone:decode(&lt;&lt;"{\"@#$%^!\":\"ok\"}"&gt;&gt;, KeyOpt(existing_atom))),
+     1..|                ?assertEqual([{foo, &lt;&lt;"ok"&gt;&gt;}], jsone:decode(Input, KeyOpt(attempt_atom))),
+     1..|                ?assertEqual([{&lt;&lt;"@#$%^!"&gt;&gt;, &lt;&lt;"ok"&gt;&gt;}], jsone:decode(&lt;&lt;"{\"@#$%^!\":\"ok\"}"&gt;&gt;, KeyOpt(attempt_atom))),
+     1..|                Value = integer_to_binary(1234),
+        |                % do not make atom in test code
+     1..|                [{Atom,  &lt;&lt;"ok"&gt;&gt;}] = jsone:decode(&lt;&lt;"{\"", Value/binary, "\":\"ok\"}"&gt;&gt;, KeyOpt(atom)),
+     1..|                ?assertEqual(Value, atom_to_binary(Atom, latin1))
+        |        end},
+        |  
+        |       %% Others
+        |       {"compound data",
+        |        fun () -&gt;
+     1..|                Input    = &lt;&lt;"  [true, {\"1\" : 2, \"array\":[[[[1]]], {\"ab\":\"cd\"}, false]}, null]   "&gt;&gt;,
+     1..|                Expected = [true, ?OBJ2(&lt;&lt;"1"&gt;&gt;, 2, &lt;&lt;"array"&gt;&gt;, [[[[1]]], ?OBJ1(&lt;&lt;"ab"&gt;&gt;, &lt;&lt;"cd"&gt;&gt;), false]), null],
+     1..|                ?assertEqual({ok, Expected, &lt;&lt;"   "&gt;&gt;}, jsone_decode:decode(Input))
+        |        end},
+        |       {"undefined_as_null option",
+        |        fun() -&gt;
+     1..|                ?assertEqual({ok, undefined, &lt;&lt;&gt;&gt;},  jsone_decode:decode(&lt;&lt;"null"&gt;&gt;,[undefined_as_null])), % OK
+     1..|                ?assertEqual({ok, null, &lt;&lt;&gt;&gt;},       jsone_decode:decode(&lt;&lt;"null"&gt;&gt;,[])) % OK
+        |        end}
+        |      ].
+</pre>
+</body>
+</html>
