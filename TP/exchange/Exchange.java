@@ -41,10 +41,10 @@ public class Exchange {
     public void receiveSell(Sell sell_order) throws Exception{
 
         boolean transaction = false;
-        String company_id = sell_order.getCompany();
-        List<Buy> buy_queue = getBuysByCompany(company_id);
-        List<Sell> sell_queue = getSellsByCompany(company_id);
-        List<Transaction> transaction_list = getTransactionsByCompany(company_id);
+        String company = sell_order.getCompany();
+        List<Buy> buy_queue = getBuysByCompany(company);
+        List<Sell> sell_queue = getSellsByCompany(company);
+        List<Transaction> transaction_list = getTransactionsByCompany(company);
 
         for(Buy buy_order : buy_queue)
             if(buy_order.getPrice() >= sell_order.getPrice()){
@@ -55,26 +55,25 @@ public class Exchange {
                 client_pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
                 frontend_push.send(Messenger.newOrderReply(sell_order.getSeller(),new_transaction.getCompany() + ":" + "DONE\n").toByteArray());
                 transaction_list.add(new_transaction);
-                transactions.put(company_id, transaction_list);
+                transactions.put(company, transaction_list);
                 break;
             }
 
         // havent found any sucessful transaction    
         if(!transaction){
             sell_queue.add(sell_order);
-            sell_orders.put(company_id, sell_queue);
+            sell_orders.put(company, sell_queue);
         }
-        else receiveSell(sell_order);    
     }
     
     public void receiveBuy(Buy buy_order) throws Exception{
         
         boolean transaction = false;
-        String company_id = buy_order.getCompany();
-        List<Buy> buy_queue = getBuysByCompany(company_id);
-        List<Sell> sell_queue = getSellsByCompany(company_id);
-        List<Transaction> transaction_list = getTransactionsByCompany(company_id);
-        
+        String company = buy_order.getCompany();
+        List<Buy> buy_queue = getBuysByCompany(company);
+        List<Sell> sell_queue = getSellsByCompany(company);
+        List<Transaction> transaction_list = getTransactionsByCompany(company);
+
         for(Sell sell_order: sell_queue)
             if(buy_order.getPrice() >= sell_order.getPrice()){
                 transaction = true;
@@ -84,50 +83,50 @@ public class Exchange {
                 client_pub.send(new_transaction.getCompany() + ":" + "DONE\n"); // send to subscribed clients ////falta meter os dados da transacao  
                 frontend_push.send(Messenger.newOrderReply(buy_order.getBuyer(),new_transaction.getCompany() + ":" + "DONE\n").toByteArray());
                 transaction_list.add(new_transaction);
-                transactions.put(company_id, transaction_list);
+                transactions.put(company, transaction_list);
                 break;
             }
         
         // havent found any successful transaction
         if(!transaction){
             buy_queue.add(buy_order);
-            buy_orders.put(company_id, buy_queue);
+            buy_orders.put(company, buy_queue);
         }
-        else receiveBuy(buy_order);
     }
       
-    public Transaction makeTransaction(Buy buy_order, Sell sell_order, List<Buy> buy_queue, List<Sell> sell_queue){
+    public Transaction makeTransaction(Buy buy_order, Sell sell_order, List<Buy> buy_queue, List<Sell> sell_queue) throws Exception{
         
         int buy_qt = buy_order.getQuantity();
         int sell_qt = sell_order.getQuantity();
         float mean_price = (buy_order.getPrice() + sell_order.getPrice())/2;
         int min_quantity = buy_qt < sell_qt ? buy_qt : sell_qt;
-        String company_id = buy_order.getCompany();
+        System.out.println("MIN QT:" + min_quantity);
+        String company = buy_order.getCompany();
         
         sell_queue.remove(sell_order);
         buy_queue.remove(buy_order);
         
         // There's more to sell
         if(buy_qt < sell_qt){
-            String sell_id = String.valueOf(getSellsByCompany(company_id).size());
-            sell_order = new Sell(sell_id, sell_order.getSeller(), company_id, sell_qt - min_quantity, sell_order.getPrice());
-            sell_queue.add(sell_order);
+            String sell_id = String.valueOf(getSellsByCompany(company).size());
+            sell_order = new Sell(sell_id, sell_order.getSeller(), company, sell_qt - min_quantity, sell_order.getPrice());
+            receiveSell(sell_order);
         } 
         // There's more to buy    
-        else if(sell_qt > buy_qt){
-            String buy_id = String.valueOf(getBuysByCompany(company_id).size());
-            buy_order = new Buy(buy_id, buy_order.getBuyer(), company_id, buy_qt - min_quantity, buy_order.getPrice());
-            buy_queue.add(buy_order);
+        else if(sell_qt < buy_qt){
+            String buy_id = String.valueOf(getBuysByCompany(company).size());
+            buy_order = new Buy(buy_id, buy_order.getBuyer(), company, buy_qt - min_quantity, buy_order.getPrice());
+            receiveBuy(buy_order);
         }        
         
-        String transaction_id = String.valueOf(getTransactionsByCompany(company_id).size());
+        String transaction_id = String.valueOf(getTransactionsByCompany(company).size());
 
         System.out.println("Transaction_id: " + transaction_id);
         System.out.println("Price: " + mean_price);
         System.out.println("Quantity: " + min_quantity);
-        System.out.println("Company: " + company_id);
+        System.out.println("Company: " + company);
 
-        return new Transaction(transaction_id, sell_order.getId(), buy_order.getId(), mean_price, min_quantity, company_id);
+        return new Transaction(transaction_id, sell_order.getId(), buy_order.getId(), mean_price, min_quantity, company);
     }
 
     public static void main(String[] args) throws Exception{
@@ -169,7 +168,6 @@ public class Exchange {
                 client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
                 frontend_push.send(Messenger.newOrderReply(sell.getSeller(),"Order to " + sell.getCompany()).toByteArray());
                 exchange.receiveSell(sell);
-                //socket.send("Received sell.");
             }
             else if(type.equals("2")){
                 // BUY
@@ -179,9 +177,27 @@ public class Exchange {
                 client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
                 frontend_push.send(Messenger.newOrderReply(buy.getBuyer(),"Order to " + buy.getCompany()).toByteArray());
                 exchange.receiveBuy(buy);
-                //socket.send("Received buy.");
             }
         }
+    }
+
+    public void printExchangeState(){
+        
+        List<Buy> buy_queue = getBuysByCompany("Apple");
+        List<Sell> sell_queue = getSellsByCompany("Apple");
+        List<Transaction> transaction_queue = getTransactionsByCompany("Apple");
+
+        System.out.println("BUY ORDERS");
+        for(Buy buy: buy_queue)
+            System.out.println("Id:" + buy.getId() + ", Quantity:" + buy.getQuantity() + ", Price: " + buy.getPrice());
+        
+        System.out.println("SELL ORDERS");
+        for(Sell sell: sell_queue)
+            System.out.println("Id:" + sell.getId() + ", Quantity:" + sell.getQuantity() + ", Price: " + sell.getPrice());
+
+        System.out.println("TRANSACTIONS");
+        for(Transaction transaction: transaction_queue)
+            System.out.println("Id:" + transaction.getId() + ", Sell: " + transaction.getSellOrder() + ", Buy: " + transaction.getBuyOrder() + ", Quantity:" + transaction.getQuantity() + ", Price: " + transaction.getPrice());
     }
 
     public static Map<String,Company> populateCompanies(int number){
