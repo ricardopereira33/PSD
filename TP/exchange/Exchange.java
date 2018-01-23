@@ -100,7 +100,6 @@ public class Exchange {
         int sell_qt = sell_order.getQuantity();
         float mean_price = (buy_order.getPrice() + sell_order.getPrice())/2;
         int min_quantity = buy_qt < sell_qt ? buy_qt : sell_qt;
-        System.out.println("MIN QT:" + min_quantity);
         String company = buy_order.getCompany();
         
         sell_queue.remove(sell_order);
@@ -158,23 +157,24 @@ public class Exchange {
            
             OrderRequest order = msg.getOrderRequest();
             String type = order.getType();
+            String company = msg.getCompany();
             Client client = msg.getInfo();
             
             if(type.equals("1")){
                 // SELL
                 String sell_id = String.valueOf(exchange.getSellsByCompany(order.getCompanyId()).size());
-                Sell sell = new Sell(sell_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
+                Sell sell = new Sell(sell_id, client.getUser(), company, order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderSell(sell); // send to directory
-                client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
+                client_pub.send(company + ":" + client.getUser() + " put a sell order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
                 frontend_push.send(Messenger.newOrderReply(sell.getSeller(),"Order to " + sell.getCompany()).toByteArray());
                 exchange.receiveSell(sell);
             }
             else if(type.equals("2")){
                 // BUY
                 String buy_id = String.valueOf(exchange.getBuysByCompany(order.getCompanyId()).size());
-                Buy buy = new Buy(buy_id, client.getUser(), order.getCompanyId(), order.getQuantity(), order.getPrice());
+                Buy buy = new Buy(buy_id, client.getUser(), company, order.getQuantity(), order.getPrice());
                 DirectorySender.sendOrderBuy(buy); // send to directory
-                client_pub.send(order.getCompanyId() + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
+                client_pub.send(company + ":" + client.getUser() + " put a buy order of " + order.getQuantity() + " stock shares for " + order.getPrice() + " €!"); // send to subscribed clients
                 frontend_push.send(Messenger.newOrderReply(buy.getBuyer(),"Order to " + buy.getCompany()).toByteArray());
                 exchange.receiveBuy(buy);
             }

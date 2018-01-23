@@ -1,6 +1,9 @@
 package client;
 import org.zeromq.ZMQ;
 
+import java.io.*;
+import java.net.*;
+
 public class ReadExchangeThread extends Thread{
 	private ZMQ.Socket socket;
 
@@ -14,7 +17,7 @@ public class ReadExchangeThread extends Thread{
             byte[] b = socket.recv();
             String msg = new String(b);
             String s[] = msg.split(":");
-            System.out.println("\n[Notificação] "+s[1]);
+            System.out.println("\n" + "[" + s[0] + "] " + s[1]);
         }
 	}
 }

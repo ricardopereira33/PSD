@@ -25,7 +25,7 @@ public class User {
 
 			new ReadExchangeThread(exchange_subscribe).start(); 
 			new UserRequest(frontend, exchange_subscribe).exe(); 
-			
+
 			frontend.close();
 		}
 		catch(Exception e){
